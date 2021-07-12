@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -16,14 +18,23 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/{userId}/follow/{userIdToFollow}")
+    @PostMapping("/{userID}/follow/{userIDToFollow}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void follow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow){
+    public void follow(@PathVariable Integer userID, @PathVariable Integer userIDToFollow){
         try{
-            userService.follow(userId, userIdToFollow);
+            userService.follow(userID, userIDToFollow);
         }catch(Exception ex){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "bad bad");
         }
+    }
 
+    @GetMapping("/{userID}/followers/count")
+    public Integer calculateFollowersCount(@PathVariable Integer userID){
+        return userService.calculateNumberOfFollowers(userID);
+    }
+
+    @GetMapping("/{userID}/followers/list")
+    public List<User> listFollowers(@PathVariable Integer userID){
+        return userService.findFollowers(userID);
     }
 }

@@ -31,11 +31,11 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public List<User> findFollowers(Integer userId) {
-        return null;
+        return userRepository.listFollowers(userId);
     }
 
     @Override
     public List<User> findFollows(Integer userId) {
-        return null;
+        return userRepository.listFollows(userId);
     }
 }

@@ -37,15 +37,17 @@ public class UserRepositoryImpl implements IUserRepository{
     @Override
     public List<User> listFollowers(Integer userId) {
         Set<Map.Entry<Integer, Integer>> entries = userFollows.entrySet();
-        return entries.stream().filter(entry -> entry.getValue() == userId)
+        List<User> result =  entries.stream().filter(entry -> entry.getValue().equals(userId))
                 .map(e -> findUserById(e.getKey()))
                 .collect(Collectors.toList());
+
+        return result;
     }
 
     @Override
     public List<User> listFollows(Integer userId) {
         Set<Map.Entry<Integer, Integer>> entries = userFollows.entrySet();
-        return entries.stream().filter(entry -> entry.getKey() == userId)
+        return entries.stream().filter(entry -> entry.getKey().equals(userId))
                 .map(e -> findUserById(e.getValue()))
                 .collect(Collectors.toList());
     }
