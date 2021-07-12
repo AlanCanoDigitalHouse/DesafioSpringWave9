@@ -1,6 +1,7 @@
 package com.mercadolibre.desafio.repositories.impl;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
+import com.mercadolibre.desafio.dtos.ResponseCountFollowers;
 import com.mercadolibre.desafio.exception.UserException;
 import com.mercadolibre.desafio.model.User;
 import com.mercadolibre.desafio.repositories.UserRepository;
@@ -28,9 +29,19 @@ public class UserInMemoryRepository implements UserRepository {
     public void follow(Integer userID, Integer userToFollowId) throws UserException {
         User user = getUserById(userID);
         User userToFollow= getUserById(userToFollowId);
+        if (user.getFollowed().contains(userToFollowId)){
+            throw new UserException(UserException.USER_ALREADY_FOLLOWED);
+        }
         user.getFollowed().add(userToFollow.getUserID());
         userToFollow.getFollowers().add(user.getUserID());
         System.out.println(user.getFollowed());
+    }
+
+    @Override
+    public ResponseCountFollowers countFollowers(Integer userId) throws UserException {
+        User user = getUserById(userId);
+        Integer count = user.getFollowers().size();
+        return new ResponseCountFollowers(user.getUserID(),user.getUserName(),count);
     }
 
     @Override
