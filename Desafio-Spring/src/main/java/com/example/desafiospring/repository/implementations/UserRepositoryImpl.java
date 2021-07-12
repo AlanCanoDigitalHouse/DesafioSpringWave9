@@ -1,6 +1,5 @@
 package com.example.desafiospring.repository.implementations;
 
-import com.example.desafiospring.entities.FollowEntity;
 import com.example.desafiospring.entities.UserEntity;
 import com.example.desafiospring.exceptions.general.DBNotAvailableException;
 import com.example.desafiospring.exceptions.general.NoSuchElementInDBException;
@@ -25,6 +24,18 @@ public class UserRepositoryImpl implements UserRepository {
         {
             throw new NoSuchElementInDBException("No user with ID:" + id);
         }
+    }
+
+    @Override
+    public UserEntity getUserByID(Integer userId) {
+        UserEntity user;
+        Optional<UserEntity> userEntityOptional = getDatabaseUsers().stream().filter(u -> u.getUserId().equals(userId)).findFirst();
+        if (userEntityOptional.isPresent()){
+            user = userEntityOptional.get();
+        }else{
+            throw new NoSuchElementInDBException("No user with ID:" + userId);
+        }
+        return user;
     }
 
     private List<UserEntity> getDatabaseUsers() {

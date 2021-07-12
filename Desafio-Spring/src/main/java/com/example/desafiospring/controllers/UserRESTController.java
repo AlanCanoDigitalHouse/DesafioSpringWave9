@@ -1,14 +1,13 @@
 package com.example.desafiospring.controllers;
 
 import com.example.desafiospring.DTOS.requests.FollowUserRequestDTO;
+import com.example.desafiospring.DTOS.requests.FollowerCountRequestDTO;
 import com.example.desafiospring.DTOS.responses.FollowUserResponseDTO;
+import com.example.desafiospring.DTOS.responses.FollowerCountResponseDTO;
 import com.example.desafiospring.services.interfaces.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -25,4 +24,10 @@ public class UserRESTController {
     public ResponseEntity<FollowUserResponseDTO> createLink (@Valid FollowUserRequestDTO followUserRequestDTO){
         return new ResponseEntity<>(userService.followUser(followUserRequestDTO), HttpStatus.OK);
     }
+
+    @GetMapping("/{userId}/followers/count/")
+    public ResponseEntity<FollowerCountResponseDTO> followerCount (@Valid FollowerCountRequestDTO followerCountRequestDTO){
+        return new ResponseEntity<>(userService.followerCount(followerCountRequestDTO), HttpStatus.OK);
+    }
+
 }

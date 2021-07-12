@@ -10,7 +10,9 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class FollowRepositoryImpl implements FollowRepository {
@@ -26,6 +28,11 @@ public class FollowRepositoryImpl implements FollowRepository {
         } else {
             System.out.println("Follow already existed");
         }
+    }
+
+    @Override
+    public List<Integer> getFollowerIDs(Integer userId) {
+        return getDatabaseFollows().stream().filter(f -> f.getFollowedUserID().equals(userId)).map(FollowEntity::getFollowerUserID).collect(Collectors.toList());
     }
 
     private void overWriteFollowsDB(List<FollowEntity> followsToWrite) {
