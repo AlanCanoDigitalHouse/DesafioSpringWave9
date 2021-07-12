@@ -12,8 +12,15 @@ import java.util.List;
 public class ApiControllerAdvice{
 
     @ExceptionHandler
+    @ResponseBody
     public ResponseEntity<?> handlerUserException(UserException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    public ResponseEntity<?> handlerException(Exception exception){
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
     }
 
 }

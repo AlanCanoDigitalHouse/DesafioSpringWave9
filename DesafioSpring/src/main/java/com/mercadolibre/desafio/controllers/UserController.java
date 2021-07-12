@@ -1,6 +1,7 @@
 package com.mercadolibre.desafio.controllers;
 
 import com.mercadolibre.desafio.dtos.ResponseCountFollowers;
+import com.mercadolibre.desafio.dtos.ResponseFollowers;
 import com.mercadolibre.desafio.exception.UserException;
 import com.mercadolibre.desafio.repositories.UserRepository;
 import com.mercadolibre.desafio.services.UserServices;
@@ -28,6 +29,12 @@ public class UserController {
     public ResponseEntity<ResponseCountFollowers> countUserFollowers(@NotBlank @PathVariable Integer userId) throws UserException {
         return new ResponseEntity<>(userServices.countFollowers(userId),HttpStatus.OK);
     }
+
+    @GetMapping("/{UserID}/followers/list")
+    public ResponseEntity<ResponseFollowers> getFollowers(@NotBlank @PathVariable Integer UserID) throws UserException {
+        return new ResponseEntity<>(userServices.getFollowers(UserID),HttpStatus.OK);
+    }
+
 
 
 }

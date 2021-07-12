@@ -1,6 +1,7 @@
 package com.mercadolibre.desafio.services.impl;
 
 import com.mercadolibre.desafio.dtos.ResponseCountFollowers;
+import com.mercadolibre.desafio.dtos.ResponseFollowers;
 import com.mercadolibre.desafio.exception.UserException;
 import com.mercadolibre.desafio.repositories.UserRepository;
 import com.mercadolibre.desafio.services.UserServices;
@@ -22,5 +23,10 @@ public class UserServicesImpl implements UserServices {
     @Override
     public ResponseCountFollowers countFollowers(Integer userId) throws UserException {
         return userRepository.countFollowers(userId);
+    }
+
+    @Override
+    public ResponseFollowers getFollowers(Integer userId) throws UserException {
+        return userRepository.getFollowers(userId);
     }
 }
