@@ -28,6 +28,11 @@ public class UserController {
         return new ResponseEntity<>(userService.getFollowers(userId), HttpStatus.OK);
     }
 
+    @GetMapping("{UserID}/followed/list")
+    public ResponseEntity<?> getFollowed(@PathVariable Integer UserID) {
+        return new ResponseEntity<>(userService.getFollowed(UserID), HttpStatus.OK);
+    }
+
     @PostMapping("{userId}/follow/{userIdToFollow}")
     public HttpStatus follow(@PathVariable int userId, @PathVariable int userIdToFollow) {
         HttpStatus responseStatus = HttpStatus.OK;

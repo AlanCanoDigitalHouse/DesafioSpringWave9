@@ -30,7 +30,13 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     private void loadFollows() {
+        // User 0 follows all users
         follows.add(new FollowDTO(0, 1));
+        follows.add(new FollowDTO(0, 2));
+        follows.add(new FollowDTO(0, 3));
+        follows.add(new FollowDTO(0, 4));
+
+        // All follow user with id 1
         follows.add(new FollowDTO(2, 1));
         follows.add(new FollowDTO(3, 1));
         follows.add(new FollowDTO(4, 1));
@@ -81,8 +87,23 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<UserDTO> findFollowedByUser(Integer userId) {
-        return null;
+    public List<UserDTO> findUserFollowed(Integer userId) {
+        List<UserDTO> followed = new ArrayList<>();
+        List<Integer> tempList = new ArrayList<>();
+        for (FollowDTO follow :
+                follows) {
+            if (follow.getFollower().equals(userId))
+                tempList.add(follow.getFollowed());
+        }
+
+        for (UserDTO user : users.values()) {
+            for (Integer i :
+                    tempList) {
+                if (user.getUserID().equals(i))
+                    followed.add(user);
+            }
+        }
+        return followed;
     }
 
     @Override

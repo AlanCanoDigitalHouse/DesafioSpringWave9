@@ -16,7 +16,7 @@ public interface UserRepository {
 
     List<UserDTO> findUserFollowers(Integer userId);
 
-    List<UserDTO> findFollowedByUser(Integer userId);
+    List<UserDTO> findUserFollowed(Integer userId);
 
     void delete(UserDTO linkDTO);
 }
