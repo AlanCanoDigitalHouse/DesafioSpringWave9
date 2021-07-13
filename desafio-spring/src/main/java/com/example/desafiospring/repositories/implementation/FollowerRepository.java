@@ -14,40 +14,42 @@ public class FollowerRepository implements IFollowerRepository {
 
     @Override
     public Long getNumFollowersById(Long userId) {
-        AtomicReference<Long> contador = new AtomicReference<>(0L);
-        followers.entrySet().forEach(x ->
-                x.getValue().forEach(y -> {
-                        if (y.equals(userId))
-                            contador.set(contador.get() + 1);
-                }));
-        return contador.get();
+        AtomicReference<Long> count = new AtomicReference<>(0L);
+        followers.forEach((key, value) -> value.forEach(y -> {
+            if (y.equals(userId))
+                count.set(count.get() + 1);
+        }));
+        return count.get();
     }
 
     @Override
     public void followUserById(Long userId, Long userIdToFollow) {
         List<Long> aux = followers.get(userId);
-        if (Objects.nonNull(aux)) {
-            aux.add(userIdToFollow);
-        } else {
+        if (!Objects.nonNull(aux)) {
             aux = new ArrayList<>();
-            aux.add(userIdToFollow);
         }
+        aux.add(userIdToFollow);
         followers.put(userId, aux);
     }
 
     @Override
     public List<Long> getListFollowersById(Long userId) {
-        return null;
+        List<Long> response = new ArrayList<>();
+        followers.forEach((key, value) -> value.forEach(y -> {
+            if (y.equals(userId))
+                response.add(key);
+        }));
+        return response;
     }
 
     @Override
     public List<Long> getListFollowedById(Long userId) {
-        return null;
+        return followers.get(userId);
     }
 
     @Override
     public void unfollowUserById(Long userId, Long userIdToUnfollow) {
-
+        followers.get(userId).remove(userIdToUnfollow);
     }
 
     @Override

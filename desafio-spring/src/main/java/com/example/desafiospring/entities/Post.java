@@ -5,11 +5,11 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Publication {
+public class Post {
 
     private Long id_post;
+    private Long userId;
     private String date;
-    private Product detalle;
     private String category;
     private Double price;
     private boolean hasPromo;

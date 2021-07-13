@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Repository
@@ -28,9 +27,18 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public User findById(Long userId, boolean isSeller) {
+    public User findByIdAndType(Long userId, boolean isSeller) {
         Optional<User> user = users.stream()
                 .filter(x -> x.getUserId().equals(userId) && x.isSeller() == isSeller).findFirst();
+        if (user.isEmpty())
+            return null;
+        return user.get();
+    }
+
+    @Override
+    public User findById(Long userId) {
+        Optional<User> user = users.stream()
+                .filter(x -> x.getUserId().equals(userId)).findFirst();
         if (user.isEmpty())
             return null;
         return user.get();

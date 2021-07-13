@@ -1,13 +1,10 @@
-package com.example.desafiospring.entities;
+package com.example.desafiospring.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
-public class Product {
+public class ProductDto {
 
-    private Long id_post;
     private Long product_id;
     private String productName;
     private String type;

@@ -8,6 +8,8 @@ public interface IUserRepository {
 
     List<User> getAllUsers();
 
-    User findById(Long userId, boolean isSeller);
+    User findByIdAndType(Long userId, boolean isSeller);
+
+    User findById(Long userId);
 
 }

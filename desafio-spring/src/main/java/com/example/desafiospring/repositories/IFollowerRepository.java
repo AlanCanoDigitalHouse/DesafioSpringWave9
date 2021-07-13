@@ -1,7 +1,5 @@
 package com.example.desafiospring.repositories;
 
-import com.example.desafiospring.entities.User;
-
 import java.util.List;
 
 public interface IFollowerRepository {
