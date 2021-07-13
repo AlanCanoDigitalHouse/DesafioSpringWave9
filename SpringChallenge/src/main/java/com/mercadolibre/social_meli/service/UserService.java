@@ -1,6 +1,7 @@
 package com.mercadolibre.social_meli.service;
 
 import com.mercadolibre.social_meli.dto.response.FollowerCountResponseDTO;
+import com.mercadolibre.social_meli.dto.response.FollowersResponseDTO;
 import com.mercadolibre.social_meli.dto.response.UserResponseDTO;
 import com.mercadolibre.social_meli.entity.User;
 import com.mercadolibre.social_meli.exception.NoEffectRequest;
@@ -58,6 +59,13 @@ public class UserService implements IUserService {
         var user = this.userRepository.getUser(userId);
 
         return new FollowerCountResponseDTO(user.getUserId(), user.getUserName(), user.getFollowers().size());
+    }
+
+    @Override
+    public FollowersResponseDTO getFollowers(Integer userId) {
+        var user = this.userRepository.getUser(userId);
+
+        return new FollowersResponseDTO(user.getUserId(), user.getUserName(), user.getFollowers());
     }
 
     private Boolean isFollowing(User user, User target) {
