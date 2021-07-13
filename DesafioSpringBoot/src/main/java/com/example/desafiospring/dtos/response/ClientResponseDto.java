@@ -18,4 +18,8 @@ public class ClientResponseDto extends UserResponseDto{
     public void removeFollowed(UserResponseDto seller){
         this.followed.remove(seller);
     }
+
+    public void setFollowed(List<UserResponseDto> followed) {
+        this.followed = followed;
+    }
 }

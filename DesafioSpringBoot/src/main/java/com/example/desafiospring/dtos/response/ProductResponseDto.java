@@ -16,7 +16,7 @@ public class ProductResponseDto {
     private String notes;
 
     public ProductResponseDto(ProductRequestDto product) {
-        this.product_id = Factory.generateId()  ;
+        this.product_id = Factory.generateId();
         this.productName = product.getProductName();
         this.brand = product.getBrand();
         this.color = product.getColor();

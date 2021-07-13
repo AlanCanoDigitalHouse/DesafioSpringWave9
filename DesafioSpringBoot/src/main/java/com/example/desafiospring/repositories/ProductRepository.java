@@ -61,4 +61,7 @@ public class ProductRepository implements CRUD<PostResponseDto> {
     public List<PostResponseDto> getPosts(){
         return this.posts;
     }
+    public void  setPosts(List<PostResponseDto> posts){
+        this.posts = posts;
+    }
 }

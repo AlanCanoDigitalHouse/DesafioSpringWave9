@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping(path = "/users")
@@ -26,13 +27,13 @@ public class UserController {
     @GetMapping(path = "/{userId}")
     public ResponseEntity<UserResponseDto> getUser(@Valid @NotNull @Min(1) @PathVariable Integer userId) {
         var user = userServices.getUserById(userId);
-        return new ResponseEntity<>(new UserResponseDto(user.getId(),user.getUserName()),HttpStatus.OK);
+        return new ResponseEntity<>(new UserResponseDto(user.getId(), user.getUserName()), HttpStatus.OK);
     }
 
     @PostMapping(path = "/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<String> followSeller(@Valid @NotNull @Min(1) @PathVariable Integer userId,
                                                @Valid @NotNull @Min(1) @PathVariable Integer userIdToFollow) {
-        userServices.followSeller(userId,userIdToFollow);
+        userServices.followSeller(userId, userIdToFollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -40,26 +41,30 @@ public class UserController {
     public ResponseEntity<FollowersCountDto> contSellerFollowers(@Valid @NotNull @Min(1) @PathVariable Integer userId) {
         var seller = userServices.getSellerById(userId);
         var counter = seller.getFollowers().size();
-        return new ResponseEntity<>(new FollowersCountDto(seller.getId(),seller.getUserName(),counter)
-                ,HttpStatus.OK);
+        return new ResponseEntity<>(new FollowersCountDto(seller.getId(), seller.getUserName(), counter)
+                , HttpStatus.OK);
     }
 
     @GetMapping(path = "/{userId}/followers/list")
-    public ResponseEntity<SellerResponseDto> getSellerFollowers(@Valid @NotNull @Min(1) @PathVariable Integer userId) {
+    public ResponseEntity<SellerResponseDto> getSellerFollowers(@Valid @NotNull @Min(1) @PathVariable Integer userId,
+                                                                @RequestParam(required = false) String order) {
         var seller = userServices.getSellerById(userId);
-        return new ResponseEntity<>(seller,HttpStatus.OK);
+        seller.setFollowers(userServices.sorterWrapper(seller.getFollowers(),order));
+        return new ResponseEntity<>(seller, HttpStatus.OK);
     }
 
     @GetMapping(path = "/{userId}/followed/list")
-    public ResponseEntity<ClientResponseDto> getUserFollowedList(@Valid @NotNull @Min(1) @PathVariable Integer userId) {
+    public ResponseEntity<ClientResponseDto> getUserFollowedList(@Valid @NotNull @Min(1) @PathVariable Integer userId,
+                                                                 @RequestParam(required = false) String order) {
         var client = userServices.getClientById(userId);
-        return new ResponseEntity<>(client,HttpStatus.OK);
+        client.setFollowed(userServices.sorterWrapper(client.getFollowed(), order));
+        return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
     @PostMapping(path = "/{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<HttpStatus> unFollowSeller(@Valid @NotNull @Min(1) @PathVariable Integer userId,
-                                                     @Valid @NotNull @Min(1) @PathVariable Integer userIdToUnfollow){
-        userServices.unFollowSeller(userId,userIdToUnfollow);
-        return  new ResponseEntity<>(HttpStatus.OK);
+                                                     @Valid @NotNull @Min(1) @PathVariable Integer userIdToUnfollow) {
+        userServices.unFollowSeller(userId, userIdToUnfollow);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

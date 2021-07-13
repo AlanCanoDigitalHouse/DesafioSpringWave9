@@ -1,0 +1,702 @@
+[
+	{
+		"userId": 76,
+		"date": "13/01/2021",
+		"detail": 1,
+		"category": 1,
+		"price": 1891
+	},
+	{
+		"userId": 88,
+		"date": "17/03/2021",
+		"detail": 2,
+		"category": 2,
+		"price": 5842
+	},
+	{
+		"userId": 96,
+		"date": "18/03/2021",
+		"detail": 3,
+		"category": 3,
+		"price": 5164
+	},
+	{
+		"userId": 90,
+		"date": "07/05/2021",
+		"detail": 4,
+		"category": 4,
+		"price": 8005
+	},
+	{
+		"userId": 83,
+		"date": "20/08/2020",
+		"detail": 5,
+		"category": 5,
+		"price": 8036
+	},
+	{
+		"userId": 77,
+		"date": "20/02/2021",
+		"detail": 6,
+		"category": 6,
+		"price": 9788
+	},
+	{
+		"userId": 78,
+		"date": "28/09/2020",
+		"detail": 7,
+		"category": 7,
+		"price": 3366
+	},
+	{
+		"userId": 81,
+		"date": "06/11/2020",
+		"detail": 8,
+		"category": 8,
+		"price": 7387
+	},
+	{
+		"userId": 77,
+		"date": "25/05/2021",
+		"detail": 9,
+		"category": 9,
+		"price": 8231
+	},
+	{
+		"userId": 70,
+		"date": "12/07/2021",
+		"detail": 10,
+		"category": 10,
+		"price": 5848
+	},
+	{
+		"userId": 93,
+		"date": "18/12/2020",
+		"detail": 11,
+		"category": 11,
+		"price": 5232
+	},
+	{
+		"userId": 99,
+		"date": "01/08/2020",
+		"detail": 12,
+		"category": 12,
+		"price": 7615
+	},
+	{
+		"userId": 98,
+		"date": "31/01/2021",
+		"detail": 13,
+		"category": 13,
+		"price": 7267
+	},
+	{
+		"userId": 90,
+		"date": "17/11/2020",
+		"detail": 14,
+		"category": 14,
+		"price": 5505
+	},
+	{
+		"userId": 92,
+		"date": "05/06/2021",
+		"detail": 15,
+		"category": 15,
+		"price": 8722
+	},
+	{
+		"userId": 71,
+		"date": "10/05/2021",
+		"detail": 16,
+		"category": 16,
+		"price": 6792
+	},
+	{
+		"userId": 91,
+		"date": "31/01/2021",
+		"detail": 17,
+		"category": 17,
+		"price": 1710
+	},
+	{
+		"userId": 77,
+		"date": "18/01/2021",
+		"detail": 18,
+		"category": 18,
+		"price": 3785
+	},
+	{
+		"userId": 82,
+		"date": "10/09/2020",
+		"detail": 19,
+		"category": 19,
+		"price": 9898
+	},
+	{
+		"userId": 94,
+		"date": "12/02/2021",
+		"detail": 20,
+		"category": 20,
+		"price": 1429
+	},
+	{
+		"userId": 79,
+		"date": "04/09/2020",
+		"detail": 21,
+		"category": 21,
+		"price": 1341
+	},
+	{
+		"userId": 89,
+		"date": "05/09/2020",
+		"detail": 22,
+		"category": 22,
+		"price": 8146
+	},
+	{
+		"userId": 76,
+		"date": "17/11/2020",
+		"detail": 23,
+		"category": 23,
+		"price": 9451
+	},
+	{
+		"userId": 85,
+		"date": "14/01/2021",
+		"detail": 24,
+		"category": 24,
+		"price": 8745
+	},
+	{
+		"userId": 84,
+		"date": "15/03/2021",
+		"detail": 25,
+		"category": 25,
+		"price": 2117
+	},
+	{
+		"userId": 93,
+		"date": "05/11/2020",
+		"detail": 26,
+		"category": 26,
+		"price": 2989
+	},
+	{
+		"userId": 82,
+		"date": "30/05/2021",
+		"detail": 27,
+		"category": 27,
+		"price": 7449
+	},
+	{
+		"userId": 89,
+		"date": "22/07/2020",
+		"detail": 28,
+		"category": 28,
+		"price": 5506
+	},
+	{
+		"userId": 99,
+		"date": "13/03/2021",
+		"detail": 29,
+		"category": 29,
+		"price": 8610
+	},
+	{
+		"userId": 73,
+		"date": "18/02/2021",
+		"detail": 30,
+		"category": 30,
+		"price": 3337
+	},
+	{
+		"userId": 72,
+		"date": "23/03/2021",
+		"detail": 31,
+		"category": 31,
+		"price": 6992
+	},
+	{
+		"userId": 70,
+		"date": "10/04/2021",
+		"detail": 32,
+		"category": 32,
+		"price": 1509
+	},
+	{
+		"userId": 99,
+		"date": "16/06/2021",
+		"detail": 33,
+		"category": 33,
+		"price": 1538
+	},
+	{
+		"userId": 81,
+		"date": "26/10/2020",
+		"detail": 34,
+		"category": 34,
+		"price": 7209
+	},
+	{
+		"userId": 86,
+		"date": "25/08/2020",
+		"detail": 35,
+		"category": 35,
+		"price": 1418
+	},
+	{
+		"userId": 83,
+		"date": "30/05/2021",
+		"detail": 36,
+		"category": 36,
+		"price": 4251
+	},
+	{
+		"userId": 74,
+		"date": "05/06/2021",
+		"detail": 37,
+		"category": 37,
+		"price": 4256
+	},
+	{
+		"userId": 85,
+		"date": "04/06/2021",
+		"detail": 38,
+		"category": 38,
+		"price": 4947
+	},
+	{
+		"userId": 85,
+		"date": "19/10/2020",
+		"detail": 39,
+		"category": 39,
+		"price": 8728
+	},
+	{
+		"userId": 77,
+		"date": "01/04/2021",
+		"detail": 40,
+		"category": 40,
+		"price": 3536
+	},
+	{
+		"userId": 97,
+		"date": "28/10/2020",
+		"detail": 41,
+		"category": 41,
+		"price": 5425
+	},
+	{
+		"userId": 77,
+		"date": "15/02/2021",
+		"detail": 42,
+		"category": 42,
+		"price": 8288
+	},
+	{
+		"userId": 71,
+		"date": "01/06/2021",
+		"detail": 43,
+		"category": 43,
+		"price": 3924
+	},
+	{
+		"userId": 71,
+		"date": "15/06/2021",
+		"detail": 44,
+		"category": 44,
+		"price": 9937
+	},
+	{
+		"userId": 77,
+		"date": "10/03/2021",
+		"detail": 45,
+		"category": 45,
+		"price": 8577
+	},
+	{
+		"userId": 83,
+		"date": "14/12/2020",
+		"detail": 46,
+		"category": 46,
+		"price": 3048
+	},
+	{
+		"userId": 94,
+		"date": "09/09/2020",
+		"detail": 47,
+		"category": 47,
+		"price": 2904
+	},
+	{
+		"userId": 83,
+		"date": "31/08/2020",
+		"detail": 48,
+		"category": 48,
+		"price": 5244
+	},
+	{
+		"userId": 70,
+		"date": "10/02/2021",
+		"detail": 49,
+		"category": 49,
+		"price": 7550
+	},
+	{
+		"userId": 73,
+		"date": "15/01/2021",
+		"detail": 50,
+		"category": 50,
+		"price": 6412
+	},
+	{
+		"userId": 83,
+		"date": "20/08/2020",
+		"detail": 51,
+		"category": 51,
+		"price": 4738
+	},
+	{
+		"userId": 88,
+		"date": "29/08/2020",
+		"detail": 52,
+		"category": 52,
+		"price": 3261
+	},
+	{
+		"userId": 82,
+		"date": "05/09/2020",
+		"detail": 53,
+		"category": 53,
+		"price": 5934
+	},
+	{
+		"userId": 96,
+		"date": "26/06/2021",
+		"detail": 54,
+		"category": 54,
+		"price": 6110
+	},
+	{
+		"userId": 82,
+		"date": "15/03/2021",
+		"detail": 55,
+		"category": 55,
+		"price": 5083
+	},
+	{
+		"userId": 81,
+		"date": "24/04/2021",
+		"detail": 56,
+		"category": 56,
+		"price": 1460
+	},
+	{
+		"userId": 97,
+		"date": "26/04/2021",
+		"detail": 57,
+		"category": 57,
+		"price": 6856
+	},
+	{
+		"userId": 86,
+		"date": "19/12/2020",
+		"detail": 58,
+		"category": 58,
+		"price": 9221
+	},
+	{
+		"userId": 97,
+		"date": "12/08/2020",
+		"detail": 59,
+		"category": 59,
+		"price": 4433
+	},
+	{
+		"userId": 78,
+		"date": "03/11/2020",
+		"detail": 60,
+		"category": 60,
+		"price": 6766
+	},
+	{
+		"userId": 75,
+		"date": "30/03/2021",
+		"detail": 61,
+		"category": 61,
+		"price": 1399
+	},
+	{
+		"userId": 93,
+		"date": "07/11/2020",
+		"detail": 62,
+		"category": 62,
+		"price": 1309
+	},
+	{
+		"userId": 77,
+		"date": "14/11/2020",
+		"detail": 63,
+		"category": 63,
+		"price": 6510
+	},
+	{
+		"userId": 71,
+		"date": "03/09/2020",
+		"detail": 64,
+		"category": 64,
+		"price": 1280
+	},
+	{
+		"userId": 90,
+		"date": "22/01/2021",
+		"detail": 65,
+		"category": 65,
+		"price": 4369
+	},
+	{
+		"userId": 92,
+		"date": "31/10/2020",
+		"detail": 66,
+		"category": 66,
+		"price": 2008
+	},
+	{
+		"userId": 70,
+		"date": "03/09/2020",
+		"detail": 67,
+		"category": 67,
+		"price": 4936
+	},
+	{
+		"userId": 70,
+		"date": "12/07/2021",
+		"detail": 68,
+		"category": 68,
+		"price": 5616
+	},
+	{
+		"userId": 86,
+		"date": "09/12/2020",
+		"detail": 69,
+		"category": 69,
+		"price": 2423
+	},
+	{
+		"userId": 79,
+		"date": "25/07/2020",
+		"detail": 70,
+		"category": 70,
+		"price": 8725
+	},
+	{
+		"userId": 81,
+		"date": "06/03/2021",
+		"detail": 71,
+		"category": 71,
+		"price": 4238
+	},
+	{
+		"userId": 91,
+		"date": "31/03/2021",
+		"detail": 72,
+		"category": 72,
+		"price": 1043
+	},
+	{
+		"userId": 77,
+		"date": "24/04/2021",
+		"detail": 73,
+		"category": 73,
+		"price": 3580
+	},
+	{
+		"userId": 99,
+		"date": "12/07/2021",
+		"detail": 74,
+		"category": 74,
+		"price": 5768
+	},
+	{
+		"userId": 73,
+		"date": "28/06/2021",
+		"detail": 75,
+		"category": 75,
+		"price": 7102
+	},
+	{
+		"userId": 97,
+		"date": "09/10/2020",
+		"detail": 76,
+		"category": 76,
+		"price": 6619
+	},
+	{
+		"userId": 70,
+		"date": "07/08/2020",
+		"detail": 77,
+		"category": 77,
+		"price": 3405
+	},
+	{
+		"userId": 90,
+		"date": "01/02/2021",
+		"detail": 78,
+		"category": 78,
+		"price": 5643
+	},
+	{
+		"userId": 71,
+		"date": "08/01/2021",
+		"detail": 79,
+		"category": 79,
+		"price": 3098
+	},
+	{
+		"userId": 90,
+		"date": "15/11/2020",
+		"detail": 80,
+		"category": 80,
+		"price": 2518
+	},
+	{
+		"userId": 80,
+		"date": "03/05/2021",
+		"detail": 81,
+		"category": 81,
+		"price": 9383
+	},
+	{
+		"userId": 98,
+		"date": "06/10/2020",
+		"detail": 82,
+		"category": 82,
+		"price": 6302
+	},
+	{
+		"userId": 73,
+		"date": "05/09/2020",
+		"detail": 83,
+		"category": 83,
+		"price": 3282
+	},
+	{
+		"userId": 81,
+		"date": "09/07/2021",
+		"detail": 84,
+		"category": 84,
+		"price": 4312
+	},
+	{
+		"userId": 84,
+		"date": "18/04/2021",
+		"detail": 85,
+		"category": 85,
+		"price": 5480
+	},
+	{
+		"userId": 79,
+		"date": "04/03/2021",
+		"detail": 86,
+		"category": 86,
+		"price": 2267
+	},
+	{
+		"userId": 83,
+		"date": "06/11/2020",
+		"detail": 87,
+		"category": 87,
+		"price": 6391
+	},
+	{
+		"userId": 70,
+		"date": "28/12/2020",
+		"detail": 88,
+		"category": 88,
+		"price": 5407
+	},
+	{
+		"userId": 96,
+		"date": "09/09/2020",
+		"detail": 89,
+		"category": 89,
+		"price": 6749
+	},
+	{
+		"userId": 72,
+		"date": "14/05/2021",
+		"detail": 90,
+		"category": 90,
+		"price": 2150
+	},
+	{
+		"userId": 91,
+		"date": "12/09/2020",
+		"detail": 91,
+		"category": 91,
+		"price": 9609
+	},
+	{
+		"userId": 73,
+		"date": "29/06/2021",
+		"detail": 92,
+		"category": 92,
+		"price": 1679
+	},
+	{
+		"userId": 86,
+		"date": "20/04/2021",
+		"detail": 93,
+		"category": 93,
+		"price": 7705
+	},
+	{
+		"userId": 88,
+		"date": "23/06/2021",
+		"detail": 94,
+		"category": 94,
+		"price": 5052
+	},
+	{
+		"userId": 79,
+		"date": "03/10/2020",
+		"detail": 95,
+		"category": 95,
+		"price": 1664
+	},
+	{
+		"userId": 90,
+		"date": "16/02/2021",
+		"detail": 96,
+		"category": 96,
+		"price": 9618
+	},
+	{
+		"userId": 98,
+		"date": "05/07/2021",
+		"detail": 97,
+		"category": 97,
+		"price": 2954
+	},
+	{
+		"userId": 77,
+		"date": "05/08/2020",
+		"detail": 98,
+		"category": 98,
+		"price": 8167
+	},
+	{
+		"userId": 73,
+		"date": "08/06/2021",
+		"detail": 99,
+		"category": 99,
+		"price": 2696
+	},
+	{
+		"userId": 91,
+		"date": "31/05/2021",
+		"detail": 100,
+		"category": 100,
+		"price": 9862
+	}
+]

@@ -21,4 +21,8 @@ public class SellerResponseDto extends UserResponseDto {
     public void removeFollower(UserResponseDto client) {
         this.followers.remove(client);
     }
+
+    public void setFollowers(List<UserResponseDto> followers) {
+        this.followers = followers;
+    }
 }

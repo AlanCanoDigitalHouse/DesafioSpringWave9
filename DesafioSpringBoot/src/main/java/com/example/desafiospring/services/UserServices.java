@@ -8,14 +8,19 @@ import com.example.desafiospring.exceptions.UserNotFoundException;
 import com.example.desafiospring.repositories.UserRepository;
 import com.example.desafiospring.utils.Factory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.comparator.Comparators;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
-public class UserServices {
+public class UserServices implements Sorter<UserResponseDto> {
     private UserRepository userRepository;
 
     public UserServices(UserRepository userRepository) {
         this.userRepository = userRepository;
-        userRepository.setGeneratedData(Factory.generateData());
+        userRepository.setGeneratedData(Factory.generateUsers());
     }
 
     /**
@@ -36,7 +41,7 @@ public class UserServices {
             userRepository.update(seller);
             userRepository.update(client);
             return client;
-        }else{
+        } else {
             throw new LogicValidationException("The client is already following the seller");
         }
     }
@@ -76,7 +81,7 @@ public class UserServices {
         }
     }
 
-    public void unFollowSeller(Integer userId,Integer userIdToUnfollow){
+    public void unFollowSeller(Integer userId, Integer userIdToUnfollow) {
         var client = getClientById(userId);
         var seller = getSellerById(userIdToUnfollow);
         if (isFollowing(client, seller)) {
@@ -84,10 +89,38 @@ public class UserServices {
             client.removeFollowed(new UserResponseDto(seller.getId(), seller.getUserName()));
             userRepository.update(seller);
             userRepository.update(client);
-        }else{
+        } else {
             throw new LogicValidationException("The client is not following this seller");
         }
 
     }
+
+
+    @Override
+    public List<UserResponseDto> sortDesc(List<UserResponseDto> list) {
+        Collections.sort(list, Comparator.comparing(UserResponseDto::getUserName).reversed());
+        return list;
+    }
+
+    @Override
+    public List<UserResponseDto> sortAsc(List<UserResponseDto> list) {
+        list.sort(Comparator.comparing(UserResponseDto::getUserName));
+        return list;
+    }
+
+    @Override
+    public List<UserResponseDto> sorterWrapper(List<UserResponseDto> list, String param) {
+        if(param == null){
+            return list;
+        }else if (param.contains("name_asc")){
+            return sortAsc(list);
+        }else if (param.contains("name_desc")){
+            return sortDesc(list);
+        }else{
+            return list;
+        }
+    }
+
+
 
 }

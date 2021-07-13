@@ -2,6 +2,7 @@ package com.example.desafiospring.controllers;
 
 import com.example.desafiospring.dtos.request.PostRequestDto;
 import com.example.desafiospring.dtos.response.FollowedPostDto;
+import com.example.desafiospring.dtos.response.PostResponseDto;
 import com.example.desafiospring.services.ProductServices;
 import com.example.desafiospring.services.UserServices;
 import org.springframework.http.HttpStatus;
@@ -21,16 +22,22 @@ public class ProductController {
         this.userServices = userServices;
     }
 
+    @GetMapping(path = "/{userId}")
+    public ResponseEntity<PostResponseDto> getPost(@PathVariable Integer userId){
+        return new ResponseEntity<>(productServices.getPost(userId),HttpStatus.OK);
+    }
     @PostMapping(path = "/newpost")
     public ResponseEntity<HttpStatus> addNewProduct(@Valid @RequestBody PostRequestDto postRequestDto){
       productServices.createNewPost(postRequestDto);
       return new ResponseEntity<>(HttpStatus.OK);
     }
     @GetMapping(path = "/followed/{userId}/list")
-    public ResponseEntity<FollowedPostDto> getPostFromFollowed(@PathVariable Integer userId){
+    public ResponseEntity<FollowedPostDto> getPostFromFollowed(@PathVariable Integer userId,
+                                                               @RequestParam(required = false) String order){
         var user = userServices.getClientById(userId);
         var listOfFollowed =  user.getFollowed();
-        return new ResponseEntity<>(new FollowedPostDto(userId,productServices.getPosts(listOfFollowed)),
+        var list = productServices.sorterWrapper(productServices.getPosts(listOfFollowed),order);
+        return new ResponseEntity<>(new FollowedPostDto(userId,list),
                 HttpStatus.OK);
     }
 
