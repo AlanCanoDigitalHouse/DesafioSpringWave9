@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 
 public class PostRepositoryTest {
-   PostRepository postRepository = new PostRepository();
+   final PostRepository postRepository = new PostRepository();
 
    @Test
     public void createModel() throws ModelAlreadyExists, ModelNotExists {
@@ -40,7 +40,7 @@ public class PostRepositoryTest {
       postRepository.delete(postModel);
       try{
          postRepository.findById(10);
-         Assertions.assertTrue(false);
+         Assertions.fail();
       }catch (ModelNotExists e){
          Assertions.assertTrue(true);
       }
@@ -49,7 +49,7 @@ public class PostRepositoryTest {
    @BeforeEach
    public void deleteFileTest(){
       final String FILE_NAME = "./post.json";
-      File file = null;
+      File file;
       file = new File(FILE_NAME);
       if (file.delete()) {
          System.out.println("File deleted: " + file.getName());

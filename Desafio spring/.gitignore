@@ -32,4 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-*.json
+post.json
+user.json
+

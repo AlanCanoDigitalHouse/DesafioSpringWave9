@@ -17,10 +17,23 @@ public abstract class AbstractRepository<T extends AbstractModel> {
     final Logger logger = LoggerFactory.getLogger(SocialMeliApplication.class);
 
     /* ABSTRACTIONS */
+
+    /**
+     * Save a list of models, the file will be cleaned and re wrote
+     * All the logic is in the super class, here only is specified the name of file
+     */
     protected abstract void saveDatabase(List<T> abstractModels);
 
+    /**
+     * Get all models of the file
+     * All the logic is in the super class, here only is specified the name of file
+     */
     protected abstract List<T> loadDatabase();
 
+    /**
+     * Map a file to a object
+     * Because the limitations of generics, this method cant be defined in super
+     */
     protected abstract List<T> mapObject(File file);
 
 
@@ -36,10 +49,10 @@ public abstract class AbstractRepository<T extends AbstractModel> {
 
     public void modify(T model) throws ModelNotExists {
         List<T> models = this.loadDatabase();
-        if (!modelAlreadyExists(models, model)) throw new ModelNotExists(model.getModelClassName());
         //Get actual model to replace
-        T actualModel = models.stream().filter(x -> x.getId() == model.getId()).findAny().get();
-        int location = models.indexOf(actualModel);
+        Optional<T> actualModel = models.stream().filter(x -> x.getId() == model.getId()).findAny();
+        if (actualModel.isEmpty()) throw new ModelNotExists(model.getModelClassName());
+        int location = models.indexOf(actualModel.get());
 
         //Replace
         models.set(location, model);
@@ -52,8 +65,8 @@ public abstract class AbstractRepository<T extends AbstractModel> {
 
     public void delete(T model) throws ModelNotExists {
         List<T> models = loadDatabase();
-        T finded = findModelInAList(models, model);
-        models.remove(finded);
+        T found = findModelInAList(models, model);
+        models.remove(found);
         saveDatabase(models);
     }
 
@@ -78,9 +91,7 @@ public abstract class AbstractRepository<T extends AbstractModel> {
 
     protected boolean modelAlreadyExists(List<T> models, T model) {
         Optional<T> possibleModel = models.stream().filter(x -> x.getId() == model.getId()).findAny();
-        if (possibleModel.isEmpty())
-            return false;
-        return true;
+        return possibleModel.isPresent();
     }
 
     protected void saveDatabase(List<T> list, String fileName) {

@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public abstract class AbstractModel {
     private int id;
+
     @JsonIgnore
     @JsonProperty(value = "user_password")
     public abstract String getModelClassName();

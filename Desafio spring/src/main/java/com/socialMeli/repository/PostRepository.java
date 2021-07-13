@@ -3,7 +3,6 @@ package com.socialMeli.repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.socialMeli.model.PostModel;
-import com.socialMeli.model.UserModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,11 +11,22 @@ import java.util.List;
 
 public class PostRepository extends AbstractRepository<PostModel> {
     final String FILE_NAME = "post";
+
+    /**
+     * Save a list of models, the file will be cleaned and re wrote
+     *
+     * All the logic is in the super class, here only is specified the name of file
+     */
     @Override
     protected void saveDatabase(List<PostModel> abstractModels) {
         super.saveDatabase(abstractModels, FILE_NAME);
     }
 
+    /**
+     * Get all models of the file
+     *
+     * All the logic is in the super class, here only is specified the name of file
+     */
     @Override
     protected List<PostModel> loadDatabase() {
         return super.loadDatabase(FILE_NAME);

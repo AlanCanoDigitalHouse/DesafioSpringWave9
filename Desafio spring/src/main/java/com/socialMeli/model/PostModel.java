@@ -5,7 +5,8 @@ import lombok.Setter;
 
 import java.util.Date;
 
-@Getter @Setter
+@Getter
+@Setter
 public class PostModel extends AbstractModel {
     private Date date;
     private int product_id;

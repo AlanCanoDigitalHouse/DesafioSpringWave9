@@ -8,10 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.IOException;
 
 public class UserRepositoryTest {
-    UserRepository userRepository = new UserRepository();
+    final UserRepository userRepository = new UserRepository();
 
     @Test
     public void createModel() throws ModelAlreadyExists, ModelNotExists {
@@ -27,9 +26,9 @@ public class UserRepositoryTest {
         UserModel userModel = new UserModel();
         userModel.setId(1);
         userRepository.insert(userModel);
-        userModel.setUserName("DISTINTO");
+        userModel.setUserName("DIFERENT");
         userRepository.modify(userModel);
-        Assertions.assertEquals("DISTINTO", userRepository.findById(1).getUserName());
+        Assertions.assertEquals("DIFERENT", userRepository.findById(1).getUserName());
     }
 
     @Test
@@ -40,8 +39,8 @@ public class UserRepositoryTest {
         userRepository.delete(userModel);
 
         try{
-            UserModel finded = userRepository.findById(1);
-            Assertions.assertTrue(false);
+            userRepository.findById(1);
+            Assertions.fail();
         }catch (ModelNotExists ex){
             Assertions.assertTrue(true);
         }
@@ -50,7 +49,7 @@ public class UserRepositoryTest {
     @BeforeEach
     public void deleteFileTest(){
         final String FILE_NAME = "./user.json";
-        File file = null;
+        File file;
         file = new File(FILE_NAME);
         if (file.delete()) {
             System.out.println("File deleted: " + file.getName());
