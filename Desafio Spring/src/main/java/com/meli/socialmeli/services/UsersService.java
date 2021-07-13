@@ -1,5 +1,6 @@
 package com.meli.socialmeli.services;
 
+import com.meli.socialmeli.dtos.response.FollowedUserListDTO;
 import com.meli.socialmeli.dtos.response.FollowersCountDTO;
 import com.meli.socialmeli.dtos.response.FollowersUserListDTO;
 import com.meli.socialmeli.exceptions.UserDoesNotExistException;
@@ -20,6 +21,13 @@ public class UsersService implements IUsersService{
 
     public UsersService(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
+    }
+
+    public FollowedUserListDTO getFollowing(int userId) throws UserDoesNotExistException{
+        Optional<User> user = usersRepository.findUserById(userId);
+        Stream<Follow> following = usersRepository.getFollowing(userId);
+        List<User> followed = following.map(f -> usersRepository.findUserById(f.getToFollowUserId()).get()).collect(Collectors.toList());
+        return new FollowedUserListDTO(user.get(), followed);
     }
 
     public FollowersUserListDTO getFollowers(int userId) throws UserDoesNotExistException{

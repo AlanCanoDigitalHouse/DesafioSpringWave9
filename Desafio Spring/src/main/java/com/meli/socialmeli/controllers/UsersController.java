@@ -1,5 +1,6 @@
 package com.meli.socialmeli.controllers;
 
+import com.meli.socialmeli.dtos.response.FollowedUserListDTO;
 import com.meli.socialmeli.dtos.response.FollowersCountDTO;
 import com.meli.socialmeli.dtos.response.FollowersUserListDTO;
 import com.meli.socialmeli.services.UsersService;
@@ -13,6 +14,12 @@ public class UsersController {
     private final UsersService usersService;
 
     public UsersController(UsersService usersService){ this.usersService = usersService; }
+
+    @GetMapping("/followed/list")
+    ResponseEntity<FollowedUserListDTO> getFollowing(@PathVariable int userId) throws Exception{
+        FollowedUserListDTO following = usersService.getFollowing(userId);
+        return new ResponseEntity<>(following, HttpStatus.OK);
+    }
 
     @GetMapping("/followers/list")
     ResponseEntity<FollowersUserListDTO> getFollowers(@PathVariable int userId) throws Exception{

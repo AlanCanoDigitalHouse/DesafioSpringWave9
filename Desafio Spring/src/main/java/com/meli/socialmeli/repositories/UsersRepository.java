@@ -25,6 +25,13 @@ public class UsersRepository implements IUsersRepository{
         this.usersFollows = loadFollowDataBase();
     }
 
+    public Stream<Follow> getFollowing(int userId) throws UserDoesNotExistException{
+        if(!userExist(userId)){
+            throw new UserDoesNotExistException("id " + userId);
+        }
+        return usersFollows.stream().filter(f -> f.getFollowerUserId() == userId);
+    }
+
     public Stream<Follow> getFollowers(int userId) throws UserDoesNotExistException{
         if(!userExist(userId)){
             throw new UserDoesNotExistException("id " + userId);
