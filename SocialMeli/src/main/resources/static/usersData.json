@@ -1,0 +1,58 @@
+[
+  {
+    "userId": 1,
+    "userName": "Ricardo",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 2,
+    "userName": "Sebastián",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 3,
+    "userName": "Clotario",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 4,
+    "userName": "Eleuterio",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 5,
+    "userName": "Georgina",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 6,
+    "userName": "Eva",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 7,
+    "userName": "Julieta",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 8,
+    "userName": "Violeta",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  }
+]
