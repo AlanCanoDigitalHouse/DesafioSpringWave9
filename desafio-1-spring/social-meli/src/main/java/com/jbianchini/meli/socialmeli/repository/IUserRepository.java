@@ -1,13 +1,13 @@
 package com.jbianchini.meli.socialmeli.repository;
 
-import com.jbianchini.meli.socialmeli.model.UserDTO;
+import com.jbianchini.meli.socialmeli.model.User;
 
 import java.util.Optional;
 
 public interface IUserRepository {
-    UserDTO save(UserDTO user);
+    User save(User user);
 
-    Optional<UserDTO> findByUserId(Integer userId);
+    Optional<User> findByUserId(Integer userId);
 
-    void delete(UserDTO user);
+    void delete(User user);
 }

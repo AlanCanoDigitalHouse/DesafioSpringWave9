@@ -1,5 +1,6 @@
-package com.jbianchini.meli.socialmeli.exception;
+package com.jbianchini.meli.socialmeli.exception.handler;
 
+import com.jbianchini.meli.socialmeli.exception.ApplicationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -16,7 +17,7 @@ public class ApiExceptionHandler {
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage handlerException(ApplicationException exception) {
-        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), exception.getMessage(), null);
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), exception.getMessage(), new HashMap<>());
     }
 
     @ExceptionHandler

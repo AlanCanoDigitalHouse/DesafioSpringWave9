@@ -1,4 +1,4 @@
-package com.jbianchini.meli.socialmeli.exception;
+package com.jbianchini.meli.socialmeli.exception.handler;
 
 import lombok.Getter;
 
