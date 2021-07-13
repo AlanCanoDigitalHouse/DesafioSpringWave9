@@ -1,6 +1,6 @@
 package com.jbianchini.meli.socialmeli.dto.request;
 
-public class ProductRequest {
+public class ProductRequestDTO {
     private int product_id;
     private String productName;
     private String type;

@@ -12,6 +12,7 @@ public class Post {
     private Integer postId;
     private User user;
     private LocalDate date;
+    //TODO: Change this list for a single product
     private List<Product> products;
     private String category;
     private double price;

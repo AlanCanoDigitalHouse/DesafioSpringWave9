@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Product {
+    //TODO: Remove this attribute
     private Integer productId;
     private String productName;
     private String type;

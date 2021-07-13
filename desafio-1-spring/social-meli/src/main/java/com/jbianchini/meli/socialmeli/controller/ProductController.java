@@ -1,6 +1,6 @@
 package com.jbianchini.meli.socialmeli.controller;
 
-import com.jbianchini.meli.socialmeli.dto.request.NewPostRequest;
+import com.jbianchini.meli.socialmeli.dto.request.NewPostRequestDTO;
 import com.jbianchini.meli.socialmeli.exception.ApplicationException;
 import com.jbianchini.meli.socialmeli.model.Post;
 import com.jbianchini.meli.socialmeli.service.IPostService;
@@ -22,7 +22,7 @@ public class ProductController {
     }
 
     @PostMapping("/newpost")
-    public ResponseEntity<Post> newPost(@RequestBody NewPostRequest newPostRequest) throws ApplicationException {
-        return new ResponseEntity<>(this.productService.newPost(newPostRequest), HttpStatus.OK);
+    public ResponseEntity<Post> newPost(@RequestBody NewPostRequestDTO newPostRequestDTO) throws ApplicationException {
+        return new ResponseEntity<>(this.productService.newPost(newPostRequestDTO), HttpStatus.OK);
     }
 }

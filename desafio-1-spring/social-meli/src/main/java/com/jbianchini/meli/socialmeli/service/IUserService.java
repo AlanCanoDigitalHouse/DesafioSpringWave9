@@ -1,9 +1,9 @@
 package com.jbianchini.meli.socialmeli.service;
 
-import com.jbianchini.meli.socialmeli.dto.request.UserRequest;
-import com.jbianchini.meli.socialmeli.dto.response.FollowedListResponse;
-import com.jbianchini.meli.socialmeli.dto.response.FollowersCountResponse;
-import com.jbianchini.meli.socialmeli.dto.response.FollowersListResponse;
+import com.jbianchini.meli.socialmeli.dto.request.UserRequestDTO;
+import com.jbianchini.meli.socialmeli.dto.response.FollowedListDTO;
+import com.jbianchini.meli.socialmeli.dto.response.FollowersCountDTO;
+import com.jbianchini.meli.socialmeli.dto.response.FollowersListDTO;
 import com.jbianchini.meli.socialmeli.exception.ApplicationException;
 import com.jbianchini.meli.socialmeli.exception.UserNotFoundException;
 import com.jbianchini.meli.socialmeli.model.User;
@@ -11,15 +11,15 @@ import com.jbianchini.meli.socialmeli.model.User;
 import javax.servlet.http.HttpServletResponse;
 
 public interface IUserService {
-    User create(UserRequest userRequest);
+    User create(UserRequestDTO userRequestDTO);
 
     void follow(Integer userId, Integer userIdToFollow, HttpServletResponse response) throws ApplicationException;
 
-    FollowersCountResponse getFollowersCount(int userId) throws UserNotFoundException;
+    FollowersCountDTO getFollowersCount(int userId) throws UserNotFoundException;
 
     void createAll(HttpServletResponse response) throws ApplicationException;
 
-    FollowersListResponse getFollowers(int userID) throws UserNotFoundException;
+    FollowersListDTO getFollowers(int userID) throws UserNotFoundException;
 
-    FollowedListResponse getFollowed(int userID) throws UserNotFoundException;
+    FollowedListDTO getFollowed(int userID) throws UserNotFoundException;
 }

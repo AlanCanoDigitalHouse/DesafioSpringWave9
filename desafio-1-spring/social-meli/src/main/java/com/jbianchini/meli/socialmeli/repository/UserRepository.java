@@ -26,6 +26,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public Optional<User> findByUserId(Integer userId) {
+        //TODO: Throw exception here if the user was not found
         User user = database.get(userId);
         return Optional.ofNullable(user);
     }

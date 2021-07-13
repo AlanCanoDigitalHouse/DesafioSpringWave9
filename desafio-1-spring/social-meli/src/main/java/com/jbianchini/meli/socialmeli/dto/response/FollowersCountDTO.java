@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class FollowersCountResponse {
+public class FollowersCountDTO {
     private Integer userId;
     private String userName;
     private int followers_count;
