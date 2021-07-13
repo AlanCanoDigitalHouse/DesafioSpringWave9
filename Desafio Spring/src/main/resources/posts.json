@@ -1,0 +1,48 @@
+[
+  {
+    "userId": 0,
+    "id_post": 1,
+    "detail": {
+      "product_id" : 1,
+      "productName" : "Silla Gamer",
+      "type" : "Gamer",
+      "brand" : "Racer",
+      "color" : "Red & Black",
+      "notes" : "Special Edition"
+    },
+    "category" : 100,
+    "price" : 15000.50,
+    "hasPromo": false,
+    "discount": 0
+  },{
+  "userId": 0,
+  "id_post": 2,
+  "detail": {
+    "product_id" : 2,
+    "productName" : "Headset RGB Inalambrico",
+    "type" : "Gamer",
+    "brand" : "Razer",
+    "color" : "Green with RGB",
+    "notes" : "Sin bateria"
+  },
+  "category" : 120,
+  "price" : 20.50,
+  "hasPromo": false,
+  "discount": 0
+  },{
+    "userId": 0,
+    "id_post": 3,
+    "detail": {
+      "product_id" : 3,
+      "productName" : "Portatil ENVY",
+      "type" : "Gamer",
+      "brand" : "HP",
+      "color" : "Gray",
+      "notes" : "Special Edition Star Wars"
+    },
+    "category" : 90,
+    "price" : 33000.50,
+    "hasPromo": false,
+    "discount": 0
+  }
+]
