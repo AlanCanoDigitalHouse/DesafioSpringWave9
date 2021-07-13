@@ -23,22 +23,22 @@ public class UserRESTController {
     }
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<FollowUserResponseDTO> createLink (@Valid FollowUserRequestDTO followUserRequestDTO){
+    public ResponseEntity<FollowUserResponseDTO> followUser(@Valid FollowUserRequestDTO followUserRequestDTO) {
         return new ResponseEntity<>(userService.followUser(followUserRequestDTO), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/count/")
-    public ResponseEntity<FollowerCountResponseDTO> followerCount (@Valid OnlyUserIDRequestDTO onlyUserIDRequestDTO){
+    public ResponseEntity<FollowerCountResponseDTO> followerCount(@Valid OnlyUserIDRequestDTO onlyUserIDRequestDTO) {
         return new ResponseEntity<>(userService.followerCount(onlyUserIDRequestDTO), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<FollowerListResponseDTO> followerList (@Valid OnlyUserIDRequestDTO onlyUserIDRequestDTO){
+    public ResponseEntity<FollowerListResponseDTO> followerList(@Valid OnlyUserIDRequestDTO onlyUserIDRequestDTO) {
         return new ResponseEntity<>(userService.followerList(onlyUserIDRequestDTO), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<FollowedListResponseDTO> followedList (@Valid OnlyUserIDRequestDTO onlyUserIDRequestDTO){
+    public ResponseEntity<FollowedListResponseDTO> followedList(@Valid OnlyUserIDRequestDTO onlyUserIDRequestDTO) {
         return new ResponseEntity<>(userService.followedList(onlyUserIDRequestDTO), HttpStatus.OK);
     }
 

@@ -1,0 +1,83 @@
+package com.example.desafiospring.repository.implementations;
+
+import com.example.desafiospring.DTOS.requests.NewPostRequestDTO;
+import com.example.desafiospring.entities.PostEntity;
+import com.example.desafiospring.exceptions.general.DBNotAvailableException;
+import com.example.desafiospring.repository.interfaces.PostRepository;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Repository;
+import org.springframework.util.ResourceUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Comparator;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
+@Repository
+public class PostRepositoryImpl implements PostRepository {
+
+
+    public static final java.lang.String POSTS_DB_ROUTE = "classpath:static/posts.json";
+
+    private static final AtomicInteger autoIncrement = new AtomicInteger(getNextIDFromDB());
+
+    @Override
+    public Integer addPost(NewPostRequestDTO newPostRequestDTO,Integer productId) {
+        Integer postId = autoIncrement.getAndIncrement();
+        addPostToDB(new PostEntity(postId,
+                newPostRequestDTO.getUserId(),
+                newPostRequestDTO.getDate(),
+                productId,
+                newPostRequestDTO.getCategory(),
+                newPostRequestDTO.getPrice()));
+        return postId;
+    }
+
+    private void addPostToDB(PostEntity post) {
+        List<PostEntity> dbElements = getDatabasePosts();
+        dbElements.add(post);
+        overWritePostsDB(dbElements);
+    }
+
+    private void overWritePostsDB(List<PostEntity> postsToWrite) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(ResourceUtils.getFile(POSTS_DB_ROUTE), postsToWrite);
+        } catch (IOException e) {
+            throw new DBNotAvailableException("Error writing to DB", e);
+        }
+    }
+
+    private static List<PostEntity> getDatabasePosts() {
+        File file;
+        try {
+            file = ResourceUtils.getFile(POSTS_DB_ROUTE);
+        } catch (Exception e) {
+            throw new DBNotAvailableException("Error finding DB", e);
+        }
+        return loadFromJSON(file);
+    }
+
+    private static List<PostEntity> loadFromJSON(File file) throws DBNotAvailableException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        TypeReference<List<PostEntity>> typeReference = new TypeReference<>(){};
+        List<PostEntity> posts;
+        try {
+            posts = objectMapper.readValue(file, typeReference);
+        } catch (IOException e) {
+            throw new DBNotAvailableException("Error reading DB", e);
+        }
+        return posts;
+    }
+
+    private static int getNextIDFromDB() {
+        int i = 1;
+        if (getDatabasePosts().size() > 0) {
+            //noinspection OptionalGetWithoutIsPresent
+            i = getDatabasePosts().stream().max(Comparator.comparing(PostEntity::getPostId)).get().getPostId() + 1;
+        }
+        return i;
+    }
+}
