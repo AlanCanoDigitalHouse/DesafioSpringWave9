@@ -1,15 +1,15 @@
 [
   {
-    "followedUserId": 0,
+    "toFollowUserId": 0,
     "followerUserId": 1
   },{
-    "followedUserId": 0,
+    "toFollowUserId": 0,
     "followerUserId": 2
   },{
-    "followedUserId": 0,
+    "toFollowUserId": 0,
     "followerUserId": 3
   },{
-    "followedUserId": 0,
+    "toFollowUserId": 0,
     "followerUserId": 4
   }
 ]

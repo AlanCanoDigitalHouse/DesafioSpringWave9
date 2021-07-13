@@ -1,8 +1,10 @@
 package com.meli.socialmeli.models;
 
+import lombok.Getter;
 import lombok.Setter;
 
 @Setter
+@Getter
 public class User {
     private int userId;
     private String userName;
