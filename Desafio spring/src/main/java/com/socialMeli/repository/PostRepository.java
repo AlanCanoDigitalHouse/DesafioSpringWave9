@@ -14,7 +14,7 @@ public class PostRepository extends AbstractRepository<PostModel> {
 
     /**
      * Save a list of models, the file will be cleaned and re wrote
-     *
+     * <p>
      * All the logic is in the super class, here only is specified the name of file
      */
     @Override
@@ -24,7 +24,7 @@ public class PostRepository extends AbstractRepository<PostModel> {
 
     /**
      * Get all models of the file
-     *
+     * <p>
      * All the logic is in the super class, here only is specified the name of file
      */
     @Override

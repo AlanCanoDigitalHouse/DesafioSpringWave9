@@ -12,22 +12,24 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-@Component
 /**
  * To make the development more easy, at the start of spring will be copied the files dataSet*.json
  * to the database files, with this we have the same data in every start of spring
  */
+@Component
 public class AppStartupRunner implements ApplicationRunner {
     final static Logger logger = LoggerFactory.getLogger(SocialMeliApplication.class);
 
     @Override
     public void run(ApplicationArguments args) {
-       refresh();
+        refresh();
     }
-    public static  void refresh(){
+
+    public static void refresh() {
         copyToFile("./dataSetPost.json", "./post.json");
         copyToFile("./dataSetUser.json", "./user.json");
     }
+
     public static void copyToFile(String from, String to) {
         FileReader fr = null;
         FileWriter fw = null;

@@ -29,7 +29,6 @@ public class UserRepository extends AbstractRepository<UserModel> {
     }
 
 
-
     @Override
     protected List<UserModel> mapObject(File file) {
         ObjectMapper objectMapper = new ObjectMapper();

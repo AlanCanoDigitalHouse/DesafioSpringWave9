@@ -26,9 +26,9 @@ public class UserRepositoryTest {
         UserModel userModel = new UserModel();
         userModel.setId(1);
         userRepository.insert(userModel);
-        userModel.setUserName("DIFERENT");
+        userModel.setUserName("DIFFERENT");
         userRepository.modify(userModel);
-        Assertions.assertEquals("DIFERENT", userRepository.findById(1).getUserName());
+        Assertions.assertEquals("DIFFERENT", userRepository.findById(1).getUserName());
     }
 
     @Test
