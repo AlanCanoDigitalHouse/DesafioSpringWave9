@@ -1,0 +1,92 @@
+[
+  {
+    "userId": 110,
+    "date": "29-04-2021",
+    "detail": {
+      "productName": "Silla Gamer XY",
+      "type": "Gamer",
+      "brand": "racer",
+      "color": "Red & Black",
+      "notes": "Special Edition"
+    },
+    "category": "120",
+    "price": 15000.50,
+    "hasPromo": true,
+    "discount": 0.25
+  },
+  {
+    "userId": 110,
+    "date": "1-07-2021",
+    "detail": {
+      "productName": "Silla Gamer",
+      "type": "Gamer",
+      "brand": "racer",
+      "color": "Red & Black",
+      "notes": "Special Edition"
+    },
+    "category": "120",
+    "price": 15000.50,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  {
+    "userId": 110,
+    "date": "10-07-2021",
+    "detail": {
+      "productName": "Monitor Gamer",
+      "type": "Gamer",
+      "brand": "racer",
+      "color": "black",
+      "notes": "Special Edition"
+    },
+    "category": "120",
+    "price": 15000.50,
+    "hasPromo": true,
+    "discount": 0.25
+  },
+  {
+    "userId": 110,
+    "date": "12-07-2021",
+    "detail": {
+      "productName": "PC Gamer",
+      "type": "Gamer",
+      "brand": "racer",
+      "color": "Red & Black",
+      "notes": "Special Edition"
+    },
+    "category": "120",
+    "price": 15000.50,
+    "hasPromo": true,
+    "discount": 0.25
+  },
+  {
+    "userId": 100,
+    "date": "10-07-2021",
+    "detail": {
+      "productName": "Tablet Gamer",
+      "type": "Gamer",
+      "brand": "racer",
+      "color": "Red & Black",
+      "notes": "Special Edition"
+    },
+    "category": "120",
+    "price": 15000.50,
+    "hasPromo": true,
+    "discount": 0.25
+  },
+  {
+    "userId": 220,
+    "date": "12-07-2021",
+    "detail": {
+      "productName": "Notebook Gamer",
+      "type": "Gamer",
+      "brand": "racer",
+      "color": "Red & Black",
+      "notes": "Special Edition"
+    },
+    "category": "120",
+    "price": 15000.50,
+    "hasPromo": true,
+    "discount": 0.25
+  }
+]
