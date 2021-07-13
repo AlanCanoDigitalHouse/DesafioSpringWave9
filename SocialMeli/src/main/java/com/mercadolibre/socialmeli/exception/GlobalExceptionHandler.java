@@ -20,10 +20,10 @@ public class GlobalExceptionHandler {
         return  new ErrorMessage(ex.getStatus().value(), ex.getReason());
     }
 
-    @ExceptionHandler(UserAlreadyFollowSeller.class)
+    @ExceptionHandler(UserAlreadyFollowSellerException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorMessage handlerUserAlreadyFollowSeller(UserAlreadyFollowSeller ex){
+    public ErrorMessage handlerUserAlreadyFollowSeller(UserAlreadyFollowSellerException ex){
         return  new ErrorMessage(ex.getStatus().value(), ex.getReason());
     }
 }

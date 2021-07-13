@@ -5,7 +5,7 @@ import com.mercadolibre.socialmeli.dto.response.UserWithFollowersDTO;
 import com.mercadolibre.socialmeli.dto.response.UserWithFollowersCountDTO;
 import com.mercadolibre.socialmeli.entity.User;
 import com.mercadolibre.socialmeli.entity.UserBase;
-import com.mercadolibre.socialmeli.exception.UserAlreadyFollowSeller;
+import com.mercadolibre.socialmeli.exception.UserAlreadyFollowSellerException;
 import com.mercadolibre.socialmeli.exception.UserCannotFollowOneSelfException;
 import com.mercadolibre.socialmeli.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class UserService {
                     .stream()
                     .anyMatch(
                             (follower) -> follower.equals(user.getUserId()));
-            if (isUserFollowingSeller) throw new UserAlreadyFollowSeller();
+            if (isUserFollowingSeller) throw new UserAlreadyFollowSellerException();
 
             user.getFollowed().add(userIdToFollow);
             seller.getFollowers().add(userId);

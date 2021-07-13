@@ -54,5 +54,19 @@
     "followers": [],
     "followed": [],
     "posts": []
+  },
+  {
+    "userId": 9,
+    "userName": "CristianoRonaldo",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 10,
+    "userName": "Messi",
+    "followers": [],
+    "followed": [],
+    "posts": []
   }
 ]
