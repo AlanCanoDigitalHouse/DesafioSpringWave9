@@ -55,7 +55,9 @@ public class UserInMemoryPersistence implements UserPersistence {
         User user = getUserById(userId);
         List<ResponseUser> followers = new ArrayList<>();
         user.getFollowers().forEach(throwingConsumerWrapper(i->followers.add(new ResponseUser(getUserById(i)))));
-        order(followers,order);
+        if (order!=null){
+            orderByName(followers,order);
+        }
         return new ResponseFollowers(user.getUserID(), user.getUserName(), followers);
     }
 
@@ -64,11 +66,14 @@ public class UserInMemoryPersistence implements UserPersistence {
         User user = getUserById(userId);
         List<ResponseUser> followed = new ArrayList<>();
         user.getFollowed().forEach(throwingConsumerWrapper(i->followed.add(new ResponseUser(getUserById(i)))));
-        order(followed,order);
+        if (order!=null){
+            orderByName(followed,order);
+        }
+
         return new ResponseFollowed(user.getUserID(), user.getUserName(), followed);
     }
 
-    public void order(List<ResponseUser> userList,String order){
+    public void orderByName(List<ResponseUser> userList, String order){
         if(order.equals("name_asc")){
             userList.sort(Comparator.comparing(ResponseUser::getUserName));
         }

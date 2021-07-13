@@ -1,7 +1,6 @@
 package com.mercadolibre.desafio.persistence.impl;
 
 import com.mercadolibre.desafio.dtos.RequestPostDto;
-import java.time.temporal.ChronoUnit;
 import com.mercadolibre.desafio.dtos.ResponseListPost;
 import com.mercadolibre.desafio.exception.PostException;
 import com.mercadolibre.desafio.exception.UserException;
@@ -49,24 +48,38 @@ public class ProductInMemoryPersistence implements ProductPersistence {
     }
 
     @Override
-    public ResponseListPost getPostsFollowed(Integer userId) throws UserException, PostException {
+    public ResponseListPost getPostsFollowed(Integer userId, String order) throws UserException, PostException {
         User user = userPersistence.getUserById(userId);
 
-        List<User> followed = new ArrayList<>();
-        for(Integer id : user.getFollowed()){
-            followed.add(userPersistence.getUserById(id));
-        }
+        List<User> followed = getUsers(user.getFollowed());
 
-        List<Integer> idList = new ArrayList<>();
-        followed.forEach(u->idList.addAll(u.getPosts()));
+        List<Integer> idPostList = new ArrayList<>();
+        followed.forEach(u->idPostList.addAll(u.getPosts()));
 
-        List<Post> posts = getPosts(idList);
+        List<Post> posts = getPosts(idPostList);
 
         posts.sort(Comparator.comparing(Post::getDate).reversed());
 
-
         List<Post> listFilter= posts.stream().filter(p-> DateUtils.weeksBetween(p.getDate(),new Date())<=2).collect(Collectors.toList());
+        orderByDate(listFilter,order);
         return new ResponseListPost(userId,listFilter);
+    }
+
+    public void orderByDate(List<Post> postList, String order){
+        if(order.equals("date_asc")){
+            postList.sort(Comparator.comparing(Post::getDate));
+        }
+        else if (order.equals("date_desc")){
+            postList.sort(Comparator.comparing(Post::getDate).reversed());
+        }
+    }
+
+    public List<User> getUsers(List<Integer> listId) throws UserException {
+        List<User> followed = new ArrayList<>();
+        for(Integer id : listId){
+            followed.add(userPersistence.getUserById(id));
+        }
+        return followed;
     }
 
     public List<Post> getPosts(List<Integer> idList) throws PostException {

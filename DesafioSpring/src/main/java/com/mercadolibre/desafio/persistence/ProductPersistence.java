@@ -1,7 +1,6 @@
 package com.mercadolibre.desafio.persistence;
 
 import com.mercadolibre.desafio.dtos.RequestPostDto;
-import com.mercadolibre.desafio.dtos.ResponseFollowed;
 import com.mercadolibre.desafio.dtos.ResponseListPost;
 import com.mercadolibre.desafio.exception.PostException;
 import com.mercadolibre.desafio.exception.UserException;
@@ -14,5 +13,5 @@ public interface ProductPersistence {
     void savePost(Post post);
     Post findPostById(Integer postId) throws PostException;
 
-    ResponseListPost getPostsFollowed(Integer userId) throws UserException, PostException;
+    ResponseListPost getPostsFollowed(Integer userId, String order) throws UserException, PostException;
 }
