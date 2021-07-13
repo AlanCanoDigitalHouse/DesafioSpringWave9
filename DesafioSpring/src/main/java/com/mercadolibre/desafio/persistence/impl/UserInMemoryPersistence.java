@@ -51,21 +51,30 @@ public class UserInMemoryPersistence implements UserPersistence {
     }
 
     @Override
-    public ResponseFollowers getFollowers(Integer userId) throws UserException {
+    public ResponseFollowers getFollowers(Integer userId,String order) throws UserException {
         User user = getUserById(userId);
         List<ResponseUser> followers = new ArrayList<>();
         user.getFollowers().forEach(throwingConsumerWrapper(i->followers.add(new ResponseUser(getUserById(i)))));
-
+        order(followers,order);
         return new ResponseFollowers(user.getUserID(), user.getUserName(), followers);
     }
 
     @Override
-    public ResponseFollowed getFollowed(Integer userId) throws UserException {
+    public ResponseFollowed getFollowed(Integer userId, String order) throws UserException {
         User user = getUserById(userId);
         List<ResponseUser> followed = new ArrayList<>();
         user.getFollowed().forEach(throwingConsumerWrapper(i->followed.add(new ResponseUser(getUserById(i)))));
-
+        order(followed,order);
         return new ResponseFollowed(user.getUserID(), user.getUserName(), followed);
+    }
+
+    public void order(List<ResponseUser> userList,String order){
+        if(order.equals("name_asc")){
+            userList.sort(Comparator.comparing(ResponseUser::getUserName));
+        }
+        else if(order.equals("name_desc")){
+            userList.sort(Comparator.comparing(ResponseUser::getUserName).reversed());
+        }
     }
 
     @Override

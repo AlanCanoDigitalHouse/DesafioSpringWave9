@@ -27,13 +27,13 @@ public class UserServicesImpl implements UserServices {
     }
 
     @Override
-    public ResponseFollowers getFollowers(Integer userId) throws UserException {
-        return userPersistence.getFollowers(userId);
+    public ResponseFollowers getFollowers(Integer userId,String order) throws UserException {
+        return userPersistence.getFollowers(userId,order);
     }
 
     @Override
-    public ResponseFollowed getFollowed(Integer userId) throws UserException {
-        return userPersistence.getFollowed(userId);
+    public ResponseFollowed getFollowed(Integer userId, String order) throws UserException {
+        return userPersistence.getFollowed(userId,order);
     }
 
     @Override

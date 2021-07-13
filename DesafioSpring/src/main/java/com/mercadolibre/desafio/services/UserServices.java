@@ -11,9 +11,9 @@ public interface UserServices {
 
     ResponseCountFollowers countFollowers(Integer userId) throws UserException;
 
-    ResponseFollowers getFollowers(Integer userId) throws UserException;
+    ResponseFollowers getFollowers(Integer userId,String order) throws UserException;
 
-    ResponseFollowed getFollowed(Integer userId) throws UserException;
+    ResponseFollowed getFollowed(Integer userId, String order) throws UserException;
 
     void unfollow(Integer userId, Integer userToUnfollow) throws UserException;
 }

@@ -31,13 +31,13 @@ public class UserController {
     }
 
     @GetMapping("/{UserID}/followers/list")
-    public ResponseEntity<ResponseFollowers> getFollowers(@NotBlank @PathVariable Integer UserID) throws UserException {
-        return new ResponseEntity<>(userServices.getFollowers(UserID), HttpStatus.OK);
+    public ResponseEntity<ResponseFollowers> getFollowers(@NotBlank @PathVariable Integer UserID, @RequestParam String order) throws UserException {
+        return new ResponseEntity<>(userServices.getFollowers(UserID,order), HttpStatus.OK);
     }
 
     @GetMapping("{UserID}/followed/list")
-    public ResponseEntity<ResponseFollowed> getFollowed(@NotBlank @PathVariable Integer UserID) throws UserException {
-        return new ResponseEntity<>(userServices.getFollowed(UserID), HttpStatus.OK);
+    public ResponseEntity<ResponseFollowed> getFollowed(@NotBlank @PathVariable Integer UserID,@RequestParam String order) throws UserException {
+        return new ResponseEntity<>(userServices.getFollowed(UserID,order), HttpStatus.OK);
     }
 
     @PostMapping("{userId}/unfollow/{userIdToUnfollow}")
