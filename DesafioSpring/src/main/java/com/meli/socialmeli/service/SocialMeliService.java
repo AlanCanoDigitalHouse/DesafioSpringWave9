@@ -7,7 +7,7 @@ import com.meli.socialmeli.model.User;
 import java.util.Comparator;
 import java.util.List;
 
-public interface UserService {
+public interface SocialMeliService {
   public void addFollower(Integer followerId, Integer followedId);
 
   public void removeFollower(Integer followerId, Integer followedId);
@@ -19,9 +19,12 @@ public interface UserService {
 
   public List<User> findUsersFollowedBy(Integer userdId);
 
+
   public void newPost(Integer userId, PostDTO post);
 
   public List<Post> findPostsOfSellersFollowedBy(Integer userId);
+
+  public List<Post> findPostsOfSellersFollowedBy(Integer userId, String order);
 
   public List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays);
 

@@ -11,13 +11,17 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
-public class UserServiceImp implements UserService {
+public class SocialMeliServiceImp implements SocialMeliService {
 
   private Integer DEFAULT_OF_THE_LAST_DAYS = 14;
+  private String ALPHA_ASCENDING = "name_asc";
+  private String ALPHA_DESCENDING = "name_desc";
+  private String DATE_ASCENDING = "date_asc";
+  private String DATE_DESCENDING = "date_desc";
 
   private UserRepository repo;
 
-  public UserServiceImp(UserRepository repo) {
+  public SocialMeliServiceImp(UserRepository repo) {
     this.repo = repo;
   }
 
@@ -57,6 +61,12 @@ public class UserServiceImp implements UserService {
   }
 
   @Override
+  public List<Post> findPostsOfSellersFollowedBy(Integer userId, String order) {
+    Comparator<Post> comparator = getComparator(order);
+    return findPostsOfSellersFollowedBy(userId, DEFAULT_OF_THE_LAST_DAYS, comparator);
+  }
+
+  @Override
   public List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays) {
     return repo.findPostsOfSellersFollowedBy(userId, ofTheLastDays);
   }
@@ -64,5 +74,40 @@ public class UserServiceImp implements UserService {
   @Override
   public List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays, Comparator<Post> c) {
     return repo.findPostsOfSellersFollowedBy(userId, ofTheLastDays, c);
+  }
+
+  private Comparator<Post> getComparator(String order) {
+    if (order.equals(ALPHA_ASCENDING)) {
+      return new Comparator<Post>() {
+        @Override
+        public int compare(Post o1, Post o2) {
+          return o1.getDetail().getProductName().compareTo(o2.getDetail().getProductName());
+        }
+      };
+    } else if (order.equals(ALPHA_DESCENDING)) {
+      return new Comparator<Post>() {
+        @Override
+        public int compare(Post o1, Post o2) {
+          int i = o1.getDetail().getProductName().compareTo(o2.getDetail().getProductName());
+          return -1 * i;
+        }
+      };
+    } else if (order.equals(DATE_ASCENDING)) {
+      return new Comparator<Post>() {
+        @Override
+        public int compare(Post o1, Post o2) {
+          return o1.getDate().isBefore(o2.getDate()) ? -1 : o1.getDate().isAfter(o2.getDate()) ? 1 : 0;
+        }
+      };
+    } else if (order.equals(DATE_DESCENDING)) {
+      return new Comparator<Post>() {
+        @Override
+        public int compare(Post o1, Post o2) {
+          return o1.getDate().isBefore(o2.getDate()) ? 1 : o1.getDate().isAfter(o2.getDate()) ? -1 : 0;
+        }
+      };
+    } else {
+      return Post::compareTo;
+    }
   }
 }

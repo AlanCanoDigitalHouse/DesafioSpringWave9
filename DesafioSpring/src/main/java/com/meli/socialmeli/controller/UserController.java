@@ -3,7 +3,7 @@ package com.meli.socialmeli.controller;
 import com.meli.socialmeli.dto.UserFollowersListDTO;
 import com.meli.socialmeli.dto.UsersFollowedByListDTO;
 import com.meli.socialmeli.model.User;
-import com.meli.socialmeli.service.UserService;
+import com.meli.socialmeli.service.SocialMeliService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import java.util.Map;
 public class UserController {
 
   @Autowired
-  UserService service;
+  SocialMeliService service;
 
   @PostMapping("{userId}/follow/{userIdToFollow}")
   public ResponseEntity<String> addFollower(@PathVariable(name = "userId") Integer followerId,
@@ -58,6 +58,14 @@ public class UserController {
     User user = service.findUser(userId);
     return new ResponseEntity<>(new UsersFollowedByListDTO(userId, user.getUserName(), usersFollowedBy), HttpStatus.OK);
   }
+
+//  @GetMapping("{userId}/followed/list")
+//  public ResponseEntity<UsersFollowedByListDTO> findUsersFollowedBy(@PathVariable Integer userId,
+//                                                                    @RequestParam String order) {
+//    List<User> usersFollowedBy = service.findUsersFollowedBy(userId);
+//    User user = service.findUser(userId);
+//    return new ResponseEntity<>(new UsersFollowedByListDTO(userId, user.getUserName(), usersFollowedBy), HttpStatus.OK);
+//  }
 
 
 }

@@ -88,6 +88,7 @@ public class UserRepositoryImp implements UserRepository {
     return posts;
   }
 
+
   @Override
   public List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays) {
     List<Post> postsOfSellersFollowedBy = findPostsOfSellersFollowedBy(userId);
@@ -129,7 +130,7 @@ public class UserRepositoryImp implements UserRepository {
             .build();
 
     Product sillaAzul = Product.builder()
-            .productName("Silla Gamer")
+            .productName("Mouse Gamer")
             .type("Gamer")
             .brand("Racer")
             .color("Azul")
@@ -138,7 +139,7 @@ public class UserRepositoryImp implements UserRepository {
 
     Post oldPost = Post.builder()
             .userId(daniel.getUserId())
-            .date(LocalDate.now().minusMonths(1))
+            .date(LocalDate.now().minusDays(3))
             .detail(sillaAzul)
             .category(100)
             .price(1300.05)

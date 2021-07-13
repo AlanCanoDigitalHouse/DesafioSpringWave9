@@ -25,6 +25,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class PostControllerTest {
 
   String GET_POST_OF_SELLERS_FOLLOWED_BY = "/products/followed/1/list";
+  String GET_POST_OF_SELLERS_FOLLOWED_BY_ORDER_ASC = "/products/followed/1/list?order=date_asc";
+  String GET_POST_OF_SELLERS_FOLLOWED_BY_ORDER_DESC = "/products/followed/1/list?order=date_desc";
   String NEW_POST = "/products/newpost";
   NewPostRequest newPostRequest;
 
@@ -59,7 +61,35 @@ class PostControllerTest {
             .andDo(print())
             .andExpect(jsonPath("$.posts").isNotEmpty())
             //el segundo post es mas antiguo a dos semanas
-            .andExpect(jsonPath("$.posts[1]").doesNotExist());
+            .andExpect(jsonPath("$.posts[1]").exists());
+  }
+
+  @Test
+  void findPostsOfSellersFollowedByAsc() throws Exception {
+//    newPostTest();
+    mockMvc.perform(get(GET_POST_OF_SELLERS_FOLLOWED_BY_ORDER_ASC))
+            .andDo(print())
+            .andExpect(jsonPath("$.posts").isNotEmpty())
+            //el segundo post es mas antiguo a dos semanas
+            .andExpect(jsonPath("$.posts[0].date").value("2021-07-10"))
+            .andExpect(jsonPath("$.posts[1].date").value("2021-07-13"));
+  }
+  @Test
+  void findPostsOfSellersFollowedByDesc() throws Exception {
+//    newPostTest();
+    mockMvc.perform(get(GET_POST_OF_SELLERS_FOLLOWED_BY_ORDER_DESC))
+            .andDo(print())
+            .andExpect(jsonPath("$.posts").isNotEmpty())
+            //el segundo post es mas antiguo a dos semanas
+            .andExpect(jsonPath("$.posts[0].date").value("2021-07-13"))
+            .andExpect(jsonPath("$.posts[1].date").value("2021-07-10"));
+  }
+
+  @Test
+  void findPostsOfSellersFollowedByAll() throws Exception {
+    findPostsOfSellersFollowedBy();
+    findPostsOfSellersFollowedByAsc();
+    findPostsOfSellersFollowedByDesc();
   }
 
   public static String asJsonString(final Object obj) {
