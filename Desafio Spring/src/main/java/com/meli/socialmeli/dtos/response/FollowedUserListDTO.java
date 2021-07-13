@@ -6,4 +6,8 @@ import java.util.List;
 
 public class FollowedUserListDTO extends User{
     private List<User> followed;
+
+    public FollowedUserListDTO(User user) {
+        super(user);
+    }
 }

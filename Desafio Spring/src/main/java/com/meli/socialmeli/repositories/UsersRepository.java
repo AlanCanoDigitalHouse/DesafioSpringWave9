@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Repository
 public class UsersRepository implements IUsersRepository{
@@ -22,6 +23,13 @@ public class UsersRepository implements IUsersRepository{
     public UsersRepository(){
         this.usersDatabase = loadUsersDataBase();
         this.usersFollows = loadFollowDataBase();
+    }
+
+    public Stream<Follow> getFollowers(int userId) throws UserDoesNotExistException{
+        if(!userExist(userId)){
+            throw new UserDoesNotExistException("id " + userId);
+        }
+        return usersFollows.stream().filter(f -> f.getToFollowUserId() == userId);
     }
 
     public void addFollow(Follow f) throws UserDoesNotExistException {
@@ -43,10 +51,14 @@ public class UsersRepository implements IUsersRepository{
     }
 
     public boolean userExist(int userId) {
-        Optional<User> user = this.usersDatabase.stream()
+        Optional<User> u = findUserById(userId);
+        return u.isPresent();
+    }
+
+    public Optional<User> findUserById(int userId){
+        return this.usersDatabase.stream()
                 .filter(u -> u.getUserId() == userId)
                 .findAny();
-        return user.isPresent();
     }
 
     private List<Follow> loadFollowDataBase() {

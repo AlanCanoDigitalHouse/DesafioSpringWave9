@@ -4,4 +4,8 @@ import com.meli.socialmeli.models.User;
 
 public class PromoProductCountDTO extends User {
     private int promoproducts_count;
+
+    public PromoProductCountDTO(User user) {
+        super(user);
+    }
 }

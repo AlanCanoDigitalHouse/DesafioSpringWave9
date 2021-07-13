@@ -7,4 +7,8 @@ import java.util.List;
 
 public class FollowedPostListDTO extends User {
     private List<Post> posts;
+
+    public FollowedPostListDTO(User user) {
+        super(user);
+    }
 }
