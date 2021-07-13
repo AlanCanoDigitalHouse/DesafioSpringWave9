@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Validated
-public class FollowerCountRequestDTO {
+public class OnlyUserIDRequestDTO {
     @NotNull(message = "userId is mandatory")
     private Integer userId;
 }

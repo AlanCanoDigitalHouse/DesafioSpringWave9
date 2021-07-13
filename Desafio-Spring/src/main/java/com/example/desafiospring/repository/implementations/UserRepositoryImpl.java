@@ -12,6 +12,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -36,6 +37,11 @@ public class UserRepositoryImpl implements UserRepository {
             throw new NoSuchElementInDBException("No user with ID:" + userId);
         }
         return user;
+    }
+
+    @Override
+    public List<UserEntity> getUsersByID(List<Integer> followerIDS) {
+        return getDatabaseUsers().stream().filter(u -> followerIDS.contains(u.getUserId())).collect(Collectors.toList());
     }
 
     private List<UserEntity> getDatabaseUsers() {

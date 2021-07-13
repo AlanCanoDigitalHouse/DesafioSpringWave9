@@ -1,9 +1,10 @@
 package com.example.desafiospring.controllers;
 
 import com.example.desafiospring.DTOS.requests.FollowUserRequestDTO;
-import com.example.desafiospring.DTOS.requests.FollowerCountRequestDTO;
+import com.example.desafiospring.DTOS.requests.OnlyUserIDRequestDTO;
 import com.example.desafiospring.DTOS.responses.FollowUserResponseDTO;
 import com.example.desafiospring.DTOS.responses.FollowerCountResponseDTO;
+import com.example.desafiospring.DTOS.responses.FollowerListResponseDTO;
 import com.example.desafiospring.services.interfaces.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +27,13 @@ public class UserRESTController {
     }
 
     @GetMapping("/{userId}/followers/count/")
-    public ResponseEntity<FollowerCountResponseDTO> followerCount (@Valid FollowerCountRequestDTO followerCountRequestDTO){
-        return new ResponseEntity<>(userService.followerCount(followerCountRequestDTO), HttpStatus.OK);
+    public ResponseEntity<FollowerCountResponseDTO> followerCount (@Valid OnlyUserIDRequestDTO onlyUserIDRequestDTO){
+        return new ResponseEntity<>(userService.followerCount(onlyUserIDRequestDTO), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followers/list")
+    public ResponseEntity<FollowerListResponseDTO> followerList (@Valid OnlyUserIDRequestDTO onlyUserIDRequestDTO){
+        return new ResponseEntity<>(userService.followerList(onlyUserIDRequestDTO), HttpStatus.OK);
     }
 
 }
