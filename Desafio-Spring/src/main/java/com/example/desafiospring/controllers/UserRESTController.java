@@ -22,7 +22,7 @@ public class UserRESTController {
         this.userService = userService;
     }
 
-    @PostMapping("/{userId}/follow/{userIdToFollow}")
+    @PostMapping("/{followerUserId}/follow/{followedUserId}")
     public ResponseEntity<FollowUserResponseDTO> followUser(@Valid FollowUserRequestDTO followUserRequestDTO) {
         return new ResponseEntity<>(userService.followUser(followUserRequestDTO), HttpStatus.OK);
     }
@@ -40,6 +40,11 @@ public class UserRESTController {
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<FollowedListResponseDTO> followedList(@Valid OnlyUserIDRequestDTO onlyUserIDRequestDTO) {
         return new ResponseEntity<>(userService.followedList(onlyUserIDRequestDTO), HttpStatus.OK);
+    }
+
+    @PostMapping("/{followerUserId}/unfollow/{followedUserId}")
+    public ResponseEntity<FollowUserResponseDTO> unFollowUser(@Valid FollowUserRequestDTO followUserRequestDTO) {
+        return new ResponseEntity<>(userService.unFollowUser(followUserRequestDTO), HttpStatus.OK);
     }
 
 }

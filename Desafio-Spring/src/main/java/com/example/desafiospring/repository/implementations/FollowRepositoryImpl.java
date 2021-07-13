@@ -10,7 +10,6 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,10 +19,10 @@ public class FollowRepositoryImpl implements FollowRepository {
     public static final java.lang.String FOLLOWS_DB_ROUTE = "classpath:static/follows.json";
 
     @Override
-    public void addNewFollow(Integer followerUserID, Integer followedUserID) {
+    public void addNewFollow(Integer followerUserId, Integer followedUserId) {
         List<FollowEntity> dbFollows = getDatabaseFollows();
-        if (dbFollows.stream().noneMatch(f -> f.getFollowerUserID().equals(followerUserID) && f.getFollowedUserID().equals(followedUserID))) {
-            dbFollows.add(new FollowEntity(followerUserID, followedUserID));
+        if (dbFollows.stream().noneMatch(f -> f.getFollowerUserID().equals(followerUserId) && f.getFollowedUserID().equals(followedUserId))) {
+            dbFollows.add(new FollowEntity(followerUserId, followedUserId));
             overWriteFollowsDB(dbFollows);
         } else {
             System.out.println("Follow already existed");
@@ -38,6 +37,16 @@ public class FollowRepositoryImpl implements FollowRepository {
     @Override
     public List<Integer> getFollowedIDs(Integer userId) {
         return getDatabaseFollows().stream().filter(f -> f.getFollowerUserID().equals(userId)).map(FollowEntity::getFollowedUserID).collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteFollow(Integer followerUserId, Integer followedUserId) {
+        List<FollowEntity> dbFollows = getDatabaseFollows();
+        if (dbFollows.removeIf(fe -> fe.getFollowerUserID().equals(followerUserId)&&fe.getFollowedUserID().equals(followedUserId))){
+            overWriteFollowsDB(dbFollows);
+        }else{
+            System.out.println("Follow didn't exist");
+        }
     }
 
     private void overWriteFollowsDB(List<FollowEntity> followsToWrite) {

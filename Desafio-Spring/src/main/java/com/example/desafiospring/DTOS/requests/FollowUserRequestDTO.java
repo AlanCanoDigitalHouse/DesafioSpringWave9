@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 @Data
 @Validated
 public class FollowUserRequestDTO {
-    @NotNull(message = "userId is mandatory")
-    private Integer userId;
-    @NotNull(message = "userIdToFollow is mandatory")
-    private Integer userIdToFollow;
+    @NotNull(message = "followerUserId is mandatory")
+    private Integer followerUserId;
+    @NotNull(message = "followedUserId is mandatory")
+    private Integer followedUserId;
 }

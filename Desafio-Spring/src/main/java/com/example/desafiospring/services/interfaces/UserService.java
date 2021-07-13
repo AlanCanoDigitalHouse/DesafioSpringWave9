@@ -15,4 +15,6 @@ public interface UserService {
     FollowerListResponseDTO followerList(OnlyUserIDRequestDTO onlyUserIDRequestDTO);
 
     FollowedListResponseDTO followedList(OnlyUserIDRequestDTO onlyUserIDRequestDTO);
+
+    FollowUserResponseDTO unFollowUser(FollowUserRequestDTO followUserRequestDTO);
 }
