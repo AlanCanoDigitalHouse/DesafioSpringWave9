@@ -11,8 +11,8 @@ public interface IUserRepository {
     /*
     todo: devuelvo los datos y la capa de servicio los prepara como responseDTOs
      */
-    public HttpStatus follow(Integer userId, Integer userIdToFollow);
-    public HttpStatus unfollow(Integer userId, Integer userIdToUnfollow);
+    public void follow(Integer userId, Integer userIdToFollow);
+    public void unfollow(Integer userId, Integer userIdToUnfollow);
     public Integer followers_count(Integer userId);
     public List<User> followers_list(Integer userId);
     public List<User> followed_list(Integer userId);
