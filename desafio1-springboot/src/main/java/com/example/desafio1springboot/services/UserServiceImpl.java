@@ -23,4 +23,12 @@ public class UserServiceImpl implements IUserService{
         throw new UserSellerNotFoundExceptions();
     }
 
+    @Override
+    public UserResponseDTO countFollowersForUser_(Integer userId) throws UserSellerNotFoundExceptions {
+        var userSeller = iUserRepository.foundSeller(userId);
+        if(userSeller != null)
+            return new UserResponseDTO(userSeller.getUserId(), userSeller.getUserName(), userSeller.getFollowers().size());
+        throw new UserSellerNotFoundExceptions();
+    }
+
 }

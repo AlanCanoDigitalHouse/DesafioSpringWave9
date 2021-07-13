@@ -7,6 +7,7 @@ import com.example.desafio1springboot.handlers.RepositoryHandler;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements IUserRepository{
@@ -30,5 +31,14 @@ public class UserRepositoryImpl implements IUserRepository{
             }
         }
         return null;
+    }
+
+    @Override
+    public UserSellerDTO foundSeller(Integer userId) {
+        Optional<UserSellerDTO> userSeller = userSellerDB.stream().filter(userSellerDTO -> userSellerDTO.getUserId() == userId).findFirst();
+        UserSellerDTO result = null;
+        if(userSeller.isPresent())
+            return userSeller.get();
+        return result;
     }
 }

@@ -31,4 +31,18 @@ public class UserRestController {
     public ResponseEntity<String> follow( @PathVariable Integer userId, @PathVariable Integer userIdToFollow ) throws UserSellerNotFoundExceptions {
         return iUserService.followSeller(userId, userIdToFollow);
     }
+
+    //DESARROLLADO Y FUNCIONANDO
+    /**
+     * TODO: US 0002: Retorna la cantidad de clientes que tiene un vendedor, si este no se encuentra devuelve un BAD_GATEWAY
+     * @param userId
+     * @return UserResponseDTO
+     * @throws UserSellerNotFoundExceptions
+     */
+    @GetMapping("/{userId}/followers/count")
+    public UserResponseDTO followers(
+            @PathVariable Integer userId
+    ) throws UserSellerNotFoundExceptions {
+        return iUserService.countFollowersForUser_(userId);
+    }
 }
