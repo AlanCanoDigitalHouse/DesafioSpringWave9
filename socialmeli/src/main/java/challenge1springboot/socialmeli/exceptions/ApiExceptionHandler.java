@@ -26,10 +26,10 @@ public class ApiExceptionHandler {
     public ErrorMessage handleGeneralException(Exception exception){
         HashMap<String, String> message = new HashMap<>();
         message.put(exception.getClass().getSimpleName(),exception.getMessage());
-        return new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Type of input Error", message);
+        return new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal Error", message);
     }
 
-    public ErrorMessage processField(List<FieldError> fieldErrors){
+    private ErrorMessage processField(List<FieldError> fieldErrors){
         HashMap<String, String> fields = new HashMap<>();
         for (FieldError fieldError : fieldErrors){
             fields.put(fieldError.getField(), fieldError.getDefaultMessage());
