@@ -53,6 +53,13 @@ public class UserService implements IUserService {
         throw new NoEffectRequest("User does not follow the target");
     }
 
+    @Override
+    public FollowerCountResponseDTO getFollowerCount(Integer userId) {
+        var user = this.userRepository.getUser(userId);
+
+        return new FollowerCountResponseDTO(user.getUserId(), user.getUserName(), user.getFollowers().size());
+    }
+
     private Boolean isFollowing(User user, User target) {
         return user.getFollowed().stream()
                 .anyMatch(u -> u.getUserId().equals(target.getUserId()));

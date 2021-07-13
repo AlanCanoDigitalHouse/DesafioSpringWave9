@@ -1,15 +1,11 @@
 package com.mercadolibre.social_meli.controller;
 
+import com.mercadolibre.social_meli.dto.response.FollowerCountResponseDTO;
 import com.mercadolibre.social_meli.service.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -23,15 +19,22 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<String> followUser(@PathVariable @Validated Integer userId, @PathVariable Integer userIdToFollow) {
+    public ResponseEntity<String> followUser(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) {
         this.userService.followUser(userId, userIdToFollow);
         return new ResponseEntity<>("Success on Request", HttpStatus.OK);
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity<String> unfollowUser(@PathVariable  Integer userId, @PathVariable Integer userIdToUnfollow) {
+    public ResponseEntity<String> unfollowUser(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) {
         this.userService.unfollowUser(userId, userIdToUnfollow);
         return new ResponseEntity<>("Success on Request", HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followers/count")
+    public ResponseEntity<FollowerCountResponseDTO> getFollowerCount(@PathVariable Integer userId) {
+        var responseBody = this.userService.getFollowerCount(userId);
+
+        return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
 }
