@@ -1,6 +1,10 @@
 package com.mercadolibre.socialmeli.services;
 
 import com.mercadolibre.socialmeli.dtos.*;
+import com.mercadolibre.socialmeli.exceptions.BuyerNotFoundException;
+import com.mercadolibre.socialmeli.exceptions.SellerAlreadyFollowedException;
+import com.mercadolibre.socialmeli.exceptions.SellerNotFollowedException;
+import com.mercadolibre.socialmeli.exceptions.SellerNotFoundException;
 import com.mercadolibre.socialmeli.repositories.interfaces.UserRepository;
 import com.mercadolibre.socialmeli.services.interfaces.UserService;
 import org.springframework.stereotype.Service;
@@ -17,17 +21,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void follow(Integer userId, Integer userIdToFollow) {
+    public void follow(Integer userId, Integer userIdToFollow) throws BuyerNotFoundException, SellerNotFoundException, SellerAlreadyFollowedException {
         userRepository.addFollower(userIdToFollow, userId);
     }
 
     @Override
-    public void unfollow(Integer userId, Integer userIdToUnfollow) {
+    public void unfollow(Integer userId, Integer userIdToUnfollow) throws SellerNotFoundException, SellerNotFollowedException, BuyerNotFoundException {
         userRepository.removeFollower(userIdToUnfollow, userId);
     }
 
     @Override
-    public FollowersListDTO getFollowersList(Integer userId, String order) {
+    public FollowersListDTO getFollowersList(Integer userId, String order) throws SellerNotFoundException {
         SellerDTO seller = userRepository.getSellerById(userId);
 
         List<UserDTO> followers = new LinkedList<>(seller.getFollowers());
@@ -42,7 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public FollowedListDTO getFollowedList(Integer userId, String order) {
+    public FollowedListDTO getFollowedList(Integer userId, String order) throws BuyerNotFoundException {
         BuyerDTO buyer = userRepository.getBuyerById(userId);
 
         List<UserDTO> followed = new LinkedList<>(buyer.getFollowed());
@@ -57,7 +61,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public FollowersCountDTO getFollowersCount(Integer userId) {
+    public FollowersCountDTO getFollowersCount(Integer userId) throws SellerNotFoundException {
         SellerDTO seller = userRepository.getSellerById(userId);
 
         FollowersCountDTO dto = new FollowersCountDTO();

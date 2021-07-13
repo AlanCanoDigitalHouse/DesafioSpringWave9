@@ -1,7 +1,10 @@
 package com.mercadolibre.socialmeli.controllers;
 
 import com.mercadolibre.socialmeli.dtos.PostDTO;
+import com.mercadolibre.socialmeli.dtos.PromoPostDTO;
 import com.mercadolibre.socialmeli.dtos.SellerPostListDTO;
+import com.mercadolibre.socialmeli.exceptions.BuyerNotFoundException;
+import com.mercadolibre.socialmeli.exceptions.SellerNotFoundException;
 import com.mercadolibre.socialmeli.services.interfaces.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,24 +22,30 @@ public class ProductsController {
         this.productService = productService;
     }
 
-    /*
+    /**
      * US 0005: Dar de alta una nueva publicación
+     * @param postDTO post payload
+     * @return ResponseEntity
+     * @throws SellerNotFoundException if seller is not found
      */
     @PostMapping(path = "/newpost")
-    public ResponseEntity newPost(@RequestBody @Valid PostDTO postDTO) {
+    public ResponseEntity newPost(@RequestBody @Valid PostDTO postDTO) throws SellerNotFoundException {
         productService.createPost(postDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    /*
+    /**
      * US 0006: Obtener un listado de las publicaciones realizadas por los vendedores que un usuario sigue en las últimas
      * dos semanas (para esto tener en cuenta ordenamiento por fecha, publicaciones más recientes primero).
-     *
      * US 0009: Ordenamiento por fecha ascendente y descendente
+     * @param userId buyer ID
+     * @param order order method. Valid values are: "date_asc", "date_desc"
+     * @return ResponseEntity<SellerPostListDTO>
+     * @throws BuyerNotFoundException if buyer is not found
      */
     @GetMapping(path = "/followed/{userId}/list")
     public ResponseEntity<SellerPostListDTO> twoWeeksPostList(@PathVariable Integer userId,
-                                                              @RequestParam(required = false, defaultValue = "fecha_desc") String order) {
+                                                              @RequestParam(required = false, defaultValue = "fecha_desc") String order) throws BuyerNotFoundException {
         return new ResponseEntity<>(productService.twoWeeksSellerPosts(userId, order), HttpStatus.OK);
     }
 

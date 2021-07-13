@@ -1,8 +1,9 @@
 package com.mercadolibre.socialmeli.exceptions.handler;
 
-import com.mercadolibre.socialmeli.exceptions.RecordNotFoundException;
+import com.mercadolibre.socialmeli.exceptions.BuyerNotFoundException;
 import com.mercadolibre.socialmeli.exceptions.SellerAlreadyFollowedException;
 import com.mercadolibre.socialmeli.exceptions.SellerNotFollowedException;
+import com.mercadolibre.socialmeli.exceptions.SellerNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -28,14 +29,15 @@ public class ApiExceptionControllerAdvice {
     }
 
     @ExceptionHandler(value = {
-            RecordNotFoundException.class,
+            BuyerNotFoundException.class,
+            SellerNotFoundException.class,
             SellerNotFollowedException.class,
             SellerAlreadyFollowedException.class
     })
     @ResponseBody
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorMessage handleException(ResponseStatusException ex) {
-        return new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getReason(), null);
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleException(Exception ex) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), null);
     }
 
 }

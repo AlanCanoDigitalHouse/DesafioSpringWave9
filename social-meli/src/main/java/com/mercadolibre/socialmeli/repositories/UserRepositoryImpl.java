@@ -6,9 +6,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mercadolibre.socialmeli.dtos.BuyerDTO;
 import com.mercadolibre.socialmeli.dtos.SellerDTO;
 import com.mercadolibre.socialmeli.dtos.UserDTO;
-import com.mercadolibre.socialmeli.exceptions.RecordNotFoundException;
+import com.mercadolibre.socialmeli.exceptions.BuyerNotFoundException;
 import com.mercadolibre.socialmeli.exceptions.SellerAlreadyFollowedException;
 import com.mercadolibre.socialmeli.exceptions.SellerNotFollowedException;
+import com.mercadolibre.socialmeli.exceptions.SellerNotFoundException;
 import com.mercadolibre.socialmeli.repositories.interfaces.UserRepository;
 import org.springframework.stereotype.Repository;
 
@@ -54,24 +55,30 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public SellerDTO getSellerById(Integer id) throws RecordNotFoundException {
+    public SellerDTO getSellerById(Integer id) throws SellerNotFoundException {
         return sellerList.stream()
                 .filter(u -> u.getUserId().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new RecordNotFoundException(SellerDTO.class, id));
+                .orElseThrow(() -> new SellerNotFoundException(id));
     }
 
     @Override
-    public void removeFollower(Integer sellerId, Integer followerId) throws RecordNotFoundException, SellerNotFollowedException {
+    public void removeFollower(Integer sellerId, Integer followerId) throws SellerNotFoundException, BuyerNotFoundException, SellerNotFollowedException {
         SellerDTO seller = getSellerById(sellerId);
         BuyerDTO buyer = getBuyerById(followerId);
 
-        seller.getFollowers().removeIf(f -> f.getUserId().equals(followerId));
-        buyer.getFollowed().removeIf(f -> f.getUserId().equals(sellerId));
+        boolean result = seller.getFollowers().removeIf(f -> f.getUserId().equals(followerId));
+        if(!result) {
+            throw new SellerNotFollowedException(sellerId);
+        }
+        result = buyer.getFollowed().removeIf(f -> f.getUserId().equals(sellerId));
+        if(!result) {
+            throw new SellerNotFollowedException(sellerId);
+        }
     }
 
     @Override
-    public void addFollower(Integer sellerId, Integer followerId) throws RecordNotFoundException, SellerAlreadyFollowedException {
+    public void addFollower(Integer sellerId, Integer followerId) throws SellerNotFoundException, BuyerNotFoundException, SellerAlreadyFollowedException {
         SellerDTO seller = getSellerById(sellerId);
         BuyerDTO buyer = getBuyerById(followerId);
 
@@ -88,11 +95,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public BuyerDTO getBuyerById(Integer id) throws RecordNotFoundException {
+    public BuyerDTO getBuyerById(Integer id) throws BuyerNotFoundException {
         return buyerList.stream()
                 .filter(u -> u.getUserId().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new RecordNotFoundException(BuyerDTO.class, id));
+                .orElseThrow(() -> new BuyerNotFoundException(id));
     }
 
 }

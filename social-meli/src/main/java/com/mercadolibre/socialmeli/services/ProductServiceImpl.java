@@ -3,7 +3,8 @@ package com.mercadolibre.socialmeli.services;
 import com.mercadolibre.socialmeli.dtos.BuyerDTO;
 import com.mercadolibre.socialmeli.dtos.PostDTO;
 import com.mercadolibre.socialmeli.dtos.SellerPostListDTO;
-import com.mercadolibre.socialmeli.exceptions.RecordNotFoundException;
+import com.mercadolibre.socialmeli.exceptions.BuyerNotFoundException;
+import com.mercadolibre.socialmeli.exceptions.SellerNotFoundException;
 import com.mercadolibre.socialmeli.repositories.interfaces.ProductRepository;
 import com.mercadolibre.socialmeli.repositories.interfaces.UserRepository;
 import com.mercadolibre.socialmeli.services.interfaces.ProductService;
@@ -29,13 +30,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void createPost(PostDTO postDTO) {
+    public void createPost(PostDTO postDTO) throws SellerNotFoundException {
         userRepository.getSellerById(postDTO.getUserId());
         productRepository.createPost(postDTO);
     }
 
     @Override
-    public SellerPostListDTO twoWeeksSellerPosts(Integer userId, String order) throws RecordNotFoundException {
+    public SellerPostListDTO twoWeeksSellerPosts(Integer userId, String order) throws BuyerNotFoundException {
         BuyerDTO buyer = userRepository.getBuyerById(userId);
         // iterate sellers and collect posts
         List<PostDTO> postList = new LinkedList<>();
