@@ -11,9 +11,9 @@ public class ResponseUser {
     private Integer userId;
     private String userName;
 
-    public ResponseUser(User user){
-        this.userId=user.getUserID();
-        this.userName=user.getUserName();
+    public ResponseUser(User user) {
+        this.userId = user.getUserID();
+        this.userName = user.getUserName();
     }
 
 }

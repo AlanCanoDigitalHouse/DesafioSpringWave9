@@ -4,7 +4,6 @@ import com.mercadolibre.desafio.dtos.ResponseCountFollowers;
 import com.mercadolibre.desafio.dtos.ResponseFollowed;
 import com.mercadolibre.desafio.dtos.ResponseFollowers;
 import com.mercadolibre.desafio.exception.UserException;
-import com.mercadolibre.desafio.repositories.UserRepository;
 import com.mercadolibre.desafio.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,24 +21,25 @@ public class UserController {
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<?> followUser(@NotBlank @PathVariable Integer userId, @NotBlank @PathVariable Integer userIdToFollow) throws UserException {
-        userServices.followUser(userId,userIdToFollow);
-        return  new ResponseEntity<>(HttpStatus.OK);
+        userServices.followUser(userId, userIdToFollow);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/count/")
     public ResponseEntity<ResponseCountFollowers> countUserFollowers(@NotBlank @PathVariable Integer userId) throws UserException {
-        return new ResponseEntity<>(userServices.countFollowers(userId),HttpStatus.OK);
+        return new ResponseEntity<>(userServices.countFollowers(userId), HttpStatus.OK);
     }
 
     @GetMapping("/{UserID}/followers/list")
     public ResponseEntity<ResponseFollowers> getFollowers(@NotBlank @PathVariable Integer UserID) throws UserException {
-        return new ResponseEntity<>(userServices.getFollowers(UserID),HttpStatus.OK);
+        return new ResponseEntity<>(userServices.getFollowers(UserID), HttpStatus.OK);
     }
 
     @GetMapping("{UserID}/followed/list")
     public ResponseEntity<ResponseFollowed> getFollowed(@NotBlank @PathVariable Integer UserID) throws UserException {
-        return new ResponseEntity<>(userServices.getFollowed(UserID),HttpStatus.OK);
+        return new ResponseEntity<>(userServices.getFollowed(UserID), HttpStatus.OK);
     }
+
 
 
 

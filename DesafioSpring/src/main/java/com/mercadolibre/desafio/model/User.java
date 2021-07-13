@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-
+import javax.swing.event.ListDataEvent;
 import java.util.List;
 
 @Setter
@@ -16,7 +16,7 @@ public class User {
     private String userName;
     private List<Integer> followers;
     private List<Integer> followed;
-
+    private List<Integer> posts;
 
 
     @Override
