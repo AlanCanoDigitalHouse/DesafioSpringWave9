@@ -31,4 +31,10 @@ public class UserServiceImpl implements IUserService{
         throw new UserSellerNotFoundExceptions();
     }
 
+    @Override
+    public UserSellerDTO followersList(Integer userId) throws UserSellerNotFoundExceptions {
+        if(iUserRepository.foundSeller(userId) != null)
+            return iUserRepository.foundSeller(userId);
+        throw new UserSellerNotFoundExceptions();
+    }
 }

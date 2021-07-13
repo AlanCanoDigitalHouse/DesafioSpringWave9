@@ -45,4 +45,16 @@ public class UserRestController {
     ) throws UserSellerNotFoundExceptions {
         return iUserService.countFollowersForUser_(userId);
     }
+
+    //DESARROLLADO Y FUNCIONANDO
+    /**
+     * TODO: US 0003: Devuelve un listado de todos los usuarios que siguen a un vendedor
+     * @param userId
+     * @return UserSellerDTO
+     * @throws UserSellerNotFoundExceptions
+     */
+    @GetMapping("/{userId}/followers/list")
+    public UserSellerDTO followersList(@PathVariable Integer userId ) throws UserSellerNotFoundExceptions {
+        return iUserService.followersList(userId);
+    }
 }
