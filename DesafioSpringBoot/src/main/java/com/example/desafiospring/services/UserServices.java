@@ -54,7 +54,8 @@ public class UserServices {
 
     public SellerResponseDto getSellerById(Integer id) {
         var seller = userRepository.getAll().stream()
-                .filter(userResponseDto -> userResponseDto.getId() == id && userResponseDto.getClass().getSimpleName().equals("SellerResponseDto"));
+                .filter(userResponseDto -> userResponseDto.getId() == id && userResponseDto.getClass()
+                        .getSimpleName().equals("SellerResponseDto"));
         var firstSeller = seller.findFirst();
         if (firstSeller.isPresent()) {
             return (SellerResponseDto) firstSeller.get();
@@ -65,7 +66,8 @@ public class UserServices {
 
     public ClientResponseDto getClientById(Integer id) {
         var client = userRepository.getAll().stream()
-                .filter(userResponseDto -> userResponseDto.getId() == id && userResponseDto.getClass().getSimpleName().equals("ClientResponseDto"));
+                .filter(userResponseDto -> userResponseDto.getId() == id && userResponseDto.getClass()
+                        .getSimpleName().equals("ClientResponseDto"));
         var firstClient = client.findFirst();
         if (firstClient.isPresent()) {
             return (ClientResponseDto) firstClient.get();
@@ -74,8 +76,18 @@ public class UserServices {
         }
     }
 
-    public Boolean unFollowSeller(Integer userId){
-        return false;
+    public void unFollowSeller(Integer userId,Integer userIdToUnfollow){
+        var client = getClientById(userId);
+        var seller = getSellerById(userIdToUnfollow);
+        if (isFollowing(client, seller)) {
+            seller.removeFollower(new UserResponseDto(client.getId(), client.getUserName()));
+            client.removeFollowed(new UserResponseDto(seller.getId(), seller.getUserName()));
+            userRepository.update(seller);
+            userRepository.update(client);
+        }else{
+            throw new LogicValidationException("The client is not following this seller");
+        }
+
     }
 
 }

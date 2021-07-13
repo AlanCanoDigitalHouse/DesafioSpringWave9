@@ -8,5 +8,5 @@ import java.util.List;
 @AllArgsConstructor
 public class FollowedPostDto {
     private Integer userId;
-    private List<PostResponseDto> products;
+    private List<PostResponseDto> posts;
 }

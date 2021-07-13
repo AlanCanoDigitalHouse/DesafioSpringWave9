@@ -55,4 +55,11 @@ public class UserController {
         var client = userServices.getClientById(userId);
         return new ResponseEntity<>(client,HttpStatus.OK);
     }
+
+    @PostMapping(path = "/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<HttpStatus> unFollowSeller(@Valid @NotNull @Min(1) @PathVariable Integer userId,
+                                                     @Valid @NotNull @Min(1) @PathVariable Integer userIdToUnfollow){
+        userServices.unFollowSeller(userId,userIdToUnfollow);
+        return  new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.desafiospring.dtos.response;
 
 import lombok.Getter;
+import org.apache.catalina.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,5 +14,8 @@ public class ClientResponseDto extends UserResponseDto{
     }
     public void addFollowed(UserResponseDto seller){
         this.followed.add(seller);
+    }
+    public void removeFollowed(UserResponseDto seller){
+        this.followed.remove(seller);
     }
 }
