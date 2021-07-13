@@ -20,13 +20,18 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
+    public void unfollow(Integer userId, Integer userIdToUnfollow) {
+        userRepository.unfollow(userId, userIdToUnfollow);
+    }
+
+    @Override
     public Integer calculateNumberOfFollowers(Integer userId) {
         return userRepository.listFollowers(userId).size();
     }
 
     @Override
     public Integer calculateNumberOfFollows(Integer userId) {
-        return userRepository.listFollows(userId).size();
+        return userRepository.listFollowed(userId).size();
     }
 
     @Override
@@ -35,7 +40,7 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
-    public List<User> findFollows(Integer userId) {
-        return userRepository.listFollows(userId);
+    public List<User> findFollowed(Integer userId) {
+        return userRepository.listFollowed(userId);
     }
 }

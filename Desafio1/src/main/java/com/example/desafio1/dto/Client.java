@@ -9,7 +9,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Client extends User{
-    private List<Vendor> follows;
+    private List<Seller> follows;
 
     public Client(Integer userId, String userName) {
         super(userId, userName);

@@ -2,31 +2,44 @@ package com.example.desafio1.repositories;
 
 import com.example.desafio1.dto.Client;
 import com.example.desafio1.dto.User;
-import com.example.desafio1.dto.Vendor;
+import com.example.desafio1.dto.Seller;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
 public class UserRepositoryImpl implements IUserRepository{
     private static Map<Integer, User> users = initMap();
-    private static Map<Integer, Integer> userFollows = new HashMap<>();
+    private static List<List<Integer>> userFollows = initUserMatrix();
 
     private static Map<Integer, User> initMap(){
         Map<Integer, User> users = new HashMap<>();
         users.put(1235, new Client(1235, "Juanita"));
-        users.put(1569, new Vendor(1569, "Jesus"));
+        users.put(1569, new Seller(1569, "Jesus"));
         return users;
+    }
+
+    //matrix where each row is a (follower, followed)pair
+    private static List<List<Integer>>  initUserMatrix(){
+        return new ArrayList<>();
     }
 
     //In this map, the first value is the follower
     @Override
     public void addNewFollower(Integer userId, Integer userIdToFollow) {
-        userFollows.put(userId, userIdToFollow);
+        List<Integer> pair = new ArrayList<>();
+        pair.add(userId);
+        pair.add(userIdToFollow);
+        userFollows.add(pair);
+    }
+
+    @Override
+    public void unfollow(Integer userId, Integer userIdToUnfollow) {
+        List<Integer> pair = new ArrayList<>();
+        pair.add(userId);
+        pair.add(userIdToUnfollow);
+        userFollows.removeIf(e -> e.equals(pair));
     }
 
     @Override
@@ -36,19 +49,17 @@ public class UserRepositoryImpl implements IUserRepository{
 
     @Override
     public List<User> listFollowers(Integer userId) {
-        Set<Map.Entry<Integer, Integer>> entries = userFollows.entrySet();
-        List<User> result =  entries.stream().filter(entry -> entry.getValue().equals(userId))
-                .map(e -> findUserById(e.getKey()))
+        return userFollows.stream()
+                .filter(entry -> entry.get(1).equals(userId))
+                .map(e -> findUserById(e.get(0)))
                 .collect(Collectors.toList());
-
-        return result;
     }
 
     @Override
-    public List<User> listFollows(Integer userId) {
-        Set<Map.Entry<Integer, Integer>> entries = userFollows.entrySet();
-        return entries.stream().filter(entry -> entry.getKey().equals(userId))
-                .map(e -> findUserById(e.getValue()))
+    public List<User> listFollowed(Integer userId) {
+        return userFollows.stream()
+                .filter(entry -> entry.get(0).equals(userId))
+                .map(e -> findUserById(e.get(1)))
                 .collect(Collectors.toList());
     }
 }
