@@ -1,5 +1,6 @@
 package com.mercadolibre.social_meli.service;
 
+import com.mercadolibre.social_meli.dto.response.FollowerCountResponseDTO;
 import com.mercadolibre.social_meli.dto.response.UserResponseDTO;
 import com.mercadolibre.social_meli.entity.User;
 import com.mercadolibre.social_meli.exception.NoEffectRequest;
@@ -42,7 +43,7 @@ public class UserService implements IUserService {
                             .findFirst().orElse(null)
             );
             userToUnfollow.getFollowers().remove(
-                    user.getFollowers().stream().filter(u -> u.getUserId().equals(userIdToUnfollow))
+                    userToUnfollow.getFollowers().stream().filter(u -> u.getUserId().equals(userId))
                             .findFirst().orElse(null)
             );
             this.userRepository.updateAllUsers(users);
