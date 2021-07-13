@@ -2,6 +2,7 @@ package com.example.desafiospring.services.implementations;
 
 import com.example.desafiospring.DTOS.requests.FollowUserRequestDTO;
 import com.example.desafiospring.DTOS.requests.OnlyUserIDRequestDTO;
+import com.example.desafiospring.DTOS.requests.UserIDAndOrderRequestDTO;
 import com.example.desafiospring.DTOS.responses.FollowUserResponseDTO;
 import com.example.desafiospring.DTOS.responses.FollowedListResponseDTO;
 import com.example.desafiospring.DTOS.responses.FollowerCountResponseDTO;
@@ -55,25 +56,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public FollowerListResponseDTO followerList(OnlyUserIDRequestDTO onlyUserIDRequestDTO) {
-        validateUsersExistence(onlyUserIDRequestDTO.getUserId());
-        Integer userId = onlyUserIDRequestDTO.getUserId();
+    public FollowerListResponseDTO followerList(UserIDAndOrderRequestDTO userIDAndOrderRequestDTO) {
+        validateUsersExistence(userIDAndOrderRequestDTO.getUserId());
+        Integer userId = userIDAndOrderRequestDTO.getUserId();
         List<Integer> followerIDS = followRepository.getFollowerIDs(userId);
         return new FollowerListResponseDTO(
                 userId,
                 userRepository.getUserByID(userId).getUserName(),
-                userRepository.getUsersByID(followerIDS));
+                userRepository.getUsersByID(followerIDS,userIDAndOrderRequestDTO.getOrder()));
     }
 
     @Override
-    public FollowedListResponseDTO followedList(OnlyUserIDRequestDTO onlyUserIDRequestDTO) {
-        validateUsersExistence(onlyUserIDRequestDTO.getUserId());
-        Integer userId = onlyUserIDRequestDTO.getUserId();
+    public FollowedListResponseDTO followedList(UserIDAndOrderRequestDTO userIDAndOrderRequestDTO) {
+        Integer userId = userIDAndOrderRequestDTO.getUserId();
+        validateUsersExistence(userId);
         List<Integer> followedIDS = followRepository.getFollowedIDs(userId);
         return new FollowedListResponseDTO(
                 userId,
                 userRepository.getUserByID(userId).getUserName(),
-                userRepository.getUsersByID(followedIDS));
+                userRepository.getUsersByID(followedIDS, userIDAndOrderRequestDTO.getOrder()));
     }
 
     @Override

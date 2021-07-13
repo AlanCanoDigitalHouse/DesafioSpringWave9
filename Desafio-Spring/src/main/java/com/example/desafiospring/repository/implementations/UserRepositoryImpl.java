@@ -40,8 +40,14 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<UserEntity> getUsersByID(List<Integer> followerIDS) {
-        return getDatabaseUsers().stream().filter(u -> followerIDS.contains(u.getUserId())).collect(Collectors.toList());
+    public List<UserEntity> getUsersByID(List<Integer> followerIDS, String order) {
+        Comparator<UserEntity> c = getComparator(order);
+        return getDatabaseUsers().stream().filter(u -> followerIDS.contains(u.getUserId())).sorted(c).collect(Collectors.toList());
+    }
+
+    private Comparator<UserEntity> getComparator(String order) {
+        Comparator<UserEntity> c = Comparator.comparing(UserEntity::getUserName);
+        return "name_desc".equals(order)?c.reversed():c;
     }
 
     private List<UserEntity> getDatabaseUsers() {

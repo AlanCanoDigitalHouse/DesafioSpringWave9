@@ -9,5 +9,5 @@ public interface UserRepository {
 
     UserEntity getUserByID(Integer userId);
 
-    List<UserEntity> getUsersByID(List<Integer> followerIDS);
+    List<UserEntity> getUsersByID(List<Integer> followerIDS, String order);
 }

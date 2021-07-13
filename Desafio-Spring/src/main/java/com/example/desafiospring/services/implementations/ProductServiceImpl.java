@@ -1,7 +1,7 @@
 package com.example.desafiospring.services.implementations;
 
 import com.example.desafiospring.DTOS.requests.NewPostRequestDTO;
-import com.example.desafiospring.DTOS.requests.OnlyUserIDRequestDTO;
+import com.example.desafiospring.DTOS.requests.UserIDAndOrderRequestDTO;
 import com.example.desafiospring.DTOS.responses.FollowedProductListResponseDTO;
 import com.example.desafiospring.DTOS.responses.NewPostResponseDTO;
 import com.example.desafiospring.repository.interfaces.FollowRepository;
@@ -36,10 +36,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public FollowedProductListResponseDTO followedProductList(OnlyUserIDRequestDTO onlyUserIDRequestDTO) {
-        Integer userId = onlyUserIDRequestDTO.getUserId();
+    public FollowedProductListResponseDTO followedProductList(UserIDAndOrderRequestDTO userIDAndOrderRequestDTO) {
+        Integer userId = userIDAndOrderRequestDTO.getUserId();
         userRepository.validateExistOrException(userId);
         List<Integer> followedIds = followRepository.getFollowedIDs(userId);
-        return new FollowedProductListResponseDTO(userId,postRepository.getRecentPostsOf(followedIds));
+        return new FollowedProductListResponseDTO(userId,postRepository.getRecentPostsOf(followedIds,userIDAndOrderRequestDTO.getOrder()));
     }
 }

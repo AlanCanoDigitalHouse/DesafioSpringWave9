@@ -2,6 +2,7 @@ package com.example.desafiospring.services.interfaces;
 
 import com.example.desafiospring.DTOS.requests.FollowUserRequestDTO;
 import com.example.desafiospring.DTOS.requests.OnlyUserIDRequestDTO;
+import com.example.desafiospring.DTOS.requests.UserIDAndOrderRequestDTO;
 import com.example.desafiospring.DTOS.responses.FollowUserResponseDTO;
 import com.example.desafiospring.DTOS.responses.FollowedListResponseDTO;
 import com.example.desafiospring.DTOS.responses.FollowerCountResponseDTO;
@@ -12,9 +13,9 @@ public interface UserService {
 
     FollowerCountResponseDTO followerCount(OnlyUserIDRequestDTO onlyUserIDRequestDTO);
 
-    FollowerListResponseDTO followerList(OnlyUserIDRequestDTO onlyUserIDRequestDTO);
+    FollowerListResponseDTO followerList(UserIDAndOrderRequestDTO userIDAndOrderRequestDTO);
 
-    FollowedListResponseDTO followedList(OnlyUserIDRequestDTO onlyUserIDRequestDTO);
+    FollowedListResponseDTO followedList(UserIDAndOrderRequestDTO userIDAndOrderRequestDTO);
 
     FollowUserResponseDTO unFollowUser(FollowUserRequestDTO followUserRequestDTO);
 }

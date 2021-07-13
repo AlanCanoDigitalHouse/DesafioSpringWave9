@@ -8,5 +8,5 @@ import java.util.List;
 public interface PostRepository {
     Integer addPost(NewPostRequestDTO newPostRequestDTO, Integer productId);
 
-    List<PostResponseDTO> getRecentPostsOf(List<Integer> followedIds);
+    List<PostResponseDTO> getRecentPostsOf(List<Integer> followedIds,String order);
 }

@@ -2,6 +2,7 @@ package com.example.desafiospring.controllers;
 
 import com.example.desafiospring.DTOS.requests.NewPostRequestDTO;
 import com.example.desafiospring.DTOS.requests.OnlyUserIDRequestDTO;
+import com.example.desafiospring.DTOS.requests.UserIDAndOrderRequestDTO;
 import com.example.desafiospring.DTOS.responses.FollowedProductListResponseDTO;
 import com.example.desafiospring.DTOS.responses.NewPostResponseDTO;
 import com.example.desafiospring.services.interfaces.ProductService;
@@ -27,7 +28,7 @@ public class ProductRESTController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<FollowedProductListResponseDTO> followedProductList(@Valid OnlyUserIDRequestDTO onlyUserIDRequestDTO) {
-        return new ResponseEntity<>(productService.followedProductList(onlyUserIDRequestDTO), HttpStatus.OK);
+    public ResponseEntity<FollowedProductListResponseDTO> followedProductList(@Valid UserIDAndOrderRequestDTO userIDAndOrderRequestDTO) {
+        return new ResponseEntity<>(productService.followedProductList(userIDAndOrderRequestDTO), HttpStatus.OK);
     }
 }

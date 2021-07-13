@@ -3,6 +3,7 @@ package com.example.desafiospring.repository.implementations;
 import com.example.desafiospring.DTOS.requests.NewPostRequestDTO;
 import com.example.desafiospring.DTOS.responses.PostResponseDTO;
 import com.example.desafiospring.entities.PostEntity;
+import com.example.desafiospring.entities.UserEntity;
 import com.example.desafiospring.exceptions.general.DBNotAvailableException;
 import com.example.desafiospring.repository.interfaces.PostRepository;
 import com.example.desafiospring.repository.interfaces.ProductRepository;
@@ -19,6 +20,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Repository
@@ -47,16 +49,16 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<PostResponseDTO> getRecentPostsOf(List<Integer> userIds) {
+    public List<PostResponseDTO> getRecentPostsOf(List<Integer> userIds,String order) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        Comparator<PostEntity> c = Comparator.comparing(p -> LocalDate.parse(p.getDate(), formatter));
+        Comparator<PostEntity> c = getComparator(order,formatter);
         return getDatabasePosts().stream()
                 .filter(p -> userIds.contains(p.getUserId()))
                 .filter(p -> {
                     long days = ChronoUnit.DAYS.between(LocalDate.parse(p.getDate(), formatter), LocalDate.now());
                     return days <= 14 && days >= 0;
                 })
-                .sorted(c.reversed())
+                .sorted(c)
                 .map(pe -> new PostResponseDTO(
                         pe.getPostId(),
                         pe.getDate(),
@@ -64,6 +66,11 @@ public class PostRepositoryImpl implements PostRepository {
                         pe.getCategory(),
                         pe.getPrice()))
                 .collect(Collectors.toList());
+    }
+
+    private Comparator<PostEntity> getComparator(String order,DateTimeFormatter formatter) {
+        Comparator<PostEntity> c = Comparator.comparing(p -> LocalDate.parse(p.getDate(), formatter));
+        return "date_asc".equals(order)?c:c.reversed();
     }
 
     private void addPostToDB(PostEntity post) {
