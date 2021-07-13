@@ -1,5 +1,6 @@
 package com.mercadolibre.social_meli.service;
 
+import com.mercadolibre.social_meli.dto.response.FollowedResponseDTO;
 import com.mercadolibre.social_meli.dto.response.FollowerCountResponseDTO;
 import com.mercadolibre.social_meli.dto.response.FollowersResponseDTO;
 
@@ -12,4 +13,6 @@ public interface IUserService {
     FollowerCountResponseDTO getFollowerCount(Integer userId);
 
     FollowersResponseDTO getFollowers(Integer userId);
+
+    FollowedResponseDTO getFollowed(Integer userId);
 }

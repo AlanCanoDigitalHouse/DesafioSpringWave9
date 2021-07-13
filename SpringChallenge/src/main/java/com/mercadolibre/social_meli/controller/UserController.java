@@ -1,5 +1,6 @@
 package com.mercadolibre.social_meli.controller;
 
+import com.mercadolibre.social_meli.dto.response.FollowedResponseDTO;
 import com.mercadolibre.social_meli.dto.response.FollowerCountResponseDTO;
 import com.mercadolibre.social_meli.dto.response.FollowersResponseDTO;
 import com.mercadolibre.social_meli.service.IUserService;
@@ -41,6 +42,13 @@ public class UserController {
     @GetMapping("/{UserID}/followers/list")
     public ResponseEntity<FollowersResponseDTO> getFollowers(@PathVariable(name = "UserID") Integer userId) {
         var responseBody = this.userService.getFollowers(userId);
+
+        return new ResponseEntity<>(responseBody, HttpStatus.OK);
+    }
+
+    @GetMapping("/{UserID}/followed/list")
+    public ResponseEntity<FollowedResponseDTO> getFollowed(@PathVariable(name = "UserID") Integer userId) {
+        var responseBody = this.userService.getFollowed(userId);
 
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
