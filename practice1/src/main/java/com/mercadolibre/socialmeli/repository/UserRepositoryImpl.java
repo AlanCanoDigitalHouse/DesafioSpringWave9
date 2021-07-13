@@ -31,7 +31,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     private void loadFollows() {
         follows.add(new FollowDTO(0, 1));
-        follows.add(new FollowDTO(0, 2));
+        follows.add(new FollowDTO(2, 1));
+        follows.add(new FollowDTO(3, 1));
+        follows.add(new FollowDTO(4, 1));
     }
 
     @Override
