@@ -1,0 +1,12 @@
+[
+  {
+    "userId": 1,
+    "userName": "cliente1",
+    "followed": [
+      {
+        "userId": 2,
+        "userName": "vendedor1"
+      }
+    ]
+  }
+]
