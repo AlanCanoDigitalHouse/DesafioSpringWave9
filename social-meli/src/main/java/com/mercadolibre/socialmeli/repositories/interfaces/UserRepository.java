@@ -10,7 +10,7 @@ public interface UserRepository {
 
     SellerDTO getSellerById(Integer id) throws RecordNotFoundException;
 
-    void removeFollower(Integer sellerId, Integer followerId) throws RecordNotFoundException;
+    void removeFollower(Integer sellerId, Integer followerId) throws RecordNotFoundException, SellerNotFollowedException;
 
     void addFollower(Integer sellerId, Integer followerId) throws RecordNotFoundException, SellerAlreadyFollowedException;
 

@@ -1,14 +1,11 @@
 package com.mercadolibre.socialmeli.services;
 
 import com.mercadolibre.socialmeli.dtos.*;
-import com.mercadolibre.socialmeli.exceptions.SellerAlreadyFollowedException;
-import com.mercadolibre.socialmeli.exceptions.SellerNotFollowedException;
 import com.mercadolibre.socialmeli.repositories.interfaces.UserRepository;
 import com.mercadolibre.socialmeli.services.interfaces.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -33,18 +30,13 @@ public class UserServiceImpl implements UserService {
     public FollowersListDTO getFollowersList(Integer userId, String order) {
         SellerDTO seller = userRepository.getSellerById(userId);
 
+        List<UserDTO> followers = new LinkedList<>(seller.getFollowers());
+        sortUserList(followers, order);
+
         FollowersListDTO dto = new FollowersListDTO();
         dto.setUserId(seller.getUserId());
         dto.setUserName(seller.getUserName());
-        dto.setFollowers(new LinkedList<>(seller.getFollowers()));
-
-        if(Objects.nonNull(order)) {
-            if("name_asc".equals(order)) {
-                dto.getFollowers().sort(Comparator.comparing(UserDTO::getUserName));
-            } else if("name_desc".equals(order)){
-                dto.getFollowers().sort(Comparator.comparing(UserDTO::getUserName).reversed());
-            }
-        }
+        dto.setFollowers(followers);
 
         return dto;
     }
@@ -53,18 +45,13 @@ public class UserServiceImpl implements UserService {
     public FollowedListDTO getFollowedList(Integer userId, String order) {
         BuyerDTO buyer = userRepository.getBuyerById(userId);
 
+        List<UserDTO> followed = new LinkedList<>(buyer.getFollowed());
+        sortUserList(followed, order);
+
         FollowedListDTO dto = new FollowedListDTO();
         dto.setUserId(buyer.getUserId());
         dto.setUserName(buyer.getUserName());
-        dto.setFollowed(new LinkedList<>(buyer.getFollowed()));
-
-        if(Objects.nonNull(order)) {
-            if("name_asc".equals(order)) {
-                dto.getFollowed().sort(Comparator.comparing(UserDTO::getUserName));
-            } else if("name_desc".equals(order)){
-                dto.getFollowed().sort(Comparator.comparing(UserDTO::getUserName).reversed());
-            }
-        }
+        dto.setFollowed(followed);
 
         return dto;
     }
@@ -79,5 +66,15 @@ public class UserServiceImpl implements UserService {
         dto.setFollowers_count((long) seller.getFollowers().size());
 
         return dto;
+    }
+
+    private void sortUserList(List<UserDTO> userList, String order) {
+        if(Objects.nonNull(order)) {
+            if("name_asc".equals(order)) {
+                userList.sort(Comparator.comparing(UserDTO::getUserName));
+            } else if("name_desc".equals(order)){
+                userList.sort(Comparator.comparing(UserDTO::getUserName).reversed());
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ public class BuyerDTO {
 
     private Integer userId;
     private String userName;
+
     private List<UserDTO> followed = new LinkedList<>();
 
 }

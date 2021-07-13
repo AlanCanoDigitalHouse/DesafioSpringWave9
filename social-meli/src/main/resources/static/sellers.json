@@ -1,22 +1,14 @@
 [
   {
     "userId": 1,
-    "userName": "Seller 1",
-    "followers": [
-      { "userId": 100, "userName":  "Buyer 100" },
-      { "userId": 101, "userName":  "Buyer 101" }
-    ]
+    "userName": "Seller 1"
   },
   {
     "userId": 2,
-    "userName": "Seller 2",
-    "followers": [
-      { "userId": 100, "userName":  "Buyer 100" }
-    ]
+    "userName": "Seller 2"
   },
   {
-    "userId": 13,
-    "userName": "Seller 3",
-    "followers": []
+    "userId": 3,
+    "userName": "Seller 3"
   }
 ]
