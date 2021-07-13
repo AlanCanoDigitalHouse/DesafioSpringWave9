@@ -1,13 +1,18 @@
 package com.jbianchini.meli.socialmeli.service;
 
 import com.jbianchini.meli.socialmeli.dto.request.UserRequest;
-import com.jbianchini.meli.socialmeli.dto.response.FollowersResponse;
+import com.jbianchini.meli.socialmeli.dto.response.FollowedListResponse;
+import com.jbianchini.meli.socialmeli.dto.response.FollowersCountResponse;
+import com.jbianchini.meli.socialmeli.dto.response.FollowersListResponse;
+import com.jbianchini.meli.socialmeli.dto.response.UserResponse;
 import com.jbianchini.meli.socialmeli.exception.ApplicationException;
-import com.jbianchini.meli.socialmeli.exception.UserNotFounException;
+import com.jbianchini.meli.socialmeli.exception.UserNotFoundException;
 import com.jbianchini.meli.socialmeli.model.User;
 import com.jbianchini.meli.socialmeli.repository.IUserRepository;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -19,27 +24,28 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void createAll() throws ApplicationException {
+    public void createAll(HttpServletResponse response) throws ApplicationException {
         User juan = this.create(new UserRequest("Juan"));
         User mati = this.create(new UserRequest("Mati"));
         User alvaro = this.create(new UserRequest("Alvaro"));
 
-        this.follow(juan.getUserId(), mati.getUserId());
-        this.follow(alvaro.getUserId(), mati.getUserId());
-        this.follow(alvaro.getUserId(), juan.getUserId());
+        this.follow(juan.getUserId(), mati.getUserId(), response);
+        this.follow(alvaro.getUserId(), mati.getUserId(), response);
+        this.follow(alvaro.getUserId(), juan.getUserId(), response);
+
     }
+
 
     @Override
     public User create(UserRequest userRequest) {
-
         return this.userRepository.save(new User(userRequest.getUserName()));
     }
 
     @Override
-    public void follow(Integer userId, Integer userIdToFollow) throws ApplicationException {
+    public void follow(Integer userId, Integer userIdToFollow, HttpServletResponse response)
+            throws ApplicationException {
         var user = this.userRepository.findByUserId(userId);
         var userToFollow = this.userRepository.findByUserId(userIdToFollow);
-
 
         if (user.isPresent() && userToFollow.isPresent()) {
             if (this.follows(user, userToFollow)) {
@@ -47,10 +53,10 @@ public class UserService implements IUserService {
             }
             user.get().getFollowed().add(userToFollow.get());
             userToFollow.get().getFollowers().add(user.get());
-            this.userRepository.save(user.get());
-            this.userRepository.save(userToFollow.get());
+
+            response.setStatus(HttpServletResponse.SC_OK);
         } else {
-            throw new UserNotFounException();
+            throw new UserNotFoundException();
         }
     }
 
@@ -59,18 +65,52 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public FollowersResponse getFollowersCount(int userId) throws UserNotFounException {
+    public FollowersCountResponse getFollowersCount(int userId) throws UserNotFoundException {
         var user = this.userRepository.findByUserId(userId);
 
         if (user.isPresent()) {
-            FollowersResponse response = new FollowersResponse();
+            FollowersCountResponse response = new FollowersCountResponse();
             response.setUserId(user.get().getUserId());
             response.setUserName(user.get().getUserName());
             response.setFollowers_count(user.get().getFollowers().size());
             return response;
         } else {
-            throw new UserNotFounException();
+            throw new UserNotFoundException();
         }
+    }
+
+    @Override
+    public FollowersListResponse getFollowers(int userID) throws UserNotFoundException {
+        var user = this.userRepository.findByUserId(userID);
+        var followers = new ArrayList<UserResponse>();
+
+        if (user.isPresent()) {
+
+            user.get().getFollowers().stream()
+                    .forEach(u -> followers.add(new UserResponse(u.getUserId(), u.getUserName())));
+
+            return new FollowersListResponse(user.get().getUserId(), user.get().getUserName(), followers);
+        } else {
+            throw new UserNotFoundException();
+        }
+
+    }
+
+    @Override
+    public FollowedListResponse getFollowed(int userID) throws UserNotFoundException {
+        var user = this.userRepository.findByUserId(userID);
+        var followed = new ArrayList<UserResponse>();
+
+        if (user.isPresent()) {
+
+            user.get().getFollowed().stream()
+                    .forEach(u -> followed.add(new UserResponse(u.getUserId(), u.getUserName())));
+
+            return new FollowedListResponse(user.get().getUserId(), user.get().getUserName(), followed);
+        } else {
+            throw new UserNotFoundException();
+        }
+
     }
 
 }

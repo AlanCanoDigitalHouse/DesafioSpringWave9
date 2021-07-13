@@ -15,7 +15,7 @@ public class User {
     List<User> followers;
     List<User> followed;
 
-    public User(String userName){
+    public User(String userName) {
         this.userName = userName;
         this.followers = new ArrayList<>();
         this.followed = new ArrayList<>();

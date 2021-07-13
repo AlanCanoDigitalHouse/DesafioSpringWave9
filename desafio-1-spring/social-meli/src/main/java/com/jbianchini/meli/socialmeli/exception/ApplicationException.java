@@ -4,7 +4,8 @@ public class ApplicationException extends Exception {
     public ApplicationException() {
         super("An unexpected error occurred");
     }
-    public ApplicationException(String message){
+
+    public ApplicationException(String message) {
         super(message);
     }
 }
