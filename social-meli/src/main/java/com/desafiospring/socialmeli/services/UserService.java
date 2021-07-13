@@ -9,6 +9,7 @@ import com.desafiospring.socialmeli.exceptions.UserException;
 import com.desafiospring.socialmeli.dtos.models.Buyer;
 import com.desafiospring.socialmeli.dtos.models.Seller;
 import com.desafiospring.socialmeli.dtos.models.User;
+import com.desafiospring.socialmeli.handlers.ValidationHandler;
 import com.desafiospring.socialmeli.repositories.BuyerRepository;
 import com.desafiospring.socialmeli.repositories.SellerRepository;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,8 @@ public class UserService implements IUser {
 
     @Override
     public void addFollower(int userId, int userIdToFollow) throws UserException {
-        Buyer buyer = validateUser(userId);
-        Seller seller = validateSeller(userIdToFollow);
+        Buyer buyer = ValidationHandler.validateUser(userId, buyerRepository);
+        Seller seller = ValidationHandler.validateSeller(userIdToFollow, sellerRepository);
         List<User> followed = buyer.getFollowed();
         List<User> followers = seller.getFollowers();
         if (followed.stream().anyMatch(user -> user.getUserId() == userIdToFollow)){
@@ -41,7 +42,7 @@ public class UserService implements IUser {
 
     @Override
     public SellerFollowersCountDTO getFollowersCount(int userId) throws UserException {
-        Seller seller = validateSeller(userId);
+        Seller seller = ValidationHandler.validateSeller(userId, sellerRepository);
         SellerFollowersCountDTO sellerFollowersCountDTO = new SellerFollowersCountDTO(
                 seller.getUserId(), seller.getUserName(), seller.getFollowers().size());
         return sellerFollowersCountDTO;
@@ -49,7 +50,7 @@ public class UserService implements IUser {
 
     @Override
     public SellerFollowersDTO getFollowers(int userId) throws UserException {
-        Seller seller = validateSeller(userId);
+        Seller seller = ValidationHandler.validateSeller(userId, sellerRepository);
         SellerFollowersDTO sellerFollowersDTO = new SellerFollowersDTO(
                 seller.getUserId(), seller.getUserName(), seller.getFollowers()
         );
@@ -58,7 +59,7 @@ public class UserService implements IUser {
 
     @Override
     public BuyerFollowedDTO getFollowed(int userId) throws UserException {
-        Buyer buyer = validateUser(userId);
+        Buyer buyer = ValidationHandler.validateUser(userId, buyerRepository);
         BuyerFollowedDTO buyerFollowedDTO = new BuyerFollowedDTO(
                 buyer.getUserId(), buyer.getUserName(), buyer.getFollowed()
         );
@@ -66,19 +67,5 @@ public class UserService implements IUser {
     }
 
 
-    private Seller validateSeller(int userIdToFollow) throws UserException {
-        Seller seller = this.sellerRepository.get(userIdToFollow);
-        if (seller == null) {
-            throw new UserDoesNotExistException(userIdToFollow, true);
-        }
-        return seller;
-    }
 
-    private Buyer validateUser(int userId) throws UserException {
-        Buyer buyer = this.buyerRepository.get(userId);
-        if (buyer == null) {
-            throw new UserDoesNotExistException(userId, false);
-        }
-        return buyer;
-    }
 }

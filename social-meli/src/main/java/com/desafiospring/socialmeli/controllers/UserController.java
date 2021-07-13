@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
-@Data
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -24,8 +23,9 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public void followUser(@PathVariable Integer userId, @PathVariable Integer userIdToFollow, HttpServletResponse response) throws UserException {
+    public String followUser(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws UserException {
         this.userService.addFollower(userId, userIdToFollow);
+        return "Seguidor agregado correctamente";
     }
 
     @GetMapping("/{userId}/followers/count")
