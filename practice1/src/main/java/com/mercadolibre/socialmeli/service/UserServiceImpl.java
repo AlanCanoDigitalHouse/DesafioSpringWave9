@@ -1,10 +1,15 @@
 package com.mercadolibre.socialmeli.service;
 
 import com.mercadolibre.socialmeli.dto.FollowDTO;
+import com.mercadolibre.socialmeli.dto.UserDTO;
+import com.mercadolibre.socialmeli.dto.response.FollowersCountResponseDTO;
 import com.mercadolibre.socialmeli.exception.EntityException;
 import com.mercadolibre.socialmeli.exception.ServiceException;
 import com.mercadolibre.socialmeli.repository.UserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,5 +32,20 @@ public class UserServiceImpl implements UserService {
                 throw new ServiceException("Couldn't follow specified user");
             }
         } else throw new ServiceException("User can't follow itself");
+    }
+
+    @Override
+    public FollowersCountResponseDTO countFollowers(Integer followedUserId) {
+        Optional<UserDTO> followedUser = userRepository.findUserByUserId(followedUserId);
+        final FollowersCountResponseDTO followersCountResponseDTO = new FollowersCountResponseDTO();
+        if (followedUser.isPresent()) {
+
+            List<UserDTO> followers = userRepository.findUserFollowers(followedUserId);
+
+            followersCountResponseDTO.setFollowers_count(followers.size());
+            followersCountResponseDTO.setUserId(followedUser.get().getUserID());
+            followersCountResponseDTO.setUserName(followedUser.get().getUserName());
+        } else throw new ServiceException("No user found");
+        return followersCountResponseDTO;
     }
 }

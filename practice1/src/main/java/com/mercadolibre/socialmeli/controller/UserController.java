@@ -1,21 +1,25 @@
 package com.mercadolibre.socialmeli.controller;
 
+import com.mercadolibre.socialmeli.dto.response.FollowersCountResponseDTO;
 import com.mercadolibre.socialmeli.exception.ServiceException;
 import com.mercadolibre.socialmeli.service.UserService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("users")
 public class UserController {
 
     private UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("{userId}/followers/count")
+    public ResponseEntity<FollowersCountResponseDTO> getFollowers(@PathVariable Integer userId) {
+        return new ResponseEntity<>(userService.countFollowers(userId), HttpStatus.OK);
     }
 
     @PostMapping("{userId}/follow/{userIdToFollow}")

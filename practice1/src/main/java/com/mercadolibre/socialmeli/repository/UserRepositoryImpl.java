@@ -55,12 +55,27 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<UserDTO> findUserByUserId(Integer userId) {
-        return Optional.empty();
+        return Optional.of(users.get(userId));
     }
 
     @Override
     public List<UserDTO> findUserFollowers(Integer userId) {
-        return null;
+        List<UserDTO> followers = new ArrayList<>();
+        List<Integer> tempList = new ArrayList<>();
+        for (FollowDTO follow :
+                follows) {
+            if (follow.getFollowed().equals(userId))
+                tempList.add(follow.getFollower());
+        }
+
+        for (UserDTO user : users.values()) {
+            for (Integer i :
+                    tempList) {
+                if (user.getUserID().equals(i))
+                    followers.add(user);
+            }
+        }
+        return followers;
     }
 
     @Override
