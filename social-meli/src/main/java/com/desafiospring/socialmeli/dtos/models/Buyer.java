@@ -1,4 +1,4 @@
-package com.desafiospring.socialmeli.models;
+package com.desafiospring.socialmeli.dtos.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

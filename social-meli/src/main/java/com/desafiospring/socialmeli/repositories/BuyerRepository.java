@@ -1,6 +1,6 @@
 package com.desafiospring.socialmeli.repositories;
 
-import com.desafiospring.socialmeli.models.Buyer;
+import com.desafiospring.socialmeli.dtos.models.Buyer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
