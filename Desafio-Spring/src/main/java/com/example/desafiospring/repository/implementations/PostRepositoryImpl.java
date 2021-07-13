@@ -1,9 +1,11 @@
 package com.example.desafiospring.repository.implementations;
 
 import com.example.desafiospring.DTOS.requests.NewPostRequestDTO;
+import com.example.desafiospring.DTOS.responses.PostResponseDTO;
 import com.example.desafiospring.entities.PostEntity;
 import com.example.desafiospring.exceptions.general.DBNotAvailableException;
 import com.example.desafiospring.repository.interfaces.PostRepository;
+import com.example.desafiospring.repository.interfaces.ProductRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -11,20 +13,29 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Repository
 public class PostRepositoryImpl implements PostRepository {
-
 
     public static final java.lang.String POSTS_DB_ROUTE = "classpath:static/posts.json";
 
     private static final AtomicInteger autoIncrement = new AtomicInteger(getNextIDFromDB());
 
+    ProductRepository productRepository;
+
+    public PostRepositoryImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
     @Override
-    public Integer addPost(NewPostRequestDTO newPostRequestDTO,Integer productId) {
+    public Integer addPost(NewPostRequestDTO newPostRequestDTO, Integer productId) {
         Integer postId = autoIncrement.getAndIncrement();
         addPostToDB(new PostEntity(postId,
                 newPostRequestDTO.getUserId(),
@@ -33,6 +44,26 @@ public class PostRepositoryImpl implements PostRepository {
                 newPostRequestDTO.getCategory(),
                 newPostRequestDTO.getPrice()));
         return postId;
+    }
+
+    @Override
+    public List<PostResponseDTO> getRecentPostsOf(List<Integer> userIds) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        Comparator<PostEntity> c = Comparator.comparing(p -> LocalDate.parse(p.getDate(), formatter));
+        return getDatabasePosts().stream()
+                .filter(p -> userIds.contains(p.getUserId()))
+                .filter(p -> {
+                    long days = ChronoUnit.DAYS.between(LocalDate.parse(p.getDate(), formatter), LocalDate.now());
+                    return days <= 14 && days >= 0;
+                })
+                .sorted(c.reversed())
+                .map(pe -> new PostResponseDTO(
+                        pe.getPostId(),
+                        pe.getDate(),
+                        productRepository.getProductResponseDTO(pe.getProductId()),
+                        pe.getCategory(),
+                        pe.getPrice()))
+                .collect(Collectors.toList());
     }
 
     private void addPostToDB(PostEntity post) {
@@ -62,7 +93,8 @@ public class PostRepositoryImpl implements PostRepository {
 
     private static List<PostEntity> loadFromJSON(File file) throws DBNotAvailableException {
         ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<PostEntity>> typeReference = new TypeReference<>(){};
+        TypeReference<List<PostEntity>> typeReference = new TypeReference<>() {
+        };
         List<PostEntity> posts;
         try {
             posts = objectMapper.readValue(file, typeReference);

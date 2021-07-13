@@ -1,7 +1,7 @@
 package com.example.desafiospring.repository.implementations;
 
 import com.example.desafiospring.DTOS.requests.ProductRequestDTO;
-import com.example.desafiospring.entities.FollowEntity;
+import com.example.desafiospring.DTOS.responses.ProductResponseDTO;
 import com.example.desafiospring.entities.ProductEntity;
 import com.example.desafiospring.exceptions.general.DBNotAvailableException;
 import com.example.desafiospring.repository.interfaces.ProductRepository;
@@ -36,6 +36,12 @@ public class ProductRepositoryImpl implements ProductRepository {
         return productId;
     }
 
+    @Override
+    public ProductResponseDTO getProductResponseDTO(Integer productId) {
+        ProductEntity pe = getDatabaseProducts().stream().filter(p -> p.getProductId().equals(productId)).findFirst().orElseThrow();
+        return new ProductResponseDTO(pe.getProductId(), pe.getProductName(), pe.getType(), pe.getBrand(), pe.getColor(), pe.getNotes());
+    }
+
     private void addProductToDB(ProductEntity product) {
         List<ProductEntity> dbElements = getDatabaseProducts();
         dbElements.add(product);
@@ -63,7 +69,8 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     private static List<ProductEntity> loadFromJSON(File file) throws DBNotAvailableException {
         ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<ProductEntity>> typeReference = new TypeReference<>(){};
+        TypeReference<List<ProductEntity>> typeReference = new TypeReference<>() {
+        };
         List<ProductEntity> products;
         try {
             products = objectMapper.readValue(file, typeReference);

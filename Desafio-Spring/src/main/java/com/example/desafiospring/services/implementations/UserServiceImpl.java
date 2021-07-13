@@ -76,12 +76,6 @@ public class UserServiceImpl implements UserService {
                 userRepository.getUsersByID(followedIDS));
     }
 
-    private void fillFollowerCountResponseDTO(Integer userId, FollowerCountResponseDTO followerCountResponseDTO) {
-        followerCountResponseDTO.setUserId(userId);
-        followerCountResponseDTO.setUserName(userRepository.getUserByID(userId).getUserName());
-        followerCountResponseDTO.setFollowers_count(followRepository.getFollowerIDs(userId).size());
-    }
-
     private void validateUsersExistence(Integer... userIDS) {
         for (Integer id : userIDS) {
             userRepository.validateExistOrException(id);
