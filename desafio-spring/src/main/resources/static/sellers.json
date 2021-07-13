@@ -1,0 +1,23 @@
+[
+  {
+    "userId": 1,
+    "userName": "seller1",
+    "followersIds": [
+      3
+    ]
+  },
+  {
+    "userId": 2,
+    "userName": "seller2",
+    "followersIds": [
+      1
+    ]
+  },
+  {
+    "userId": 3,
+    "userName": "seller3",
+    "followersIds": [
+      1
+    ]
+  }
+]
