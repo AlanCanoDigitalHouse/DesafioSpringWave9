@@ -10,17 +10,27 @@ public class User {
   private Integer userId;
   private String userName;
   private Set<User> folllowers;
+  private List<Post> posts;
 
   public User(Integer userId, String userName, Set<User> folllowers) {
     this.userId = userId;
     this.userName = userName;
     this.folllowers = folllowers;
+    this.posts = new ArrayList<>();
   }
 
   public User(Integer userId, String userName) {
     this.userId = userId;
     this.userName = userName;
     this.folllowers = new HashSet<>();
+    this.posts = new ArrayList<>();
+  }
+
+  public User(Integer userId, String userName, Set<User> folllowers, List<Post> posts) {
+    this.userId = userId;
+    this.userName = userName;
+    this.folllowers = folllowers;
+    this.posts = posts;
   }
 
   @Override

@@ -24,7 +24,7 @@ public class UserController {
   public ResponseEntity<String> addFollower(@PathVariable(name = "userId") Integer followerId,
                                             @PathVariable(name = "userIdToFollow") Integer followedId) {
     service.addFollower(followerId, followedId);
-    return new ResponseEntity<>("OK", HttpStatus.OK);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @GetMapping("{userId}/followers/count")

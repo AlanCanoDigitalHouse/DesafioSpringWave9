@@ -1,11 +1,13 @@
 package com.meli.socialmeli.repository;
 
+import com.meli.socialmeli.model.Post;
+import com.meli.socialmeli.model.Product;
 import com.meli.socialmeli.model.User;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserRepositoryImp implements UserRepository {
@@ -57,6 +59,37 @@ public class UserRepositoryImp implements UserRepository {
     return sellersFollowedByUser;
   }
 
+  @Override
+  public void newPost(Integer userId, Post post) {
+    Optional<User> optionalUser = findUserById(userId);
+    if (optionalUser.isPresent()) {
+      User user = optionalUser.get();
+      user.getPosts().add(post);
+    }
+  }
+
+  @Override
+  public List<Post> findPostsOfSellersFollowedBy(Integer userId) {
+    List<User> usersFollowedBy = findUsersFollowedBy(userId);
+    ArrayList<Post> posts = new ArrayList<>();
+    usersFollowedBy.forEach(seller -> seller.getPosts().forEach(posts::add));
+    return posts;
+  }
+
+  @Override
+  public List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays) {
+    List<Post> postsOfSellersFollowedBy = findPostsOfSellersFollowedBy(userId);
+    LocalDate dateOfTheLastDays = LocalDate.now().minusDays(ofTheLastDays);
+    return postsOfSellersFollowedBy.stream().filter(post -> post.getDate().isAfter(dateOfTheLastDays)).collect(Collectors.toList());
+  }
+
+  @Override
+  public List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays, Comparator<Post> c) {
+    List<Post> postsOfSellersFollowedBy = findPostsOfSellersFollowedBy(userId, ofTheLastDays);
+    Collections.sort(postsOfSellersFollowedBy, c);
+    return postsOfSellersFollowedBy;
+  }
+
   private Optional<User> findUserById(Integer userId) {
     return users.stream().filter(user -> user.getUserId().equals(userId)).findFirst();
   }
@@ -66,6 +99,42 @@ public class UserRepositoryImp implements UserRepository {
     User emilio = new User(1, "emilio");
     User daniel = new User(2, "daniel");
     daniel.getFolllowers().add(emilio);
+
+    Product sillaRoja = Product.builder()
+            .productName("Silla Gamer")
+            .type("Gamer")
+            .brand("Racer")
+            .color("Red & Balck")
+            .notes("Special Edition")
+            .build();
+
+    Post recentPost = Post.builder()
+            .userId(daniel.getUserId())
+            .date(LocalDate.now())
+            .detail(sillaRoja)
+            .category(100)
+            .price(1500.05)
+            .build();
+
+    Product sillaAzul = Product.builder()
+            .productName("Silla Gamer")
+            .type("Gamer")
+            .brand("Racer")
+            .color("Azul")
+            .notes("Standar")
+            .build();
+
+    Post oldPost = Post.builder()
+            .userId(daniel.getUserId())
+            .date(LocalDate.now().minusMonths(1))
+            .detail(sillaAzul)
+            .category(100)
+            .price(1300.05)
+            .build();
+
+    daniel.getPosts().add(recentPost);
+    daniel.getPosts().add(oldPost);
+
     users.add(emilio);
     users.add(daniel);
     users.add(new User(3, "ofe"));

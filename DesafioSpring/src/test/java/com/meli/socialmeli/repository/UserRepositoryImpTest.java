@@ -1,10 +1,13 @@
 package com.meli.socialmeli.repository;
 
+import com.meli.socialmeli.model.Post;
+import com.meli.socialmeli.model.Product;
 import com.meli.socialmeli.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,21 +39,31 @@ class UserRepositoryImpTest {
   void addFollowerAndTestFollowersCount() {
     Assertions.assertEquals(repo.getFollowersCount(2), 1);
     Assertions.assertEquals(repo.getFollowersCount(1), 0);
-    repo.addFollower(3,2);
+    repo.addFollower(3, 2);
     Assertions.assertEquals(repo.getFollowersCount(2), 2);
   }
 
   @Test
-  void findUserTest(){
+  void findUserTest() {
     User user = repo.findUser(2);
     Assertions.assertNotNull(user);
     System.out.println(user);
   }
 
   @Test
-  void findUsersFollowedByTest(){
+  void findUsersFollowedByTest() {
     List<User> usersFollowedBy = repo.findUsersFollowedBy(1);
     Assertions.assertNotNull(usersFollowedBy);
     Assertions.assertTrue(usersFollowedBy.stream().anyMatch(user -> user.getUserId().equals(2)));
+  }
+
+  @Test
+  void newPostTest() {
+    Product product = new Product("Silla Gamer", "Gamer", "Racer", "Red % black", "Special Edition");
+    Post post = new Post(2, LocalDate.now(), product, 100, 1500.05);
+    repo.newPost(2, post);
+    User user = repo.findUser(2);
+    Assertions.assertFalse(user.getPosts().isEmpty());
+    Assertions.assertTrue(user.getPosts().get(0).getDetail().getProductName().equals("Silla Gamer"));
   }
 }
