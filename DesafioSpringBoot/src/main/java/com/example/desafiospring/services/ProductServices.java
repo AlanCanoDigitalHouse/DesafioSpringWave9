@@ -1,5 +1,6 @@
 package com.example.desafiospring.services;
 
+import com.example.desafiospring.dtos.request.PostPromoRequestDto;
 import com.example.desafiospring.dtos.request.PostRequestDto;
 import com.example.desafiospring.dtos.response.PostResponseDto;
 import com.example.desafiospring.dtos.response.ProductResponseDto;
@@ -23,14 +24,22 @@ public class ProductServices implements Sorter<PostResponseDto> {
         productRepository.setPosts(Factory.generatePost());
     }
 
-    public PostResponseDto createNewPost(PostRequestDto postResponseDto) {
-
+    public void createNewPost(PostRequestDto postResponseDto) {
         var productRequest = postResponseDto.getDetail();
         var product = new ProductResponseDto(productRequest);
         var post = new PostResponseDto(postResponseDto.getUserId(),
                 postResponseDto.getDate(), postResponseDto.getCategory(), postResponseDto.getPrice(), product);
         productRepository.create(post);
-        return post;
+    }
+
+    public void createNewPromoPost(PostPromoRequestDto promoRequestDto){
+        var productRequest = promoRequestDto.getDetail();
+        var product = new ProductResponseDto(productRequest);
+        var post = new PostResponseDto(promoRequestDto.getUserId(),
+                promoRequestDto.getDate(), promoRequestDto.getCategory(), promoRequestDto.getPrice(), product);
+        post.setHasPromo(promoRequestDto.getHasPromo());
+        post.setDiscount(promoRequestDto.getDiscount());
+        productRepository.create(post);
     }
 
     public List<PostResponseDto> getPosts(List<UserResponseDto> listFollowed) {
@@ -54,6 +63,12 @@ public class ProductServices implements Sorter<PostResponseDto> {
         }
     }
 
+    public List<PostResponseDto> getPromoPost(Integer userId){
+        var post = productRepository.getPosts().stream()
+                .filter(postResponseDto -> postResponseDto.getUserId() == userId && postResponseDto.getHasPromo()).collect(Collectors.toList());
+        return post;
+    }
+
     @Override
     public List<PostResponseDto> sortDesc(List<PostResponseDto> list) {
         Collections.sort(list, Comparator.comparing(this::getMilli).reversed());
@@ -62,19 +77,15 @@ public class ProductServices implements Sorter<PostResponseDto> {
 
     @Override
     public List<PostResponseDto> sortAsc(List<PostResponseDto> list) {
-        System.out.println(list);
         Collections.sort(list, Comparator.comparing(this::getMilli));
-        System.out.println(list);
         return list;
     }
 
     @Override
     public List<PostResponseDto> sorterWrapper(List<PostResponseDto> list, String param) {
-        System.out.println(param);
         if (param == null) {
             return list;
         } else if (param.equals("date_asc")) {
-            System.out.println("imhere");
             return sortAsc(list);
         } else if (param.equals("date_desc")) {
             return sortDesc(list);
@@ -87,12 +98,13 @@ public class ProductServices implements Sorter<PostResponseDto> {
         SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {
             Long date = simpleFormat.parse(post.getDate()).getTime();
-            System.out.println(date);
             return date;
         } catch (ParseException ex) {
             throw new LogicValidationException("The format from the dates is wrong, the correct format is DD/MM/YYYY");
         }
     }
+
+
 
 
 }

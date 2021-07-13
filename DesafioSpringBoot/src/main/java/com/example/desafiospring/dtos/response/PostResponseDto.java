@@ -13,6 +13,8 @@ public class PostResponseDto {
     private ProductResponseDto detail;
     private Integer category;
     private Double price;
+    private Boolean hasPromo;
+    private Double discount;
 
     public PostResponseDto(Integer userId, String date, Integer category, Double price,ProductResponseDto productResponseDto) {
         this.userId = userId;
@@ -21,6 +23,8 @@ public class PostResponseDto {
         this.detail = productResponseDto;
         this.category = category;
         this.price = price;
+        this.hasPromo = false;
+        this.discount = 0.0;
     }
 
 }
