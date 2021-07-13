@@ -7,4 +7,6 @@ public interface FollowRepository {
     void addNewFollow(Integer userId, Integer userIdToFollow);
 
     List<Integer> getFollowerIDs(Integer userId);
+
+    List<Integer> getFollowedIDs(Integer userId);
 }

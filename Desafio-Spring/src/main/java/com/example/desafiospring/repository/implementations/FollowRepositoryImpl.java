@@ -35,6 +35,11 @@ public class FollowRepositoryImpl implements FollowRepository {
         return getDatabaseFollows().stream().filter(f -> f.getFollowedUserID().equals(userId)).map(FollowEntity::getFollowerUserID).collect(Collectors.toList());
     }
 
+    @Override
+    public List<Integer> getFollowedIDs(Integer userId) {
+        return getDatabaseFollows().stream().filter(f -> f.getFollowerUserID().equals(userId)).map(FollowEntity::getFollowedUserID).collect(Collectors.toList());
+    }
+
     private void overWriteFollowsDB(List<FollowEntity> followsToWrite) {
         ObjectMapper mapper = new ObjectMapper();
         try {

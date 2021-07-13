@@ -3,6 +3,7 @@ package com.example.desafiospring.services.implementations;
 import com.example.desafiospring.DTOS.requests.FollowUserRequestDTO;
 import com.example.desafiospring.DTOS.requests.OnlyUserIDRequestDTO;
 import com.example.desafiospring.DTOS.responses.FollowUserResponseDTO;
+import com.example.desafiospring.DTOS.responses.FollowedListResponseDTO;
 import com.example.desafiospring.DTOS.responses.FollowerCountResponseDTO;
 import com.example.desafiospring.DTOS.responses.FollowerListResponseDTO;
 import com.example.desafiospring.repository.interfaces.FollowRepository;
@@ -62,6 +63,17 @@ public class UserServiceImpl implements UserService {
                 userId,
                 userRepository.getUserByID(userId).getUserName(),
                 userRepository.getUsersByID(followerIDS));
+    }
+
+    @Override
+    public FollowedListResponseDTO followedList(OnlyUserIDRequestDTO onlyUserIDRequestDTO) {
+        validateUsersExistence(onlyUserIDRequestDTO.getUserId());
+        Integer userId = onlyUserIDRequestDTO.getUserId();
+        List<Integer> followedIDS = followRepository.getFollowedIDs(userId);
+        return new FollowedListResponseDTO(
+                userId,
+                userRepository.getUserByID(userId).getUserName(),
+                userRepository.getUsersByID(followedIDS));
     }
 
     private void fillFollowerCountResponseDTO(Integer userId, FollowerCountResponseDTO followerCountResponseDTO) {
