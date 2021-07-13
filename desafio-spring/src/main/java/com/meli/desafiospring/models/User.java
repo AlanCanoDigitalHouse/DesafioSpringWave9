@@ -2,10 +2,12 @@ package com.meli.desafiospring.models;
 
 import com.meli.desafiospring.DTOs.PostDTO;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 
 @Data
+@Getter
 public class User {
 
     Integer userId;

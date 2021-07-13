@@ -29,13 +29,19 @@ public class UsersController {
     // US0002
     @GetMapping(Router.FOLLOWERS_COUNT)
     public ResponseEntity<FollowersCountResponseDTO> followers_count(@PathVariable Integer userId) {
-        return null;
+        FollowersCountResponseDTO followersCountDTO = new FollowersCountResponseDTO(
+                userManager.getUser(userId),
+                userManager.followersCount(userId)
+        );
+
+        return new ResponseEntity(followersCountDTO, HttpStatus.OK);
     }
 
     // US0003
     // Lista de usuarios que siguen a un vendedor (cualquier usuario)
     @GetMapping(Router.FOLLOWERS_LIST)
-    public ResponseEntity<FollowersListResponseDTO> followers_list(@PathVariable Integer sellerId) {
+    public ResponseEntity<FollowersListResponseDTO> followers_list(@PathVariable Integer sellerId,
+                                                                   @RequestParam(required=false) String order) {
         return null;
     }
 
@@ -43,7 +49,7 @@ public class UsersController {
     // Lista de vendedores que sigue un determinado usuario; es vendedor si tiene posts
     @GetMapping(Router.FOLLOWED_LIST)
     public ResponseEntity<FollowersListResponseDTO> sellers_followed_list(@PathVariable Integer userId,
-                                                                          @RequestBody String order) {
+                                                                          @RequestParam(required=false) String order) {
         // Definir un HashMap estático para usar en el repository y que mapee name_asc al ordenamiento deseado
         return null;
     }

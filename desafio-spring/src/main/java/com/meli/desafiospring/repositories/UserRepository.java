@@ -40,7 +40,7 @@ public class UserRepository implements IUserRepository{
 
     @Override
     public Integer followers_count(Integer userId) {
-        return null;
+        return findById(userId).get().getFollowers().size();
     }
 
     @Override
@@ -64,7 +64,7 @@ public class UserRepository implements IUserRepository{
     }
 
 
-    private Optional<User> findById(Integer userId) {
+    public Optional<User> findById(Integer userId) {
         return users.stream().filter(u -> u.getUserId().equals(userId)).findFirst();
     }
 }
