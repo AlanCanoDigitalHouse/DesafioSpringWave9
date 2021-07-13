@@ -4,11 +4,14 @@ import com.meli.desafiospring.DTOs.PostDTO;
 import com.meli.desafiospring.DTOs.response.FollowersCountResponseDTO;
 import com.meli.desafiospring.DTOs.response.PostsListResponseDTO;
 import com.meli.desafiospring.DTOs.response.FollowersListResponseDTO;
+import com.meli.desafiospring.models.User;
 import com.meli.desafiospring.routers.Router;
 import com.meli.desafiospring.services.UserManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -19,6 +22,9 @@ public class UsersController {
     // ACA PODRIA CREAR UN ENDPOINT QUE ME INICIALICE UNA SERIE DE USUARIOS Y POSTS
     // ES NECESARIO, AUNQUE NO LO DIGA EL ENUNCIADO
     // HAY 2 FORMAS: CREO 1 JSON Y LO LEVANTO, O DIRECTAMENTE UN METODO ESTATICO QUE INICIALIZA TODO
+    @PostMapping("/init")
+    public ResponseEntity<List<User>> initializer() { return userManager.initialize(); }
+
 
     // US0001
     @PostMapping(Router.FOLLOW)
@@ -34,7 +40,7 @@ public class UsersController {
                 userManager.followersCount(userId)
         );
 
-        return new ResponseEntity(followersCountDTO, HttpStatus.OK);
+        return new ResponseEntity<>(followersCountDTO, HttpStatus.OK);
     }
 
     // US0003
@@ -42,6 +48,7 @@ public class UsersController {
     @GetMapping(Router.FOLLOWERS_LIST)
     public ResponseEntity<FollowersListResponseDTO> followers_list(@PathVariable Integer sellerId,
                                                                    @RequestParam(required=false) String order) {
+        FollowersListResponseDTO followersList = userManager.followersList(sellerId, order);
         return null;
     }
 
@@ -56,8 +63,8 @@ public class UsersController {
 
     // US0007
     @PostMapping(Router.UNFOLLOW)
-    public HttpStatus unfollow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) {
-        return userManager.unfollow(userId, userIdToFollow);
+    public HttpStatus unfollow(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) {
+        return userManager.unfollow(userId, userIdToUnfollow);
     }
 
 }

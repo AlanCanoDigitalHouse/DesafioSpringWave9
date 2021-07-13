@@ -1,5 +1,8 @@
 package com.meli.desafiospring.models;
 
+import lombok.Data;
+
+@Data
 public class Product {
 
     Integer product_id;

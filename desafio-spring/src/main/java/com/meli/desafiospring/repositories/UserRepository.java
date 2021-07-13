@@ -1,14 +1,12 @@
 package com.meli.desafiospring.repositories;
 
 import com.meli.desafiospring.DTOs.PostDTO;
+import com.meli.desafiospring.models.Product;
 import com.meli.desafiospring.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 public class UserRepository implements IUserRepository{
@@ -66,5 +64,18 @@ public class UserRepository implements IUserRepository{
 
     public Optional<User> findById(Integer userId) {
         return users.stream().filter(u -> u.getUserId().equals(userId)).findFirst();
+    }
+
+    public List<User> initialize() {
+        PostDTO post = new PostDTO(14, Calendar.getInstance(), new Product(), "algo", 700.0);
+        /*
+        Integer userId;
+    String userName;
+    List<PostDTO> postDTOS;
+    List<User> followers;
+    List<User> followed;
+         */
+        users.add(new User(200, "German", Collections.singletonList(post), null, null));
+        return users;
     }
 }

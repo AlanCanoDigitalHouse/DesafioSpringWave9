@@ -1,6 +1,7 @@
 package com.meli.desafiospring.models;
 
 import com.meli.desafiospring.DTOs.PostDTO;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Data
 @Getter
+@AllArgsConstructor
 public class User {
 
     Integer userId;
