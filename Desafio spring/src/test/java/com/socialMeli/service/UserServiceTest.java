@@ -1,5 +1,6 @@
 package com.socialMeli.service;
 
+import com.socialMeli.dto.response.WhoFollowUserResponseDTO;
 import com.socialMeli.exception.exception.AlreadyFollowedException;
 import com.socialMeli.exception.exception.FollowHimselfException;
 import com.socialMeli.exception.exception.ModelNotExists;
@@ -32,6 +33,16 @@ public class UserServiceTest {
         }
     }
 
+    @Test
+    public void getListOfFollowers(){
+        try{
+            WhoFollowUserResponseDTO res = userService.getListFollowers(1);
+            Assertions.assertEquals(1, res.getUserId());
+            Assertions.assertEquals("Juan", res.getFollowers().get(0).getUserName());
+        }catch (ModelNotExists ex){
+            Assertions.fail();
+        }
+    }
     @BeforeEach
     public void refresh(){
         AppStartupRunner.refresh();

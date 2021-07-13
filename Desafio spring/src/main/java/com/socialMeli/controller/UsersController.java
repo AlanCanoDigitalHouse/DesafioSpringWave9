@@ -2,6 +2,7 @@ package com.socialMeli.controller;
 
 import com.socialMeli.dto.response.CountFollowersResponseDTO;
 import com.socialMeli.dto.response.FollowResultResponseDTO;
+import com.socialMeli.dto.response.WhoFollowUserResponseDTO;
 import com.socialMeli.exception.exception.AlreadyFollowedException;
 import com.socialMeli.exception.exception.FollowHimselfException;
 import com.socialMeli.exception.exception.ModelNotExists;
@@ -37,6 +38,7 @@ public class UsersController {
 
     /**
      * TODO: 0002 A user can get the count of users that following him
+     *
      * @param userId id of the user interested
      * @return The id, name of the user and the counter of how many followers have
      * @throws ModelNotExists If the user id not exists
@@ -44,5 +46,17 @@ public class UsersController {
     @GetMapping("{userId}/followers/count/")
     public ResponseEntity<CountFollowersResponseDTO> countFollowers(@PathVariable String userId) throws ModelNotExists {
         return new ResponseEntity<>(userService.getCountOfFollowers(Integer.parseInt(userId)), HttpStatus.OK);
+    }
+
+    /**
+     * Get the list of the users that follow a other user
+     *
+     * @param userID user that want know the followers lists
+     * @return Name and id of the user, with their list of users with the id and name
+     * @throws ModelNotExists The id provided not exists
+     */
+    @GetMapping("{userID}/followers/list")
+    public ResponseEntity<WhoFollowUserResponseDTO> listFollowers(@PathVariable String userID) throws ModelNotExists {
+        return new ResponseEntity<>(userService.getListFollowers(Integer.parseInt(userID)), HttpStatus.OK);
     }
 }
