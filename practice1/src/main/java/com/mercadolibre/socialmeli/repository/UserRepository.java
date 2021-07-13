@@ -1,0 +1,22 @@
+package com.mercadolibre.socialmeli.repository;
+
+import com.mercadolibre.socialmeli.dto.FollowDTO;
+import com.mercadolibre.socialmeli.dto.UserDTO;
+import com.mercadolibre.socialmeli.exception.EntityException;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface UserRepository {
+    UserDTO save(UserDTO user);
+
+    FollowDTO saveFollow(FollowDTO follow) throws EntityException;
+
+    Optional<UserDTO> findUserByUserId(Integer userId);
+
+    List<UserDTO> findUserFollowers(Integer userId);
+
+    List<UserDTO> findFollowedByUser(Integer userId);
+
+    void delete(UserDTO linkDTO);
+}
