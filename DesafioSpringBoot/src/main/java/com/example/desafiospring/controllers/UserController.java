@@ -1,9 +1,6 @@
 package com.example.desafiospring.controllers;
 
-import com.example.desafiospring.dtos.response.FollowedListDto;
-import com.example.desafiospring.dtos.response.FollowersCountDto;
-import com.example.desafiospring.dtos.response.FollowersListDto;
-import com.example.desafiospring.dtos.response.UserResponseDto;
+import com.example.desafiospring.dtos.response.*;
 import com.example.desafiospring.services.UserServices;
 import com.example.desafiospring.utils.Factory;
 import org.springframework.http.HttpStatus;
@@ -28,7 +25,8 @@ public class UserController {
 
     @GetMapping(path = "/{userId}")
     public ResponseEntity<UserResponseDto> getUser(@Valid @NotNull @Min(1) @PathVariable Integer userId) {
-        return new ResponseEntity<>(userServices.getUserById(userId),HttpStatus.OK);
+        var user = userServices.getUserById(userId);
+        return new ResponseEntity<>(new UserResponseDto(user.getId(),user.getUserName()),HttpStatus.OK);
     }
 
     @PostMapping(path = "/{userId}/follow/{userIdToFollow}")
@@ -47,12 +45,14 @@ public class UserController {
     }
 
     @GetMapping(path = "/{userId}/followers/list")
-    public ResponseEntity<FollowersListDto> getSellerFollowers(@Valid @NotNull @Min(1) @PathVariable Integer userId) {
-        return null;
+    public ResponseEntity<SellerResponseDto> getSellerFollowers(@Valid @NotNull @Min(1) @PathVariable Integer userId) {
+        var seller = userServices.getSellerById(userId);
+        return new ResponseEntity<>(seller,HttpStatus.OK);
     }
 
     @GetMapping(path = "/{userId}/followed/list")
-    public ResponseEntity<FollowedListDto> getUserFollowedList(@Valid @NotNull @Min(1) @PathVariable Integer userId) {
-        return null;
+    public ResponseEntity<ClientResponseDto> getUserFollowedList(@Valid @NotNull @Min(1) @PathVariable Integer userId) {
+        var client = userServices.getClientById(userId);
+        return new ResponseEntity<>(client,HttpStatus.OK);
     }
 }
