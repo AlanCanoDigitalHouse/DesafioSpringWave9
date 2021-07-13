@@ -1,5 +1,6 @@
 package com.desafiospring.socialmeli.services;
 
+import com.desafiospring.socialmeli.dtos.responses.SellerFollowersCountDTO;
 import com.desafiospring.socialmeli.exceptions.AlreadyFollowingException;
 import com.desafiospring.socialmeli.exceptions.UserDoesNotExistException;
 import com.desafiospring.socialmeli.exceptions.UserException;
@@ -36,6 +37,13 @@ public class UserService implements IUser {
         followers.add(buyer);
     }
 
+    @Override
+    public SellerFollowersCountDTO getFollowersCount(int userId) throws UserException {
+        Seller seller = validateSeller(userId);
+        SellerFollowersCountDTO sellerFollowersCountDTO = new SellerFollowersCountDTO(
+                seller.getUserId(), seller.getUserName(), seller.getFollowers().size());
+        return sellerFollowersCountDTO;
+    }
 
 
     private Seller validateSeller(int userIdToFollow) throws UserException {
