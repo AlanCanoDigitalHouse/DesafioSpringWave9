@@ -5,14 +5,14 @@ import lombok.Data;
 import java.util.*;
 
 @Data
-public class User {
+public class User implements Comparable<User> {
 
   private Integer userId;
   private String userName;
-  private Set<User> folllowers;
+  private List<User> folllowers;
   private List<Post> posts;
 
-  public User(Integer userId, String userName, Set<User> folllowers) {
+  public User(Integer userId, String userName, List<User> folllowers) {
     this.userId = userId;
     this.userName = userName;
     this.folllowers = folllowers;
@@ -22,11 +22,11 @@ public class User {
   public User(Integer userId, String userName) {
     this.userId = userId;
     this.userName = userName;
-    this.folllowers = new HashSet<>();
+    this.folllowers = new ArrayList<>();
     this.posts = new ArrayList<>();
   }
 
-  public User(Integer userId, String userName, Set<User> folllowers, List<Post> posts) {
+  public User(Integer userId, String userName, List<User> folllowers, List<Post> posts) {
     this.userId = userId;
     this.userName = userName;
     this.folllowers = folllowers;
@@ -44,5 +44,10 @@ public class User {
   @Override
   public int hashCode() {
     return Objects.hash(userId);
+  }
+
+  @Override
+  public int compareTo(User o) {
+    return this.getUserName().compareTo(o.userName);
   }
 }

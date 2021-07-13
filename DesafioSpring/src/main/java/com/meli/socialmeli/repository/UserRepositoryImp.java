@@ -59,7 +59,6 @@ public class UserRepositoryImp implements UserRepository {
 
   @Override
   public List<User> findUsersFollowedBy(Integer userdId) {
-    //iterar a los usuarios y extraer los que tengan como seguidor al userId
     ArrayList<User> sellersFollowedByUser = new ArrayList<>();
     for (User seller : users) {
       for (User follower : seller.getFolllowers()) {
@@ -69,6 +68,13 @@ public class UserRepositoryImp implements UserRepository {
       }
     }
     return sellersFollowedByUser;
+  }
+
+  @Override
+  public List<User> findUsersFollowedBy(Integer userdId, Comparator<User> c) {
+    List<User> usersFollowedBy = findUsersFollowedBy(userdId);
+    Collections.sort(usersFollowedBy, c);
+    return usersFollowedBy;
   }
 
   @Override
@@ -111,7 +117,10 @@ public class UserRepositoryImp implements UserRepository {
     ArrayList<User> users = new ArrayList<>();
     User emilio = new User(1, "emilio");
     User daniel = new User(2, "daniel");
+    User ofe = new User(3, "ofe");
     daniel.getFolllowers().add(emilio);
+    daniel.getFolllowers().add(ofe);
+    ofe.getFolllowers().add(emilio);
 
     Product sillaRoja = Product.builder()
             .productName("Silla Gamer")
@@ -150,7 +159,8 @@ public class UserRepositoryImp implements UserRepository {
 
     users.add(emilio);
     users.add(daniel);
-    users.add(new User(3, "ofe"));
+    users.add(ofe);
+    users.add(new User(4, "elizabeth"));
     return users;
   }
 }

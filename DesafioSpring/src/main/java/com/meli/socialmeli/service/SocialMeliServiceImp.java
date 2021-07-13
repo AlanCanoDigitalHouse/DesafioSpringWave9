@@ -7,6 +7,7 @@ import com.meli.socialmeli.repository.UserRepository;
 import com.meli.socialmeli.util.MapperUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -46,8 +47,23 @@ public class SocialMeliServiceImp implements SocialMeliService {
   }
 
   @Override
+  public User findUser(Integer userId, String order) {
+    Comparator<User> comparator = getUserComparator(order);
+    User user = findUser(userId);
+    Collections.sort(user.getFolllowers(), comparator);
+    return user;
+  }
+
+
+  @Override
   public List<User> findUsersFollowedBy(Integer userdId) {
     return repo.findUsersFollowedBy(userdId);
+  }
+
+  @Override
+  public List<User> findUsersFollowedBy(Integer userdId, String order) {
+    Comparator<User> userComparator = getUserComparator(order);
+    return repo.findUsersFollowedBy(userdId, userComparator);
   }
 
   @Override
@@ -62,7 +78,7 @@ public class SocialMeliServiceImp implements SocialMeliService {
 
   @Override
   public List<Post> findPostsOfSellersFollowedBy(Integer userId, String order) {
-    Comparator<Post> comparator = getComparator(order);
+    Comparator<Post> comparator = getPostComparator(order);
     return findPostsOfSellersFollowedBy(userId, DEFAULT_OF_THE_LAST_DAYS, comparator);
   }
 
@@ -76,38 +92,48 @@ public class SocialMeliServiceImp implements SocialMeliService {
     return repo.findPostsOfSellersFollowedBy(userId, ofTheLastDays, c);
   }
 
-  private Comparator<Post> getComparator(String order) {
-    if (order.equals(ALPHA_ASCENDING)) {
-      return new Comparator<Post>() {
-        @Override
-        public int compare(Post o1, Post o2) {
-          return o1.getDetail().getProductName().compareTo(o2.getDetail().getProductName());
-        }
-      };
-    } else if (order.equals(ALPHA_DESCENDING)) {
-      return new Comparator<Post>() {
-        @Override
-        public int compare(Post o1, Post o2) {
-          int i = o1.getDetail().getProductName().compareTo(o2.getDetail().getProductName());
-          return -1 * i;
-        }
-      };
-    } else if (order.equals(DATE_ASCENDING)) {
-      return new Comparator<Post>() {
-        @Override
-        public int compare(Post o1, Post o2) {
-          return o1.getDate().isBefore(o2.getDate()) ? -1 : o1.getDate().isAfter(o2.getDate()) ? 1 : 0;
-        }
-      };
-    } else if (order.equals(DATE_DESCENDING)) {
-      return new Comparator<Post>() {
-        @Override
-        public int compare(Post o1, Post o2) {
-          return o1.getDate().isBefore(o2.getDate()) ? 1 : o1.getDate().isAfter(o2.getDate()) ? -1 : 0;
-        }
-      };
+  private Comparator<Post> getPostComparator(String order) {
+    if (order != null) {
+      if (order.equals(DATE_ASCENDING)) {
+        return new Comparator<Post>() {
+          @Override
+          public int compare(Post o1, Post o2) {
+            return o1.getDate().isBefore(o2.getDate()) ? -1 : o1.getDate().isAfter(o2.getDate()) ? 1 : 0;
+          }
+        };
+      } else if (order.equals(DATE_DESCENDING)) {
+        return new Comparator<Post>() {
+          @Override
+          public int compare(Post o1, Post o2) {
+            return o1.getDate().isBefore(o2.getDate()) ? 1 : o1.getDate().isAfter(o2.getDate()) ? -1 : 0;
+          }
+        };
+      } else {
+        return Post::compareTo;
+      }
     } else {
       return Post::compareTo;
     }
   }
+
+
+  private Comparator<User> getUserComparator(String order) {
+    if (order != null) {
+      if (order.equals(ALPHA_ASCENDING)) {
+        return User::compareTo;
+      } else if (order.equals(ALPHA_DESCENDING)) {
+        return new Comparator<User>() {
+          @Override
+          public int compare(User o1, User o2) {
+            return o1.getUserName().compareTo(o2.getUserName()) * -1;
+          }
+        };
+      } else {
+        return User::compareTo;
+      }
+    } else {
+      return User::compareTo;
+    }
+  }
+
 }

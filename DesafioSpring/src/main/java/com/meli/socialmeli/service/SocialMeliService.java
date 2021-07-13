@@ -17,7 +17,11 @@ public interface SocialMeliService {
 
   public User findUser(Integer userId);
 
+  public User findUser(Integer userId, String order);
+
   public List<User> findUsersFollowedBy(Integer userdId);
+
+  public List<User> findUsersFollowedBy(Integer userdId, String order);
 
 
   public void newPost(Integer userId, PostDTO post);

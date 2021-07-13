@@ -25,24 +25,10 @@ public class PostController {
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
-//  @GetMapping("followed/{userId}/list")
-//  public ResponseEntity<PostsOfSellersFollowedByDTO> findPostsOfSellersFollowedBy(@PathVariable Integer userId) {
-//    List<Post> postsOfSellersFollowedBy = service.findPostsOfSellersFollowedBy(userId);
-//    PostsOfSellersFollowedByDTO postsOfSellersFollowedByDTO = new PostsOfSellersFollowedByDTO(userId,
-//            MapperUtils.postDTOList(postsOfSellersFollowedBy));
-//    return new ResponseEntity<>(postsOfSellersFollowedByDTO, HttpStatus.OK);
-//  }
-
   @GetMapping("followed/{userId}/list")
   public ResponseEntity<PostsOfSellersFollowedByDTO> findPostsOfSellersFollowedBy(@PathVariable Integer userId,
                                                                                   @RequestParam(required = false) String order) {
-    List<Post> postsOfSellersFollowedBy = null;
-    if (order != null) {
-      postsOfSellersFollowedBy = service.findPostsOfSellersFollowedBy(userId, order);
-
-    } else {
-      postsOfSellersFollowedBy = service.findPostsOfSellersFollowedBy(userId);
-    }
+    List<Post> postsOfSellersFollowedBy = service.findPostsOfSellersFollowedBy(userId, order);
     PostsOfSellersFollowedByDTO postsOfSellersFollowedByDTO = new PostsOfSellersFollowedByDTO(userId,
             MapperUtils.postDTOList(postsOfSellersFollowedBy));
     return new ResponseEntity<>(postsOfSellersFollowedByDTO, HttpStatus.OK);

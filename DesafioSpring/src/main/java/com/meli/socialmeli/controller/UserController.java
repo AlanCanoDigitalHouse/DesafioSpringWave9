@@ -46,26 +46,19 @@ public class UserController {
   }
 
   @GetMapping("{userId}/followers/list")
-  public ResponseEntity<UserFollowersListDTO> getFollowersList(@PathVariable Integer userId) {
-    User user = service.findUser(userId);
+  public ResponseEntity<UserFollowersListDTO> getFollowersList(@PathVariable Integer userId,
+                                                               @RequestParam(required = false) String order) {
+    User user = service.findUser(userId, order);
     UserFollowersListDTO userFollowersListDTO = new UserFollowersListDTO(userId, user.getUserName(), user.getFolllowers());
     return new ResponseEntity<>(userFollowersListDTO, HttpStatus.OK);
   }
 
   @GetMapping("{userId}/followed/list")
-  public ResponseEntity<UsersFollowedByListDTO> findUsersFollowedBy(@PathVariable Integer userId) {
-    List<User> usersFollowedBy = service.findUsersFollowedBy(userId);
+  public ResponseEntity<UsersFollowedByListDTO> findUsersFollowedBy(@PathVariable Integer userId,
+                                                                    @RequestParam(required = false) String order) {
+    List<User> usersFollowedBy = service.findUsersFollowedBy(userId, order);
     User user = service.findUser(userId);
     return new ResponseEntity<>(new UsersFollowedByListDTO(userId, user.getUserName(), usersFollowedBy), HttpStatus.OK);
   }
-
-//  @GetMapping("{userId}/followed/list")
-//  public ResponseEntity<UsersFollowedByListDTO> findUsersFollowedBy(@PathVariable Integer userId,
-//                                                                    @RequestParam String order) {
-//    List<User> usersFollowedBy = service.findUsersFollowedBy(userId);
-//    User user = service.findUser(userId);
-//    return new ResponseEntity<>(new UsersFollowedByListDTO(userId, user.getUserName(), usersFollowedBy), HttpStatus.OK);
-//  }
-
 
 }
