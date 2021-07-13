@@ -1,6 +1,7 @@
 package com.mercadolibre.desafio.controllers;
 
 import com.mercadolibre.desafio.dtos.RequestPostDto;
+import com.mercadolibre.desafio.dtos.ResponseListPost;
 import com.mercadolibre.desafio.exception.UserException;
 import com.mercadolibre.desafio.services.ProductServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,10 @@ public class ProductController {
     public ResponseEntity<?> addPost(@Valid @RequestBody RequestPostDto requestPostDto) throws Exception {
         productServices.addPostProduct(requestPostDto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/followed/{userId}/list")
+    public ResponseEntity<ResponseListPost> getListPost(@PathVariable Integer userId) throws Exception {
+        return new ResponseEntity<>(productServices.getPostsFollowed(userId),HttpStatus.OK);
     }
 }

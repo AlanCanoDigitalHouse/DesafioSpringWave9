@@ -16,9 +16,6 @@ import javax.validation.constraints.NotNull;
 public class RequestDetailDto {
 
     @NotNull
-    @Min(message = "the min is 0", value = 0)
-    private Integer product_id;
-    @NotNull
     @NotBlank
     private  String productName;
     @NotNull

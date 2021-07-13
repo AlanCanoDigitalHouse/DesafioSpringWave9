@@ -69,6 +69,11 @@ public class UserInMemoryPersistence implements UserPersistence {
     }
 
     @Override
+    public void unfollow(Integer userID, Integer userToUnfollow) {
+
+    }
+
+    @Override
     public User getUserById(Integer userId) throws UserException {
         User user = database.get(userId);
         return Optional.ofNullable(user).orElseThrow(() -> new UserException(UserException.ID_NOT_FOUND));

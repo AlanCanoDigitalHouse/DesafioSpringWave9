@@ -1,6 +1,9 @@
 package com.mercadolibre.desafio.services.impl;
 
 import com.mercadolibre.desafio.dtos.RequestPostDto;
+import com.mercadolibre.desafio.dtos.ResponseFollowed;
+import com.mercadolibre.desafio.dtos.ResponseListPost;
+import com.mercadolibre.desafio.exception.PostException;
 import com.mercadolibre.desafio.exception.UserException;
 import com.mercadolibre.desafio.persistence.ProductPersistence;
 import com.mercadolibre.desafio.services.ProductServices;
@@ -16,9 +19,12 @@ public class ProductServicesImpl implements ProductServices {
 
     @Override
     public void addPostProduct(RequestPostDto requestPostDto) throws Exception {
-        if(!DateUtils.validateJavaDate(requestPostDto.getDate())){
-            throw new Exception("the date is not valid");
-        }
+
         productPersistence.addPostProduct(requestPostDto);
+    }
+
+    @Override
+    public ResponseListPost getPostsFollowed(Integer userId) throws PostException, UserException {
+        return productPersistence.getPostsFollowed(userId);
     }
 }

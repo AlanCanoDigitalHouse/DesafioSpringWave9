@@ -35,4 +35,9 @@ public class UserServicesImpl implements UserServices {
     public ResponseFollowed getFollowed(Integer userId) throws UserException {
         return userPersistence.getFollowed(userId);
     }
+
+    @Override
+    public void unfollow(Integer userID, Integer userToUnfollow) {
+        userPersistence.unfollow(userID,userToUnfollow);
+    }
 }

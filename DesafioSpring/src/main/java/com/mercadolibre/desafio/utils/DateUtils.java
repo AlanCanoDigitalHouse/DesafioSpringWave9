@@ -1,31 +1,14 @@
 package com.mercadolibre.desafio.utils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 public class DateUtils {
 
-    public static boolean validateJavaDate(String strDate)
-    {
+ public static Long weeksBetween(Date date1,Date date2){
+     long days= ChronoUnit.DAYS.between(date1.toInstant(),date2.toInstant());
+     return days/ 7 + (days % 7 == 0 ? 0 : 1);
+ }
 
-        if (strDate.trim().equals("")) {
-            return true;
-        }
 
-        else {
-            SimpleDateFormat sdfrmt = new SimpleDateFormat("dd-MM-yyyy");
-            sdfrmt.setLenient(false);
-            try
-            {
-                Date javaDate = sdfrmt.parse(strDate);
-            }
-            catch (ParseException e)
-            {
-                return false;
-            }
-
-            return true;
-        }
-    }
 }

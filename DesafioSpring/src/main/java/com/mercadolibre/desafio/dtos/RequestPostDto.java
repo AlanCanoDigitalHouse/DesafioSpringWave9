@@ -1,5 +1,6 @@
 package com.mercadolibre.desafio.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -19,7 +21,8 @@ public class RequestPostDto {
     @Min(message = "the min id is 0", value = 0)
     private Integer userId;
     @NotNull
-    private String date;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date date;
     @Valid
     @NotNull
     private RequestDetailDto detail;
