@@ -37,7 +37,7 @@ public class UserServicesImpl implements UserServices {
     }
 
     @Override
-    public void unfollow(Integer userID, Integer userToUnfollow) {
-        userPersistence.unfollow(userID,userToUnfollow);
+    public void unfollow(Integer userId, Integer userToUnfollow) throws UserException {
+        userPersistence.unfollow(userId,userToUnfollow);
     }
 }

@@ -18,5 +18,5 @@ public interface UserPersistence {
     ResponseFollowed getFollowed(Integer userId) throws UserException;
 
 
-    void unfollow(Integer userID, Integer userToUnfollow);
+    void unfollow(Integer userId, Integer userToUnfollow) throws UserException;
 }

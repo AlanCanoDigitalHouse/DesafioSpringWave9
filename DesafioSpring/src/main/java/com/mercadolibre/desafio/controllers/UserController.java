@@ -40,7 +40,10 @@ public class UserController {
         return new ResponseEntity<>(userServices.getFollowed(UserID), HttpStatus.OK);
     }
 
-
-
+    @PostMapping("{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<?> unfollowUser(@NotBlank @PathVariable Integer userId, @NotBlank @PathVariable Integer userIdToUnfollow) throws UserException {
+        userServices.unfollow(userId,userIdToUnfollow);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

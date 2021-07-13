@@ -69,8 +69,14 @@ public class UserInMemoryPersistence implements UserPersistence {
     }
 
     @Override
-    public void unfollow(Integer userID, Integer userToUnfollow) {
-
+    public void unfollow(Integer userId, Integer userToUnfollow) throws UserException {
+        User user = getUserById(userId);
+        User userUnfollow = getUserById(userToUnfollow);
+        if (!user.getFollowed().contains(userToUnfollow)) {
+            throw new UserException(UserException.USER_NOT_ALREADY_FOLLOWED);
+        }
+        user.getFollowed().remove(userToUnfollow);
+        userUnfollow.getFollowers().remove(userId);
     }
 
     @Override
