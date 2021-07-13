@@ -1,0 +1,1 @@
+{"1":{"userName":"Juan","follower":[{"userId":2,"userName":"Ana"}],"followed":[]},"2":{"userName":"Ana","follower":[],"followed":[{"userId":1,"userName":"Juan"}]}}
