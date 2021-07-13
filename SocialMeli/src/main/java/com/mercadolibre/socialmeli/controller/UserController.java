@@ -25,7 +25,7 @@ public class UserController {
             @PathVariable int userId, @PathVariable int userIdToFollow
     ){
         userService.followUser(userId, userIdToFollow);
-        return "successfully followed";
+        return "user successfully followed";
     }
 
     @GetMapping("/users/{userId}/followers/count/")
