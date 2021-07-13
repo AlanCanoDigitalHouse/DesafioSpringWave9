@@ -34,6 +34,18 @@ public class UserRepositoryImp implements UserRepository {
   }
 
   @Override
+  public void removeFollower(Integer followerId, Integer followedId) {
+    Optional<User> optionalFollower = findUserById(followerId);
+    Optional<User> optionalFollowed = findUserById(followedId);
+    if (optionalFollower.isPresent() && optionalFollowed.isPresent()) {
+      User followed = optionalFollowed.get();
+      User follower = optionalFollower.get();
+      followed.getFolllowers().remove(new User(follower.getUserId(), null));
+    }
+
+  }
+
+  @Override
   public Integer getFollowersCount(Integer userId) {
     Optional<User> user = findUserById(userId);
     return user.isPresent() ? user.get().getFolllowers().size() : 0;

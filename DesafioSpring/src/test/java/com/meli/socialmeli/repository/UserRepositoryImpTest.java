@@ -66,4 +66,13 @@ class UserRepositoryImpTest {
     Assertions.assertFalse(user.getPosts().isEmpty());
     Assertions.assertTrue(user.getPosts().get(0).getDetail().getProductName().equals("Silla Gamer"));
   }
+
+  @Test
+  void removeFollowerTest(){
+    User user = repo.findUser(2);
+    Assertions.assertFalse(user.getFolllowers().isEmpty());
+    repo.removeFollower(1,2);
+    User user1 = repo.findUser(2);
+    Assertions.assertTrue(user1.getFolllowers().isEmpty());
+  }
 }

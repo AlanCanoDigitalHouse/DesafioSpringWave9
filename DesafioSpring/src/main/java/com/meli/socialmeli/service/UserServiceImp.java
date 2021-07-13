@@ -27,6 +27,11 @@ public class UserServiceImp implements UserService {
   }
 
   @Override
+  public void removeFollower(Integer followerId, Integer followedId) {
+    repo.removeFollower(followerId, followedId);
+  }
+
+  @Override
   public Integer getFollowersCount(Integer userId) {
     return repo.getFollowersCount(userId);
   }

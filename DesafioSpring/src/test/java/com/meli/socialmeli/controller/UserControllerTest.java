@@ -21,6 +21,7 @@ class UserControllerTest {
   MockMvc mockMvc;
 
   static String ADD_FOLLOWER_REQUEST = "/users/1/follow/2";
+  static String REMOVE_FOLLOWER_REQUEST = "/users/1/unfollow/2";
   static String GET_FOLLOWERS_COUNT_REQUEST = "/users/2/followers/count";
   static String GET_FOLLOWERS_LIST = "/users/2/followers/list";
   static String GET_FOLLOWED_LIST = "/users/1/followed/list";
@@ -34,6 +35,14 @@ class UserControllerTest {
   void testAddFollower() throws Exception {
     mockMvc.perform(
             post(ADD_FOLLOWER_REQUEST))
+            .andDo(print())
+            .andExpect(status().isOk());
+  }
+
+  @Test
+  void testRemoveFollower() throws Exception {
+    mockMvc.perform(
+            post(REMOVE_FOLLOWER_REQUEST))
             .andDo(print())
             .andExpect(status().isOk());
   }
