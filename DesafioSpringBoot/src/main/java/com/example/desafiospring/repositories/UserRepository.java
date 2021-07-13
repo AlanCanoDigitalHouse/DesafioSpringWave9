@@ -2,6 +2,7 @@ package com.example.desafiospring.repositories;
 
 import com.example.desafiospring.dtos.response.UserResponseDto;
 import com.example.desafiospring.exceptions.ElementDoesntFindException;
+import com.example.desafiospring.exceptions.LogicValidationException;
 import com.example.desafiospring.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Repository;
 
@@ -29,6 +30,12 @@ public class UserRepository implements CRUD<UserResponseDto> {
     }
 
     @Override
+    public void delete(Integer id) {
+        /**TODO
+         * delete if needed
+         */
+    }
+
     public List<UserResponseDto> getAll() {
         return this.users;
     }
@@ -40,27 +47,18 @@ public class UserRepository implements CRUD<UserResponseDto> {
     }
 
     @Override
-    public Boolean update(UserResponseDto newElement) {
-        try {
-            var index = users.indexOf(newElement);
-            var prevElement = users.set(index, newElement);
-            return prevElement.getId() == newElement.getId();
-        } catch (NullPointerException ex) {
-            throw new ElementDoesntFindException("User not found to update");
+    public void update(UserResponseDto newElement) {
+
+        var index = users.indexOf(newElement);
+        if (index != -1) {
+            users.set(index, newElement);
+        } else {
+            throw new LogicValidationException("User not found to update");
         }
+
     }
 
-    @Override
-    public boolean delete(Integer id) {
-        return false;
-    }
-
-    @Override
-    public boolean delete(UserResponseDto element) {
-        return false;
-    }
-
-    public void setGeneratedData(List<UserResponseDto> users){
+    public void setGeneratedData(List<UserResponseDto> users) {
         this.users = users;
     }
 }

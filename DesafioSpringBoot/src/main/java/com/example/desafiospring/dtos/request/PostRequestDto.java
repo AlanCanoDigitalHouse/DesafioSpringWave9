@@ -3,24 +3,28 @@ package com.example.desafiospring.dtos.request;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Data
 @Validated
-public class ProductRequestDto {
+public class PostRequestDto {
     @NotNull
-    @Size(min = 4,max = 100)
-    private String productName;
+    @Min(1)
+    @Max(100)
+    private Integer userId;
     @NotNull
-    @Size(min = 1,max = 100)
-    private String brand;
+    private String date;
     @NotNull
-    @Size(min = 1,max = 100)
-    private String color;
+    @Valid
+    private ProductRequestDto detail;
     @NotNull
-    @Size(min=1,max = 200)
-    private String notes;
+    @Min(1)
+    @Max(100)
+    private Integer category;
+    @NotNull
+    private Double price;
 }

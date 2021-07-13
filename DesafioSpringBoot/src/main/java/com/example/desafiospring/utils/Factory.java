@@ -7,6 +7,7 @@ import com.example.desafiospring.exceptions.TypeNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Factory {
     public static UserResponseDto factoryUser(UserResponseDto user, String type) {
@@ -62,6 +63,12 @@ public class Factory {
             }
         }
         return listGenerated;
+    }
+
+    public static Integer generateId(){
+        Random rnd = new Random();
+        int n = 100000 + rnd.nextInt(900000);
+        return n;
     }
 }
 

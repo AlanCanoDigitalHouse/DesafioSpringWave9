@@ -73,4 +73,9 @@ public class UserServices {
             throw new UserNotFoundException("The client is not present in the collection as client");
         }
     }
+
+    public Boolean unFollowSeller(Integer userId){
+        return false;
+    }
+
 }
