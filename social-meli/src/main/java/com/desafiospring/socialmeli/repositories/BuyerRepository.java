@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class BuyerRepository implements IRepository<Buyer>{
@@ -47,7 +48,9 @@ public class BuyerRepository implements IRepository<Buyer>{
 
     @Override
     public Buyer get(int itemId) {
-        return null;
+        Optional<Buyer> buyer = this.buyers.stream()
+                .filter(b -> b.getUserId() == itemId).findFirst();
+        return buyer.orElse(null);
     }
 
     @Override

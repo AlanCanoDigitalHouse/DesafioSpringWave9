@@ -1,5 +1,6 @@
 package com.desafiospring.socialmeli.repositories;
 
+import com.desafiospring.socialmeli.models.Buyer;
 import com.desafiospring.socialmeli.models.Seller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class SellerRepository implements IRepository<Seller> {
@@ -49,7 +51,9 @@ public class SellerRepository implements IRepository<Seller> {
 
     @Override
     public Seller get(int itemId) {
-        return null;
+        Optional<Seller> seller = this.sellers.stream()
+                .filter(s -> s.getUserId() == itemId).findFirst();
+        return seller.orElse(null);
     }
 
     @Override
