@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class WhoFollowUserResponseDTO {
+public class UserFollowersResponseDTO {
     private int userId;
     private String userName;
     private List<BasicUserResponseDTO> followers;

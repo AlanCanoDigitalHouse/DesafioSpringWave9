@@ -1,9 +1,6 @@
 package com.socialMeli.service;
 
-import com.socialMeli.dto.response.BasicUserResponseDTO;
-import com.socialMeli.dto.response.CountFollowersResponseDTO;
-import com.socialMeli.dto.response.FollowResultResponseDTO;
-import com.socialMeli.dto.response.WhoFollowUserResponseDTO;
+import com.socialMeli.dto.response.*;
 import com.socialMeli.exception.exception.AlreadyFollowedException;
 import com.socialMeli.exception.exception.FollowHimselfException;
 import com.socialMeli.exception.exception.ModelNotExists;
@@ -12,6 +9,7 @@ import com.socialMeli.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,13 +46,23 @@ public class UserService implements IService {
         return new CountFollowersResponseDTO(userObjective.getId(), userObjective.getUserName(), followers);
     }
 
-    public WhoFollowUserResponseDTO getListFollowers(int idUser) throws ModelNotExists {
-        UserModel userObjetive = userRepository.findById(idUser);
+    public UserFollowersResponseDTO getListFollowers(int idUser) throws ModelNotExists {
+        UserModel userObjective = userRepository.findById(idUser);
         List<UserModel> users = userRepository.findAll();
         List<BasicUserResponseDTO> followers = users.stream()
                 .filter(user -> user.getFollowed().contains(idUser))
                 .map(follower -> new BasicUserResponseDTO(follower.getId(), follower.getUserName()))
                 .collect(Collectors.toList());
-        return new WhoFollowUserResponseDTO(idUser, userObjetive.getUserName(), followers);
+        return new UserFollowersResponseDTO(idUser, userObjective.getUserName(), followers);
+    }
+
+    public UserFollowedResponseDTO getListUsersFollowed(int idUser) throws ModelNotExists {
+        UserModel userModel = userRepository.findById(idUser);
+        List<BasicUserResponseDTO> followed = new ArrayList<>();
+        for (Integer id : userModel.getFollowed()) {
+            UserModel actual = userRepository.findById(id);
+            followed.add(new BasicUserResponseDTO(actual.getId(), actual.getUserName()));
+        }
+        return new UserFollowedResponseDTO(userModel.getId(), userModel.getUserName(), followed);
     }
 }

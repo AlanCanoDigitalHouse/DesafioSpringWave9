@@ -2,7 +2,8 @@ package com.socialMeli.controller;
 
 import com.socialMeli.dto.response.CountFollowersResponseDTO;
 import com.socialMeli.dto.response.FollowResultResponseDTO;
-import com.socialMeli.dto.response.WhoFollowUserResponseDTO;
+import com.socialMeli.dto.response.UserFollowedResponseDTO;
+import com.socialMeli.dto.response.UserFollowersResponseDTO;
 import com.socialMeli.exception.exception.AlreadyFollowedException;
 import com.socialMeli.exception.exception.FollowHimselfException;
 import com.socialMeli.exception.exception.ModelNotExists;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping("/users")
 public class UsersController {
@@ -43,6 +45,7 @@ public class UsersController {
      * @return The id, name of the user and the counter of how many followers have
      * @throws ModelNotExists If the user id not exists
      */
+    @SuppressWarnings("unused")
     @GetMapping("{userId}/followers/count/")
     public ResponseEntity<CountFollowersResponseDTO> countFollowers(@PathVariable String userId) throws ModelNotExists {
         return new ResponseEntity<>(userService.getCountOfFollowers(Integer.parseInt(userId)), HttpStatus.OK);
@@ -56,7 +59,19 @@ public class UsersController {
      * @throws ModelNotExists The id provided not exists
      */
     @GetMapping("{userID}/followers/list")
-    public ResponseEntity<WhoFollowUserResponseDTO> listFollowers(@PathVariable String userID) throws ModelNotExists {
+    public ResponseEntity<UserFollowersResponseDTO> listFollowers(@PathVariable String userID) throws ModelNotExists {
         return new ResponseEntity<>(userService.getListFollowers(Integer.parseInt(userID)), HttpStatus.OK);
+    }
+
+    /**
+     * Get the list of the users that a user follow
+     *
+     * @param userID user that want know the followers lists
+     * @return Name and id of the user, with their list of users with the id and name
+     * @throws ModelNotExists The id provided not exists
+     */
+    @GetMapping("{userID}/followed/list")
+    public ResponseEntity<UserFollowedResponseDTO> listFollowed(@PathVariable String userID) throws ModelNotExists {
+        return new ResponseEntity<>(userService.getListUsersFollowed(Integer.parseInt(userID)), HttpStatus.OK);
     }
 }
