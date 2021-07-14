@@ -37,6 +37,13 @@ public class ApiExceptionControllerAdvice {
 
     @ExceptionHandler
     @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleException(InvalidQueryParamException exception) {
+        return new ErrorResponse(exception.getMessage(), HttpStatus.BAD_REQUEST.value(), null);
+    }
+
+    @ExceptionHandler
+    @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorResponse handleInvalidArgument(MethodArgumentNotValidException exception) {
         var errorResults = exception.getBindingResult();
