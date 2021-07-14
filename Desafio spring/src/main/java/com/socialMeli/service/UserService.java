@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Qualifier("userService")
-public class UserService implements IService {
+public class UserService{
     final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {

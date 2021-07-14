@@ -2,13 +2,18 @@ package com.socialMeli.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.socialMeli.model.AbstractModel;
 import com.socialMeli.model.PostModel;
+import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
+@Repository
 public class PostRepository extends AbstractRepository<PostModel> {
     final String FILE_NAME = "post";
 
@@ -45,5 +50,12 @@ public class PostRepository extends AbstractRepository<PostModel> {
             models = new ArrayList<>();
         }
         return models;
+    }
+
+    public int getNextId(){
+        List<PostModel> models = findAll();
+        Optional<Integer> optionMax = models.stream().map(AbstractModel::getId).max(Comparator.naturalOrder());
+        if(optionMax.isEmpty()) return 1;
+        return optionMax.get()+1;
     }
 }

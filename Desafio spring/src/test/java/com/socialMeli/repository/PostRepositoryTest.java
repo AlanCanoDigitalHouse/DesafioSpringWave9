@@ -2,6 +2,7 @@ package com.socialMeli.repository;
 
 import com.socialMeli.exception.exception.ModelAlreadyExists;
 import com.socialMeli.exception.exception.ModelNotExists;
+import com.socialMeli.model.PostBuilder;
 import com.socialMeli.model.PostModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,8 +15,7 @@ public class PostRepositoryTest {
 
    @Test
     public void createModel() throws ModelAlreadyExists, ModelNotExists {
-       PostModel postModel = new PostModel();
-       postModel.setId(10);
+       PostModel postModel = new PostBuilder(10).build();
        postRepository.insert(postModel);
 
        Assertions.assertEquals(10, postRepository.findById(10).getId());
@@ -23,8 +23,7 @@ public class PostRepositoryTest {
 
    @Test
    public void modify() throws ModelAlreadyExists, ModelNotExists {
-      PostModel postModel = new PostModel();
-      postModel.setId(10);
+      PostModel postModel = new PostBuilder(10).build();
       postRepository.insert(postModel);
 
       postModel.setNotes("A note");
@@ -34,8 +33,7 @@ public class PostRepositoryTest {
 
    @Test
    public void delete() throws ModelNotExists, ModelAlreadyExists {
-      PostModel postModel = new PostModel();
-      postModel.setId(10);
+      PostModel postModel = new PostBuilder(10).build();
       postRepository.insert(postModel);
       postRepository.delete(postModel);
       try{

@@ -24,4 +24,5 @@ public class UserModel extends AbstractModel {
     public void addNewUserFollowed(Integer newModel) {
         followed.add(newModel);
     }
+
 }

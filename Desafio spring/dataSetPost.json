@@ -1,12 +1,15 @@
-[ {
-  "id" : 10,
-  "date" : null,
-  "product_id" : 0,
-  "productName" : null,
-  "type" : null,
-  "brand" : null,
-  "color" : null,
-  "notes" : null,
-  "category" : 0,
-  "price" : 0.0
-} ]
+[
+  {
+    "id": 1,
+    "userId": 1,
+    "date": "29-04-2021",
+    "product_id": 1,
+    "productName": "Silla Gamer",
+    "type": "Gamer",
+    "brand": "Racer",
+    "color": "Red & Black",
+    "notes": "Special Edition",
+    "category": 100,
+    "price": 15000.5
+  }
+]
