@@ -6,8 +6,8 @@ import com.mercadolibre.socialmeli.dtos.resp.SellerPostsPromoDTO;
 import com.mercadolibre.socialmeli.exceptions.BuyerNotFoundException;
 import com.mercadolibre.socialmeli.exceptions.SellerNotFoundException;
 import com.mercadolibre.socialmeli.repositories.interfaces.ProductRepository;
-import com.mercadolibre.socialmeli.repositories.interfaces.UserRepository;
 import com.mercadolibre.socialmeli.services.interfaces.ProductService;
+import com.mercadolibre.socialmeli.services.interfaces.UserService;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -18,23 +18,23 @@ import java.util.stream.Collectors;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+    private final UserService userService;
     private final ProductRepository productRepository;
-    private final UserRepository userRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository, UserRepository userRepository) {
+    public ProductServiceImpl(UserService userService, ProductRepository productRepository) {
+        this.userService = userService;
         this.productRepository = productRepository;
-        this.userRepository = userRepository;
     }
 
     @Override
     public void createPost(PostDTO postDTO) throws SellerNotFoundException {
-        userRepository.getSellerById(postDTO.getUserId());
+        userService.getSellerById(postDTO.getUserId());
         productRepository.createPost(postDTO);
     }
 
     @Override
     public FollowedPostsDTO followedSellersPostsLastTwoWeeks(Integer userId, String order) throws BuyerNotFoundException {
-        BuyerDTO buyer = userRepository.getBuyerById(userId);
+        BuyerDTO buyer = userService.getBuyerById(userId);
         // iterate sellers and collect posts
         List<PostDTO> postList = new LinkedList<>();
         Instant since = ZonedDateTime.now().minusWeeks(2).toInstant();
@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public SellerPostsPromoDTO getPromoProductsCount(Integer sellerId) throws SellerNotFoundException {
-        SellerDTO seller = userRepository.getSellerById(sellerId);
+        SellerDTO seller = userService.getSellerById(sellerId);
         List<PostPromoDTO> promoPostList = productRepository.getPromoPostsBySeller(sellerId);
 
         List<ProductDTO> productList = promoPostList.stream()
@@ -81,7 +81,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public SellerPostsPromoDTO getPromoPosts(Integer sellerId) throws SellerNotFoundException {
-        SellerDTO seller = userRepository.getSellerById(sellerId);
+        SellerDTO seller = userService.getSellerById(sellerId);
         List<PostPromoDTO> promos = productRepository.getPromoPostsBySeller(sellerId);
 
         promos = promos.stream()

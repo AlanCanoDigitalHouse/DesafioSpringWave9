@@ -62,9 +62,20 @@ public class UserServiceImpl implements UserService {
     public FollowersDTO getFollowersCount(Integer userId) throws SellerNotFoundException {
         SellerDTO seller = userRepository.getSellerById(userId);
 
+        // build dto
         FollowersDTO dto = new FollowersDTO(seller);
         dto.setFollowers_count((long) seller.getFollowers().size());
         return dto;
+    }
+
+    @Override
+    public SellerDTO getSellerById(Integer sellerId) throws SellerNotFoundException {
+        return userRepository.getSellerById(sellerId);
+    }
+
+    @Override
+    public BuyerDTO getBuyerById(Integer buyerId) throws BuyerNotFoundException {
+        return userRepository.getBuyerById(buyerId);
     }
 
     private void sortUserList(List<UserDTO> userList, String order) {

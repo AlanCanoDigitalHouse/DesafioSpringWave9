@@ -17,4 +17,6 @@ public interface ProductService {
 
     SellerPostsPromoDTO getPromoPosts(Integer sellerId) throws SellerNotFoundException;
 
+
+
 }
