@@ -82,20 +82,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private void sortPostList(List<PostDTO> postList, String order) {
-        if(Objects.nonNull(order)) {
-            postList.sort(Comparator.comparing(PostDTO::getDate).reversed());
-            if("date_asc".equals(order)) {
-                postList.sort(Comparator.comparing(PostDTO::getDate));
-            }
+        postList.sort(Comparator.comparing(PostDTO::getDate).reversed());
+        if ("date_asc".equals(order)) {
+            postList.sort(Comparator.comparing(PostDTO::getDate));
         }
     }
 
     private void sortPostPromoList(List<PostPromoDTO> postList, String order) {
-        if(Objects.nonNull(order)) {
-            postList.sort(Comparator.comparing(p -> p.getDetail().getProductName(), String.CASE_INSENSITIVE_ORDER));
-            if("product_name_desc".equals(order)) {
-                postList.sort(Comparator.comparing(p -> ((PostPromoDTO)p).getDetail().getProductName(), String.CASE_INSENSITIVE_ORDER).reversed());
-            }
+        postList.sort(Comparator.comparing(p -> p.getDetail().getProductName(), String.CASE_INSENSITIVE_ORDER));
+        if ("product_name_desc".equals(order)) {
+            postList.sort(Comparator.comparing(p -> ((PostPromoDTO) p).getDetail().getProductName(), String.CASE_INSENSITIVE_ORDER).reversed());
         }
     }
 }

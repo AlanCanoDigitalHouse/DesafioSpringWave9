@@ -79,11 +79,9 @@ public class UserServiceImpl implements UserService {
     }
 
     private void sortUserList(List<UserDTO> userList, String order) {
-        if(Objects.nonNull(order)) {
-            userList.sort(Comparator.comparing(UserDTO::getUserName, String.CASE_INSENSITIVE_ORDER));
-            if("name_desc".equals(order)){
-                userList.sort(Comparator.comparing(UserDTO::getUserName, String.CASE_INSENSITIVE_ORDER).reversed());
-            }
+        userList.sort(Comparator.comparing(UserDTO::getUserName, String.CASE_INSENSITIVE_ORDER));
+        if("name_desc".equals(order)){
+            userList.sort(Comparator.comparing(UserDTO::getUserName, String.CASE_INSENSITIVE_ORDER).reversed());
         }
     }
 }
