@@ -5,6 +5,8 @@ import com.example.desafiospring.dtos.general.Publication;
 import com.example.desafiospring.dtos.general.UserInfo;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -41,6 +43,8 @@ public class PublicationRepositoryImpl implements IPublicationRepository{
 
     private Map<Integer, List<Publication>> mapObject(File file) {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         TypeReference<Map<Integer, List<Publication>>> typeReference = new TypeReference<>() {
         };
 
@@ -64,7 +68,8 @@ public class PublicationRepositoryImpl implements IPublicationRepository{
 
         try {
             ObjectMapper mapper = new ObjectMapper();
-
+            mapper.registerModule(new JavaTimeModule());
+            mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
             // convert map to JSON file
             mapper.writeValue(Paths.get(this.PATH_NAME_PUBLICATIONS).toFile(), this.publicationsDatabase);
             System.out.println("Archivo sobreescrito");

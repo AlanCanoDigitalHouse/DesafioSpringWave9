@@ -5,6 +5,7 @@ import com.example.desafiospring.dtos.response.FollowedsListDTO;
 import com.example.desafiospring.dtos.response.FollowersCountDTO;
 import com.example.desafiospring.dtos.response.FollowersListDTO;
 import com.example.desafiospring.exceptions.UserNotFindException;
+import com.example.desafiospring.exceptions.UserNotFollowToUser;
 import com.example.desafiospring.services.IUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,15 +35,22 @@ public class UserController {
 
     //003
     @GetMapping(path = "/{userId}/followers/list")
-    public FollowersListDTO followersList(@PathVariable Integer userId) throws UserNotFindException {
-        return userService.followerList(userId);
+    public FollowersListDTO followersList(@PathVariable Integer userId, @RequestParam(value = "order", defaultValue = "default") String order) throws UserNotFindException {
+        System.out.println("Ordenando como: "+ order);
+        return userService.followerList(userId, order);
     }
 
     //004
     @GetMapping(path = "/{userId}/followed/list")
-    public FollowedsListDTO followedList(@PathVariable Integer userId) throws UserNotFindException {
-        return userService.followedList(userId);
+    public FollowedsListDTO followedList(@PathVariable Integer userId, @RequestParam(value = "order", defaultValue = "default") String order) throws UserNotFindException {
+        System.out.println("Ordenando como: "+ order);
+        return userService.followedList(userId, order);
     }
 
+    //007
+    @PostMapping(path = "/{userId}/unfollow/{userToUnfollow}")
+    public ResponseEntity<?> unFollow(@PathVariable Integer userId,@PathVariable Integer userToUnfollow) throws UserNotFindException, UserNotFollowToUser {
+        return userService.unfollowUser(userId, userToUnfollow);
+    }
 
 }

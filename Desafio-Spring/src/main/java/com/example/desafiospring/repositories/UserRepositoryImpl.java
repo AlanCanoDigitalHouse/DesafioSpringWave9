@@ -1,7 +1,7 @@
 package com.example.desafiospring.repositories;
 
-import com.example.desafiospring.dtos.general.User;
 import com.example.desafiospring.dtos.general.UserInfo;
+import com.example.desafiospring.dtos.response.UserDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserRepositoryImpl implements IUserRepository{
@@ -38,8 +39,7 @@ public class UserRepositoryImpl implements IUserRepository{
 
     private Map<Integer, UserInfo> mapObject(File file) {
         ObjectMapper mapper = new ObjectMapper();
-        TypeReference<Map<Integer, UserInfo>> typeReference = new TypeReference<>() {
-        };
+        TypeReference<Map<Integer, UserInfo>> typeReference = new TypeReference<>() {};
 
         Map<Integer, UserInfo> userDtos = null;
         try {
@@ -54,7 +54,6 @@ public class UserRepositoryImpl implements IUserRepository{
     @Override
     public void updateUsersFile() {
         System.out.println("guardando: "+ this.usersDatabase);
-
         try {
             ObjectMapper mapper = new ObjectMapper();
 
@@ -63,10 +62,7 @@ public class UserRepositoryImpl implements IUserRepository{
             System.out.println("Archivo sobreescrito");
         } catch (IOException e) {
             e.printStackTrace();
-
         }
-
-
     }
 
     @Override

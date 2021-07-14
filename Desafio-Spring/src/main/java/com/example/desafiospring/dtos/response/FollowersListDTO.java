@@ -1,6 +1,5 @@
 package com.example.desafiospring.dtos.response;
 
-import com.example.desafiospring.dtos.general.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +13,6 @@ public class FollowersListDTO {
 
     private Integer userId;
     private String userName;
-    private List<User> followers;
+    private List<UserDTO> followers;
 
 }

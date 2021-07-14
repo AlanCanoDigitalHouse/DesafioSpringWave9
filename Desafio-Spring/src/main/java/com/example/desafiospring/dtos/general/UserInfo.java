@@ -3,7 +3,7 @@ package com.example.desafiospring.dtos.general;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.example.desafiospring.dtos.general.User;
+import com.example.desafiospring.dtos.response.UserDTO;
 
 import java.util.List;
 
@@ -12,6 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 public class UserInfo {
     private String userName;
-    private List<User> follower;
-    private List<User> followed;
+    private List<UserDTO> follower;
+    private List<UserDTO> followed;
 }
