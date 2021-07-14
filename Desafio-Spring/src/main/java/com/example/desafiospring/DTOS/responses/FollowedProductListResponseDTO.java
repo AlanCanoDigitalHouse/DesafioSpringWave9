@@ -1,6 +1,5 @@
 package com.example.desafiospring.DTOS.responses;
 
-import com.example.desafiospring.DTOS.requests.ProductRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

@@ -80,8 +80,7 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public List<PromoPostResponseDTO> getPromoPostsOf(Integer userId, String order) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        Comparator<PostEntity> c = getProductNameComparator(order, formatter);
+        Comparator<PostEntity> c = getProductNameComparator(order);
         return getDatabasePosts().stream()
                 .filter(p -> userId.equals(p.getUserId()) && Boolean.TRUE.equals(p.getHasPromo()))
                 .sorted(c)
@@ -96,7 +95,7 @@ public class PostRepositoryImpl implements PostRepository {
                 .collect(Collectors.toList());
     }
 
-    private Comparator<PostEntity> getProductNameComparator(String order, DateTimeFormatter formatter) {
+    private Comparator<PostEntity> getProductNameComparator(String order) {
         Comparator<PostEntity> c = Comparator.comparing(p -> productRepository.getProductNameByID(p.getProductId()));
         return "name_desc".equals(order) ? c.reversed() : c;
     }

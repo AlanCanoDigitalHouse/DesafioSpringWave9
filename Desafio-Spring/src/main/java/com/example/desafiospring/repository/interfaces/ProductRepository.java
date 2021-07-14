@@ -2,7 +2,6 @@ package com.example.desafiospring.repository.interfaces;
 
 import com.example.desafiospring.DTOS.requests.ProductRequestDTO;
 import com.example.desafiospring.DTOS.responses.ProductResponseDTO;
-import com.example.desafiospring.entities.ProductEntity;
 
 import java.util.List;
 import java.util.Set;

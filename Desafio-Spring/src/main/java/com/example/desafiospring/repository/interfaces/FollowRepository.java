@@ -1,6 +1,5 @@
 package com.example.desafiospring.repository.interfaces;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface FollowRepository {
