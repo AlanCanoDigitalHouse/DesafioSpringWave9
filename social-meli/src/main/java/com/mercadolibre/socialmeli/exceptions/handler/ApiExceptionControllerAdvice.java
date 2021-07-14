@@ -25,7 +25,7 @@ public class ApiExceptionControllerAdvice {
         for (FieldError fieldError : result.getFieldErrors()) {
             errors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
-        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), "Validation Errors", errors);
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), "ValidationException", null, errors);
     }
 
     @ExceptionHandler(value = {
@@ -37,7 +37,7 @@ public class ApiExceptionControllerAdvice {
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage handleException(Exception ex) {
-        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), null);
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.getClass().getSimpleName(), ex.getMessage(), null);
     }
 
 }
