@@ -1,7 +1,9 @@
 package com.example.desafio_spring.repositories.implementations;
 
 import com.example.desafio_spring.dtos.request.PostRequestDTO;
+import com.example.desafio_spring.dtos.request.ProductRequestDTO;
 import com.example.desafio_spring.dtos.request.UserRequestDTO;
+import com.example.desafio_spring.dtos.response.UserResponseDTO;
 import com.example.desafio_spring.entities.Post;
 import com.example.desafio_spring.entities.Product;
 import com.example.desafio_spring.entities.User;
@@ -9,8 +11,7 @@ import com.example.desafio_spring.repositories.interfaces.ISocialMeliRepository;
 import org.springframework.stereotype.Repository;
 
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
@@ -18,9 +19,10 @@ public class SocialMeliRepositoryImp implements ISocialMeliRepository {
 
     private static Map<Integer, User> database = new HashMap<>();
     private static Map<Integer, Post> posts = new HashMap<>();
-    private static Map<Integer, Product> products = new HashMap<>();
+    private static ArrayList<Post> postList = new ArrayList<>();
     private static AtomicInteger counter = new AtomicInteger();
     private static AtomicInteger counterPost = new AtomicInteger();
+    private static AtomicInteger counterProduct = new AtomicInteger();
 
     @Override
     public Map<Integer, User> getUsers() {
@@ -57,15 +59,32 @@ public class SocialMeliRepositoryImp implements ISocialMeliRepository {
 
     @Override
     public Map<Integer, Post> getPosts() {
-        return null;
+        return posts;
     }
 
     @Override
+    public ArrayList<Post> getPostList() {
+        return postList;
+    }
+
+
+    @Override
     public Integer savePost(PostRequestDTO postRequestDTO) throws ParseException {
+        ArrayList<ProductRequestDTO> products = new ArrayList<>();
+        products.add(postRequestDTO.getDetail());
         Post post = new Post(postRequestDTO.getUserId(),counterPost.getAndIncrement(),postRequestDTO.getDate(),
-                postRequestDTO.getDetail(),postRequestDTO.getCategory(),postRequestDTO.getPrice());
-        post.getDetail().setProduct_id(counterPost.get());
+                products,postRequestDTO.getCategory(),postRequestDTO.getPrice());
+        post.getDetail().stream().forEach(x -> x.setProduct_id(counterProduct.incrementAndGet()));
         posts.put(post.getId_post(), post);
+        return counterPost.get();
+    }
+    public Integer saveListPost(PostRequestDTO postRequestDTO) throws ParseException {
+        ArrayList<ProductRequestDTO> products = new ArrayList<>();
+        products.add(postRequestDTO.getDetail());
+        Post post = new Post(postRequestDTO.getUserId(),counterPost.getAndIncrement(),postRequestDTO.getDate(),
+                products,postRequestDTO.getCategory(),postRequestDTO.getPrice());
+        post.getDetail().stream().forEach(x -> x.setProduct_id(counterProduct.incrementAndGet()));
+        postList.add(post);
         return counterPost.get();
     }
 
@@ -78,4 +97,25 @@ public class SocialMeliRepositoryImp implements ISocialMeliRepository {
         }
         return result;
     }
+
+    @Override
+    public boolean isFollowedBy(Integer userId, Integer userIdToFollow) {
+        User follwer = database.get(userId);
+        if (!Objects.nonNull(follwer)){
+            return false;
+        }
+        Optional<UserResponseDTO> isFollower = follwer.getFollowed().stream().filter(x ->x.equals(userIdToFollow)).findFirst();
+        return isFollower.isPresent();
+    }
+
+    @Override
+    public Product getProductById(Integer product_id) {
+        return null;
+    }
+
+    @Override
+    public Post getPost(Integer postId) {
+        return posts.get(postId);
+    }
+
 }
