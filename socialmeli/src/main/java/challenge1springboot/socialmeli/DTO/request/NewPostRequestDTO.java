@@ -13,7 +13,7 @@ import javax.validation.constraints.Min;
 @Data
 @AllArgsConstructor
 @Validated
-public class PostRequestDTO {
+public class NewPostRequestDTO {
 
     @Min(value = 0, message = Message.MIN_VALUE + 0)
     int userId;
