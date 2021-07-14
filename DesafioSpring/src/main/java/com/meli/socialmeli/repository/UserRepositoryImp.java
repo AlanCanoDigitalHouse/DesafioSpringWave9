@@ -1,5 +1,6 @@
 package com.meli.socialmeli.repository;
 
+import com.meli.socialmeli.exception.UserNotFoundException;
 import com.meli.socialmeli.model.Post;
 import com.meli.socialmeli.model.Product;
 import com.meli.socialmeli.model.User;
@@ -23,60 +24,48 @@ public class UserRepositoryImp implements UserRepository {
   }
 
   @Override
-  public void addFollower(Integer followerId, Integer followedId) {
-    Optional<User> optionalFollower = findUserById(followerId);
-    Optional<User> optionalFollowed = findUserById(followedId);
-    if (optionalFollower.isPresent() && optionalFollowed.isPresent()) {
-      User followed = optionalFollowed.get();
-      User follower = optionalFollower.get();
+  public void addFollower(Integer followerId, Integer followedId) throws UserNotFoundException {
+    User follower = findUserById(followerId);
+    User followed = findUserById(followedId);
+    List<User> folllowers = followed.getFolllowers();
+    if (!folllowers.contains(new User(followerId, null)) && !followedId.equals(followerId)) {
       followed.getFolllowers().add(follower);
     }
   }
 
   @Override
-  public void removeFollower(Integer followerId, Integer followedId) {
-    Optional<User> optionalFollower = findUserById(followerId);
-    Optional<User> optionalFollowed = findUserById(followedId);
-    if (optionalFollower.isPresent() && optionalFollowed.isPresent()) {
-      User followed = optionalFollowed.get();
-      User follower = optionalFollower.get();
-      followed.getFolllowers().remove(new User(follower.getUserId(), null));
-    }
-
+  public void removeFollower(Integer followerId, Integer followedId) throws UserNotFoundException {
+    User follower = findUserById(followerId);
+    User followed = findUserById(followedId);
+    followed.getFolllowers().remove(new User(follower.getUserId(), null));
   }
 
   @Override
-  public Integer getFollowersCount(Integer userId) {
-    Optional<User> user = findUserById(userId);
-    return user.isPresent() ? user.get().getFolllowers().size() : 0;
+  public Integer getFollowersCount(Integer userId) throws UserNotFoundException {
+    User user = findUserById(userId);
+    return user.getFolllowers().size();
   }
 
   @Override
-  public User findUser(Integer userId) {
-    Optional<User> userById = findUserById(userId);
-    return userById.orElse(null);
+  public User findUser(Integer userId) throws UserNotFoundException {
+    return findUserById(userId);
   }
 
   @Override
-  public List<Post> findUserPromoPosts(Integer userId) {
-    Optional<User> userById = findUserById(userId);
-    if (userById.isPresent()) {
-      User user = userById.get();
-      return user.getPosts().stream().filter(post -> post.getHasPromo()).collect(Collectors.toList());
-    } else {
-      return new ArrayList<>();
-    }
-
+  public List<Post> findUserPromoPosts(Integer userId) throws UserNotFoundException {
+    User user = findUserById(userId);
+    return user.getPosts().stream().filter(Post::getHasPromo).collect(Collectors.toList());
   }
 
   @Override
-  public Integer findUserPromoPostsCount(Integer userId) {
+  public Integer findUserPromoPostsCount(Integer userId) throws UserNotFoundException {
     List<Post> userPromoPosts = findUserPromoPosts(userId);
     return userPromoPosts.size();
   }
 
   @Override
-  public List<User> findUsersFollowedBy(Integer userdId) {
+  public List<User> findUsersFollowedBy(Integer userdId) throws UserNotFoundException {
+    User userById = findUserById(userdId);
     ArrayList<User> sellersFollowedByUser = new ArrayList<>();
     for (User seller : users) {
       for (User follower : seller.getFolllowers()) {
@@ -89,46 +78,48 @@ public class UserRepositoryImp implements UserRepository {
   }
 
   @Override
-  public List<User> findUsersFollowedBy(Integer userdId, Comparator<User> c) {
+  public List<User> findUsersFollowedBy(Integer userdId, Comparator<User> c) throws UserNotFoundException {
     List<User> usersFollowedBy = findUsersFollowedBy(userdId);
-    Collections.sort(usersFollowedBy, c);
+    usersFollowedBy.sort(c);
     return usersFollowedBy;
   }
 
   @Override
-  public void newPost(Integer userId, Post post) {
-    Optional<User> optionalUser = findUserById(userId);
-    if (optionalUser.isPresent()) {
-      User user = optionalUser.get();
-      user.getPosts().add(post);
-    }
+  public void newPost(Integer userId, Post post) throws UserNotFoundException {
+    User user = findUserById(userId);
+    user.getPosts().add(post);
   }
 
   @Override
-  public List<Post> findPostsOfSellersFollowedBy(Integer userId) {
+  public List<Post> findPostsOfSellersFollowedBy(Integer userId) throws UserNotFoundException {
     List<User> usersFollowedBy = findUsersFollowedBy(userId);
     ArrayList<Post> posts = new ArrayList<>();
-    usersFollowedBy.forEach(seller -> seller.getPosts().forEach(posts::add));
+    usersFollowedBy.forEach(seller -> posts.addAll(seller.getPosts()));
     return posts;
   }
 
 
   @Override
-  public List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays) {
+  public List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays) throws UserNotFoundException {
     List<Post> postsOfSellersFollowedBy = findPostsOfSellersFollowedBy(userId);
     LocalDate dateOfTheLastDays = LocalDate.now().minusDays(ofTheLastDays);
     return postsOfSellersFollowedBy.stream().filter(post -> post.getDate().isAfter(dateOfTheLastDays)).collect(Collectors.toList());
   }
 
   @Override
-  public List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays, Comparator<Post> c) {
+  public List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays, Comparator<Post> c) throws UserNotFoundException {
     List<Post> postsOfSellersFollowedBy = findPostsOfSellersFollowedBy(userId, ofTheLastDays);
-    Collections.sort(postsOfSellersFollowedBy, c);
+    postsOfSellersFollowedBy.sort(c);
     return postsOfSellersFollowedBy;
   }
 
-  private Optional<User> findUserById(Integer userId) {
-    return users.stream().filter(user -> user.getUserId().equals(userId)).findFirst();
+  private User findUserById(Integer userId) throws UserNotFoundException {
+    try {
+      return users.stream().filter(user -> user.getUserId().equals(userId)).findFirst().get();
+    } catch (NoSuchElementException exception) {
+      throw new UserNotFoundException("No existe el usuario con id " + userId);
+    }
+
   }
 
   private List<User> loadUsers() {

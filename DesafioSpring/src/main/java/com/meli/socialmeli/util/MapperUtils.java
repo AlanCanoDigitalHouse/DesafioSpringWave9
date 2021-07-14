@@ -4,6 +4,7 @@ import com.meli.socialmeli.dto.PostDTO;
 import com.meli.socialmeli.dto.ProductDTO;
 import com.meli.socialmeli.dto.UserDTO;
 import com.meli.socialmeli.dto.request.NewPostRequest;
+import com.meli.socialmeli.dto.request.NewPromoPostRequest;
 import com.meli.socialmeli.model.Post;
 import com.meli.socialmeli.model.Product;
 import com.meli.socialmeli.model.User;
@@ -63,6 +64,17 @@ public class MapperUtils {
   }
 
   public static PostDTO buildDTOFromRequest(NewPostRequest request) {
+    return PostDTO.builder()
+            .date(request.getDate())
+            .detail(request.getDetail())
+            .category(request.getCategory())
+            .price(request.getPrice())
+            .hasPromo(request.getHasPromo())
+            .discount(request.getDiscount())
+            .build();
+  }
+
+  public static PostDTO buildDTOFromRequest(NewPromoPostRequest request) {
     return PostDTO.builder()
             .date(request.getDate())
             .detail(request.getDetail())

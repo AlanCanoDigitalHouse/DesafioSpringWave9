@@ -1,6 +1,5 @@
 package com.meli.socialmeli.dto;
 
-import com.meli.socialmeli.model.Post;
 import lombok.Data;
 
 import java.util.List;

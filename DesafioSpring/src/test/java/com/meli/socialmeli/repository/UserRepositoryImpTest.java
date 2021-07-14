@@ -1,5 +1,6 @@
 package com.meli.socialmeli.repository;
 
+import com.meli.socialmeli.exception.UserNotFoundException;
 import com.meli.socialmeli.model.Post;
 import com.meli.socialmeli.model.Product;
 import com.meli.socialmeli.model.User;
@@ -36,7 +37,7 @@ class UserRepositoryImpTest {
   }
 
   @Test
-  void addFollowerAndTestFollowersCount() {
+  void addFollowerAndTestFollowersCount() throws UserNotFoundException {
     Assertions.assertEquals(repo.getFollowersCount(2), 1);
     Assertions.assertEquals(repo.getFollowersCount(1), 0);
     repo.addFollower(3, 2);
@@ -44,34 +45,34 @@ class UserRepositoryImpTest {
   }
 
   @Test
-  void findUserTest() {
+  void findUserTest() throws UserNotFoundException {
     User user = repo.findUser(2);
     Assertions.assertNotNull(user);
     System.out.println(user);
   }
 
   @Test
-  void findUsersFollowedByTest() {
+  void findUsersFollowedByTest() throws UserNotFoundException {
     List<User> usersFollowedBy = repo.findUsersFollowedBy(1);
     Assertions.assertNotNull(usersFollowedBy);
     Assertions.assertTrue(usersFollowedBy.stream().anyMatch(user -> user.getUserId().equals(2)));
   }
 
   @Test
-  void newPostTest() {
+  void newPostTest() throws UserNotFoundException {
     Product product = new Product("Silla Gamer", "Gamer", "Racer", "Red % black", "Special Edition");
     Post post = new Post(2, LocalDate.now(), product, 100, 1500.05);
     repo.newPost(2, post);
     User user = repo.findUser(2);
     Assertions.assertFalse(user.getPosts().isEmpty());
-    Assertions.assertTrue(user.getPosts().get(0).getDetail().getProductName().equals("Silla Gamer"));
+    Assertions.assertEquals("Silla Gamer", user.getPosts().get(0).getDetail().getProductName());
   }
 
   @Test
-  void removeFollowerTest(){
+  void removeFollowerTest() throws UserNotFoundException {
     User user = repo.findUser(2);
     Assertions.assertFalse(user.getFolllowers().isEmpty());
-    repo.removeFollower(1,2);
+    repo.removeFollower(1, 2);
     User user1 = repo.findUser(2);
     Assertions.assertTrue(user1.getFolllowers().isEmpty());
   }

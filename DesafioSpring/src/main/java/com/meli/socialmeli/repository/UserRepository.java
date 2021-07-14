@@ -1,5 +1,6 @@
 package com.meli.socialmeli.repository;
 
+import com.meli.socialmeli.exception.UserNotFoundException;
 import com.meli.socialmeli.model.Post;
 import com.meli.socialmeli.model.User;
 
@@ -8,27 +9,27 @@ import java.util.List;
 
 public interface UserRepository {
 
-  public void addFollower(Integer followerId, Integer followedId);
+  void addFollower(Integer followerId, Integer followedId) throws UserNotFoundException;
 
-  public void removeFollower(Integer followerId, Integer followedId);
+  void removeFollower(Integer followerId, Integer followedId) throws UserNotFoundException;
 
-  public Integer getFollowersCount(Integer userId);
+  Integer getFollowersCount(Integer userId) throws UserNotFoundException;
 
-  public User findUser(Integer userId);
+  User findUser(Integer userId) throws UserNotFoundException;
 
-  public List<Post> findUserPromoPosts(Integer userId);
+  List<Post> findUserPromoPosts(Integer userId) throws UserNotFoundException;
 
-  public Integer findUserPromoPostsCount(Integer userId);
+  Integer findUserPromoPostsCount(Integer userId) throws UserNotFoundException;
 
-  public List<User> findUsersFollowedBy(Integer userdId);
+  List<User> findUsersFollowedBy(Integer userdId) throws UserNotFoundException;
 
-  public List<User> findUsersFollowedBy(Integer userdId, Comparator<User> c);
+  List<User> findUsersFollowedBy(Integer userdId, Comparator<User> c) throws UserNotFoundException;
 
-  public void newPost(Integer userId, Post post);
+  void newPost(Integer userId, Post post) throws UserNotFoundException;
 
-  public List<Post> findPostsOfSellersFollowedBy(Integer userId);
+  List<Post> findPostsOfSellersFollowedBy(Integer userId) throws UserNotFoundException;
 
-  public List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays);
+  List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays) throws UserNotFoundException;
 
-  public List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays, Comparator<Post> c);
+  List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays, Comparator<Post> c) throws UserNotFoundException;
 }

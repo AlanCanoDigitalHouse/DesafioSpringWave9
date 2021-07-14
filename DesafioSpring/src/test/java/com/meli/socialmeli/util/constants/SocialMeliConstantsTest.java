@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class SocialMeliConstantsTest {
 
   @BeforeEach
@@ -15,7 +13,7 @@ class SocialMeliConstantsTest {
   }
 
   @Test
-  void orderPatternTest(){
+  void orderPatternTest() {
     Pattern compile = Pattern.compile("order=name_(asc|desc)");
     Assertions.assertTrue(compile.matcher("order=name_asc").matches());
     Assertions.assertTrue(compile.matcher("order=name_desc").matches());

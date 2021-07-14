@@ -1,6 +1,7 @@
 package com.meli.socialmeli.service;
 
 import com.meli.socialmeli.dto.PostDTO;
+import com.meli.socialmeli.exception.UserNotFoundException;
 import com.meli.socialmeli.model.Post;
 import com.meli.socialmeli.model.User;
 
@@ -8,34 +9,34 @@ import java.util.Comparator;
 import java.util.List;
 
 public interface SocialMeliService {
-  public void addFollower(Integer followerId, Integer followedId);
+  void addFollower(Integer followerId, Integer followedId) throws UserNotFoundException;
 
-  public void removeFollower(Integer followerId, Integer followedId);
-
-
-  public Integer getFollowersCount(Integer userId);
-
-  public User findUser(Integer userId);
-
-  public User findUser(Integer userId, String order);
-
-  public List<User> findUsersFollowedBy(Integer userdId);
-
-  public List<User> findUsersFollowedBy(Integer userdId, String order);
+  void removeFollower(Integer followerId, Integer followedId) throws UserNotFoundException;
 
 
-  public void newPost(Integer userId, PostDTO post);
+  Integer getFollowersCount(Integer userId) throws UserNotFoundException;
 
-  public List<Post> findPostsOfSellersFollowedBy(Integer userId);
+  User findUser(Integer userId) throws UserNotFoundException;
 
-  public List<Post> findUserPromoPosts(Integer userId);
+  User findUser(Integer userId, String order) throws UserNotFoundException;
 
-  public Integer findUserPromoPostsCount(Integer userId);
+  List<User> findUsersFollowedBy(Integer userdId) throws UserNotFoundException;
 
-  public List<Post> findPostsOfSellersFollowedBy(Integer userId, String order);
+  List<User> findUsersFollowedBy(Integer userdId, String order) throws UserNotFoundException;
 
-  public List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays);
 
-  public List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays, Comparator<Post> c);
+  void newPost(Integer userId, PostDTO post) throws UserNotFoundException;
+
+  List<Post> findPostsOfSellersFollowedBy(Integer userId) throws UserNotFoundException;
+
+  List<Post> findUserPromoPosts(Integer userId) throws UserNotFoundException;
+
+  Integer findUserPromoPostsCount(Integer userId) throws UserNotFoundException;
+
+  List<Post> findPostsOfSellersFollowedBy(Integer userId, String order) throws UserNotFoundException;
+
+  List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays) throws UserNotFoundException;
+
+  List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays, Comparator<Post> c) throws UserNotFoundException;
 
 }

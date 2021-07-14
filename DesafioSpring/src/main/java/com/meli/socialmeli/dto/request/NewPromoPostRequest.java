@@ -12,7 +12,7 @@ import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
@@ -20,8 +20,7 @@ import java.time.LocalDate;
 @Data
 @Builder
 @Validated
-public class NewPostRequest {
-
+public class NewPromoPostRequest {
   @Positive(message = SocialMeliConstants.VALIDATION_POSITIVE_MESSAGE)
   private Integer userId;
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
@@ -35,12 +34,13 @@ public class NewPostRequest {
   private Integer category;
   @Positive(message = SocialMeliConstants.VALIDATION_POSITIVE_MESSAGE)
   private Double price;
-  @NotNull(message = SocialMeliConstants.VALIDATION_NOT_NULL_MESSAGE)
+  @AssertTrue(message = SocialMeliConstants.VALIDATION_TRUE_MESSAGE)
   private Boolean hasPromo;
-  @NotNull(message = SocialMeliConstants.VALIDATION_NOT_NULL_MESSAGE)
+  @Positive(message = SocialMeliConstants.VALIDATION_POSITIVE_MESSAGE)
   private Double discount;
 
-  public NewPostRequest(Integer userId, LocalDate date, ProductDTO detail, Integer category, Double price) {
+
+  public NewPromoPostRequest(Integer userId, LocalDate date, ProductDTO detail, Integer category, Double price) {
     this.userId = userId;
     this.date = date;
     this.detail = detail;
@@ -48,7 +48,7 @@ public class NewPostRequest {
     this.price = price;
   }
 
-  public NewPostRequest(Integer userId, LocalDate date, ProductDTO detail, Integer category, Double price, Boolean hasPromo, Double discount) {
+  public NewPromoPostRequest(Integer userId, LocalDate date, ProductDTO detail, Integer category, Double price, Boolean hasPromo, Double discount) {
     this.userId = userId;
     this.date = date;
     this.detail = detail;
@@ -58,6 +58,6 @@ public class NewPostRequest {
     this.discount = discount;
   }
 
-  public NewPostRequest() {
+  public NewPromoPostRequest() {
   }
 }

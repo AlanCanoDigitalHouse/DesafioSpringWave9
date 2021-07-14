@@ -1,6 +1,5 @@
 package com.meli.socialmeli.exception;
 
-import lombok.Data;
 import lombok.Getter;
 
 import java.util.Map;
@@ -9,10 +8,10 @@ import java.util.Map;
 public class ExceptionMessage {
 
   private String errorMessage;
-  private Map<String, String> message;
+  private Map<String, String> errors;
 
-  public ExceptionMessage(String errorMessage, Map<String, String> message) {
+  public ExceptionMessage(String errorMessage, Map<String, String> errors) {
     this.errorMessage = errorMessage;
-    this.message = message;
+    this.errors = errors;
   }
 }
