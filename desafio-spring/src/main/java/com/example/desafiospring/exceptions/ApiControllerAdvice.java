@@ -3,6 +3,8 @@ package com.example.desafiospring.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
+
 @ControllerAdvice(annotations = RestController.class)
 public class ApiControllerAdvice {
 
@@ -32,5 +34,12 @@ public class ApiControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handler(ProductException ex) {
         return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ErrorMessage exceptionHandler(ConstraintViolationException e) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 }

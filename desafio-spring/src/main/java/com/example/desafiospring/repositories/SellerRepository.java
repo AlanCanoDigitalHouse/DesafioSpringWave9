@@ -2,13 +2,8 @@ package com.example.desafiospring.repositories;
 
 import com.example.desafiospring.exceptions.SellerException;
 import com.example.desafiospring.models.Seller;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.ResourceUtils;
 
-import java.io.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -17,9 +12,12 @@ import java.util.stream.Collectors;
 @Repository
 public class SellerRepository implements ISellerRepository {
 
+    public static final String FILENAME = "sellers.json";
+
     @Override
     public Seller removeFollower(Long userId, Long sellerId) throws SellerException {
-        List<Seller> sellers = this.loadDB();
+        List<Seller> sellers = this.loadDB(FILENAME, Seller.class);
+        ;
         Optional<Seller> optionalSeller = sellers.stream().filter(s -> s.getUserId().equals(sellerId)).findAny();
         Seller seller;
         if (optionalSeller.isPresent())
@@ -34,20 +32,33 @@ public class SellerRepository implements ISellerRepository {
         List<Long> followersNew = seller.getFollowers().stream().filter(f -> !f.equals(userId)).collect(Collectors.toList());
         seller.setFollowers(followersNew);
         sellers.set(sellerIndex, seller);
-        this.saveToFile(sellers);
+        this.saveToFile(FILENAME, sellers);
         return seller;
     }
 
     @Override
     public List<Seller> findByFollowerUserId(Long userId) {
-        List<Seller> sellers = this.loadDB();
+        List<Seller> sellers = this.loadDB(FILENAME, Seller.class);
+        ;
         List<Seller> result = sellers.stream().filter(s -> s.getFollowers().stream().anyMatch(l -> l.equals(userId))).collect(Collectors.toList());
         return result;
     }
 
     @Override
+    public Boolean checkIfSellerExistsById(Long sellerId) throws SellerException {
+        List<Seller> sellers = this.loadDB(FILENAME, Seller.class);
+        ;
+        boolean result = sellers.stream().anyMatch(s -> s.getUserId().equals(sellerId));
+        if (result)
+            return true;
+        else
+            throw new SellerException(SellerException.SELLER_NOT_EXISTS + sellerId);
+    }
+
+    @Override
     public Seller findById(Long id) throws SellerException {
-        List<Seller> sellers = this.loadDB();
+        List<Seller> sellers = this.loadDB(FILENAME, Seller.class);
+        ;
         Optional<Seller> result = sellers.stream().filter(s -> s.getUserId().equals(id)).findAny();
         if (result.isPresent())
             return result.get();
@@ -57,67 +68,21 @@ public class SellerRepository implements ISellerRepository {
 
     @Override
     public Collection<Seller> findByIds(Collection<Long> ids) {
-        List<Seller> sellers = this.loadDB();
+        List<Seller> sellers = this.loadDB(FILENAME, Seller.class);
+        ;
         return sellers.stream().filter(s -> ids.contains(s.getUserId())).collect(Collectors.toList());
-    }
-
-    private List<Seller> loadDB() {
-        File file = null;
-        try {
-            file = ResourceUtils.getFile("classpath:static/sellers.json");
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return mapObject(file);
-    }
-
-    private List<Seller> mapObject(File file) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<Seller>> typeReference = new TypeReference<>() {
-        };
-        List<Seller> sellers = null;
-        try {
-            sellers = objectMapper.readValue(file, typeReference);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return sellers;
-    }
-
-    private List<Seller> saveToFile(List<Seller> sellers) {
-        File file = null;
-        try {
-            file = ResourceUtils.getFile("classpath:static/sellers.json");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-            String listJson = objectMapper.writeValueAsString(sellers);
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(listJson);
-            bw.flush();
-            bw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return sellers;
     }
 
     @Override
     public Seller addFollower(Long userId, Long sellerId) throws SellerException {
-        List<Seller> sellers = this.loadDB();
+        List<Seller> sellers = this.loadDB(FILENAME, Seller.class);
+        ;
         Optional<Seller> optionalSeller = sellers.stream().filter(s -> s.getUserId().equals(sellerId)).findAny();
         Seller seller;
         if (optionalSeller.isPresent())
             seller = optionalSeller.get();
         else
-            throw new SellerException(SellerException.SELLER_NOT_EXISTS);
+            throw new SellerException(SellerException.SELLER_NOT_EXISTS + sellerId);
 
         if (seller.getFollowers().stream().anyMatch(f -> f.equals(userId)))
             throw new SellerException(SellerException.SELLER_ALREADY_FOLLOWED + sellerId);
@@ -127,7 +92,7 @@ public class SellerRepository implements ISellerRepository {
         followersNew.add(userId);
         seller.setFollowers(followersNew);
         sellers.set(sellerIndex, seller);
-        this.saveToFile(sellers);
+        this.saveToFile(FILENAME, sellers);
         return seller;
     }
 }

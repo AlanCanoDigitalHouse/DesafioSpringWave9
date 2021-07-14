@@ -11,4 +11,6 @@ public interface ISellerRepository extends IRepository<Seller, Long, SellerExcep
     Seller removeFollower(Long userId, Long userIdToFollow) throws SellerException;
 
     List<Seller> findByFollowerUserId(Long userId);
+
+    Boolean checkIfSellerExistsById(Long sellerId) throws SellerException;
 }

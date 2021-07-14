@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Product {
     @JsonProperty("product_id")
     private Long productId;
-    @JsonProperty("product_name")
     private String productName;
     private String type;
     private String brand;

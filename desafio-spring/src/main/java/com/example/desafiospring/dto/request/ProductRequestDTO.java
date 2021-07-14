@@ -13,6 +13,7 @@ public class ProductRequestDTO {
     @NotBlank(message = "productName is empty")
     private String productName;
     @NotNull(message = "type is null")
+    @NotBlank(message = "type is empty")
     private String type;
     @NotNull(message = "brand is null")
     @NotBlank(message = "brand is empty")

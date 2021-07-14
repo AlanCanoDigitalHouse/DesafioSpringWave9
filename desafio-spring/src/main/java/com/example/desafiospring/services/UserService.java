@@ -29,6 +29,11 @@ public class UserService implements IUserService {
             "id", Comparator.comparing(User::getUserId)
     );
 
+    /**
+     * @param userRepository
+     * @param sellerRepository
+     * @param mapper
+     */
     public UserService(IUserRepository userRepository, ISellerRepository sellerRepository, ObjectMapper mapper) {
         this.userRepository = userRepository;
         this.sellerRepository = sellerRepository;
@@ -36,20 +41,36 @@ public class UserService implements IUserService {
         this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
+    /**
+     * @param userId
+     * @param sellerId
+     * @throws SellerException
+     */
     public void followSeller(Long userId, Long sellerId) throws SellerException {
         this.sellerRepository.addFollower(userId, sellerId);
     }
 
+    /**
+     * @param sellerId
+     * @return SellerResponseDTO
+     * @throws SellerException
+     */
     @Override
     public SellerResponseDTO getNumberOfFollowers(Long sellerId) throws SellerException {
         Seller seller = this.sellerRepository.findById(sellerId);
-        Long numberOfFollowers = seller.getFollowers().stream().count();
+        Long numberOfFollowers = (long) seller.getFollowers().size();
         SellerResponseDTO responseDTO = new SellerResponseDTO(
                 seller.getUserId(), seller.getUserName(), numberOfFollowers
         );
         return responseDTO;
     }
 
+    /**
+     * @param sellerId
+     * @param order
+     * @return SellerResponseDTO
+     * @throws SellerException
+     */
     @Override
     public SellerResponseDTO getFollowers(Long sellerId, String order) throws SellerException {
         Seller seller = this.sellerRepository.findById(sellerId);
@@ -62,6 +83,12 @@ public class UserService implements IUserService {
         return responseDTO;
     }
 
+    /**
+     * @param userId
+     * @param order
+     * @return UserResponseDTO
+     * @throws UserException
+     */
     @Override
     public UserResponseDTO getFollowed(Long userId, String order) throws UserException {
         User user = this.userRepository.findById(userId);
@@ -73,6 +100,11 @@ public class UserService implements IUserService {
         return responseDTO;
     }
 
+    /**
+     * @param userId
+     * @param sellerId
+     * @throws SellerException
+     */
     @Override
     public void unfollowSeller(Long userId, Long sellerId) throws SellerException {
         this.sellerRepository.removeFollower(userId, sellerId);

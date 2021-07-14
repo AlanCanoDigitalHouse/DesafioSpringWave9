@@ -1,7 +1,7 @@
 [
   {
     "product_id": 1,
-    "product_name": "Silla Gamer",
+    "productName": "Silla Gamer",
     "type": "Gamer",
     "brand": "Racer",
     "color": "Red & Black",
@@ -9,10 +9,50 @@
   },
   {
     "product_id": 2,
-    "product_name": "Silla Gamer",
+    "productName": "Silla Gamer",
     "type": "Gamer",
     "brand": "Red Dragon",
     "color": "Black & Blue",
     "notes": "Standard Edition"
+  },
+  {
+    "product_id": 3,
+    "productName": "Remera Manga Corta",
+    "type": "Clothes",
+    "brand": "Nike",
+    "color": "Red",
+    "notes": "Original 100% algodon"
+  },
+  {
+    "product_id": 4,
+    "productName": "Samsung Galaxy S40",
+    "type": "Mobile Phone",
+    "brand": "Samsung",
+    "color": "Blue",
+    "notes": "64GB de RAM"
+  },
+  {
+    "product_id": 5,
+    "productName": "Amortiguador auto",
+    "type": "Car spare",
+    "brand": "Bosch",
+    "color": "Black",
+    "notes": "Al piso"
+  },
+  {
+    "product_id": 6,
+    "productName": "Colchon con resorte",
+    "type": "Home",
+    "brand": "Pirulo",
+    "color": "White",
+    "notes": "Duro como una piedra"
+  },
+  {
+    "product_id": 6,
+    "productName": "Colchon con resorte",
+    "type": "Home",
+    "brand": "Pirulo",
+    "color": "White",
+    "notes": "Duro como una piedra"
   }
 ]

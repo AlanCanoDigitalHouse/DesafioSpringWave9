@@ -1,23 +1,39 @@
 [
   {
     "userId": 1,
-    "userName": "seller1",
+    "userName": "La casa del hardware",
     "followersIds": [
       3
     ]
   },
   {
     "userId": 2,
-    "userName": "seller2",
+    "userName": "El imperio del colchón",
     "followersIds": [
       1
     ]
   },
   {
     "userId": 3,
-    "userName": "seller3",
+    "userName": "El repuestero",
     "followersIds": [
-      1
+      1,
+      2
     ]
+  },
+  {
+    "userId": 4,
+    "userName": "Bazar barato",
+    "followersIds": []
+  },
+  {
+    "userId": 5,
+    "userName": "Tienda La Feria",
+    "followersIds": []
+  },
+  {
+    "userId": 6,
+    "userName": "Celulandia",
+    "followersIds": []
   }
 ]

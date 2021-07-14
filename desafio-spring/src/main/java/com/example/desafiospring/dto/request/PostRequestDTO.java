@@ -6,9 +6,7 @@ import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -19,13 +17,9 @@ public class PostRequestDTO {
     @NotNull(message = "userId is null")
     @Min(message = "userId has to be greater than zero", value = 0L)
     private Long userId;
-    /*@NotNull(message = "idPost is null")
-    @NotBlank(message = "idPost is empty")
-    @Min(message = "idPost has to be greater than zero", value = 0L)
-    @JsonProperty("id_post")
-    private Long idPost;*/
     @NotNull(message = "date is null")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @PastOrPresent(message = "Future or invalid date")
     private Date date;
     @Valid
     @NotNull(message = "detail is null")
@@ -33,10 +27,12 @@ public class PostRequestDTO {
     @NotNull(message = "category is null")
     private Integer category;
     @NotNull(message = "price is null")
-    @DecimalMin(message = "price must be greater than 0", value = "0.1")
+    @DecimalMin(message = "price has to be positive", value = "0")
     private BigDecimal price;
 
     private Boolean hasPromo;
+    @DecimalMin(message = "Discount has to be positive", value = "0")
+    @DecimalMax(message = "Discount can't be higher than 1", value = "1")
     private BigDecimal discount;
 
     public PostRequestDTO() {

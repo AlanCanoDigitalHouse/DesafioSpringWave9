@@ -16,5 +16,55 @@
     "price": 1500.00,
     "hasPromo": true,
     "discount": 0.5
+  },
+  {
+    "userId": 5,
+    "id_post": 3,
+    "date": "13-07-2021",
+    "productId": 3,
+    "category": 3,
+    "price": 3700.00,
+    "hasPromo": null,
+    "discount": null
+  },
+  {
+    "userId": 6,
+    "id_post": 4,
+    "date": "12-07-2021",
+    "productId": 4,
+    "category": 65,
+    "price": 140000.00,
+    "hasPromo": true,
+    "discount": 0.5
+  },
+  {
+    "userId": 3,
+    "id_post": 4,
+    "date": "12-07-2021",
+    "productId": 4,
+    "category": 65,
+    "price": 140000.00,
+    "hasPromo": null,
+    "discount": null
+  },
+  {
+    "userId": 3,
+    "id_post": 5,
+    "date": "12-07-2021",
+    "productId": 5,
+    "category": 51,
+    "price": 10000.00,
+    "hasPromo": true,
+    "discount": 0.75
+  },
+  {
+    "userId": 2,
+    "id_post": 6,
+    "date": "12-05-2021",
+    "productId": 6,
+    "category": 21,
+    "price": 50000.00,
+    "hasPromo": true,
+    "discount": 0.1
   }
 ]
