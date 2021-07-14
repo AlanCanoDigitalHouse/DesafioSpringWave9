@@ -1,6 +1,7 @@
 package com.desafiospring.socialmeli.repositories;
 
 import com.desafiospring.socialmeli.dtos.models.Post;
+import com.desafiospring.socialmeli.dtos.requests.PostRequestDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -24,6 +25,11 @@ public class ProductRepository implements IRepository<Post> {
     @Override
     public Post get(int itemId) {
         return null;
+    }
+
+    @Override
+    public List<Post> getAll() {
+        return posts;
     }
 
     @Override

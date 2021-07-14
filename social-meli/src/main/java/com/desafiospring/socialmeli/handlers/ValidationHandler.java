@@ -7,9 +7,8 @@ import com.desafiospring.socialmeli.exceptions.UserDoesNotExistException;
 import com.desafiospring.socialmeli.exceptions.UserException;
 import com.desafiospring.socialmeli.repositories.IRepository;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ValidationHandler {
 
@@ -31,14 +30,14 @@ public class ValidationHandler {
         return buyer;
     }
 
-    public static Date validateDate(String dateString) throws UserException {
-        Date date = null;
+    public static LocalDate validateDate(String dateString) throws UserException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate date = null;
         try {
-            date = new SimpleDateFormat(pattern).parse(dateString);
-        } catch (ParseException e) {
+            date = LocalDate.parse(dateString, formatter);
+        } catch (Exception e) {
             throw new InvalidDateException();
         }
-        return date;
-
+        return  date;
     }
 }

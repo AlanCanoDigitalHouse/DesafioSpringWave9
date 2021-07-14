@@ -56,6 +56,11 @@ public class SellerRepository implements IRepository<Seller> {
     }
 
     @Override
+    public List<Seller> getAll() {
+        return null;
+    }
+
+    @Override
     public Seller update(Seller item) {
         return null;
     }

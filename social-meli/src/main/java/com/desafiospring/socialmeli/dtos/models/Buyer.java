@@ -14,7 +14,7 @@ public class Buyer extends User{
 
     private List<User> followed;
 
-    public Buyer(int userId, String userName) {
+    public Buyer(Integer userId, String userName) {
         super(userId, userName);
         this.followed = new ArrayList<>();
     }

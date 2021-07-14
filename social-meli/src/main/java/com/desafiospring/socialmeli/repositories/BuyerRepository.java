@@ -54,6 +54,11 @@ public class BuyerRepository implements IRepository<Buyer>{
     }
 
     @Override
+    public List<Buyer> getAll() {
+        return null;
+    }
+
+    @Override
     public Buyer update(Buyer item) {
         return null;
     }

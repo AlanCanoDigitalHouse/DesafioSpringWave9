@@ -4,26 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @Validated
-public class Post {
+public class Post implements Comparable<Post> {
 
-    @NotNull(message = "User Id no debe ser nulo")
     private Integer userId;
-
-    @NotNull(message = "Date no debe ser nulo")
-    private String date;
-
-    @Valid
+    private LocalDate date;
     private ProductDetail detail;
-
-    @NotNull(message = "Category no debe ser nulo")
     private Integer category;
-
-    @NotNull(message = "Price no debe ser nulo")
     private Double price;
+
+    @Override
+    public int compareTo(Post o) {
+        return this.getDate().compareTo(o.getDate());
+    }
 }
