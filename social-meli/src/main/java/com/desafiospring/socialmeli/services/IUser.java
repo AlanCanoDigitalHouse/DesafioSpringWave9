@@ -12,9 +12,9 @@ public interface IUser {
 
     SellerFollowersCountDTO getFollowersCount(int userId) throws UserException;
 
-    SellerFollowersDTO getFollowers(int userId) throws UserException;
+    SellerFollowersDTO getFollowers(int userId, String order) throws UserException;
 
-    BuyerFollowedDTO getFollowed(int userId) throws UserException;
+    BuyerFollowedDTO getFollowed(int userId, String order) throws UserException;
 
     void removeFollower(int userId, int userIdToUnfollow) throws UserException;
 }

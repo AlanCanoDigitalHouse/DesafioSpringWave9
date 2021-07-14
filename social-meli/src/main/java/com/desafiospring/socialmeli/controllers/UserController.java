@@ -35,14 +35,16 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<SellerFollowersDTO> getFollower(@PathVariable Integer userId) throws UserException {
-        SellerFollowersDTO sellerFollowersDTO = userService.getFollowers(userId);
+    public ResponseEntity<SellerFollowersDTO> getFollower(@PathVariable Integer userId ,
+                                                          @RequestParam(defaultValue = "") String order) throws UserException {
+        SellerFollowersDTO sellerFollowersDTO = userService.getFollowers(userId, order);
         return new ResponseEntity<>(sellerFollowersDTO, HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<BuyerFollowedDTO> getFollowed(@PathVariable Integer userId) throws UserException {
-        BuyerFollowedDTO buyerFollowed = userService.getFollowed(userId);
+    public ResponseEntity<BuyerFollowedDTO> getFollowed(@PathVariable Integer userId,
+                                                        @RequestParam(defaultValue = "") String order) throws UserException {
+        BuyerFollowedDTO buyerFollowed = userService.getFollowed(userId, order);
         return new ResponseEntity<>(buyerFollowed, HttpStatus.OK);
     }
 

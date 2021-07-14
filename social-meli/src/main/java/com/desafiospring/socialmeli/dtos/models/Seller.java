@@ -17,5 +17,6 @@ public class Seller extends User{
     public Seller(int userId, String userName) {
         super(userId, userName);
         this.followers = new ArrayList<>();
+
     }
 }

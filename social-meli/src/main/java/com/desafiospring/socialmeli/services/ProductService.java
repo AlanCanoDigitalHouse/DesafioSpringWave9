@@ -2,9 +2,12 @@ package com.desafiospring.socialmeli.services;
 
 import com.desafiospring.socialmeli.dtos.models.Buyer;
 import com.desafiospring.socialmeli.dtos.models.Post;
+import com.desafiospring.socialmeli.dtos.models.Seller;
 import com.desafiospring.socialmeli.dtos.requests.PostRequestDTO;
 import com.desafiospring.socialmeli.dtos.models.User;
 import com.desafiospring.socialmeli.dtos.responses.PostListDto;
+import com.desafiospring.socialmeli.dtos.responses.PromoPostCountDTO;
+import com.desafiospring.socialmeli.dtos.responses.PromoPostsDTO;
 import com.desafiospring.socialmeli.exceptions.InvalidOrderRequestException;
 import com.desafiospring.socialmeli.exceptions.UserException;
 import com.desafiospring.socialmeli.handlers.ValidationHandler;
@@ -39,7 +42,13 @@ public class ProductService implements IProduct {
     public Post addPost(PostRequestDTO postDTO) throws UserException {
         ValidationHandler.validateSeller(postDTO.getUserId(), sellerRepository);
         LocalDate date = ValidationHandler.validateDate(postDTO.getDate());
-        Post post = new Post(postDTO.getUserId(), date, postDTO.getDetail(), postDTO.getCategory(), postDTO.getPrice());
+        Boolean hasPromo = postDTO.isHasPromo();
+        Double discount = 0.0;
+        if (hasPromo) {
+            discount = postDTO.getDiscount();
+        }
+        Post post = new Post(postDTO.getUserId(), date, postDTO.getDetail(), postDTO.getCategory(),
+                postDTO.getPrice(), hasPromo, discount);
         productRepository.add(post);
         return post;
     }
@@ -72,6 +81,26 @@ public class ProductService implements IProduct {
         return postListDto;
     }
 
+    @Override
+    public PromoPostCountDTO getCountPromoPosts(int userId) throws UserException {
+        Seller seller = ValidationHandler.validateSeller(userId, sellerRepository);
+        List<Post> promoUserPosts = promoUserPosts(userId);
+        return new PromoPostCountDTO(seller.getUserId(), seller.getUserName(), promoUserPosts.size());
+    }
+
+    @Override
+    public PromoPostsDTO getPromoPosts(int userId) throws UserException {
+        Seller seller = ValidationHandler.validateSeller(userId, sellerRepository);
+        List<Post> promoUserPosts = promoUserPosts(userId);
+        return new PromoPostsDTO(seller.getUserId(), seller.getUserName(), promoUserPosts);
+    }
+
+
+    private List<Post> promoUserPosts(int sellerId) {
+//        TODO: agregar ordenamiento
+        return this.productRepository.getAll().stream()
+                .filter(post -> post.getHasPromo() && post.getUserId() == sellerId).collect(Collectors.toList());
+    }
 
     protected Comparator<Post> postComparator(String order) {
         Comparator<Post> c = null;
