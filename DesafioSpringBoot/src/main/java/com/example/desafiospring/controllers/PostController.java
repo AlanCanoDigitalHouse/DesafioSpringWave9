@@ -21,11 +21,6 @@ public class PostController {
     private ProductServices productServices;
     private UserServices userServices;
 
-    /**
-     * TODO
-     * validate the data input with a regular expression
-     * validate userdId in PostController
-     */
     public PostController(ProductServices productServices, UserServices userServices) {
         this.productServices = productServices;
         this.userServices = userServices;

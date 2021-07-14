@@ -46,12 +46,12 @@ public class UserServices implements Sorter<UserResponseDto> {
         return userRepository.getById(id);
     }
 
-
-    private boolean isFollowing(ClientResponseDto client, SellerResponseDto seller) {
-        return seller.getFollowers().stream()
-                .anyMatch(userResponseDto -> userResponseDto.getId() == client.getId());
-    }
-
+    /**
+     * Check if the integer Id given correspond to a Seller
+     * @param id Integer userId
+     * @return found seller
+     * @throws UserNotFoundException if the user doesn't exist inside the collection
+     */
     public SellerResponseDto getSellerById(Integer id) {
         var seller = userRepository.getAll().stream()
                 .filter(userResponseDto -> userResponseDto.getId() == id && userResponseDto.getClass()
@@ -64,7 +64,12 @@ public class UserServices implements Sorter<UserResponseDto> {
             throw new UserNotFoundException(error);
         }
     }
-
+    /**
+     * Check if the integer Id given correspond to a Client
+     * @param id Integer userId
+     * @return found Client
+     * @throws UserNotFoundException if the user doesn't exist inside the collection
+     */
     public ClientResponseDto getClientById(Integer id) {
         var client = userRepository.getAll().stream()
                 .filter(userResponseDto -> userResponseDto.getId() == id && userResponseDto.getClass()
@@ -78,6 +83,13 @@ public class UserServices implements Sorter<UserResponseDto> {
         }
     }
 
+    /**
+     * unFollow the seller, updating the data from the seller and the client
+     * adding them to the given collection and update the collection
+     * @param userId         Integer, unique id from the client
+     * @param userIdToUnfollow Integer, unique id from the seller
+     * @throws LogicValidationException if the client isn't following the Seller
+     */
     public void unFollowSeller(Integer userId, Integer userIdToUnfollow) {
         var client = getClientById(userId);
         var seller = getSellerById(userIdToUnfollow);
@@ -91,18 +103,32 @@ public class UserServices implements Sorter<UserResponseDto> {
         }
     }
 
+    /**
+     * Sort a list descending accord of its date
+     * @param list<UserResponseDto> list of users
+     * @return the list sorted
+     */
     @Override
     public List<UserResponseDto> sortDesc(List<UserResponseDto> list) {
         list.sort(Comparator.comparing(UserResponseDto::getUserName).reversed());
         return list;
     }
-
+    /**
+     * Sort a list ascending accord of its date
+     * @param list<UserResponseDto> list of users
+     * @return the list sorted
+     */
     @Override
     public List<UserResponseDto> sortAsc(List<UserResponseDto> list) {
         list.sort(Comparator.comparing(UserResponseDto::getUserName));
         return list;
     }
-
+    /**
+     * Wrapper that select a type of sort method depending of an string  param
+     * @param list<UserResponseDto> list of users
+     * @param param string that come in the request
+     * @return the list sorted with the corresponding sort method
+     */
     @Override
     public List<UserResponseDto> sorterWrapper(List<UserResponseDto> list, String param) {
         if (param == null) return list;
@@ -111,4 +137,14 @@ public class UserServices implements Sorter<UserResponseDto> {
         return list;
     }
 
+    /**
+     * Check if the client is following the seller
+     * @param client Client object
+     * @param seller Seller object
+     * @return true if the client is following the seller, false otherwise
+     */
+    private boolean isFollowing(ClientResponseDto client, SellerResponseDto seller) {
+        return seller.getFollowers().stream()
+                .anyMatch(userResponseDto -> userResponseDto.getId() == client.getId());
+    }
 }
