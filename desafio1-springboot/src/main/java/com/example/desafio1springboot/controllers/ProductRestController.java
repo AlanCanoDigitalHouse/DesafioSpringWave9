@@ -1,6 +1,8 @@
 package com.example.desafio1springboot.controllers;
 
 import com.example.desafio1springboot.dtos.PostDTO;
+import com.example.desafio1springboot.dtos.responseDTO.UserPostsResposeDTO;
+import com.example.desafio1springboot.exceptions.PostNotValidDateException;
 import com.example.desafio1springboot.exceptions.UserSellerNotFoundExceptions;
 import com.example.desafio1springboot.services.IProductService;
 import org.springframework.http.HttpStatus;
@@ -30,24 +32,25 @@ public class ProductRestController {
      * TODO: US 0005: Da de alta una nueva publicacion
      * @param
      * @return ResponseEntity<String>
-     * @throws ApiExceptionControllerAdvice
+     * @throws UserSellerNotFoundExceptions, PostNotValidDateException
      */
     @PostMapping("/newpost")
     public ResponseEntity<String> createNewPost(
             @Valid @RequestBody PostDTO post
-            ) throws UserSellerNotFoundExceptions {
+            ) throws UserSellerNotFoundExceptions, PostNotValidDateException {
         iProductService.createNewPost(post);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //DESARROLLADO Y FUNCIONANDO
     /**
      * TODO: US 0006: Retorna una lista de publicaciones realizadas por los vendedores que un usuario sigue en las ultimas dos semanas - ordenamiento por fecha.
-     * @param
-     * @return ResponseEntity<>
-     * @throws
+     * @param userId
+     * @return ResponseEntity<UserPostsResposeDTO>
+     * @throws UserSellerNotFoundExceptions
      */
     @GetMapping("/followed/{userId}/list")
-    public String postsList2WeeksAgo(@PathVariable Integer userId) {
-        return "ah";
+    public ResponseEntity<UserPostsResposeDTO> postsList2WeeksAgo(@PathVariable Integer userId) throws UserSellerNotFoundExceptions {
+        return new ResponseEntity<>(iProductService.listsPostsFromUser_(userId), HttpStatus.OK);
     }
 }

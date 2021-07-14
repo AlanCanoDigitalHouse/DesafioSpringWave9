@@ -6,9 +6,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class UserClientDTO extends UserDTO{
     private List<UserDTO> followed;  // Sigue a sus vendedores favoritos
 }

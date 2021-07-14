@@ -6,6 +6,7 @@ import com.example.desafio1springboot.dtos.UserDTO;
 import com.example.desafio1springboot.dtos.UserSellerDTO;
 import com.example.desafio1springboot.exceptions.UserAlreadyFollowingSellerException;
 import com.example.desafio1springboot.exceptions.UserClientDoesNotExistsException;
+import com.example.desafio1springboot.exceptions.UserClientNotFollowingSellerException;
 import com.example.desafio1springboot.exceptions.UserSellerNotFoundExceptions;
 import com.example.desafio1springboot.handlers.RepositoryHandler;
 import org.springframework.stereotype.Repository;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserRepositoryImpl implements IUserRepository{
@@ -73,5 +75,18 @@ public class UserRepositoryImpl implements IUserRepository{
         return userClient;
     }
 
+    @Override
+    public void unfollowUser_(Integer userId, Integer userIdToFollow) throws UserSellerNotFoundExceptions, UserClientNotFollowingSellerException {
+        UserSellerDTO userSellerToUnfollow = getUserSellerById(userIdToFollow);
+        if(!userSellerToUnfollow.getFollowers().removeIf(userDTO -> userDTO.getUserId().equals(userId)))
+            throw new UserClientNotFollowingSellerException();
+
+        for(UserSellerDTO userSellerDTO : userSellerDB) {
+            if(userSellerDTO.getUserId().equals(userSellerDTO)) {
+                userSellerDTO.setFollowers(userSellerToUnfollow.getFollowers());
+                break;
+            }
+        }
+    }
 
 }

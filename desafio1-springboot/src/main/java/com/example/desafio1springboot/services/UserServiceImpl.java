@@ -3,13 +3,9 @@ package com.example.desafio1springboot.services;
 import com.example.desafio1springboot.dtos.UserClientDTO;
 import com.example.desafio1springboot.dtos.UserSellerDTO;
 import com.example.desafio1springboot.dtos.responseDTO.UserSellerResponseDTO;
-import com.example.desafio1springboot.exceptions.UserAlreadyFollowingSellerException;
-import com.example.desafio1springboot.exceptions.UserClientDoesNotExistsException;
-import com.example.desafio1springboot.exceptions.UserSellerNotFoundExceptions;
+import com.example.desafio1springboot.exceptions.*;
 import com.example.desafio1springboot.repositories.IUserRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 
 @Service
@@ -31,13 +27,24 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
-    public UserSellerDTO followersList(Integer userId) throws UserSellerNotFoundExceptions {
+    public UserSellerDTO followersList(Integer userId, String order) throws UserSellerNotFoundExceptions, OrderUserNameNotValidException {
+        if(!order.equals("name_asc") && !order.equals("name_desc"))
+            throw new OrderUserNameNotValidException(); // todo: cambiar excepcion
+        if(order.equals("name_desc")) {
+            iUserRepository.getUserSellerById(userId).getFollowers().sort((a , b) -> b.getUserName().compareTo(a.getUserName()));
+        }  else {
+            iUserRepository.getUserSellerById(userId).getFollowers().sort((a , b) -> a.getUserName().compareTo(b.getUserName()));
+        }
         return iUserRepository.getUserSellerById(userId);
     }
 
     @Override
     public UserClientDTO followedListByClient_(Integer userId) throws UserClientDoesNotExistsException {
-        // todo: agregar el throw UserSellerNotFoundExceptions
         return iUserRepository.followedListOfClient_(userId);
+    }
+
+    @Override
+    public void unfollowSeller_By_(Integer userId, Integer userIdToFollow) throws UserSellerNotFoundExceptions, UserClientNotFollowingSellerException {
+        iUserRepository.unfollowUser_(userId, userIdToFollow);
     }
 }

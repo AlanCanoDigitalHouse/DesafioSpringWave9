@@ -15,6 +15,27 @@ public class ApiExceptionControllerAdvice {
     @ExceptionHandler
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage orderNotValid(OrderUserNameNotValidException ex) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.ERROR);
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage userClientNotFollowingSeller(UserClientNotFollowingSellerException ex) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.ERROR);
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage postDateInvalid(PostNotValidDateException ex) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.ERROR);
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage userSellerNotFound(UserSellerNotFoundExceptions ex) {
         return new ErrorMessage(HttpStatus.NOT_FOUND.value(), ex.ERROR);
     }

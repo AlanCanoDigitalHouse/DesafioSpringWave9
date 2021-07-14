@@ -5,11 +5,15 @@
     "followers": [
       {
         "userId": 2,
-        "userName": "cliente1"
+        "userName": "Diego"
       },
       {
         "userId": 3,
-        "userName": "cliente3"
+        "userName": "Zara"
+      },
+      {
+        "userId": 4,
+        "userName": "Alberto"
       }
     ]
   },
