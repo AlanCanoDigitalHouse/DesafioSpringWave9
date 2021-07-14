@@ -23,6 +23,20 @@ public class UsersService implements IUsersService{
         this.usersRepository = usersRepository;
     }
 
+    public User getUser(int userId) throws UserDoesNotExistException{
+        if(!usersRepository.findUserById(userId).isPresent()){
+            throw new UserDoesNotExistException("id " + userId);
+        }
+        return usersRepository.findUserById(userId).get();
+    }
+
+    public boolean validateUserPosting(int userId) throws UserDoesNotExistException{
+        if(!usersRepository.userExist(userId)){
+            throw new UserDoesNotExistException("id " + userId);
+        }
+        return true;
+    }
+
     public FollowedUserListDTO getFollowing(int userId) throws UserDoesNotExistException{
         Optional<User> user = usersRepository.findUserById(userId);
         Stream<Follow> following = usersRepository.getFollowing(userId);

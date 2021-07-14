@@ -5,7 +5,6 @@ import lombok.Setter;
 @Setter
 public class Post {
     private int userId;
-    private int id_post;
     private String date;
     private Product detail;
     private int category;
@@ -16,7 +15,6 @@ public class Post {
     @Override
     public String toString(){
         return "{\n" + "userId: " + this.userId +
-                "\n" + "id_post: " + this.id_post +
                 "\n" + "date: " + this.date +
                 "\n" + "detail: " + this.detail.toString() +
                 "\n" + "category: " + this.category +

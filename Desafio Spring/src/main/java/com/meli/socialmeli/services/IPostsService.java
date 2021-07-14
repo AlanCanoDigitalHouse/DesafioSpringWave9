@@ -1,11 +1,11 @@
 package com.meli.socialmeli.services;
 
-import com.meli.socialmeli.models.Post;
+
+import com.meli.socialmeli.dtos.response.PostDTO;
 
 import java.util.List;
 
 public interface IPostsService {
-    boolean validatePostId(int id_post);
-    List<Post> orderDateAsc(List<Post> posts);
-    List<Post> orderDateDesc(List<Post> posts);
+    List<PostDTO> orderDateAsc(List<PostDTO> posts);
+    List<PostDTO> orderDateDesc(List<PostDTO> posts);
 }

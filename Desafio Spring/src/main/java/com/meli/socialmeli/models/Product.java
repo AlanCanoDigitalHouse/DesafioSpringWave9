@@ -1,10 +1,11 @@
 package com.meli.socialmeli.models;
 
+import lombok.Getter;
 import lombok.Setter;
 
 @Setter
+@Getter
 public class Product {
-    private int product_id;
     private String productName;
     private String type;
     private String brand;
@@ -13,8 +14,7 @@ public class Product {
 
     @Override
     public String toString(){
-        return "{\n" + "product_id: " + this.product_id +
-                "\n" + "productName: " + this.productName +
+        return "{\n" + "productName: " + this.productName +
                 "\n" + "type: " + this.type +
                 "\n" + "brand: " + this.brand +
                 "\n" + "color: " + this.color +
