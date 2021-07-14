@@ -9,9 +9,11 @@ public interface UserService {
 
     void addFollower(Integer followerUserId, Integer followedUserId) throws ServiceException;
 
-    FollowersCountResponseDTO countFollowers(Integer followedUserId);
+    void unFollow(Integer followerUserId, Integer followedUserId) throws ServiceException;
 
-    FollowersResponseDTO getFollowers(Integer followedUserId);
+    FollowersCountResponseDTO countFollowers(Integer followedUserId) throws ServiceException;
 
-    FollowedResponseDTO getFollowed(Integer followerUserId);
+    FollowersResponseDTO getFollowers(Integer followedUserId) throws ServiceException;
+
+    FollowedResponseDTO getFollowed(Integer followerUserId) throws ServiceException;
 }

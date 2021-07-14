@@ -12,11 +12,15 @@ public interface UserRepository {
 
     FollowDTO saveFollow(FollowDTO follow) throws EntityException;
 
+    void deleteFollow(FollowDTO followDTO);
+
+    Optional<FollowDTO> findFollow(Integer followerId, Integer followedId);
+
     Optional<UserDTO> findUserByUserId(Integer userId);
 
     List<UserDTO> findUserFollowers(Integer userId);
 
     List<UserDTO> findUserFollowed(Integer userId);
 
-    void delete(UserDTO linkDTO);
+    void delete(UserDTO userDTO);
 }

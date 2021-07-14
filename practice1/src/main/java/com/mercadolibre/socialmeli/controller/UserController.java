@@ -45,4 +45,10 @@ public class UserController {
         }
         return responseStatus;
     }
+
+    @PostMapping("{userId}/unfollow/{userIdToFollow}")
+    public HttpStatus unfollow(@PathVariable int userId, @PathVariable int userIdToFollow) {
+        userService.unFollow(userId, userIdToFollow);
+        return HttpStatus.OK;
+    }
 }

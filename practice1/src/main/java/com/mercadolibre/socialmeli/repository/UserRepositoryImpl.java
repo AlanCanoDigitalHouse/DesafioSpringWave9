@@ -62,8 +62,21 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public void deleteFollow(FollowDTO followDTO) {
+        follows.remove(followDTO);
+    }
+
+    @Override
+    public Optional<FollowDTO> findFollow(Integer followerId, Integer followedId) {
+        return follows.stream().
+                filter(followDTO ->
+                        followDTO.getFollower().equals(followerId) && followDTO.getFollowed().equals(followedId))
+                .findFirst();
+    }
+
+    @Override
     public Optional<UserDTO> findUserByUserId(Integer userId) {
-        return Optional.of(users.get(userId));
+        return Optional.ofNullable(users.get(userId));
     }
 
     @Override
@@ -107,7 +120,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void delete(UserDTO linkDTO) {
+    public void delete(UserDTO userDTO) {
 
     }
 }

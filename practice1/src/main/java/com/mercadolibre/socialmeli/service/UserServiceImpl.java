@@ -37,6 +37,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void unFollow(Integer followerUserId, Integer followedUserId) throws ServiceException {
+        Optional<FollowDTO> follow = userRepository.findFollow(followerUserId, followedUserId);
+        if (follow.isPresent()) {
+            userRepository.deleteFollow(follow.get());
+        } else throw new ServiceException("Follow relation not found");
+    }
+
+    @Override
     public FollowersCountResponseDTO countFollowers(Integer followedUserId) {
         Optional<UserDTO> followedUser = userRepository.findUserByUserId(followedUserId);
         final FollowersCountResponseDTO followersCountResponseDTO = new FollowersCountResponseDTO();
