@@ -24,4 +24,5 @@ public class PostInPromoDTO extends PostDTO{
     @DecimalMax(value = "1", message = "Debe ser como maximo 1")
     @NotNull(message = "No puede ser nulo")
     private Double discount;
+
 }

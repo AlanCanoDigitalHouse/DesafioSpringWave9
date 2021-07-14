@@ -3,6 +3,7 @@ package com.example.desafio1springboot.services;
 import com.example.desafio1springboot.dtos.PostDTO;
 import com.example.desafio1springboot.dtos.PostInPromoDTO;
 import com.example.desafio1springboot.dtos.responseDTO.UserPostsResposeDTO;
+import com.example.desafio1springboot.dtos.responseDTO.UserSellerResponseDTO;
 import com.example.desafio1springboot.exceptions.OrderNotValidException;
 import com.example.desafio1springboot.exceptions.PostNotValidDateException;
 import com.example.desafio1springboot.exceptions.UserSellerNotFoundExceptions;
@@ -52,5 +53,8 @@ public class ProductServiceImpl implements IProductService{
         iProductRepository.addNewPromoPost(post);
     }
 
-
+    @Override
+    public UserSellerResponseDTO countProductsInPromo(Integer userId) throws UserSellerNotFoundExceptions {
+        return iProductRepository.postPromoMeBy_(userId, iUserRepository.getUserSellerById(userId).getUserName());
+    }
 }

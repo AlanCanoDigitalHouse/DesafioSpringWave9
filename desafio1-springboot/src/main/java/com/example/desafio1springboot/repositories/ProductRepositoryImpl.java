@@ -4,12 +4,14 @@ import com.example.desafio1springboot.dtos.PostDTO;
 import com.example.desafio1springboot.dtos.PostInPromoDTO;
 import com.example.desafio1springboot.dtos.responseDTO.PostResponseDTO;
 import com.example.desafio1springboot.dtos.responseDTO.UserPostsResposeDTO;
+import com.example.desafio1springboot.dtos.responseDTO.UserSellerResponseDTO;
 import com.example.desafio1springboot.exceptions.PostNotValidDateException;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Repository
@@ -51,5 +53,23 @@ public class ProductRepositoryImpl implements IProductRepository{
         if(post.getDate().after(new Date()))
             throw new PostNotValidDateException();
         postDatabase.add(post);
+    }
+
+    @Override
+    public UserSellerResponseDTO postPromoMeBy_(Integer userId, String userName) {
+        UserSellerResponseDTO userSellerResponseDTO = new UserSellerResponseDTO(userId, userName);
+        userSellerResponseDTO.setPromoproducts_count(getPromoPostByUser_(userId).size());
+        return userSellerResponseDTO;
+    }
+
+    public List<PostInPromoDTO> getPromoPostByUser_(Integer userId) {
+        var userPosts = postDatabase.stream().filter(postDTO -> postDTO.getUserId().equals(userId)).collect(Collectors.toList());
+        List<PostInPromoDTO> listPromoByUser = new ArrayList<>();
+        for(PostDTO post : userPosts) {
+            if(post instanceof PostInPromoDTO) {
+                listPromoByUser.add((PostInPromoDTO) post);
+            }
+        }
+        return listPromoByUser;
     }
 }

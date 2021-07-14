@@ -3,6 +3,7 @@ package com.example.desafio1springboot.controllers;
 import com.example.desafio1springboot.dtos.PostDTO;
 import com.example.desafio1springboot.dtos.PostInPromoDTO;
 import com.example.desafio1springboot.dtos.responseDTO.UserPostsResposeDTO;
+import com.example.desafio1springboot.dtos.responseDTO.UserSellerResponseDTO;
 import com.example.desafio1springboot.exceptions.OrderNotValidException;
 import com.example.desafio1springboot.exceptions.PostNotValidDateException;
 import com.example.desafio1springboot.exceptions.UserSellerNotFoundExceptions;
@@ -67,5 +68,17 @@ public class ProductRestController {
     public ResponseEntity<String> addNewPromoPost(@Valid @RequestBody PostInPromoDTO post) throws PostNotValidDateException {
         iProductService.addNewPromoPost(post);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //DESARROLLADO Y FUNCIONANDO
+    /**
+     * TODO: US 0011: Retorna la cantidad de productos en promocion de un vendedor determinado
+     * @param userId
+     * @return ResponseEntity<String>
+     * @throws PostNotValidDateException
+     */
+    @GetMapping("/{userId}/countPromo")
+    public ResponseEntity<UserSellerResponseDTO> countPromoPost(@PathVariable Integer userId) throws UserSellerNotFoundExceptions {
+        return new ResponseEntity<>(iProductService.countProductsInPromo(userId), HttpStatus.OK);
     }
 }
