@@ -3,13 +3,13 @@ package com.meli.socialmeli.services;
 import com.meli.socialmeli.dtos.response.FollowedUserListDTO;
 import com.meli.socialmeli.dtos.response.FollowersCountDTO;
 import com.meli.socialmeli.dtos.response.FollowersUserListDTO;
+import com.meli.socialmeli.exceptions.FollowException;
 import com.meli.socialmeli.exceptions.UserDoesNotExistException;
 import com.meli.socialmeli.models.Follow;
 import com.meli.socialmeli.models.User;
 import com.meli.socialmeli.repositories.UsersRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -57,12 +57,15 @@ public class UsersService implements IUsersService{
         return new FollowersCountDTO(user.get(), followers.count());
     }
 
+    public void unfollow(int toUnfollowUserId, int followerUserId) throws UserDoesNotExistException, FollowException {
+        Follow f = new Follow(toUnfollowUserId, followerUserId);
+        usersRepository.deleteFollow(f);
+    }
+
     @Override
     public void follow(int toFollowUserId, int followerUserId) throws UserDoesNotExistException{
         Follow f = new Follow(toFollowUserId, followerUserId);
-        if(!usersRepository.followExist(f)){
-            usersRepository.addFollow(f);
-        }
+        usersRepository.addFollow(f);
     }
 
     @Override

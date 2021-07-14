@@ -3,6 +3,8 @@ package com.meli.socialmeli.controllers;
 import com.meli.socialmeli.dtos.response.FollowedUserListDTO;
 import com.meli.socialmeli.dtos.response.FollowersCountDTO;
 import com.meli.socialmeli.dtos.response.FollowersUserListDTO;
+import com.meli.socialmeli.exceptions.FollowException;
+import com.meli.socialmeli.exceptions.UserDoesNotExistException;
 import com.meli.socialmeli.services.UsersService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,13 @@ public class UsersController {
     private final UsersService usersService;
 
     public UsersController(UsersService usersService){ this.usersService = usersService; }
+
+    @PostMapping("/unfollow/{userIdToUnfollow}")
+    ResponseEntity<String> unfollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserDoesNotExistException, FollowException {
+        if(userId == userIdToUnfollow) {throw new FollowException(userId, userIdToUnfollow);}
+        usersService.unfollow(userIdToUnfollow, userId);
+        return new ResponseEntity<>("Ok", HttpStatus.OK);
+    }
 
     @GetMapping("/followed/list")
     ResponseEntity<FollowedUserListDTO> getFollowing(@PathVariable int userId) throws Exception{
