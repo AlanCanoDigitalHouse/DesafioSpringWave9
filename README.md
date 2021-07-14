@@ -15,7 +15,7 @@ Bootcamp Backend Java Desafío Spring
 
 # Architecture
 
-- A microservice is proposed that uses lightweight protocols such as HTTP or REST API and use Redis as a Distributed Cache of High-Performance (Microservices Architecture).
+- A microservice is proposed that uses lightweight protocols such as HTTP or REST API.
 - A service-oriented code architecture is proposed with routes, controllers, validators, entities and repository pattern (Clean code).
 - This REST service uses a caching strategy for balanced performance of external APIs
 ----
