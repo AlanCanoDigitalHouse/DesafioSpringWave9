@@ -46,10 +46,10 @@ public class PostService {
         List<User> users = userRepository.listFollowedByUser(user.getUserId());
         List<Integer> ids = new ArrayList<>();
         users.forEach(u -> ids.add(u.getUserId()));
-        LocalDate lastWeek = LocalDate.now().minusDays(7);
+        LocalDate lastTwoWeek = LocalDate.now().minusDays(14);
         List<Post> posts = postRepository.listPostPublishedByUser(ids)
                 .stream()
-                .filter(post -> post.getDateValue().isAfter(lastWeek))
+                .filter(post -> post.getDateValue().isAfter(lastTwoWeek))
                 .collect(Collectors.toList());
         sort(order, posts);
         return new PostListResponseDTO(user, posts);
