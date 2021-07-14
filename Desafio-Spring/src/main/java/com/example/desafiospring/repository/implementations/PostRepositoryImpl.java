@@ -2,8 +2,8 @@ package com.example.desafiospring.repository.implementations;
 
 import com.example.desafiospring.DTOS.requests.NewPostRequestDTO;
 import com.example.desafiospring.DTOS.responses.PostResponseDTO;
+import com.example.desafiospring.DTOS.responses.PromoPostResponseDTO;
 import com.example.desafiospring.entities.PostEntity;
-import com.example.desafiospring.entities.UserEntity;
 import com.example.desafiospring.exceptions.general.DBNotAvailableException;
 import com.example.desafiospring.repository.interfaces.PostRepository;
 import com.example.desafiospring.repository.interfaces.ProductRepository;
@@ -19,8 +19,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Repository
@@ -44,14 +44,16 @@ public class PostRepositoryImpl implements PostRepository {
                 newPostRequestDTO.getDate(),
                 productId,
                 newPostRequestDTO.getCategory(),
-                newPostRequestDTO.getPrice()));
+                newPostRequestDTO.getPrice(),
+                newPostRequestDTO.getHasPromo(),
+                newPostRequestDTO.getDiscount()));
         return postId;
     }
 
     @Override
-    public List<PostResponseDTO> getRecentPostsOf(List<Integer> userIds,String order) {
+    public List<PostResponseDTO> getRecentPostsOf(List<Integer> userIds, String order) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        Comparator<PostEntity> c = getComparator(order,formatter);
+        Comparator<PostEntity> c = getDateComparator(order, formatter);
         return getDatabasePosts().stream()
                 .filter(p -> userIds.contains(p.getUserId()))
                 .filter(p -> {
@@ -68,9 +70,40 @@ public class PostRepositoryImpl implements PostRepository {
                 .collect(Collectors.toList());
     }
 
-    private Comparator<PostEntity> getComparator(String order,DateTimeFormatter formatter) {
+    @Override
+    public Set<Integer> getPromoProductIDs(Integer userId) {
+        return getDatabasePosts().stream()
+                .filter(p -> Boolean.TRUE.equals(p.getHasPromo()) &&
+                        p.getUserId().equals(userId))
+                .map(PostEntity::getProductId).collect(Collectors.toSet());
+    }
+
+    @Override
+    public List<PromoPostResponseDTO> getPromoPostsOf(Integer userId, String order) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        Comparator<PostEntity> c = getProductNameComparator(order, formatter);
+        return getDatabasePosts().stream()
+                .filter(p -> userId.equals(p.getUserId()) && Boolean.TRUE.equals(p.getHasPromo()))
+                .sorted(c)
+                .map(pe -> new PromoPostResponseDTO(
+                        pe.getPostId(),
+                        pe.getDate(),
+                        productRepository.getProductResponseDTO(pe.getProductId()),
+                        pe.getCategory(),
+                        pe.getPrice(),
+                        pe.getHasPromo(),
+                        pe.getDiscount()))
+                .collect(Collectors.toList());
+    }
+
+    private Comparator<PostEntity> getProductNameComparator(String order, DateTimeFormatter formatter) {
+        Comparator<PostEntity> c = Comparator.comparing(p -> productRepository.getProductNameByID(p.getProductId()));
+        return "name_desc".equals(order) ? c.reversed() : c;
+    }
+
+    private Comparator<PostEntity> getDateComparator(String order, DateTimeFormatter formatter) {
         Comparator<PostEntity> c = Comparator.comparing(p -> LocalDate.parse(p.getDate(), formatter));
-        return "date_asc".equals(order)?c:c.reversed();
+        return "date_asc".equals(order) ? c : c.reversed();
     }
 
     private void addPostToDB(PostEntity post) {

@@ -14,7 +14,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
@@ -38,8 +40,35 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public ProductResponseDTO getProductResponseDTO(Integer productId) {
-        ProductEntity pe = getDatabaseProducts().stream().filter(p -> p.getProductId().equals(productId)).findFirst().orElseThrow();
-        return new ProductResponseDTO(pe.getProductId(), pe.getProductName(), pe.getType(), pe.getBrand(), pe.getColor(), pe.getNotes());
+        ProductEntity pe = getDatabaseProducts().stream()
+                .filter(p -> p.getProductId().equals(productId))
+                .findFirst().orElseThrow();
+        return new ProductResponseDTO(
+                pe.getProductId(),
+                pe.getProductName(),
+                pe.getType(),
+                pe.getBrand(),
+                pe.getColor(),
+                pe.getNotes());
+    }
+
+    @Override
+    public List<ProductResponseDTO> getProductResponseDTOSByID(Set<Integer> productIds) {
+        return getDatabaseProducts().stream()
+                .filter(p -> productIds.contains(p.getProductId()))
+                .map(p -> new ProductResponseDTO(
+                        p.getProductId(),
+                        p.getProductName(),
+                        p.getType(),
+                        p.getBrand(),
+                        p.getColor(),
+                        p.getNotes()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getProductNameByID(Integer productId) {
+        return getDatabaseProducts().stream().filter(p->p.getProductId().equals(productId)).findFirst().orElseThrow().getProductName();
     }
 
     private void addProductToDB(ProductEntity product) {

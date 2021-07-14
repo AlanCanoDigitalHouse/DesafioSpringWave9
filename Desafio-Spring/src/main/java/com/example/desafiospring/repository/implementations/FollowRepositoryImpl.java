@@ -5,6 +5,7 @@ import com.example.desafiospring.exceptions.general.DBNotAvailableException;
 import com.example.desafiospring.repository.interfaces.FollowRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
+@Slf4j
 public class FollowRepositoryImpl implements FollowRepository {
 
     public static final java.lang.String FOLLOWS_DB_ROUTE = "classpath:static/follows.json";
@@ -25,7 +27,7 @@ public class FollowRepositoryImpl implements FollowRepository {
             dbFollows.add(new FollowEntity(followerUserId, followedUserId));
             overWriteFollowsDB(dbFollows);
         } else {
-            System.out.println("Follow already existed");
+            log.info("Follow already existed");
         }
     }
 
@@ -45,7 +47,7 @@ public class FollowRepositoryImpl implements FollowRepository {
         if (dbFollows.removeIf(fe -> fe.getFollowerUserID().equals(followerUserId)&&fe.getFollowedUserID().equals(followedUserId))){
             overWriteFollowsDB(dbFollows);
         }else{
-            System.out.println("Follow didn't exist");
+            log.info("Follow didn't exist");
         }
     }
 

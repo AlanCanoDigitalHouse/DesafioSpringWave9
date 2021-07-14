@@ -24,6 +24,6 @@ public class NewPostRequestDTO {
     @NotNull(message = "price is mandatory")
     @DecimalMin(value = "0",message = "price must be positive")
     private Double price;
-
-
+    private Boolean hasPromo;
+    private Double discount;
 }

@@ -47,8 +47,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public FollowerCountResponseDTO followerCount(OnlyUserIDRequestDTO onlyUserIDRequestDTO) {
-        validateUsersExistence(onlyUserIDRequestDTO.getUserId());
         Integer userId = onlyUserIDRequestDTO.getUserId();
+        validateUsersExistence(userId);
         return new FollowerCountResponseDTO(
                 userId,
                 userRepository.getUserByID(userId).getUserName(),
@@ -57,8 +57,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public FollowerListResponseDTO followerList(UserIDAndOrderRequestDTO userIDAndOrderRequestDTO) {
-        validateUsersExistence(userIDAndOrderRequestDTO.getUserId());
         Integer userId = userIDAndOrderRequestDTO.getUserId();
+        validateUsersExistence(userId);
         List<Integer> followerIDS = followRepository.getFollowerIDs(userId);
         return new FollowerListResponseDTO(
                 userId,

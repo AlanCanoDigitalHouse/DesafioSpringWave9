@@ -1,17 +1,14 @@
-package com.example.desafiospring.entities;
+package com.example.desafiospring.DTOS.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class PostEntity {
-    private Integer postId;
-    private Integer userId;
+public class PromoPostResponseDTO {
+    private Integer id_post;
     private String date;
-    private Integer productId;
+    private ProductResponseDTO detail;
     private Integer category;
     private Double price;
     private Boolean hasPromo;
