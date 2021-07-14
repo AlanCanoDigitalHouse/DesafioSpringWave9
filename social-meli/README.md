@@ -52,7 +52,7 @@
 * Path Params
     * `userId [integer]` seller id
 * Request Params
-    * `order [string] (optional)` sorting method ("name_asc", "name_desc")
+    * `order [string] (optional) (default = "name_asc")` sorting method ("name_asc", "name_desc")
 * Response
     * `200` success
     ```
@@ -69,7 +69,7 @@
 * Path Params
     * `userId [integer]` buyer id
 * Request Params
-    * `order [string] (optional)` sorting method ("name_asc", "name_desc")
+    * `order [string] (optional) (default = "name_asc")"` sorting method ("name_asc", "name_desc")
 * Response
     * `200` success
     ```
@@ -108,7 +108,7 @@
 * Path Params
     * `userId [integer]` buyer id
 * Request Params
-    * `order [string] (optional)` sorting method ("date_asc", "date_desc")
+    * `order [string] (optional) (default = "date_desc")` sorting method ("date_asc", "date_desc")
 * Response
     * `200` success
     ```
@@ -170,7 +170,9 @@
 ### US 0012: seller promo-products list
 * GET `/products/{userId}/list/`
 * Path params
-    * `userId [integer]` seller id
+  * `userId [integer]` seller id
+* Request Params
+  * `order [string] (optional) (default = "product_name_asc"")` sorting method ("product_name_asc", "product_name_desc")  
 * Response
     * `200` success
     ```
