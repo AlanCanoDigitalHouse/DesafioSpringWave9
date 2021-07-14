@@ -54,7 +54,7 @@ public class ProductsController {
      * US 0009: Ordenamiento por fecha ascendente y descendente
      *
      * @param userId buyer ID
-     * @param order  order method. Valid values are: "date_asc", "date_desc"
+     * @param order  order method. Valid values are: "date_asc", "date_desc". Default value: "fecha_desc"
      * @return ResponseEntity<SellerPostListDTO>
      * @throws BuyerNotFoundException if buyer is not found
      */
@@ -80,12 +80,14 @@ public class ProductsController {
      * US 0012: Obtener un listado de todos los productos en promoción de un determinado vendedor
      *
      * @param userId seller id
+     * @param order order method. Valid values are: "product_name_asc", "product_name_desc". Default value: "product_name_asc".
      * @return ResponseEntity<SellerPromoPostListDTO>
      * @throws SellerNotFoundException is seller is not found
      */
     @GetMapping(value = "/{userId}/list")
-    public ResponseEntity<SellerPostsPromoDTO> promoPostList(@PathVariable Integer userId) throws SellerNotFoundException {
-        return new ResponseEntity<>(productService.getPromoPosts(userId), HttpStatus.OK);
+    public ResponseEntity<SellerPostsPromoDTO> promoPostList(@PathVariable Integer userId,
+                                                             @RequestParam(required = false, defaultValue = "product_name_asc") String order) throws SellerNotFoundException {
+        return new ResponseEntity<>(productService.getPromoPosts(userId, order), HttpStatus.OK);
     }
 
 }

@@ -15,8 +15,6 @@ public interface ProductService {
 
     SellerPostsPromoDTO getPromoProductsCount(Integer selleId) throws SellerNotFoundException;
 
-    SellerPostsPromoDTO getPromoPosts(Integer sellerId) throws SellerNotFoundException;
-
-
+    SellerPostsPromoDTO getPromoPosts(Integer sellerId, String order) throws SellerNotFoundException;
 
 }

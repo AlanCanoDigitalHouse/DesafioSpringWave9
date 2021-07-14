@@ -66,13 +66,13 @@ public class UsersController {
      * US 0003: Obtener un listado de todos los usuarios que siguen a un determinado vendedor (¿Quién me sigue?)
      * US 0008: Ordenamiento alfabético ascendente y descendente
      * @param userId seller ID
-     * @param order order method. Valid values are: "name_asc", "name_desc"
+     * @param order order method. Valid values are: "name_asc", "name_desc". Default value: "name_asc".
      * @return ResponseEntity<FollowersListDTO>
      * @throws SellerNotFoundException is seller is not found
      */
     @GetMapping(path = "/{userId}/followers/list")
     public ResponseEntity<FollowersDTO> sellerFollowersList(@PathVariable Integer userId,
-                                                            @RequestParam(required = false) String order) throws SellerNotFoundException {
+                                                            @RequestParam(required = false, defaultValue = "name_asc") String order) throws SellerNotFoundException {
         return new ResponseEntity<>(sellerService.getFollowersList(userId, order), HttpStatus.OK);
     }
 
@@ -80,13 +80,13 @@ public class UsersController {
      * US 0004: Obtener un listado de todos los vendedores a los cuales sigue un determinado usuario (¿A quién sigo?)
      * US 0008: Ordenamiento alfabético ascendente y descendente
      * @param userId  buyer ID
-     * @param order order method. Valid values are: "name_asc", "name_desc"
+     * @param order order method. Valid values are: "name_asc", "name_desc". Default value: "name_desc".
      * @return ResponseEntity<FollowedListDTO>
      * @throws BuyerNotFoundException id buyer is not found
      */
     @GetMapping(path = "/{userId}/followed/list")
     public ResponseEntity<FollowedDTO> followedList(@PathVariable Integer userId,
-                                                    @RequestParam(required = false) String order) throws BuyerNotFoundException {
+                                                    @RequestParam(required = false, defaultValue = "name_asc") String order) throws BuyerNotFoundException {
         return new ResponseEntity<>(sellerService.getFollowedList(userId, order), HttpStatus.OK);
     }
 

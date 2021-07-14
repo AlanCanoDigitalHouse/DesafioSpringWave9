@@ -55,16 +55,6 @@ public class ProductServiceImpl implements ProductService {
         return dto;
     }
 
-    private void sortPostList(List<PostDTO> postList, String order) {
-        if(Objects.nonNull(order)) {
-            if("date_asc".equals(order)) {
-                postList.sort(Comparator.comparing(PostDTO::getDate));
-            } else if("date_desc".equals(order)){
-                postList.sort(Comparator.comparing(PostDTO::getDate).reversed());
-            }
-        }
-    }
-
     @Override
     public SellerPostsPromoDTO getPromoProductsCount(Integer sellerId) throws SellerNotFoundException {
         SellerDTO seller = userService.getSellerById(sellerId);
@@ -76,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public SellerPostsPromoDTO getPromoPosts(Integer sellerId) throws SellerNotFoundException {
+    public SellerPostsPromoDTO getPromoPosts(Integer sellerId, String order) throws SellerNotFoundException {
         SellerDTO seller = userService.getSellerById(sellerId);
         List<PostPromoDTO> promos = productRepository.getPromoPostsBySeller(sellerId);
 
@@ -84,10 +74,28 @@ public class ProductServiceImpl implements ProductService {
                 .map(PostPromoDTO::clonePostPromoDTO)
                 .peek(p -> p.setUserId(null))
                 .collect(Collectors.toList());
+        sortPostPromoList(promos, order);
 
         SellerPostsPromoDTO dto = new SellerPostsPromoDTO(seller);
         dto.setPosts(promos);
         return dto;
     }
 
+    private void sortPostList(List<PostDTO> postList, String order) {
+        if(Objects.nonNull(order)) {
+            postList.sort(Comparator.comparing(PostDTO::getDate).reversed());
+            if("date_asc".equals(order)) {
+                postList.sort(Comparator.comparing(PostDTO::getDate));
+            }
+        }
+    }
+
+    private void sortPostPromoList(List<PostPromoDTO> postList, String order) {
+        if(Objects.nonNull(order)) {
+            postList.sort(Comparator.comparing(p -> p.getDetail().getProductName(), String.CASE_INSENSITIVE_ORDER));
+            if("product_name_desc".equals(order)) {
+                postList.sort(Comparator.comparing(p -> ((PostPromoDTO)p).getDetail().getProductName(), String.CASE_INSENSITIVE_ORDER).reversed());
+            }
+        }
+    }
 }
