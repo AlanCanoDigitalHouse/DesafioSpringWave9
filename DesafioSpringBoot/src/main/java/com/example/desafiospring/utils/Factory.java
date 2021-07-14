@@ -5,9 +5,7 @@ import com.example.desafiospring.exceptions.TypeNotFoundException;
 import com.example.desafiospring.utils.importsmodels.Post;
 import com.example.desafiospring.utils.importsmodels.Product;
 import com.example.desafiospring.utils.importsmodels.User;
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.util.ResourceUtils;
 
@@ -20,15 +18,10 @@ import java.util.Objects;
 import java.util.Random;
 
 public class Factory {
-
     public static UserResponseDto factoryUser(UserResponseDto user, String type) {
-        if (type.equals("Client")) {
-            return new ClientResponseDto(user.getId(), user.getUserName());
-        } else if (type.equals("Seller")) {
-            return new SellerResponseDto(user.getId(), user.getUserName());
-        } else {
-            throw new TypeNotFoundException("The type given in the argument does not exist");
-        }
+        if (type.equals("Client")) return new ClientResponseDto(user.getId(), user.getUserName());
+        if (type.equals("Seller"))  return new SellerResponseDto(user.getId(), user.getUserName());
+         throw new TypeNotFoundException("The type given in the argument does not exist");
     }
 
     public static List<PostResponseDto> generatePost(){
@@ -72,8 +65,7 @@ public class Factory {
 
     public static Integer generateId(){
         Random rnd = new Random();
-        int n = 100000 + rnd.nextInt(900000);
-        return n;
+        return 100000 + rnd.nextInt(900000);
     }
 
     private static List<Post> getAllPost() {
@@ -124,10 +116,6 @@ public class Factory {
         List<User> users = null;
         try{
             users = obj.readValue(file,typeRef);
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -140,10 +128,6 @@ public class Factory {
         List<Product> products = null;
         try{
             products = obj.readValue(file,typeRef);
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -155,10 +139,6 @@ public class Factory {
         List<Post> posts = null;
         try{
             posts = obj.readValue(file,typeRef);
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

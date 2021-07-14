@@ -64,47 +64,39 @@ public class ProductServices implements Sorter<PostResponseDto> {
     }
 
     public List<PostResponseDto> getPromoPost(Integer userId){
-        var post = productRepository.getPosts().stream()
-                .filter(postResponseDto -> postResponseDto.getUserId() == userId && postResponseDto.getHasPromo()).collect(Collectors.toList());
-        return post;
+        return productRepository.getPosts().stream()
+                .filter(postResponseDto -> postResponseDto.getUserId() == userId && postResponseDto.getHasPromo())
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<PostResponseDto> sortDesc(List<PostResponseDto> list) {
-        Collections.sort(list, Comparator.comparing(this::getMilli).reversed());
+        list.sort(Comparator.comparing(this::getMilli).reversed());
         return list;
     }
 
     @Override
     public List<PostResponseDto> sortAsc(List<PostResponseDto> list) {
-        Collections.sort(list, Comparator.comparing(this::getMilli));
+        list.sort(Comparator.comparing(this::getMilli));
         return list;
     }
 
     @Override
     public List<PostResponseDto> sorterWrapper(List<PostResponseDto> list, String param) {
-        if (param == null) {
-            return list;
-        } else if (param.equals("date_asc")) {
-            return sortAsc(list);
-        } else if (param.equals("date_desc")) {
-            return sortDesc(list);
-        } else {
-            return list;
-        }
+        if (param == null) return list;
+        if (param.equals("date_asc")) return sortAsc(list);
+        if (param.equals("date_desc")) return sortDesc(list);
+        return list;
     }
 
     private Long getMilli(PostResponseDto post) {
-        SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println(post.getDate());
+        SimpleDateFormat simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
         try {
-            Long date = simpleFormat.parse(post.getDate()).getTime();
-            return date;
+            return simpleFormat.parse(post.getDate()).getTime();
         } catch (ParseException ex) {
-            throw new LogicValidationException("The format from the dates is wrong, the correct format is DD/MM/YYYY");
+            throw new LogicValidationException("The format from the dates is wrong, the correct format is DD-MM-YYYY");
         }
     }
-
-
-
 
 }

@@ -1,7 +1,6 @@
 package com.example.desafiospring.repositories;
 
 import com.example.desafiospring.dtos.response.UserResponseDto;
-import com.example.desafiospring.exceptions.ElementDoesntFindException;
 import com.example.desafiospring.exceptions.LogicValidationException;
 import com.example.desafiospring.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Repository;
@@ -31,9 +30,7 @@ public class UserRepository implements CRUD<UserResponseDto> {
 
     @Override
     public void delete(Integer id) {
-        /**TODO
-         * delete if needed
-         */
+       throw new Error("method not created");
     }
 
     public List<UserResponseDto> getAll() {

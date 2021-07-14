@@ -8,9 +8,7 @@ import com.example.desafiospring.exceptions.UserNotFoundException;
 import com.example.desafiospring.repositories.UserRepository;
 import com.example.desafiospring.utils.Factory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.comparator.Comparators;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -27,12 +25,11 @@ public class UserServices implements Sorter<UserResponseDto> {
      * update the data from the seller and the client adding them to the given collection and update the
      * general collection
      *
-     * @param userId
-     * @param userIdToFollow
-     * @return the client with the new followed
+     * @param userId         Integer, unique id from the client
+     * @param userIdToFollow Integer, unique id from the seller
      * @throws LogicValidationException if the client is already following the Seller
      */
-    public ClientResponseDto followSeller(Integer userId, Integer userIdToFollow) {
+    public void followSeller(Integer userId, Integer userIdToFollow) {
         var client = getClientById(userId);
         var seller = getSellerById(userIdToFollow);
         if (!isFollowing(client, seller)) {
@@ -40,7 +37,6 @@ public class UserServices implements Sorter<UserResponseDto> {
             client.addFollowed(new UserResponseDto(seller.getId(), seller.getUserName()));
             userRepository.update(seller);
             userRepository.update(client);
-            return client;
         } else {
             throw new LogicValidationException("The client is already following the seller");
         }
@@ -52,9 +48,8 @@ public class UserServices implements Sorter<UserResponseDto> {
 
 
     private boolean isFollowing(ClientResponseDto client, SellerResponseDto seller) {
-        var checking = seller.getFollowers().stream()
+        return seller.getFollowers().stream()
                 .anyMatch(userResponseDto -> userResponseDto.getId() == client.getId());
-        return checking;
     }
 
     public SellerResponseDto getSellerById(Integer id) {
@@ -65,7 +60,8 @@ public class UserServices implements Sorter<UserResponseDto> {
         if (firstSeller.isPresent()) {
             return (SellerResponseDto) firstSeller.get();
         } else {
-            throw new UserNotFoundException("The seller is not present in the collection as seller");
+            String error = "The seller is not present in the collection as seller, you should try with userId 71 - 99";
+            throw new UserNotFoundException(error);
         }
     }
 
@@ -77,7 +73,8 @@ public class UserServices implements Sorter<UserResponseDto> {
         if (firstClient.isPresent()) {
             return (ClientResponseDto) firstClient.get();
         } else {
-            throw new UserNotFoundException("The client is not present in the collection as client");
+            String error = "The client is not present in the collection as client, you should try with userId 1 - 69";
+            throw new UserNotFoundException(error);
         }
     }
 
@@ -92,13 +89,11 @@ public class UserServices implements Sorter<UserResponseDto> {
         } else {
             throw new LogicValidationException("The client is not following this seller");
         }
-
     }
-
 
     @Override
     public List<UserResponseDto> sortDesc(List<UserResponseDto> list) {
-        Collections.sort(list, Comparator.comparing(UserResponseDto::getUserName).reversed());
+        list.sort(Comparator.comparing(UserResponseDto::getUserName).reversed());
         return list;
     }
 
@@ -110,17 +105,10 @@ public class UserServices implements Sorter<UserResponseDto> {
 
     @Override
     public List<UserResponseDto> sorterWrapper(List<UserResponseDto> list, String param) {
-        if(param == null){
-            return list;
-        }else if (param.contains("name_asc")){
-            return sortAsc(list);
-        }else if (param.contains("name_desc")){
-            return sortDesc(list);
-        }else{
-            return list;
-        }
+        if (param == null) return list;
+        if (param.contains("name_asc")) return sortAsc(list);
+        if (param.contains("name_desc")) return sortDesc(list);
+        return list;
     }
-
-
 
 }

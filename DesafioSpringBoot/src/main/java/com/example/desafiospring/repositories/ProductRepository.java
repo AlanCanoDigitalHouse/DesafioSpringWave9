@@ -29,12 +29,8 @@ public class ProductRepository implements CRUD<PostResponseDto> {
 
     @Override
     public PostResponseDto create(PostResponseDto product) {
-        var result = posts.add(product);
-        if (result) {
-            return product;
-        } else {
-            throw new LogicValidationException("the user can't be added");
-        }
+        posts.add(product);
+        return product;
     }
 
     @Override
@@ -52,7 +48,7 @@ public class ProductRepository implements CRUD<PostResponseDto> {
                 .filter(postResponseDto -> postResponseDto.getId_post() == id)
                 .findFirst();
         if (product.isPresent()) {
-            posts.remove(product);
+            posts.remove(product.get());
         } else {
             throw new LogicValidationException("Product not found");
         }

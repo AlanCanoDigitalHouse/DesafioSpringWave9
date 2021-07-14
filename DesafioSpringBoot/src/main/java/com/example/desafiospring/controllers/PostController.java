@@ -1,5 +1,7 @@
 package com.example.desafiospring.controllers;
 
+
+
 import com.example.desafiospring.dtos.request.PostPromoRequestDto;
 import com.example.desafiospring.dtos.request.PostRequestDto;
 import com.example.desafiospring.dtos.response.CountPromoDto;
@@ -15,32 +17,34 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/products")
-public class ProductController {
+public class PostController {
     private ProductServices productServices;
     private UserServices userServices;
 
     /**
      * TODO
      * validate the data input with a regular expression
-     * validate userdId in productController
+     * validate userdId in PostController
      */
-    public ProductController(ProductServices productServices,UserServices userServices) {
+    public PostController(ProductServices productServices, UserServices userServices) {
         this.productServices = productServices;
         this.userServices = userServices;
     }
 
     @GetMapping(path = "/{userId}")
-    public ResponseEntity<PostResponseDto> getPost(@PathVariable Integer userId){
-        return new ResponseEntity<>(productServices.getPost(userId),HttpStatus.OK);
+    public ResponseEntity<PostResponseDto> getPostFromUser(@PathVariable Integer userId){
+        return new ResponseEntity<>(productServices.getPost(userId), HttpStatus.OK);
     }
     @PostMapping(path = "/newpost")
     public ResponseEntity<HttpStatus> addNewPost(@Valid @RequestBody PostRequestDto postRequestDto){
+      userServices.getSellerById(postRequestDto.getUserId());
       productServices.createNewPost(postRequestDto);
       return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(path = "/newpromopost")
     public ResponseEntity<HttpStatus> addPromoPost(@Valid @RequestBody PostPromoRequestDto postPromo){
+        userServices.getSellerById(postPromo.getUserId());
         productServices.createNewPromoPost(postPromo);
         return new ResponseEntity<>(HttpStatus.OK);
     }
