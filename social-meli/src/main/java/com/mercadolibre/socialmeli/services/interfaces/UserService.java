@@ -1,8 +1,7 @@
 package com.mercadolibre.socialmeli.services.interfaces;
 
-import com.mercadolibre.socialmeli.dtos.FollowedListDTO;
-import com.mercadolibre.socialmeli.dtos.FollowersCountDTO;
-import com.mercadolibre.socialmeli.dtos.FollowersListDTO;
+import com.mercadolibre.socialmeli.dtos.resp.FollowedDTO;
+import com.mercadolibre.socialmeli.dtos.resp.FollowersDTO;
 import com.mercadolibre.socialmeli.exceptions.BuyerNotFoundException;
 import com.mercadolibre.socialmeli.exceptions.SellerAlreadyFollowedException;
 import com.mercadolibre.socialmeli.exceptions.SellerNotFollowedException;
@@ -14,11 +13,10 @@ public interface UserService {
 
     void unfollow(Integer userId, Integer userIdToUnfollow) throws SellerNotFoundException, BuyerNotFoundException, SellerNotFollowedException;
 
-    FollowersListDTO getFollowersList(Integer userId, String order) throws SellerNotFoundException;
+    FollowersDTO getFollowersList(Integer userId, String order) throws SellerNotFoundException;
 
-    FollowedListDTO getFollowedList(Integer userId, String order) throws BuyerNotFoundException;
+    FollowedDTO getFollowedList(Integer userId, String order) throws BuyerNotFoundException;
 
-    FollowersCountDTO getFollowersCount(Integer userId) throws SellerNotFoundException;
-
+    FollowersDTO getFollowersCount(Integer userId) throws SellerNotFoundException;
 
 }

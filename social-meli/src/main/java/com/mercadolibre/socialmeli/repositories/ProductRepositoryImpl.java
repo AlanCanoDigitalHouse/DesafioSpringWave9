@@ -1,7 +1,7 @@
 package com.mercadolibre.socialmeli.repositories;
 
 import com.mercadolibre.socialmeli.dtos.PostDTO;
-import com.mercadolibre.socialmeli.dtos.PromoPostDTO;
+import com.mercadolibre.socialmeli.dtos.PostPromoDTO;
 import com.mercadolibre.socialmeli.repositories.interfaces.ProductRepository;
 import org.springframework.stereotype.Repository;
 
@@ -31,12 +31,12 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public List<PromoPostDTO> getPromoPostsBySeller(Integer sellerId) {
+    public List<PostPromoDTO> getPromoPostsBySeller(Integer sellerId) {
         List<PostDTO> postDTOList = getPostsBySeller(sellerId);
 
         return postDTOList.stream()
-                .filter(p -> p instanceof PromoPostDTO)
-                .map(p -> (PromoPostDTO) p)
+                .filter(p -> p instanceof PostPromoDTO)
+                .map(p -> (PostPromoDTO) p)
                 .collect(Collectors.toList());
     }
 

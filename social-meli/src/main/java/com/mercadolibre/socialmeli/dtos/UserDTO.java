@@ -2,10 +2,9 @@ package com.mercadolibre.socialmeli.dtos;
 
 import lombok.*;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO {
 
     private Integer userId;

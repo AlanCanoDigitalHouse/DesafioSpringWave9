@@ -1,6 +1,7 @@
 package com.mercadolibre.socialmeli.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -12,8 +13,8 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @Validated
-//@JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostDTO {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class PostDTO implements Cloneable {
 
     @NotNull(message = "userId cannot be empty")
     private Integer userId;
@@ -29,4 +30,11 @@ public class PostDTO {
     @NotNull(message = "price cannot be empty")
     private Double price;
 
+    public PostDTO clonePostDTO() {
+        try {
+            return (PostDTO) this.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
 }

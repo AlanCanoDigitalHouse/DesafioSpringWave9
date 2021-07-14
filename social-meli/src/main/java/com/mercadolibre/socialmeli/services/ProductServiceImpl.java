@@ -1,6 +1,8 @@
 package com.mercadolibre.socialmeli.services;
 
 import com.mercadolibre.socialmeli.dtos.*;
+import com.mercadolibre.socialmeli.dtos.resp.FollowedPostsDTO;
+import com.mercadolibre.socialmeli.dtos.resp.SellerPostsPromoDTO;
 import com.mercadolibre.socialmeli.exceptions.BuyerNotFoundException;
 import com.mercadolibre.socialmeli.exceptions.SellerNotFoundException;
 import com.mercadolibre.socialmeli.repositories.interfaces.ProductRepository;
@@ -31,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public SellerPostListDTO twoWeeksSellerPosts(Integer userId, String order) throws BuyerNotFoundException {
+    public FollowedPostsDTO followedSellersPostsLastTwoWeeks(Integer userId, String order) throws BuyerNotFoundException {
         BuyerDTO buyer = userRepository.getBuyerById(userId);
         // iterate sellers and collect posts
         List<PostDTO> postList = new LinkedList<>();
@@ -39,6 +41,8 @@ public class ProductServiceImpl implements ProductService {
         buyer.getFollowed().forEach(seller -> {
             List<PostDTO> sellerPostList = productRepository.getPostsBySeller(seller.getUserId()).stream()
                     .filter(p -> p.getDate().toInstant().isAfter(since))
+                    .map(PostDTO::clonePostDTO)    // clone object to change pointer reference
+                    .peek(p -> p.setUserId(null))  // set userId to null (to not show it in the response)
                     .collect(Collectors.toList());
 
             postList.addAll(sellerPostList);
@@ -46,8 +50,7 @@ public class ProductServiceImpl implements ProductService {
         sortPostList(postList, order);
 
         // build dto
-        SellerPostListDTO dto = new SellerPostListDTO();
-        dto.setUserId(buyer.getUserId());
+        FollowedPostsDTO dto = new FollowedPostsDTO(buyer.getUserId());
         dto.setPosts(postList);
         return dto;
     }
@@ -63,33 +66,25 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public PromoProductsCountDTO getPromoProductsCount(Integer sellerId) throws SellerNotFoundException {
+    public SellerPostsPromoDTO getPromoProductsCount(Integer sellerId) throws SellerNotFoundException {
         SellerDTO seller = userRepository.getSellerById(sellerId);
-        List<PromoPostDTO> promoPostList = productRepository.getPromoPostsBySeller(sellerId);
+        List<PostPromoDTO> promoPostList = productRepository.getPromoPostsBySeller(sellerId);
 
         List<ProductDTO> productList = promoPostList.stream()
                 .map(PostDTO::getDetail)
-                .collect(Collectors.collectingAndThen(
-                        Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(ProductDTO::getProduct_id))),
-                        LinkedList::new));
+                .collect(Collectors.toList());
 
-//        List<ProductDTO> productList = promoPostList.stream()
-//                .map(PostDTO::getDetail)
-//                .collect(Collectors.toList());
-
-        PromoProductsCountDTO dto = new PromoProductsCountDTO();
-        dto.setUserId(seller.getUserId());
-        dto.setUserName(seller.getUserName());
+        SellerPostsPromoDTO dto = new SellerPostsPromoDTO(seller);
         dto.setPromoproducts_count(productList.size());
         return dto;
     }
 
     @Override
-    public SellerPromoPostListDTO getPromoPosts(Integer sellerId) throws SellerNotFoundException {
+    public SellerPostsPromoDTO getPromoPosts(Integer sellerId) throws SellerNotFoundException {
         SellerDTO seller = userRepository.getSellerById(sellerId);
-        List<PromoPostDTO> promos = productRepository.getPromoPostsBySeller(sellerId);
+        List<PostPromoDTO> promos = productRepository.getPromoPostsBySeller(sellerId);
 
-        SellerPromoPostListDTO dto = new SellerPromoPostListDTO(seller);
+        SellerPostsPromoDTO dto = new SellerPostsPromoDTO(seller);
         dto.setPosts(promos);
         return dto;
     }

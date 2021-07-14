@@ -1,7 +1,7 @@
 package com.mercadolibre.socialmeli.repositories.interfaces;
 
 import com.mercadolibre.socialmeli.dtos.PostDTO;
-import com.mercadolibre.socialmeli.dtos.PromoPostDTO;
+import com.mercadolibre.socialmeli.dtos.PostPromoDTO;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public interface ProductRepository {
 
     List<PostDTO> getPostsBySeller(Integer sellerId);
 
-    List<PromoPostDTO> getPromoPostsBySeller(Integer sellerId);
+    List<PostPromoDTO> getPromoPostsBySeller(Integer sellerId);
 
 
 }

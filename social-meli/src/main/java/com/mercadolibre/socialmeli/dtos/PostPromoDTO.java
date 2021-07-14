@@ -1,5 +1,6 @@
 package com.mercadolibre.socialmeli.dtos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,7 +12,8 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class PromoPostDTO extends PostDTO {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class PostPromoDTO extends PostDTO {
 
     private Boolean hasPromo = Boolean.TRUE;
     @DecimalMin(value = "0.0", inclusive = false, message = "discount should be between 0 and 1")

@@ -1,6 +1,8 @@
 package com.mercadolibre.socialmeli.services;
 
 import com.mercadolibre.socialmeli.dtos.*;
+import com.mercadolibre.socialmeli.dtos.resp.FollowedDTO;
+import com.mercadolibre.socialmeli.dtos.resp.FollowersDTO;
 import com.mercadolibre.socialmeli.exceptions.BuyerNotFoundException;
 import com.mercadolibre.socialmeli.exceptions.SellerAlreadyFollowedException;
 import com.mercadolibre.socialmeli.exceptions.SellerNotFollowedException;
@@ -31,44 +33,37 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public FollowersListDTO getFollowersList(Integer userId, String order) throws SellerNotFoundException {
+    public FollowersDTO getFollowersList(Integer userId, String order) throws SellerNotFoundException {
         SellerDTO seller = userRepository.getSellerById(userId);
 
         List<UserDTO> followers = new LinkedList<>(seller.getFollowers());
         sortUserList(followers, order);
 
-        FollowersListDTO dto = new FollowersListDTO();
-        dto.setUserId(seller.getUserId());
-        dto.setUserName(seller.getUserName());
+        // build dto
+        FollowersDTO dto = new FollowersDTO(seller);
         dto.setFollowers(followers);
-
         return dto;
     }
 
     @Override
-    public FollowedListDTO getFollowedList(Integer userId, String order) throws BuyerNotFoundException {
+    public FollowedDTO getFollowedList(Integer userId, String order) throws BuyerNotFoundException {
         BuyerDTO buyer = userRepository.getBuyerById(userId);
 
         List<UserDTO> followed = new LinkedList<>(buyer.getFollowed());
         sortUserList(followed, order);
 
-        FollowedListDTO dto = new FollowedListDTO();
-        dto.setUserId(buyer.getUserId());
-        dto.setUserName(buyer.getUserName());
+        // build dto
+        FollowedDTO dto = new FollowedDTO(buyer);
         dto.setFollowed(followed);
-
         return dto;
     }
 
     @Override
-    public FollowersCountDTO getFollowersCount(Integer userId) throws SellerNotFoundException {
+    public FollowersDTO getFollowersCount(Integer userId) throws SellerNotFoundException {
         SellerDTO seller = userRepository.getSellerById(userId);
 
-        FollowersCountDTO dto = new FollowersCountDTO();
-        dto.setUserId(seller.getUserId());
-        dto.setUserName(seller.getUserName());
+        FollowersDTO dto = new FollowersDTO(seller);
         dto.setFollowers_count((long) seller.getFollowers().size());
-
         return dto;
     }
 
