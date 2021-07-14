@@ -37,6 +37,10 @@ public class UserService {
             seller.getFollowers().add(userId);
     }
 
+    public void addPostToUser(int userId, int postId){
+        userRepository.addPostToUser(userRepository.findUserById(userId), postId);
+    }
+
     public UserWithFollowersCountDTO getUserWithFollowersCountDTO(int userId){
         User user = userRepository.findUserById(userId);
         return new UserWithFollowersCountDTO(
@@ -46,13 +50,9 @@ public class UserService {
         );
     }
 
-    public UserWithFollowersDTO getUSerWithFollowers(int userId){
+    public UserWithFollowersDTO getUserWithFollowers(int userId){
         User user = userRepository.findUserById(userId);
-        List<UserBase> followers = user.getFollowers().stream().map(
-                item -> {
-                    User follower = userRepository.findUserById(item);
-                    return new UserBase(follower.getUserId(), follower.getUserName());
-                }).collect(Collectors.toList());
+        List<UserBase> followers = userRepository.getFollowersByUser(user);
         return new UserWithFollowersDTO(user.getUserId(), user.getUserName(), followers);
     }
 

@@ -41,7 +41,7 @@ public class UserController {
     public UserWithFollowersDTO getUserWithFollowersDTO(
             @PathVariable int UserID
     ){
-        return userService.getUSerWithFollowers(UserID);
+        return userService.getUserWithFollowers(UserID);
     }
 
     @GetMapping("/users/{UserID}/followed/list")

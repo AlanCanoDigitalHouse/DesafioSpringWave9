@@ -3,6 +3,7 @@ package com.mercadolibre.socialmeli.repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mercadolibre.socialmeli.entity.User;
+import com.mercadolibre.socialmeli.entity.UserBase;
 import com.mercadolibre.socialmeli.exception.UserNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
@@ -12,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserRepository {
@@ -25,6 +27,23 @@ public class UserRepository {
         if (user.isEmpty()) throw new UserNotFoundException();
 
         return user.get();
+    }
+
+    public void addPostToUser(User user, int postId){
+        for (User userIterator:
+             usersDatabase) {
+            if (userIterator.getUserId() == user.getUserId()){
+                userIterator.getPosts().add(postId);
+            }
+        }
+    }
+
+    public List<UserBase> getFollowersByUser(User user){
+        return user.getFollowers().stream().map(
+                item -> {
+                    User follower = this.findUserById(item);
+                    return new UserBase(follower.getUserId(), follower.getUserName());
+                }).collect(Collectors.toList());
     }
 
     public Optional<List<User>> loadDatabase(){
