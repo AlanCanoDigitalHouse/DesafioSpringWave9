@@ -1,2 +1,85 @@
 # DesafioSpringWave9
-Repositorio donde guardaremos el código de nuestros proyectos Spring
+
+Bootcamp Backend Java Desafío Spring
+
+## Content
+
+- [Architecture used](#Architecture)
+- [Technologies and tools](#Technologies)
+- [Installation](#Installation)
+- [Build&Run](#) 
+- [API](#API)
+- [Contributors](#Contributors)
+- [License](#License)
+----
+
+# Architecture
+
+- A microservice is proposed that uses lightweight protocols such as HTTP or REST API and use Redis as a Distributed Cache of High-Performance (Microservices Architecture).
+- A service-oriented code architecture is proposed with routes, controllers, validators, entities and repository pattern (Clean code).
+- This REST service uses a caching strategy for balanced performance of external APIs
+----
+
+# Technologies
+
+* [Java 11] - Programming language
+* [Spring-boot] - Server
+* [Spring-core] - Framework
+* [Git] - Code versioning
+* [Maven] - Dependency management
+* [IDEA IntelliJ] - IDE
+* [HashMap] - Temp Database
+* [GitHub] - Repository
+* [Docker & Compose] - Container Framework
+
+-------
+
+# Installation
+
+
+| Requires | URL |
+| ------ | ------ |
+| Java 11 | https://www.java.com/es/download/ |
+| Git | https://git-scm.com/downloads |
+| Docker | https://docs.docker.com/engine/install/ |
+| Compose | https://docs.docker.com/compose/install/ |
+
+------
+
+# Build & Run
+
+Run all containers
+```
+$ docker-compose up --build -d
+```
+
+Down containers
+```
+$ docker-compose down
+```
+
+-----
+
+# API
+
+| US 000 | Method | URL | VARIABLES | DESCRIPTION | 
+| ------ | ------ | --- | ------ | --------- |
+| 001 | GET | /users/{userId}/follow/{userIdToFollow}" | {userId}(int) identification user. {userIdToFollow}(int) identification user to follow | follow a other user |
+| 002 | GET | /users/{userID}/followers/count | {userID}(int) indentification user | Get Followers Users Count |
+| 003 | GET |/users/{userID}/followers/list | {userID}(int) indentification user | Get Followers User List |
+| 004 | GET | /users/{UserID}/followed/list | {userID}(int) indentification user | User Following List |
+| 005 | POST | /products/newpost | {"userId":1001,"userName":"Usuario1","posts":[{"userId":1001,"id_post":18,"date":"11-07-2021","detail":{"product_id":1,"productName":"Silla Gamer","type":"Gamer","brand":"Racer","color":"Red & Black","notes":"Special Edition"},"category":100,"price":1500.5,"hasPromo":true,"discount":0.25}]} | Create New Post |
+| 006 | GET | /products/followed/{userId}/list| {userId}(int) identification user | Get Resent(14 days a go) Products User List |
+| 007 | GET | /users/{userId}/unfollow/{userIdToUnfollow} | {userId}(int) identification user. {userIdToFollow}(int) identification user to unfollow | Unfollow |
+| 008 | GET | /users/{UserID}/followers/list?order= & /users/{UserID}/followed/list?order= | {UserID}(int) identification user, {order}(String) sorted method | Sort User Followers & Followed |
+| 009 | GET | /products/followed/{userId}/list?order= | {userId}(int) identification user, {order}(String) sorted method | Sort User Products by Date |
+| 010 | POST | /products/newpromopost | {"userId":1001,"userName":"Usuario1","posts":[{"userId":1001,"id_post":18,"date":"11-07-2021","detail":{"product_id":1,"productName":"Silla Gamer","type":"Gamer","brand":"Racer","color":"Red & Black","notes":"Special Edition"},"category":100,"price":1500.5,"hasPromo":true,"discount":0.25,"hasPromo":true,"discount":0.25 } | Create New Promo Post |
+| 011 | GET | /products/{userId}/countPromo/ | {userId}(int) identification user | promo post count by user |
+| 012 | GET | /products/{userId}/list | {userId}(int) identification user | promo post list by user |
+
+
+# Contributors
+- [Manuel Alejandro García](https://github.com/ManuGarciaMeli)
+
+# License
+This project is property of Mercado Libre.
