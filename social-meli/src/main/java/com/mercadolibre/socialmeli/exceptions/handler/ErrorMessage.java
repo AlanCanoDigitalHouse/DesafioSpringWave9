@@ -12,13 +12,13 @@ public class ErrorMessage {
     private Integer status;
     private String error;
     private String message;
-    private Map<String, String> errors;
+    private Map<String, String> details;
 
-    public ErrorMessage(Integer status, String error, String message, Map<String, String> errors) {
+    public ErrorMessage(Integer status, String error, String message, Map<String, String> details) {
         this.status = status;
         this.error = error;
         this.message = message;
-        this.errors = errors;
+        this.details = details;
     }
 
 }

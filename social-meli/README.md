@@ -20,6 +20,8 @@
   - `when trying to unfollow a seller who is not followed`
 * ValidationException    
   - `when params validation fails`
+* HttpMessageNotReadableException
+  - `when json payload is not well formed`
 
 ## Features
 
