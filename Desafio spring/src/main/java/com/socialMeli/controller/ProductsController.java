@@ -27,6 +27,14 @@ public class ProductsController {
         this.postService = postService;
     }
 
+    /**
+     * 0005: Create a new post
+     * @param postInfo info of the post, see PostInfoToCreateDTO to see all the required attributes
+     * @return Http status, 200 if was been added, 400 if a error ocurred
+     * @throws ModelAlreadyExists id the post with that id, already exists
+     * @throws ParseException if the date have a unexpected value
+     * @throws ModelNotExists if the id of the user not exists
+     */
     @PostMapping("/newpost")
     public ResponseEntity<Void> newPost(@Valid @RequestBody PostInfoToCreateDTO postInfo) throws ModelAlreadyExists, ParseException, ModelNotExists {
         postService.addNewPost(postInfo);

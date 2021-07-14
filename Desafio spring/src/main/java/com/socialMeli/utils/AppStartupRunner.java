@@ -3,6 +3,7 @@ package com.socialMeli.utils;
 import com.socialMeli.SocialMeliApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -20,9 +21,14 @@ import java.io.IOException;
 public class AppStartupRunner implements ApplicationRunner {
     final static Logger logger = LoggerFactory.getLogger(SocialMeliApplication.class);
 
+    @Value("${resetDataAtStart}")
+    private boolean refresh;
     @Override
     public void run(ApplicationArguments args) {
-        refresh();
+        if(refresh){
+            logger.warn("Borrando y colocando datos por defecto");
+            refresh();
+        }
     }
 
     public static void refresh() {
