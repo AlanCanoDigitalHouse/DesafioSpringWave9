@@ -6,5 +6,5 @@ import com.mercadolibre.social_meli.dto.response.FollowedPostsResponseDTO;
 public interface IProductService {
     void postNewProduct(ProductRequestDTO productData);
 
-    FollowedPostsResponseDTO getFollowedRecentPosts(Integer userId);
+    FollowedPostsResponseDTO getFollowedRecentPosts(Integer userId, String order);
 }

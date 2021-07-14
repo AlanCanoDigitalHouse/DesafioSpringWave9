@@ -27,8 +27,10 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<FollowedPostsResponseDTO> getRecentPosts(@PathVariable Integer userId) {
-        var posts = this.productService.getFollowedRecentPosts(userId);
+    public ResponseEntity<FollowedPostsResponseDTO> getRecentPosts(@PathVariable Integer userId,
+                                                                   @RequestParam(required = false) String order) {
+
+        var posts = this.productService.getFollowedRecentPosts(userId, order);
 
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
