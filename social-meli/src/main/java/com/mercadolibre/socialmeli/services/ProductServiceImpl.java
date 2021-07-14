@@ -70,12 +70,8 @@ public class ProductServiceImpl implements ProductService {
         SellerDTO seller = userService.getSellerById(sellerId);
         List<PostPromoDTO> promoPostList = productRepository.getPromoPostsBySeller(sellerId);
 
-        List<ProductDTO> productList = promoPostList.stream()
-                .map(PostDTO::getDetail)
-                .collect(Collectors.toList());
-
         SellerPostsPromoDTO dto = new SellerPostsPromoDTO(seller);
-        dto.setPromoproducts_count(productList.size());
+        dto.setPromoproducts_count(promoPostList.size());
         return dto;
     }
 
