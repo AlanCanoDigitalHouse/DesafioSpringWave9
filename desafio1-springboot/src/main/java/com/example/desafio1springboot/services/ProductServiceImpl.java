@@ -1,6 +1,7 @@
 package com.example.desafio1springboot.services;
 
 import com.example.desafio1springboot.dtos.PostDTO;
+import com.example.desafio1springboot.dtos.PostInPromoDTO;
 import com.example.desafio1springboot.dtos.responseDTO.UserPostsResposeDTO;
 import com.example.desafio1springboot.exceptions.OrderNotValidException;
 import com.example.desafio1springboot.exceptions.PostNotValidDateException;
@@ -44,6 +45,11 @@ public class ProductServiceImpl implements IProductService{
     @Override
     public List<PostDTO> show() {
         return iProductRepository.show();
+    }
+
+    @Override
+    public void addNewPromoPost(PostInPromoDTO post) throws PostNotValidDateException {
+        iProductRepository.addNewPromoPost(post);
     }
 
 
