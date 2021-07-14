@@ -1,3 +1,5 @@
 # DesafioSpringWave9
 
-Repositorio donde guardaremos el código de nuestros proyectos Spring
+leer el readme que se encuentra dentro de la carpeta!
+[Otro README](./DesafioSpringBoot/README.md)
+
