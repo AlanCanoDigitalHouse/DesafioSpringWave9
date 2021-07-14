@@ -58,6 +58,24 @@ public class UserRepositoryImp implements UserRepository {
   }
 
   @Override
+  public List<Post> findUserPromoPosts(Integer userId) {
+    Optional<User> userById = findUserById(userId);
+    if (userById.isPresent()) {
+      User user = userById.get();
+      return user.getPosts().stream().filter(post -> post.getHasPromo()).collect(Collectors.toList());
+    } else {
+      return new ArrayList<>();
+    }
+
+  }
+
+  @Override
+  public Integer findUserPromoPostsCount(Integer userId) {
+    List<Post> userPromoPosts = findUserPromoPosts(userId);
+    return userPromoPosts.size();
+  }
+
+  @Override
   public List<User> findUsersFollowedBy(Integer userdId) {
     ArrayList<User> sellersFollowedByUser = new ArrayList<>();
     for (User seller : users) {
@@ -136,6 +154,8 @@ public class UserRepositoryImp implements UserRepository {
             .detail(sillaRoja)
             .category(100)
             .price(1500.05)
+            .hasPromo(false)
+            .discount(0.0)
             .build();
 
     Product sillaAzul = Product.builder()
@@ -152,6 +172,8 @@ public class UserRepositoryImp implements UserRepository {
             .detail(sillaAzul)
             .category(100)
             .price(1300.05)
+            .hasPromo(true)
+            .discount(0.15)
             .build();
 
     daniel.getPosts().add(recentPost);

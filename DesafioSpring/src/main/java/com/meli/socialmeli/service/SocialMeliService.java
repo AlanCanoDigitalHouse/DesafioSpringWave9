@@ -28,6 +28,10 @@ public interface SocialMeliService {
 
   public List<Post> findPostsOfSellersFollowedBy(Integer userId);
 
+  public List<Post> findUserPromoPosts(Integer userId);
+
+  public Integer findUserPromoPostsCount(Integer userId);
+
   public List<Post> findPostsOfSellersFollowedBy(Integer userId, String order);
 
   public List<Post> findPostsOfSellersFollowedBy(Integer userId, Integer ofTheLastDays);

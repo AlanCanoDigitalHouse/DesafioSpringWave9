@@ -16,6 +16,10 @@ public interface UserRepository {
 
   public User findUser(Integer userId);
 
+  public List<Post> findUserPromoPosts(Integer userId);
+
+  public Integer findUserPromoPostsCount(Integer userId);
+
   public List<User> findUsersFollowedBy(Integer userdId);
 
   public List<User> findUsersFollowedBy(Integer userdId, Comparator<User> c);

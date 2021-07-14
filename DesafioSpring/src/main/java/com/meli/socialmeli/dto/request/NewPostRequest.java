@@ -22,6 +22,8 @@ public class NewPostRequest {
   private ProductDTO detail;
   private Integer category;
   private Double price;
+  private Boolean hasPromo;
+  private Double discount;
 
   public NewPostRequest(Integer userId, LocalDate date, ProductDTO detail, Integer category, Double price) {
     this.userId = userId;
@@ -29,6 +31,16 @@ public class NewPostRequest {
     this.detail = detail;
     this.category = category;
     this.price = price;
+  }
+
+  public NewPostRequest(Integer userId, LocalDate date, ProductDTO detail, Integer category, Double price, Boolean hasPromo, Double discount) {
+    this.userId = userId;
+    this.date = date;
+    this.detail = detail;
+    this.category = category;
+    this.price = price;
+    this.hasPromo = hasPromo;
+    this.discount = discount;
   }
 
   public NewPostRequest() {

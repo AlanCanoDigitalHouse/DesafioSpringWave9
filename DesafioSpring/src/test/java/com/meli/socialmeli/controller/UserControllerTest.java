@@ -21,6 +21,9 @@ class UserControllerTest {
   MockMvc mockMvc;
 
   static String ADD_FOLLOWER_REQUEST = "/users/4/follow/2";
+  static String ADD_FOLLOWER_INVALID_REQUEST = "/users/1/follow/-1";
+  static String ADD_FOLLOWER_INVALID_REQUEST_NULL = "/users/null/follow/-1";
+  static String ADD_FOLLOWER_INVALID_MAPP_DONT_EXIST = "/user/null/follow/-1";
   static String REMOVE_FOLLOWER_REQUEST = "/users/1/unfollow/2";
   static String GET_FOLLOWERS_COUNT_REQUEST = "/users/2/followers/count";
   static String GET_FOLLOWERS_LIST = "/users/2/followers/list";
@@ -41,6 +44,28 @@ class UserControllerTest {
             post(ADD_FOLLOWER_REQUEST))
             .andDo(print())
             .andExpect(status().isOk());
+  }
+
+  @Test
+  void addFollowerInvalidTest() throws Exception {
+    mockMvc.perform(
+            post(ADD_FOLLOWER_INVALID_REQUEST))
+            .andDo(print())
+            .andExpect(status().isBadRequest());
+  }
+  @Test
+  void addFollowerInvalidTestNull() throws Exception {
+    mockMvc.perform(
+            post(ADD_FOLLOWER_INVALID_REQUEST_NULL))
+            .andDo(print())
+            .andExpect(status().isBadRequest());
+  }
+  @Test
+  void methodDoesnExistTest() throws Exception {
+    mockMvc.perform(
+            post(ADD_FOLLOWER_INVALID_MAPP_DONT_EXIST))
+            .andDo(print())
+            .andExpect(status().isNotFound());
   }
 
   @Test

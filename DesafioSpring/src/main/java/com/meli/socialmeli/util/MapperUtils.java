@@ -26,6 +26,8 @@ public class MapperUtils {
             .detail(dtoToProdcut(postDTO.getDetail()))
             .category(postDTO.getCategory())
             .price(postDTO.getPrice())
+            .hasPromo(postDTO.getHasPromo())
+            .discount(postDTO.getDiscount())
             .build();
   }
 
@@ -35,6 +37,8 @@ public class MapperUtils {
             .detail(toProdcutDTO(post.getDetail()))
             .category(post.getCategory())
             .price(post.getPrice())
+            .hasPromo(post.getHasPromo())
+            .discount(post.getDiscount())
             .build();
   }
 
@@ -64,6 +68,8 @@ public class MapperUtils {
             .detail(request.getDetail())
             .category(request.getCategory())
             .price(request.getPrice())
+            .hasPromo(request.getHasPromo())
+            .discount(request.getDiscount())
             .build();
   }
 

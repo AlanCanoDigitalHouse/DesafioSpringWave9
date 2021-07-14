@@ -77,6 +77,17 @@ public class SocialMeliServiceImp implements SocialMeliService {
   }
 
   @Override
+  public List<Post> findUserPromoPosts(Integer userId) {
+    return repo.findUserPromoPosts(userId);
+  }
+
+  @Override
+  public Integer findUserPromoPostsCount(Integer userId) {
+    List<Post> userPromoPosts = findUserPromoPosts(userId);
+    return userPromoPosts.size();
+  }
+
+  @Override
   public List<Post> findPostsOfSellersFollowedBy(Integer userId, String order) {
     Comparator<Post> comparator = getPostComparator(order);
     return findPostsOfSellersFollowedBy(userId, DEFAULT_OF_THE_LAST_DAYS, comparator);
