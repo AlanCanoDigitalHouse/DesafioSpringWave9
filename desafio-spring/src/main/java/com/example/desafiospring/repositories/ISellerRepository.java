@@ -8,7 +8,7 @@ import java.util.List;
 public interface ISellerRepository extends IRepository<Seller, Long, SellerException> {
     Seller addFollower(Long userId, Long userIdToFollow) throws SellerException;
 
-    Seller removeFollower(Long userId, Long userIdToFollow);
+    Seller removeFollower(Long userId, Long userIdToFollow) throws SellerException;
 
-    List<Seller> findByUserId(Long userId);
+    List<Seller> findByFollowerUserId(Long userId);
 }

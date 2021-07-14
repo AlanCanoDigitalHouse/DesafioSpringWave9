@@ -6,11 +6,13 @@ import com.example.desafiospring.exceptions.SellerException;
 import com.example.desafiospring.exceptions.UserException;
 
 public interface IUserService {
-    void followSeller(Long userId, Long SellerId) throws SellerException;
+    void followSeller(Long userId, Long sellerId) throws SellerException;
 
     SellerResponseDTO getNumberOfFollowers(Long sellerId) throws SellerException;
 
-    SellerResponseDTO getFollowers(Long sellerId) throws SellerException;
+    SellerResponseDTO getFollowers(Long sellerId, String order) throws SellerException;
 
-    UserResponseDTO getFollowed(Long userId) throws UserException;
+    UserResponseDTO getFollowed(Long userId, String order) throws UserException;
+
+    void unfollowSeller(Long userId, Long sellerId) throws SellerException;
 }

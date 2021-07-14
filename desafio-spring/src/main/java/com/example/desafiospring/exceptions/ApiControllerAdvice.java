@@ -20,4 +20,17 @@ public class ApiControllerAdvice {
         return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
     }
 
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handler(PostException ex) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handler(ProductException ex) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+    }
 }

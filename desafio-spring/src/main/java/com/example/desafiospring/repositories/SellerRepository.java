@@ -18,12 +18,28 @@ import java.util.stream.Collectors;
 public class SellerRepository implements ISellerRepository {
 
     @Override
-    public Seller removeFollower(Long userId, Long userIdToFollow) {
-        return null;
+    public Seller removeFollower(Long userId, Long sellerId) throws SellerException {
+        List<Seller> sellers = this.loadDB();
+        Optional<Seller> optionalSeller = sellers.stream().filter(s -> s.getUserId().equals(sellerId)).findAny();
+        Seller seller;
+        if (optionalSeller.isPresent())
+            seller = optionalSeller.get();
+        else
+            throw new SellerException(SellerException.SELLER_NOT_EXISTS);
+
+        if (!seller.getFollowers().stream().anyMatch(f -> f.equals(userId)))
+            throw new SellerException(SellerException.FOLLOWER_NOT_FOUND + sellerId);
+
+        int sellerIndex = sellers.indexOf(seller);
+        List<Long> followersNew = seller.getFollowers().stream().filter(f -> !f.equals(userId)).collect(Collectors.toList());
+        seller.setFollowers(followersNew);
+        sellers.set(sellerIndex, seller);
+        this.saveToFile(sellers);
+        return seller;
     }
 
     @Override
-    public List<Seller> findByUserId(Long userId) {
+    public List<Seller> findByFollowerUserId(Long userId) {
         List<Seller> sellers = this.loadDB();
         List<Seller> result = sellers.stream().filter(s -> s.getFollowers().stream().anyMatch(l -> l.equals(userId))).collect(Collectors.toList());
         return result;
@@ -40,8 +56,9 @@ public class SellerRepository implements ISellerRepository {
     }
 
     @Override
-    public Collection<Seller> findByIds(Collection<Long> longs) {
-        return null;
+    public Collection<Seller> findByIds(Collection<Long> ids) {
+        List<Seller> sellers = this.loadDB();
+        return sellers.stream().filter(s -> ids.contains(s.getUserId())).collect(Collectors.toList());
     }
 
     private List<Seller> loadDB() {
