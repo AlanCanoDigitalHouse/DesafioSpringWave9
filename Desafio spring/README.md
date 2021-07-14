@@ -2,7 +2,7 @@
 
 ## Iniciando
 
-La aplicación realiza el guardado de datos en JSON en los archivos
+La aplicación realiza el guardado de datos en JSON en los archivos (se crean automaticamente)
 
 - post.json
 - user.json
@@ -99,4 +99,15 @@ Payload: Ninguna
 Excepciones esperadas:
 - Id no existe
 - Entrada no esperada (letras)
+
+### 0007: Un usuario puede realizar la accion de unfollow
+
+Endpoint example: GET [localhost:8080/users/7/unfollow/1]()
+
+Payload: Ninguna
+
+Excepciones esperadas:
+- Id no existe
+- No se esta siguiendo a ese usuario
+- Error de  tipo (letra en vez de número)
 

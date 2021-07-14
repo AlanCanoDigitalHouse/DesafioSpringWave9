@@ -52,10 +52,10 @@ public class PostRepository extends AbstractRepository<PostModel> {
         return models;
     }
 
-    public int getNextId(){
+    public int getNextId() {
         List<PostModel> models = findAll();
         Optional<Integer> optionMax = models.stream().map(AbstractModel::getId).max(Comparator.naturalOrder());
-        if(optionMax.isEmpty()) return 1;
-        return optionMax.get()+1;
+        if (optionMax.isEmpty()) return 1;
+        return optionMax.get() + 1;
     }
 }

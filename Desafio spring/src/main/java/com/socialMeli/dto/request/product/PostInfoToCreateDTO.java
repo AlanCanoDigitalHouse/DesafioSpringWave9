@@ -23,11 +23,11 @@ public class PostInfoToCreateDTO {
     private DetailProductDTO detail;
 
     @NotNull(message = "Category name can't be null")
-    @Digits(integer=5, fraction=0, message = "That number is much bigger (5 real num max)")
+    @Digits(integer = 5, fraction = 0, message = "That number is much bigger (5 real num max)")
     private Integer category;
 
     @NotNull(message = "Price can't be null")
-    @Digits(integer=8, fraction=2, message = "That number is much bigger (8 real num max, and 2 decimal max)")
+    @Digits(integer = 8, fraction = 2, message = "That number is much bigger (8 real num max, and 2 decimal max)")
     private Double price;
 
 }

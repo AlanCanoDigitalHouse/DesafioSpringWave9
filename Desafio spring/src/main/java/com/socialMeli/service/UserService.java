@@ -4,6 +4,7 @@ import com.socialMeli.dto.response.*;
 import com.socialMeli.exception.exception.AlreadyFollowedException;
 import com.socialMeli.exception.exception.FollowHimselfException;
 import com.socialMeli.exception.exception.ModelNotExists;
+import com.socialMeli.exception.exception.UserDontFollowThisUser;
 import com.socialMeli.model.UserModel;
 import com.socialMeli.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Qualifier("userService")
-public class UserService{
+public class UserService {
     final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -64,5 +65,11 @@ public class UserService{
             followed.add(new BasicUserResponseDTO(actual.getId(), actual.getUserName()));
         }
         return new UserFollowedResponseDTO(userModel.getId(), userModel.getUserName(), followed);
+    }
+
+    public void unfollowUser(int userID, int userIdToUnfollow) throws ModelNotExists, UserDontFollowThisUser {
+        UserModel user = userRepository.findById(userID);
+        user.unFollowUser(userIdToUnfollow);
+        userRepository.modify(user);
     }
 }

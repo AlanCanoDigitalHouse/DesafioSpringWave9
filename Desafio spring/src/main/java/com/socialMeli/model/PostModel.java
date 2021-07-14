@@ -8,10 +8,11 @@ import lombok.Setter;
 import java.util.Date;
 
 @Getter
-@Setter @NoArgsConstructor
-public class PostModel extends AbstractModel{
+@Setter
+@NoArgsConstructor
+public class PostModel extends AbstractModel {
     private int userId;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date date;
     private int product_id;
     private String productName;

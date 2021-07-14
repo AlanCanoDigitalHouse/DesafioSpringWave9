@@ -1,5 +1,6 @@
 package com.socialMeli.model;
 
+import com.socialMeli.exception.exception.UserDontFollowThisUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,11 @@ public class UserModel extends AbstractModel {
 
     public void addNewUserFollowed(Integer newModel) {
         followed.add(newModel);
+    }
+
+    public void unFollowUser(Integer userId) throws UserDontFollowThisUser {
+        boolean removed = followed.remove(userId);
+        if (!removed) throw new UserDontFollowThisUser(userName, userId);
     }
 
 }

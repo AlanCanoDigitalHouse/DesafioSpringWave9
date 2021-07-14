@@ -7,6 +7,7 @@ import com.socialMeli.dto.response.UserFollowersResponseDTO;
 import com.socialMeli.exception.exception.AlreadyFollowedException;
 import com.socialMeli.exception.exception.FollowHimselfException;
 import com.socialMeli.exception.exception.ModelNotExists;
+import com.socialMeli.exception.exception.UserDontFollowThisUser;
 import com.socialMeli.service.UserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,7 @@ public class UsersController {
      */
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<FollowResultResponseDTO> follow(@PathVariable int userId, @PathVariable int userIdToFollow) throws ModelNotExists, FollowHimselfException, AlreadyFollowedException {
-        return new ResponseEntity<>(userService.follow(userId,userIdToFollow), HttpStatus.OK);
+        return new ResponseEntity<>(userService.follow(userId, userIdToFollow), HttpStatus.OK);
     }
 
     /**
@@ -52,7 +53,7 @@ public class UsersController {
     }
 
     /**
-     * Get the list of the users that follow a other user
+     * TODO: 0003 Get the list of the users that follow a other user
      *
      * @param userID user that want know the followers lists
      * @return Name and id of the user, with their list of users with the id and name
@@ -64,7 +65,7 @@ public class UsersController {
     }
 
     /**
-     * Get the list of the users that a user follow
+     * TODO: 0004 Get the list of the users that a user follow
      *
      * @param userID user that want know the followers lists
      * @return Name and id of the user, with their list of users with the id and name
@@ -73,5 +74,18 @@ public class UsersController {
     @GetMapping("{userID}/followed/list")
     public ResponseEntity<UserFollowedResponseDTO> listFollowed(@PathVariable String userID) throws ModelNotExists {
         return new ResponseEntity<>(userService.getListUsersFollowed(Integer.parseInt(userID)), HttpStatus.OK);
+    }
+
+    /**
+     * TODO: 0007 User can unfollow a user
+     *
+     * @param userID user that want know the followers lists
+     * @return Name and id of the user, with their list of users with the id and name
+     * @throws ModelNotExists The id provided not exists
+     */
+    @GetMapping("{userID}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<Void> unfollowUser(@PathVariable int userID, @PathVariable int userIdToUnfollow) throws UserDontFollowThisUser, ModelNotExists {
+        userService.unfollowUser(userID, userIdToUnfollow);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

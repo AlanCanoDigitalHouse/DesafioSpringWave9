@@ -51,34 +51,41 @@ public class ApiException {
         return new ResponseEntity<>(new ErrorMessage("User already following this user", ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(UserDontFollowThisUser.class)
+    public ResponseEntity<ErrorMessage> userDontFollowThisUser(UserDontFollowThisUser ex) {
+        return new ResponseEntity<>(new ErrorMessage("User dont follow the other user", ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
     //Default exceptions
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErrorMessage> httpMessageBodyNotValid(HttpMessageNotReadableException ex){
+    public ResponseEntity<ErrorMessage> httpMessageBodyNotValid(HttpMessageNotReadableException ex) {
         logger.error(ex.getMessage());
-        return new ResponseEntity<>(new ErrorMessage("Error in the body","A value of the body is unexpected, a integer param has been passed as a string?"), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ErrorMessage("Error in the body", "A value of the body is unexpected, a integer param has been passed as a string?"), HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorAttributes> argumentNotValid(MethodArgumentNotValidException ex){
+    public ResponseEntity<ErrorAttributes> argumentNotValid(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         List<FieldError> fieldErrors = result.getFieldErrors();
         ErrorAttributes errorAttributes = new ErrorAttributes("Error with a few attributes");
-        fieldErrors.forEach(fieldError -> errorAttributes.addFieldError(fieldError.getField(),fieldError.getDefaultMessage()));
+        fieldErrors.forEach(fieldError -> errorAttributes.addFieldError(fieldError.getField(), fieldError.getDefaultMessage()));
         return new ResponseEntity<>(errorAttributes, HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<ErrorMessage> failedTypeEndpoint(MethodArgumentTypeMismatchException ex){
-        return new ResponseEntity<>(new ErrorMessage("Type error","A type passed in the endpoint was unexpected, you enter a letter and not a number?"),HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ErrorMessage> failedTypeEndpoint(MethodArgumentTypeMismatchException ex) {
+        return new ResponseEntity<>(new ErrorMessage("Type error", "A type passed in the endpoint was unexpected, you enter a letter and not a number?"), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ParseException.class)
-    public ResponseEntity<ErrorMessage> parseException(ParseException ex){
-        return new ResponseEntity<>(new ErrorMessage("Error parsing", ex.getMessage()),HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ErrorMessage> parseException(ParseException ex) {
+        return new ResponseEntity<>(new ErrorMessage("Error parsing", ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(DateNotValidException.class)
-    public ResponseEntity<ErrorMessage> dateNotValidException(DateNotValidException ex){
-        return new ResponseEntity<>(new ErrorMessage("Error parsing date", ex.getMessage()),HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ErrorMessage> dateNotValidException(DateNotValidException ex) {
+        return new ResponseEntity<>(new ErrorMessage("Error parsing date", ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)

@@ -23,9 +23,10 @@ public class AppStartupRunner implements ApplicationRunner {
 
     @Value("${resetDataAtStart}")
     private boolean refresh;
+
     @Override
     public void run(ApplicationArguments args) {
-        if(refresh){
+        if (refresh) {
             logger.warn("Borrando y colocando datos por defecto");
             refresh();
         }

@@ -27,9 +27,10 @@ public class PostBuilder {
 
     public PostBuilder setDate(String date) throws DateNotValidException, ParseException {
         Date today = new Date();
-        if(!DateValidatorDateTimeFormatter.isValid(date)) throw new DateNotValidException(date);
+        if (!DateValidatorDateTimeFormatter.isValid(date)) throw new DateNotValidException(date);
         DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        if(today.compareTo(format.parse(date)) < 0) throw new DateNotValidException(date, "That date is in the  future!");
+        if (today.compareTo(format.parse(date)) < 0)
+            throw new DateNotValidException(date, "That date is in the  future!");
         this.date = format.parse(date);
         return this;
     }
@@ -79,9 +80,7 @@ public class PostBuilder {
         return this;
     }
 
-
-
-    public PostModel build(){
-        return new PostModel(id,userId,date,product_id,productName,type,brand,color,notes,category,price);
+    public PostModel build() {
+        return new PostModel(id, userId, date, product_id, productName, type, brand, color, notes, category, price);
     }
 }
