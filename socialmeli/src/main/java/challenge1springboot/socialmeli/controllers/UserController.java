@@ -39,5 +39,4 @@ public class UserController {
     public ResponseEntity<UserListFollowedResponseDTO> listFollowedByUser (@PathVariable String userID){
         return userService.listFollowedByUser(userID);
     }
-
 }

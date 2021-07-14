@@ -1,5 +1,7 @@
 package challenge1springboot.socialmeli.exceptions;
 
+import challenge1springboot.socialmeli.exceptions.general.BadRequestException;
+import challenge1springboot.socialmeli.globalconstants.Message;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -9,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @ControllerAdvice(annotations = RestController.class)
-public class ApiExceptionHandler {
+public class HandlerException {
 
     @ExceptionHandler
     @ResponseBody
@@ -20,10 +22,19 @@ public class ApiExceptionHandler {
         return processField(fieldErrors);
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleBadRequestException(Exception exception){
+        HashMap<String, String> message = new HashMap<>();
+        message.put(exception.getClass().getSimpleName(),exception.getMessage());
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), Message.WRONG_DATA_PROVIDED, message);
+    }
+
     @ExceptionHandler
     @ResponseBody
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorMessage handleGeneralException(Exception exception){
+    public ErrorMessage handleGeneralInternalException(Exception exception){
         HashMap<String, String> message = new HashMap<>();
         message.put(exception.getClass().getSimpleName(),exception.getMessage());
         return new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal Error", message);
@@ -36,9 +47,4 @@ public class ApiExceptionHandler {
         }
         return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), "Validation Error", fields);
     }
-
-
-
-
-
 }

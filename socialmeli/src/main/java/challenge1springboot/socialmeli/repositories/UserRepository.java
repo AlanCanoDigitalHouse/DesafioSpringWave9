@@ -1,7 +1,8 @@
 package challenge1springboot.socialmeli.repositories;
 
 import challenge1springboot.socialmeli.entities.User;
-import challenge1springboot.socialmeli.util.JSONReader;
+import challenge1springboot.socialmeli.globalconstants.Reference;
+import challenge1springboot.socialmeli.utils.JSONReader;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -15,10 +16,8 @@ import java.util.List;
 @Repository
 public class UserRepository {
 
-    private final String PATH_RESOURCE_USER = "socialmeli/src/main/JSONDB/user.json";
-
     public List<User> loadUsersFromJSON() {
-        File file = JSONReader.readJSONFile(PATH_RESOURCE_USER);
+        File file = JSONReader.readJSONFile(Reference.PATH_RESOURCE_USER);
         return mapObject(file);
     }
 
@@ -27,7 +26,7 @@ public class UserRepository {
         users.add(new User(userId, userName, new ArrayList<>()));
         ObjectMapper mapper = new ObjectMapper();
         try {
-            mapper.writeValue(ResourceUtils.getFile(PATH_RESOURCE_USER), users);
+            mapper.writeValue(ResourceUtils.getFile(Reference.PATH_RESOURCE_USER), users);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,7 +39,7 @@ public class UserRepository {
             try {
                 users.get(index).getFollowers().add(followerId);
                 ObjectMapper mapper = new ObjectMapper();
-                mapper.writeValue(ResourceUtils.getFile(PATH_RESOURCE_USER), users);
+                mapper.writeValue(ResourceUtils.getFile(Reference.PATH_RESOURCE_USER), users);
             } catch (IOException e) {
                 e.printStackTrace();
             }

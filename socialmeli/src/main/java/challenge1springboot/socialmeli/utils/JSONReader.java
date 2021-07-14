@@ -1,13 +1,10 @@
-package challenge1springboot.socialmeli.util;
-
-import org.springframework.util.ResourceUtils;
+package challenge1springboot.socialmeli.utils;
 
 import java.io.File;
-import java.io.IOException;
 
 public class JSONReader {
 
-    public static File readJSONFile(String path){
+    public static File readJSONFile(String path) {
         return new File(path);
         //File file = null;
         // try {
@@ -18,6 +15,4 @@ public class JSONReader {
         // }
         //return file;
     }
-
-
 }
