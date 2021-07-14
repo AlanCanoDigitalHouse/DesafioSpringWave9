@@ -18,21 +18,21 @@ public class UsersController {
     public UsersController(UsersService usersService){ this.usersService = usersService; }
 
     @PostMapping("/unfollow/{userIdToUnfollow}")
-    ResponseEntity<String> unfollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserDoesNotExistException, FollowException {
+    ResponseEntity<String> unfollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws Exception {
         if(userId == userIdToUnfollow) {throw new FollowException(userId, userIdToUnfollow);}
         usersService.unfollow(userIdToUnfollow, userId);
         return new ResponseEntity<>("Ok", HttpStatus.OK);
     }
 
     @GetMapping("/followed/list")
-    ResponseEntity<FollowedUserListDTO> getFollowing(@PathVariable int userId) throws Exception{
-        FollowedUserListDTO following = usersService.getFollowing(userId);
+    ResponseEntity<FollowedUserListDTO> getFollowing(@PathVariable int userId, @RequestParam(required = false) String order) throws Exception {
+        FollowedUserListDTO following = usersService.getFollowing(userId, order);
         return new ResponseEntity<>(following, HttpStatus.OK);
     }
 
     @GetMapping("/followers/list")
-    ResponseEntity<FollowersUserListDTO> getFollowers(@PathVariable int userId) throws Exception{
-        FollowersUserListDTO followers = usersService.getFollowers(userId);
+    ResponseEntity<FollowersUserListDTO> getFollowers(@PathVariable int userId, @RequestParam(required = false) String order) throws Exception {
+        FollowersUserListDTO followers = usersService.getFollowers(userId, order);
         return new ResponseEntity<>(followers, HttpStatus.OK);
     }
 

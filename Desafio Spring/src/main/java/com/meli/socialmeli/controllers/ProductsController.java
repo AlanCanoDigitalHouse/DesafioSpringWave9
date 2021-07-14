@@ -24,7 +24,7 @@ public class ProductsController {
 
     @GetMapping("/followed/{userId}/list")
     ResponseEntity<FollowedPostListDTO> getFollowedPost(@PathVariable int userId, @RequestParam(required = false) String order) throws UserDoesNotExistException{
-        FollowedPostListDTO list = new FollowedPostListDTO(usersService.getUser(userId), postsService.getFollowedPostings(usersService.getFollowing(userId), order));
+        FollowedPostListDTO list = new FollowedPostListDTO(usersService.getUser(userId), postsService.getFollowedPostings(usersService.getFollowing(userId, order), order));
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 

@@ -8,6 +8,8 @@ import com.meli.socialmeli.exceptions.UserDoesNotExistException;
 import com.meli.socialmeli.models.Follow;
 import com.meli.socialmeli.models.User;
 import com.meli.socialmeli.repositories.UsersRepository;
+import com.meli.socialmeli.utils.SortPostDTOByDate;
+import com.meli.socialmeli.utils.SortUserByName;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,18 +39,24 @@ public class UsersService implements IUsersService{
         return true;
     }
 
-    public FollowedUserListDTO getFollowing(int userId) throws UserDoesNotExistException{
+    public FollowedUserListDTO getFollowing(int userId, String order) throws UserDoesNotExistException{
         Optional<User> user = usersRepository.findUserById(userId);
         Stream<Follow> following = usersRepository.getFollowing(userId);
         List<User> followed = following.map(f -> usersRepository.findUserById(f.getToFollowUserId()).get()).collect(Collectors.toList());
-        return new FollowedUserListDTO(user.get(), followed);
+        if(order != null && order.equals("name_desc")){
+            return new FollowedUserListDTO(user.get(), orderNameDesc(followed));
+        }
+        return new FollowedUserListDTO(user.get(), orderNameAsc(followed));
     }
 
-    public FollowersUserListDTO getFollowers(int userId) throws UserDoesNotExistException{
+    public FollowersUserListDTO getFollowers(int userId, String order) throws UserDoesNotExistException{
         Optional<User> user = usersRepository.findUserById(userId);
         Stream<Follow> followers = usersRepository.getFollowers(userId);
         List<User> follows = followers.map(f -> usersRepository.findUserById(f.getFollowerUserId()).get()).collect(Collectors.toList());
-        return new FollowersUserListDTO(user.get(), follows);
+        if(order != null && order.equals("name_desc")){
+            return new FollowersUserListDTO(user.get(), orderNameDesc(follows));
+        }
+        return new FollowersUserListDTO(user.get(), orderNameAsc(follows));
     }
 
     public FollowersCountDTO countFollowers(int userId) throws UserDoesNotExistException{
@@ -70,11 +78,13 @@ public class UsersService implements IUsersService{
 
     @Override
     public List<User> orderNameAsc(List<User> users) {
-        return null;
+        users.sort(new SortUserByName().reversed());
+        return users;
     }
 
     @Override
     public List<User> orderNameDesc(List<User> users) {
-        return null;
+        users.sort(new SortUserByName());
+        return users;
     }
 }

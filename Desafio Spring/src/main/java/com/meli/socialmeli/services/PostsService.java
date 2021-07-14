@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostsService implements IPostsService {
@@ -17,10 +18,16 @@ public class PostsService implements IPostsService {
     public PostsService(PostsRepository postsRepository){ this.postsRepository = postsRepository; }
 
     public List<PostDTO> getFollowedPostings(FollowedUserListDTO followed, String order){
+        Calendar date = Calendar.getInstance();
+        date.add(Calendar.WEEK_OF_YEAR, -2);
+        List<PostDTO> lastPosts = postsRepository.usersPosts(followed.getFollowed())
+                .stream()
+                .filter(p -> p.getDate().after(date))
+                .collect(Collectors.toList());
         if(order != null && order.equals("date_asc")){
-            return orderDateAsc(postsRepository.usersPosts(followed.getFollowed()));
+            return orderDateAsc(lastPosts);
         }
-        return orderDateDesc(postsRepository.usersPosts(followed.getFollowed()));
+        return orderDateDesc(lastPosts);
     }
 
     public void posting(NewpostDTO p){
@@ -29,8 +36,6 @@ public class PostsService implements IPostsService {
 
     @Override
     public List<PostDTO> orderDateAsc(List<PostDTO> posts) {
-        Calendar date = Calendar.getInstance();
-        date.add(Calendar.WEEK_OF_YEAR, -2);
         posts.sort(new SortPostDTOByDate().reversed());
         return posts;
     }
