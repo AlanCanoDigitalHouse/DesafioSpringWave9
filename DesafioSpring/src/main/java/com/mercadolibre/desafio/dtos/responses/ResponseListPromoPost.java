@@ -1,4 +1,4 @@
-package com.mercadolibre.desafio.dtos;
+package com.mercadolibre.desafio.dtos.responses;
 
 import com.mercadolibre.desafio.model.Post;
 import lombok.AllArgsConstructor;
@@ -7,11 +7,12 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
-public class ResponseListPost {
+public class ResponseListPromoPost {
 
     private Integer userId;
+    private String userName;
     private List<Post> posts;
 }

@@ -1,4 +1,4 @@
-package com.mercadolibre.desafio.dtos;
+package com.mercadolibre.desafio.dtos.responses;
 
 import com.mercadolibre.desafio.model.User;
 import lombok.Getter;

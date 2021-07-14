@@ -1,7 +1,7 @@
 package com.mercadolibre.desafio.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.mercadolibre.desafio.dtos.RequestDetailDto;
+import com.mercadolibre.desafio.dtos.requests.RequestDetailDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +14,7 @@ import java.util.Date;
 public class Post {
 
     private Integer id_post;
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
     private RequestDetailDto detail;
     private Integer category;

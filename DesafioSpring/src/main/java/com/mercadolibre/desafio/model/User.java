@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.swing.event.ListDataEvent;
 import java.util.List;
 
 @Setter
@@ -17,15 +16,4 @@ public class User {
     private List<Integer> followers;
     private List<Integer> followed;
     private List<Integer> posts;
-
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userID=" + userID +
-                ", userName='" + userName + '\'' +
-                ", followers=" + followers +
-                ", followed=" + followed +
-                '}';
-    }
 }

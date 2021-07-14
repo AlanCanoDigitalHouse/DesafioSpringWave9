@@ -1,9 +1,9 @@
 package com.mercadolibre.desafio.persistence.impl;
 
-import com.mercadolibre.desafio.dtos.ResponseCountFollowers;
-import com.mercadolibre.desafio.dtos.ResponseFollowed;
-import com.mercadolibre.desafio.dtos.ResponseFollowers;
-import com.mercadolibre.desafio.dtos.ResponseUser;
+import com.mercadolibre.desafio.dtos.responses.ResponseCountFollowers;
+import com.mercadolibre.desafio.dtos.responses.ResponseFollowed;
+import com.mercadolibre.desafio.dtos.responses.ResponseFollowers;
+import com.mercadolibre.desafio.dtos.responses.ResponseUser;
 import com.mercadolibre.desafio.exception.UserException;
 import com.mercadolibre.desafio.model.User;
 import com.mercadolibre.desafio.persistence.UserPersistence;
@@ -22,9 +22,9 @@ public class UserInMemoryPersistence implements UserPersistence {
 
     public UserInMemoryPersistence() {
 
-        User user0 = new User(0, "juan", new ArrayList<>(Arrays.asList(1)), new ArrayList<>(Arrays.asList(1)),new ArrayList<>());
-        User user1 = new User(1, "carlos", new ArrayList<>(Arrays.asList(0)), new ArrayList<>(Arrays.asList(0)),new ArrayList<>());
-        User user2 = new User(2, "pedro", new ArrayList<>(), new ArrayList<>(),new ArrayList<>());
+        User user0 = new User(0, "juan", new ArrayList<>(Arrays.asList(1)), new ArrayList<>(Arrays.asList(1)), new ArrayList<>());
+        User user1 = new User(1, "carlos", new ArrayList<>(Arrays.asList(0)), new ArrayList<>(Arrays.asList(0)), new ArrayList<>());
+        User user2 = new User(2, "pedro", new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         database.put(0, user0);
         database.put(1, user1);
         database.put(2, user2);
@@ -35,6 +35,7 @@ public class UserInMemoryPersistence implements UserPersistence {
     public void follow(Integer userID, Integer userToFollowId) throws UserException {
         User user = getUserById(userID);
         User userToFollow = getUserById(userToFollowId);
+
         if (user.getFollowed().contains(userToFollowId)) {
             throw new UserException(UserException.USER_ALREADY_FOLLOWED);
         }
@@ -51,12 +52,12 @@ public class UserInMemoryPersistence implements UserPersistence {
     }
 
     @Override
-    public ResponseFollowers getFollowers(Integer userId,String order) throws UserException {
+    public ResponseFollowers getFollowers(Integer userId, String order) throws UserException {
         User user = getUserById(userId);
         List<ResponseUser> followers = new ArrayList<>();
-        user.getFollowers().forEach(throwingConsumerWrapper(i->followers.add(new ResponseUser(getUserById(i)))));
-        if (order!=null){
-            orderByName(followers,order);
+        user.getFollowers().forEach(throwingConsumerWrapper(i -> followers.add(new ResponseUser(getUserById(i)))));
+        if (order != null) {
+            orderByName(followers, order);
         }
         return new ResponseFollowers(user.getUserID(), user.getUserName(), followers);
     }
@@ -65,19 +66,18 @@ public class UserInMemoryPersistence implements UserPersistence {
     public ResponseFollowed getFollowed(Integer userId, String order) throws UserException {
         User user = getUserById(userId);
         List<ResponseUser> followed = new ArrayList<>();
-        user.getFollowed().forEach(throwingConsumerWrapper(i->followed.add(new ResponseUser(getUserById(i)))));
-        if (order!=null){
-            orderByName(followed,order);
+        user.getFollowed().forEach(throwingConsumerWrapper(i -> followed.add(new ResponseUser(getUserById(i)))));
+        if (order != null) {
+            orderByName(followed, order);
         }
 
         return new ResponseFollowed(user.getUserID(), user.getUserName(), followed);
     }
 
-    public void orderByName(List<ResponseUser> userList, String order){
-        if(order.equals("name_asc")){
+    public void orderByName(List<ResponseUser> userList, String order) {
+        if (order.equals("name_asc")) {
             userList.sort(Comparator.comparing(ResponseUser::getUserName));
-        }
-        else if(order.equals("name_desc")){
+        } else if (order.equals("name_desc")) {
             userList.sort(Comparator.comparing(ResponseUser::getUserName).reversed());
         }
     }

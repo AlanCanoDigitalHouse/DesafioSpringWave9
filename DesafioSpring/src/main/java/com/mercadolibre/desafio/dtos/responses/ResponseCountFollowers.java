@@ -1,17 +1,15 @@
-package com.mercadolibre.desafio.dtos;
+package com.mercadolibre.desafio.dtos.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Setter
 @Getter
 @AllArgsConstructor
-public class ResponseFollowers {
+public class ResponseCountFollowers {
 
     private Integer userId;
     private String userName;
-    private List<ResponseUser> followers;
+    private Integer followers_count;
 }

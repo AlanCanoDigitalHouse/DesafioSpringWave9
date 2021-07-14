@@ -1,11 +1,10 @@
-package com.mercadolibre.desafio.dtos;
+package com.mercadolibre.desafio.dtos.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -17,7 +16,7 @@ public class RequestDetailDto {
 
     @NotNull
     @NotBlank
-    private  String productName;
+    private String productName;
     @NotNull
     @NotBlank
     private String type;

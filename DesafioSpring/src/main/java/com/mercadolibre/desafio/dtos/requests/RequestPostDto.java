@@ -1,4 +1,4 @@
-package com.mercadolibre.desafio.dtos;
+package com.mercadolibre.desafio.dtos.requests;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -21,15 +21,15 @@ public class RequestPostDto {
     @Min(message = "the min id is 0", value = 0)
     private Integer userId;
     @NotNull
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
     @Valid
     @NotNull
     private RequestDetailDto detail;
     @NotNull
-    @Min(message = "the min is 0", value=0)
+    @Min(message = "the min is 0", value = 0)
     private Integer category;
     @NotNull
-    @Min(message = "the min price is 1",value = 1)
+    @Min(message = "the min price is 1", value = 1)
     private Double price;
 }
