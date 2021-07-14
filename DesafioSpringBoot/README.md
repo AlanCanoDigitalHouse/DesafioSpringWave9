@@ -130,7 +130,7 @@ POST http://localhost:8080/products/newpromopost
 Body:
 ~~~json
 {
-    "userId": 80//userId 71 - 100,
+    "userId": 80,//userId 71 - 100
     "date": "29-04-2021",
     "detail": {
         "product_id": 1,
