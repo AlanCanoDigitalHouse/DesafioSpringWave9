@@ -1,7 +1,6 @@
 package com.mercadolibre.social_meli.repository;
 
 import com.mercadolibre.social_meli.dto.request.ProductRequestDTO;
-import com.mercadolibre.social_meli.dto.response.ProductResponseDTO;
 import com.mercadolibre.social_meli.entity.Post;
 import com.mercadolibre.social_meli.exception.InvalidQueryParamException;
 import com.mercadolibre.social_meli.exception.ResourceNotFoundException;
@@ -13,12 +12,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepository extends JSONRepository<Post> implements IProductRepository {
 
     private static final String POSTS_DIR = "classpath:static/posts.json";
+    private AtomicInteger lastIndex = getLastIndex();
     private final IUserRepository userRepository;
 
     public ProductRepository(IUserRepository userRepository) {
@@ -26,13 +27,20 @@ public class ProductRepository extends JSONRepository<Post> implements IProductR
         this.userRepository = userRepository;
     }
 
+    private AtomicInteger getLastIndex() {
+        return new AtomicInteger(getData().size());
+    }
+
     @Override
     public void saveProduct(ProductRequestDTO productData) {
         // If user doesn't exist this method will throw a custom runtime exception
         this.userRepository.getUser(productData.getUserId());
+        var newId = lastIndex.getAndAdd(1);
 
         var posts = getData();
-        var newPost = new Post(posts.size(), productData.getUserId(), productData.getDate(), productData.getDetail(), productData.getCategory(), productData.getPrice());
+        var detail = productData.getDetail();
+        detail.setProduct_id(newId);
+        var newPost = new Post(newId, productData.getUserId(), productData.getDate(), detail, productData.getCategory(), productData.getPrice());
 
         posts.add(newPost);
         writeDatabase(posts);
