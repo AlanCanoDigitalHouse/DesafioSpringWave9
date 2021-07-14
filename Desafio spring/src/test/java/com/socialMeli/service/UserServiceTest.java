@@ -5,6 +5,7 @@ import com.socialMeli.dto.response.UserFollowersResponseDTO;
 import com.socialMeli.exception.exception.AlreadyFollowedException;
 import com.socialMeli.exception.exception.FollowHimselfException;
 import com.socialMeli.exception.exception.ModelNotExists;
+import com.socialMeli.exception.exception.OrderNotValidException;
 import com.socialMeli.repository.UserRepository;
 import com.socialMeli.utils.AppStartupRunner;
 import org.junit.jupiter.api.Assertions;
@@ -28,7 +29,7 @@ public class UserServiceTest {
     public void following_counter(){
         try{
             int counter = userService.getCountOfFollowers(4).getFollowers_count();
-            Assertions.assertEquals(3,counter);
+            Assertions.assertEquals(4,counter);
         }catch (ModelNotExists e){
             Assertions.fail();
         }
@@ -37,10 +38,10 @@ public class UserServiceTest {
     @Test
     public void getListOfFollowers(){
         try{
-            UserFollowersResponseDTO res = userService.getListFollowers(1);
+            UserFollowersResponseDTO res = userService.getListFollowers(1, "name_desc");
             Assertions.assertEquals(1, res.getUserId());
             Assertions.assertEquals("Juan", res.getFollowers().get(0).getUserName());
-        }catch (ModelNotExists ex){
+        }catch (ModelNotExists | OrderNotValidException ex){
             Assertions.fail();
         }
     }
@@ -48,9 +49,9 @@ public class UserServiceTest {
     @Test
     public void getListOfFollowedUsers(){
         try{
-            UserFollowedResponseDTO res = userService.getListUsersFollowed(5);
+            UserFollowedResponseDTO res = userService.getListUsersFollowed(5, "name_asc");
             Assertions.assertEquals("Valentina", res.getFollowed().get(0).getUserName());
-        }catch (ModelNotExists ex){
+        }catch (ModelNotExists | OrderNotValidException ex){
             Assertions.fail();
         }
     }

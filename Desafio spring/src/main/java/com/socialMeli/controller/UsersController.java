@@ -4,10 +4,7 @@ import com.socialMeli.dto.response.CountFollowersResponseDTO;
 import com.socialMeli.dto.response.FollowResultResponseDTO;
 import com.socialMeli.dto.response.UserFollowedResponseDTO;
 import com.socialMeli.dto.response.UserFollowersResponseDTO;
-import com.socialMeli.exception.exception.AlreadyFollowedException;
-import com.socialMeli.exception.exception.FollowHimselfException;
-import com.socialMeli.exception.exception.ModelNotExists;
-import com.socialMeli.exception.exception.UserDontFollowThisUser;
+import com.socialMeli.exception.exception.*;
 import com.socialMeli.service.UserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -54,26 +51,26 @@ public class UsersController {
 
     /**
      * TODO: 0003 Get the list of the users that follow a other user
-     *
+     * TODO: 0008 Users can be ordered by name
      * @param userID user that want know the followers lists
      * @return Name and id of the user, with their list of users with the id and name
      * @throws ModelNotExists The id provided not exists
      */
     @GetMapping("{userID}/followers/list")
-    public ResponseEntity<UserFollowersResponseDTO> listFollowers(@PathVariable int userID) throws ModelNotExists {
-        return new ResponseEntity<>(userService.getListFollowers(userID), HttpStatus.OK);
+    public ResponseEntity<UserFollowersResponseDTO> listFollowers(@PathVariable int userID, @RequestParam(defaultValue = "name_asc") String order) throws ModelNotExists, OrderNotValidException {
+        return new ResponseEntity<>(userService.getListFollowers(userID, order), HttpStatus.OK);
     }
 
     /**
      * TODO: 0004 Get the list of the users that a user follow
-     *
+     * TODO: 0008 Users can be ordered by name
      * @param userID user that want know the followers lists
      * @return Name and id of the user, with their list of users with the id and name
      * @throws ModelNotExists The id provided not exists
      */
     @GetMapping("{userID}/followed/list")
-    public ResponseEntity<UserFollowedResponseDTO> listFollowed(@PathVariable String userID) throws ModelNotExists {
-        return new ResponseEntity<>(userService.getListUsersFollowed(Integer.parseInt(userID)), HttpStatus.OK);
+    public ResponseEntity<UserFollowedResponseDTO> listFollowed(@PathVariable String userID, @RequestParam(defaultValue = "name_asc") String order) throws ModelNotExists, OrderNotValidException {
+        return new ResponseEntity<>(userService.getListUsersFollowed(Integer.parseInt(userID), order), HttpStatus.OK);
     }
 
     /**

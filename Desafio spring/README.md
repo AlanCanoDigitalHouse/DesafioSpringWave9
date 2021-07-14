@@ -109,5 +109,18 @@ Payload: Ninguna
 Excepciones esperadas:
 - Id no existe
 - No se esta siguiendo a ese usuario
-- Error de  tipo (letra en vez de número)
+- Error de tipo (letra en vez de número)
+
+### 0008: Alphabetical order (users)
+
+Endpoint example: GET [localhost:8080/users/1/followers/list?order=name_desc]()
+Endpoint example: GET [localhost:8080/users/7/followed/list?order=name_asc]()
+
+Payload: Ninguna
+
+**Si no se pasa variable orden, por defecto sera name_asc**
+
+Excepciones esperadas (ver 0004 y 0005 para adicionales):
+- Orden ingresado no es valido
+
 
