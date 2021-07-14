@@ -2,7 +2,7 @@
   {
     "id": 1,
     "userId": 1,
-    "date": "29-04-2021",
+    "date": "10-07-2021",
     "product_id": 1,
     "productName": "Silla Gamer",
     "type": "Gamer",
@@ -11,5 +11,31 @@
     "notes": "Special Edition",
     "category": 100,
     "price": 15000.5
+  },
+  {
+    "id": 2,
+    "userId": 1,
+    "date": "9-07-2021",
+    "product_id": 2,
+    "productName": "Computador",
+    "type": "Utileria",
+    "brand": "Dell",
+    "color": "Red & Black",
+    "notes": "Special Edition",
+    "category": 3,
+    "price": 1500000
+  },
+  {
+    "id": 3,
+    "userId": 4,
+    "date": "13-07-2021",
+    "product_id": 3,
+    "productName": "Computador 2",
+    "type": "Utileria",
+    "brand": "HP",
+    "color": "Red & Black",
+    "notes": "Special Edition",
+    "category": 3,
+    "price": 1800000
   }
 ]

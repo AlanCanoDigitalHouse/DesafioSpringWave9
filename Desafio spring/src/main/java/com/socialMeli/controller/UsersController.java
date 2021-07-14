@@ -34,8 +34,8 @@ public class UsersController {
      * @throws AlreadyFollowedException If the user already follow tat user
      */
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<FollowResultResponseDTO> follow(@PathVariable String userId, @PathVariable String userIdToFollow) throws ModelNotExists, FollowHimselfException, AlreadyFollowedException {
-        return new ResponseEntity<>(userService.follow(Integer.parseInt(userId), Integer.parseInt(userIdToFollow)), HttpStatus.OK);
+    public ResponseEntity<FollowResultResponseDTO> follow(@PathVariable int userId, @PathVariable int userIdToFollow) throws ModelNotExists, FollowHimselfException, AlreadyFollowedException {
+        return new ResponseEntity<>(userService.follow(userId,userIdToFollow), HttpStatus.OK);
     }
 
     /**
@@ -47,8 +47,8 @@ public class UsersController {
      */
     @SuppressWarnings("unused")
     @GetMapping("{userId}/followers/count/")
-    public ResponseEntity<CountFollowersResponseDTO> countFollowers(@PathVariable String userId) throws ModelNotExists {
-        return new ResponseEntity<>(userService.getCountOfFollowers(Integer.parseInt(userId)), HttpStatus.OK);
+    public ResponseEntity<CountFollowersResponseDTO> countFollowers(@PathVariable int userId) throws ModelNotExists {
+        return new ResponseEntity<>(userService.getCountOfFollowers(userId), HttpStatus.OK);
     }
 
     /**
@@ -59,8 +59,8 @@ public class UsersController {
      * @throws ModelNotExists The id provided not exists
      */
     @GetMapping("{userID}/followers/list")
-    public ResponseEntity<UserFollowersResponseDTO> listFollowers(@PathVariable String userID) throws ModelNotExists {
-        return new ResponseEntity<>(userService.getListFollowers(Integer.parseInt(userID)), HttpStatus.OK);
+    public ResponseEntity<UserFollowersResponseDTO> listFollowers(@PathVariable int userID) throws ModelNotExists {
+        return new ResponseEntity<>(userService.getListFollowers(userID), HttpStatus.OK);
     }
 
     /**

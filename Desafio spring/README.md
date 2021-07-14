@@ -83,12 +83,20 @@ Payload:
 
 Excepciones esperadas:
 - Error de parseo (si en la fecha se ingresa un letra)
+- Error lógico, si la fecha tiene dias o meses inesperados
+- La fecha esta en el futuro
 - El usuario no existe
-- Error general en el body, un error en el JSON o bien se pasa un texto que se espera sea numero
-- Falta algun atributo esperado
-- Numeros muy grandes, se permiten maximo 8 reales y 2 decimales (ojo, 12.000000 sera valido por ser ceros, pero un 12.55555 saltara error), aplica solo para precio, a la categoria se le quitan los decimales si es necesario
+- Error general en el body, un error en el JSON o bien se pasa un texto que se espera sea número
+- Falta algún atributo esperado
+- Numeros muy grandes, se permiten maximo 8 reales y 2 decimales (ojo, 12.000000 será válido por ser ceros, pero un 12.55555 saltara error), aplica solo para precio, a la categoria se le quitan los decimales si es necesario
 
+### 0006: Obtener la lista de posts (solo si tienen menos de una semana) de los vendedores que un usuario sigue
 
+Endpoint example: GET [localhost:8080/followed/7/list]()
 
+Payload: Ninguna
 
+Excepciones esperadas:
+- Id no existe
+- Entrada no esperada (letras)
 

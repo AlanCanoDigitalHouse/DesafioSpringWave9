@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Getter
 @Setter @NoArgsConstructor
-public class PostModel extends AbstractModel {
+public class PostModel extends AbstractModel{
     private int userId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date date;

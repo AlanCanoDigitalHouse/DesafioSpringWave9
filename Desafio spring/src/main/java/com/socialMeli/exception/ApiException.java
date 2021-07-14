@@ -14,6 +14,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.text.ParseException;
 import java.util.List;
@@ -65,14 +66,19 @@ public class ApiException {
         fieldErrors.forEach(fieldError -> errorAttributes.addFieldError(fieldError.getField(),fieldError.getDefaultMessage()));
         return new ResponseEntity<>(errorAttributes, HttpStatus.BAD_REQUEST);
     }
-    @ExceptionHandler(NumberFormatException.class)
-    public ResponseEntity<ErrorMessage> numberFormatException(NumberFormatException ex) {
-        return new ResponseEntity<>(new ErrorMessage("Bad entry", ex.getMessage()), HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorMessage> failedTypeEndpoint(MethodArgumentTypeMismatchException ex){
+        return new ResponseEntity<>(new ErrorMessage("Type error","A type passed in the endpoint was unexpected, you enter a letter and not a number?"),HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ParseException.class)
     public ResponseEntity<ErrorMessage> parseException(ParseException ex){
         return new ResponseEntity<>(new ErrorMessage("Error parsing", ex.getMessage()),HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DateNotValidException.class)
+    public ResponseEntity<ErrorMessage> dateNotValidException(DateNotValidException ex){
+        return new ResponseEntity<>(new ErrorMessage("Error parsing date", ex.getMessage()),HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)

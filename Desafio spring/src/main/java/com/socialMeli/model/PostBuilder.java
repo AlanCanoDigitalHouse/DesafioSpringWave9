@@ -1,5 +1,8 @@
 package com.socialMeli.model;
 
+import com.socialMeli.exception.exception.DateNotValidException;
+import com.socialMeli.utils.DateValidatorDateTimeFormatter;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,8 +25,11 @@ public class PostBuilder {
         this.id = id;
     }
 
-    public PostBuilder setDate(String date) throws ParseException {
+    public PostBuilder setDate(String date) throws DateNotValidException, ParseException {
+        Date today = new Date();
+        if(!DateValidatorDateTimeFormatter.isValid(date)) throw new DateNotValidException(date);
         DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        if(today.compareTo(format.parse(date)) < 0) throw new DateNotValidException(date, "That date is in the  future!");
         this.date = format.parse(date);
         return this;
     }

@@ -28,5 +28,11 @@
     "id": 6,
     "userName": "Manuel",
     "followed": [4]
+  },
+  {
+    "id": 7,
+    "userName": "Daniela",
+    "followed": [1,4,3]
   }
+
 ]
