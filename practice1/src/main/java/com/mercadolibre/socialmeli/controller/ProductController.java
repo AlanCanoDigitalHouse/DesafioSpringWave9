@@ -3,10 +3,8 @@ package com.mercadolibre.socialmeli.controller;
 import com.mercadolibre.socialmeli.dto.PostDTO;
 import com.mercadolibre.socialmeli.service.ProductService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -24,4 +22,10 @@ public class ProductController {
         productService.createPost(postDTO);
         return HttpStatus.OK;
     }
+
+    @GetMapping("followed/{userId}/list")
+    public ResponseEntity<?> findPostFromFollowedUsers(@PathVariable Integer userId) {
+        return new ResponseEntity<>(productService.findPostFromFollowedUsers(userId), HttpStatus.OK);
+    }
+
 }
