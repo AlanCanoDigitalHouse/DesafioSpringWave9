@@ -29,5 +29,6 @@ public class APIExceptionHandler {
     @ExceptionHandler
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public void handlerException(Exception exception) {
+        exception.printStackTrace();
     }
 }
