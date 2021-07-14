@@ -35,7 +35,6 @@ public class ProductsController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
     /**
      * US 0010: Llevar a cabo la publicación de un nuevo producto en promoción
      *
@@ -64,7 +63,6 @@ public class ProductsController {
                                                              @RequestParam(required = false, defaultValue = "fecha_desc") String order) throws BuyerNotFoundException {
         return new ResponseEntity<>(productService.followedSellersPostsLastTwoWeeks(userId, order), HttpStatus.OK);
     }
-
 
     /**
      * US 0011: Obtener la cantidad de productos en promoción de un determinado vendedor

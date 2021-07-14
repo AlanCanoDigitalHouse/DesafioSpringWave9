@@ -84,6 +84,11 @@ public class ProductServiceImpl implements ProductService {
         SellerDTO seller = userRepository.getSellerById(sellerId);
         List<PostPromoDTO> promos = productRepository.getPromoPostsBySeller(sellerId);
 
+        promos = promos.stream()
+                .map(PostPromoDTO::clonePostPromoDTO)
+                .peek(p -> p.setUserId(null))
+                .collect(Collectors.toList());
+
         SellerPostsPromoDTO dto = new SellerPostsPromoDTO(seller);
         dto.setPosts(promos);
         return dto;

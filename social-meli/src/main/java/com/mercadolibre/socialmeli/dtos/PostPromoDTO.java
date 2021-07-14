@@ -15,9 +15,19 @@ import javax.validation.constraints.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostPromoDTO extends PostDTO {
 
+    @NotNull(message = "hasPromo cannot be null")
+    @AssertTrue(message = "hasPromo should be true")
     private Boolean hasPromo = Boolean.TRUE;
     @DecimalMin(value = "0.0", inclusive = false, message = "discount should be between 0 and 1")
     @DecimalMax(value = "1.0", message = "discount should be between 0 and 1")
     private Double discount;
+
+    public PostPromoDTO clonePostPromoDTO() {
+        try {
+            return (PostPromoDTO) this.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
 
 }
