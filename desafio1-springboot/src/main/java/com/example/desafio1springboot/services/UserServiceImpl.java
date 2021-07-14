@@ -27,9 +27,9 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
-    public UserSellerDTO followersList(Integer userId, String order) throws UserSellerNotFoundExceptions, OrderUserNameNotValidException {
+    public UserSellerDTO followersList(Integer userId, String order) throws UserSellerNotFoundExceptions, OrderNotValidException {
         if(!order.equals("name_asc") && !order.equals("name_desc"))
-            throw new OrderUserNameNotValidException(); // todo: cambiar excepcion
+            throw new OrderNotValidException();
         if(order.equals("name_desc")) {
             iUserRepository.getUserSellerById(userId).getFollowers().sort((a , b) -> b.getUserName().compareTo(a.getUserName()));
         }  else {

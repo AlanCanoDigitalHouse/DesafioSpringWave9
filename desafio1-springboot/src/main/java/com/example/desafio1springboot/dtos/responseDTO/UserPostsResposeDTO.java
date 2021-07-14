@@ -1,5 +1,6 @@
 package com.example.desafio1springboot.dtos.responseDTO;
 
+import com.example.desafio1springboot.dtos.PostDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

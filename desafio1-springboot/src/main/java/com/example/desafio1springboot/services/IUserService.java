@@ -8,7 +8,7 @@ import com.example.desafio1springboot.exceptions.*;
 public interface IUserService {
     void addNewFollowerToSellerUser(Integer userId, Integer userIdToFollow) throws UserSellerNotFoundExceptions, UserAlreadyFollowingSellerException;
     UserSellerResponseDTO countFollowersForUser_(Integer userId) throws UserSellerNotFoundExceptions;
-    UserSellerDTO followersList(Integer userId, String order) throws UserSellerNotFoundExceptions, OrderUserNameNotValidException;
+    UserSellerDTO followersList(Integer userId, String order) throws UserSellerNotFoundExceptions, OrderNotValidException;
     UserClientDTO followedListByClient_(Integer userId) throws UserClientDoesNotExistsException;
     void unfollowSeller_By_(Integer userId, Integer userIdToFollow) throws UserSellerNotFoundExceptions, UserClientNotFollowingSellerException;
 }

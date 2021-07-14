@@ -5,12 +5,9 @@ import com.example.desafio1springboot.dtos.UserSellerDTO;
 import com.example.desafio1springboot.dtos.responseDTO.UserSellerResponseDTO;
 import com.example.desafio1springboot.exceptions.*;
 import com.example.desafio1springboot.services.IUserService;
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/users")
@@ -53,10 +50,10 @@ public class UserRestController {
      * TODO: US 0003 y 0008: Devuelve un listado de todos los usuarios que siguen a un vendedor, el order automatico es ascendete.
      * @param userId, order
      * @return ResponseEntity<UserSellerDTO>
-     * @throws UserSellerNotFoundExceptions, OrderUserNameNotValidException
+     * @throws UserSellerNotFoundExceptions, OrderNotValidException
      */
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserSellerDTO> followersList(@PathVariable Integer userId, @RequestParam(defaultValue = "name_asc") String order) throws UserSellerNotFoundExceptions, OrderUserNameNotValidException {
+    public ResponseEntity<UserSellerDTO> followersList(@PathVariable Integer userId, @RequestParam(defaultValue = "name_asc") String order) throws UserSellerNotFoundExceptions, OrderNotValidException {
         return new ResponseEntity<>(iUserService.followersList(userId, order), HttpStatus.OK);
     }
 

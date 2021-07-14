@@ -1,7 +1,10 @@
 package com.example.desafio1springboot.dtos;
 
+import com.example.desafio1springboot.dtos.responseDTO.PostResponseDTO;
 import com.example.desafio1springboot.repositories.ProductRepositoryImpl;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
@@ -19,7 +22,6 @@ public class PostDTO {
     static int instanceCounter = 0;
 
     @Min(value = 1, message = "El valor debe ser como minimo 1")
-    @NotNull(message = "El atributo no puede ser nulo")
     private Integer userId;
     private Integer id_post;
 

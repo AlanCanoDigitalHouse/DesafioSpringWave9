@@ -28,23 +28,15 @@ public class ProductRepositoryImpl implements IProductRepository{
         long twoWeeks = 604800000 * 2;
         Date dayToWeeksAgo = new Date(new Date().getTime() - twoWeeks);
 
-        List<PostDTO> listPostUser = listPostTemp.stream()
+        var listPostFiltered = listPostTemp.stream()
                 .filter(post -> post.getUserId().equals(userId) && post.getDate().after(dayToWeeksAgo))
                 .collect(Collectors.toList());
-        listPostUser.sort((d1, d2) -> d2.getDate().compareTo(d1.getDate()));
+        List<PostResponseDTO> postsResponse = new ArrayList<>();
+        listPostFiltered.stream().forEach(postDTO -> postsResponse.add(new PostResponseDTO(postDTO.getId_post(), postDTO.getDate(), postDTO.getDetail(), postDTO.getCategory(), postDTO.getPrice())));
 
         UserPostsResposeDTO userPostsResposeDTO = new UserPostsResposeDTO(userId);
-        PostResponseDTO postResponseDTO = new PostResponseDTO();
-        List<PostResponseDTO> listPostResponse = new ArrayList<>();
-        for(PostDTO postDTO : listPostUser){
-            postResponseDTO.setId_post(postDTO.getId_post());
-            postResponseDTO.setDate(postDTO.getDate());
-            postResponseDTO.setDetail(postDTO.getDetail());
-            postResponseDTO.setCategory(postDTO.getCategory());
-            postResponseDTO.setPrice(postDTO.getPrice());
-            listPostResponse.add(postResponseDTO);
-        }
-        userPostsResposeDTO.setPosts(listPostResponse);
+        userPostsResposeDTO.setPosts(postsResponse);
+        userPostsResposeDTO.getPosts().sort((d1, d2) -> d2.getDate().compareTo(d1.getDate()));
         return userPostsResposeDTO;
     }
 

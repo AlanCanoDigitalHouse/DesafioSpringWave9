@@ -15,7 +15,7 @@ public class ApiExceptionControllerAdvice {
     @ExceptionHandler
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ErrorMessage orderNotValid(OrderUserNameNotValidException ex) {
+    public ErrorMessage orderNotValid(OrderNotValidException ex) {
         return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.ERROR);
     }
 
