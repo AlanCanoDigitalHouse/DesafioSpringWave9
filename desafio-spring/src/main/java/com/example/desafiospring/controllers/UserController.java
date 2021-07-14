@@ -2,6 +2,7 @@ package com.example.desafiospring.controllers;
 
 import com.example.desafiospring.dtos.UserDto;
 import com.example.desafiospring.dtos.UserFollowersDto;
+import com.example.desafiospring.enums.ConstantEnum;
 import com.example.desafiospring.exceptions.AlreadyFollowedException;
 import com.example.desafiospring.exceptions.SameUserException;
 import com.example.desafiospring.exceptions.UserNotExistException;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -32,19 +33,19 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity followUser(
+    public ResponseEntity<Void> followUser(
             @Valid @PathVariable @Min(message = "El id no puede ser negativo", value = 0) Long userId,
             @Valid @PathVariable @Min(message = "El id no puede ser negativo", value = 0) Long userIdToFollow)
-            throws AlreadyFollowedException, UserNotExistException, SameUserException {
+            throws AlreadyFollowedException, UserNotExistException, SameUserException, IOException {
         followerService.followUserById(userId, userIdToFollow);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity unfollowUser(
+    public ResponseEntity<Void> unfollowUser(
             @Valid @PathVariable @Min(message = "El id no puede ser negativo", value = 0) Long userId,
             @Valid @PathVariable @Min(message = "El id no puede ser negativo", value = 0) Long userIdToUnfollow)
-            throws UserNotExistException, SameUserException, UserNotFollowedException {
+            throws UserNotExistException, SameUserException, UserNotFollowedException, IOException {
         followerService.unfollowUserById(userId, userIdToUnfollow);
         return ResponseEntity.ok().build();
     }
@@ -52,28 +53,28 @@ public class UserController {
     @GetMapping("/{userId}/followers/count/")
     public ResponseEntity<UserFollowersDto> numFollowersByUserId(
             @Valid @PathVariable @Min(message = "El id no puede ser negativo", value = 0) Long userId)
-            throws UserNotExistException {
+            throws UserNotExistException, IOException {
         return ResponseEntity.ok(this.followerService.numFollowersByUserId(userId));
     }
 
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<UserFollowersDto> getUserFollowers(
             @Valid @PathVariable @Min(message = "El id no puede ser negativo", value = 0) Long userId,
-            @Valid @RequestParam(required = false, defaultValue = "name_asc") @NotBlank String order)
-            throws UserNotExistException {
+            @Valid @RequestParam(required = false, defaultValue = ConstantEnum.ORDER_NAME_ASC) @NotBlank String order)
+            throws UserNotExistException, IOException {
         return ResponseEntity.ok(this.followerService.getUserFollowers(userId, order));
     }
 
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<UserFollowersDto> getUserFollowed(
             @Valid @PathVariable @Min(message = "El id no puede ser negativo", value = 0) Long userId,
-            @Valid @RequestParam(required = false, defaultValue = "name_asc") @NotBlank String order)
-            throws UserNotExistException {
+            @Valid @RequestParam(required = false, defaultValue = ConstantEnum.ORDER_NAME_ASC) @NotBlank String order)
+            throws UserNotExistException, IOException {
         return ResponseEntity.ok(this.followerService.getUserFollowed(userId, order));
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<UserDto>> getAllUsers() {
+    public ResponseEntity<List<UserDto>> getAllUsers() throws IOException {
         return ResponseEntity.ok(this.userService.getAllUsers());
     }
 

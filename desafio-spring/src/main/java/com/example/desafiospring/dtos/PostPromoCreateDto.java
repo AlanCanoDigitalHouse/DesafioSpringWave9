@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
 @Data
 @AllArgsConstructor
 @Validated
-public class PostCreateDto {
+public class PostPromoCreateDto {
 
     @Min(message = "El user id no puede ser negativo", value = 0)
     @NotNull(message = "El user id es obligatorio")
@@ -35,5 +35,10 @@ public class PostCreateDto {
     @DecimalMin(message = "El precio no puede ser negativo", value = "0.0")
     @NotNull(message = "El precio de la publicacion es obligatorio")
     private Double price;
+
+    @NotNull(message = "Es necesario indicar si la publicacion es una promocion o no")
+    private Boolean hasPromo;
+
+    private Double discount;
 
 }

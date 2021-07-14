@@ -1,47 +1,60 @@
 package com.example.desafiospring.repositories.implementation;
 
 import com.example.desafiospring.entities.User;
+import com.example.desafiospring.enums.ConstantEnum;
 import com.example.desafiospring.repositories.IUserRepository;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public class UserRepository implements IUserRepository {
 
-    private static List<User> users = new ArrayList<>();
+    private final ObjectMapper mapper;
 
-    public UserRepository(List<User> users) {
-        this.users.add(new User(1L, "Superman", true));
-        this.users.add(new User(2L, "Batman", true));
-        this.users.add(new User(3L, "Spider-man", false));
-        this.users.add(new User(4L, "Wonder woman", false));
-        this.users.add(new User(5L, "Poseidon", false));
+    public UserRepository() {
+        this.mapper = new ObjectMapper();
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return this.users;
+    public List<User> getAllUsers() throws IOException {
+        return this.loadDataBase();
     }
 
     @Override
-    public User findByIdAndType(Long userId, boolean isSeller) {
-        Optional<User> user = users.stream()
-                .filter(x -> x.getUserId().equals(userId) && x.isSeller() == isSeller).findFirst();
+    public User findByIdAndType(Long userId, boolean isSeller) throws IOException {
+        Optional<User> user = this.loadDataBase().stream()
+                .filter(x -> x.getUserId().equals(userId) && x.getIsSeller() == isSeller).findFirst();
         if (user.isEmpty())
             return null;
         return user.get();
     }
 
     @Override
-    public User findById(Long userId) {
-        Optional<User> user = users.stream()
+    public User findById(Long userId) throws IOException {
+        Optional<User> user = this.loadDataBase().stream()
                 .filter(x -> x.getUserId().equals(userId)).findFirst();
         if (user.isEmpty())
             return null;
         return user.get();
+    }
+
+    private void writeDataBase(List<User> users) throws IOException {
+        mapper.writeValue(new File(ConstantEnum.JSON_USERS), users);
+    }
+
+    private List<User> loadDataBase() throws IOException {
+        return mapObject(Paths.get(ConstantEnum.JSON_USERS).toFile());
+    }
+
+    private List<User> mapObject(File file) throws IOException {
+        return mapper.readValue(file, new TypeReference<>(){});
     }
 
 }

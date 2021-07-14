@@ -7,14 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post {
+public class Follower {
 
-    private Long id_post;
     private Long userId;
-    private String date;
-    private String category;
-    private Double price;
-    private Boolean hasPromo;
-    private Double discount;
+    private Long userIdFollowed;
 
 }

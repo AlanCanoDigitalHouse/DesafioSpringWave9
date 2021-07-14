@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.validation.ConstraintViolationException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -95,12 +96,37 @@ public class ExceptionControllerAdvice {
                 new ErrorMessageDto(HttpStatus.BAD_REQUEST.value(),e.getMessage(), null));
     }
 
+    @ExceptionHandler(DiscountInvalidException.class)
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorMessageDto> handleException(DiscountInvalidException e){
+        return ResponseEntity.badRequest().body(
+                new ErrorMessageDto(HttpStatus.BAD_REQUEST.value(),e.getMessage(), null));
+    }
+
     @ExceptionHandler(DateInvalidException.class)
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorMessageDto> handleException(DateInvalidException e){
         return ResponseEntity.badRequest().body(
                 new ErrorMessageDto(HttpStatus.BAD_REQUEST.value(),e.getMessage(), null));
+    }
+
+    @ExceptionHandler(PromoPostInvalidException.class)
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorMessageDto> handleException(PromoPostInvalidException e){
+        return ResponseEntity.badRequest().body(
+                new ErrorMessageDto(HttpStatus.BAD_REQUEST.value(),e.getMessage(), null));
+    }
+
+    @ExceptionHandler(IOException.class)
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorMessageDto> handleException(IOException e){
+        e.printStackTrace();
+        return ResponseEntity.badRequest().body(
+                new ErrorMessageDto(HttpStatus.BAD_REQUEST.value(),"Hubo un problema leyendo la base de datos", null));
     }
 
     private ErrorMessageDto processField(List<FieldError> fieldErrors) {

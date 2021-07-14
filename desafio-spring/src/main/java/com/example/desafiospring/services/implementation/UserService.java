@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,25 +25,23 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDto findByUserIdAndType(Long userId, boolean isSeller) {
+    public UserDto findByUserIdAndType(Long userId, boolean isSeller) throws IOException, UserNotExistException {
         User user = this.userRepository.findByIdAndType(userId, isSeller);
-        UserDto response = null;
-        if (Objects.nonNull(user))
-            response = this.objectMapper.convertValue(user, UserDto.class);
-        return response;
+        if (Objects.isNull(user))
+            throw new UserNotExistException("No existe un vendedor con el id " + userId);
+        return this.objectMapper.convertValue(user, UserDto.class);
     }
 
     @Override
-    public UserDto findByUserId(Long userId) {
+    public UserDto findByUserId(Long userId) throws IOException, UserNotExistException {
         User user = this.userRepository.findById(userId);
-        UserDto response = null;
-        if (Objects.nonNull(user))
-            response = this.objectMapper.convertValue(user, UserDto.class);
-        return response;
+        if (Objects.isNull(user))
+            throw new UserNotExistException("No existe un usuario con el id " + userId);
+        return this.objectMapper.convertValue(user, UserDto.class);
     }
 
     @Override
-    public List<UserDto> getAllUsers() {
+    public List<UserDto> getAllUsers() throws IOException {
         List<User> user = this.userRepository.getAllUsers();
         List<UserDto> response = null;
         if (Objects.nonNull(user))
@@ -51,19 +50,4 @@ public class UserService implements IUserService {
         return response;
     }
 
-    @Override
-    public UserDto validateSellerExist(Long userId) throws UserNotExistException {
-        UserDto user = this.findByUserIdAndType(userId, true);
-        if (Objects.isNull(user))
-            throw new UserNotExistException("No existe un vendedor con el id " + userId);
-        return user;
-    }
-
-    @Override
-    public UserDto validateUserExist(Long userId) throws UserNotExistException {
-        UserDto user = this.findByUserId(userId);
-        if (Objects.isNull(user))
-            throw new UserNotExistException("No existe un usuario con el id " + userId);
-        return user;
-    }
 }
