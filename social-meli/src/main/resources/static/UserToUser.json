@@ -1,0 +1,38 @@
+[
+  {
+    "userId": 110,
+    "userIdToFollow": 100
+  },
+  {
+    "userId": 110,
+    "userIdToFollow": 210
+  },
+  {
+    "userId": 120,
+    "userIdToFollow": 250
+  },
+  {
+    "userId": 220,
+    "userIdToFollow": 110
+  },
+  {
+    "userId": 310,
+    "userIdToFollow": 110
+  },
+  {
+    "userId": 320,
+    "userIdToFollow": 110
+  },
+  {
+    "userId": 100,
+    "userIdToFollow": 110
+  },
+  {
+    "userId": 270,
+    "userIdToFollow": 130
+  },
+  {
+    "userId": 220,
+    "userIdToFollow": 130
+  }
+]
