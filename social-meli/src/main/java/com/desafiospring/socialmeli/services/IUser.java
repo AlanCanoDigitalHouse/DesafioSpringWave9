@@ -15,4 +15,6 @@ public interface IUser {
     SellerFollowersDTO getFollowers(int userId) throws UserException;
 
     BuyerFollowedDTO getFollowed(int userId) throws UserException;
+
+    void removeFollower(int userId, int userIdToUnfollow) throws UserException;
 }

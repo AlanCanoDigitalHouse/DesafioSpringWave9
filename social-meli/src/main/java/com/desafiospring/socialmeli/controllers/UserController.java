@@ -46,4 +46,10 @@ public class UserController {
         return new ResponseEntity<>(buyerFollowed, HttpStatus.OK);
     }
 
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public String unFollowUser(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws UserException {
+        this.userService.removeFollower(userId, userIdToUnfollow);
+        return "Ya no sigues al vendedor";
+    }
+
 }

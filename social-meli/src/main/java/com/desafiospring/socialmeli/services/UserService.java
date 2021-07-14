@@ -4,7 +4,7 @@ import com.desafiospring.socialmeli.dtos.responses.BuyerFollowedDTO;
 import com.desafiospring.socialmeli.dtos.responses.SellerFollowersCountDTO;
 import com.desafiospring.socialmeli.dtos.responses.SellerFollowersDTO;
 import com.desafiospring.socialmeli.exceptions.AlreadyFollowingException;
-import com.desafiospring.socialmeli.exceptions.UserDoesNotExistException;
+import com.desafiospring.socialmeli.exceptions.NotFollowingException;
 import com.desafiospring.socialmeli.exceptions.UserException;
 import com.desafiospring.socialmeli.dtos.models.Buyer;
 import com.desafiospring.socialmeli.dtos.models.Seller;
@@ -33,7 +33,7 @@ public class UserService implements IUser {
         Seller seller = ValidationHandler.validateSeller(userIdToFollow, sellerRepository);
         List<User> followed = buyer.getFollowed();
         List<User> followers = seller.getFollowers();
-        if (followed.stream().anyMatch(user -> user.getUserId() == userIdToFollow)){
+        if (followed.stream().anyMatch(user -> userIdToFollow == user.getUserId())){
             throw new AlreadyFollowingException();
         }
         followed.add(new User(seller.getUserId(), seller.getUserName()));
@@ -66,6 +66,20 @@ public class UserService implements IUser {
         return buyerFollowedDTO;
     }
 
+    @Override
+    public void removeFollower(int userId, int userIdToUnfollow) throws UserException {
+        Buyer buyer = ValidationHandler.validateUser(userId, buyerRepository);
+        Seller seller = ValidationHandler.validateSeller(userIdToUnfollow, sellerRepository);
+
+        List<User> followed = buyer.getFollowed();
+        List<User> followers = seller.getFollowers();
+        if (!followed.stream().anyMatch(user -> userIdToUnfollow == user.getUserId())){
+            throw new NotFollowingException();
+        }
+
+        followed.removeIf(user -> userIdToUnfollow == user.getUserId());
+        followers.removeIf(user -> userId == user.getUserId());
+    }
 
 
 }
