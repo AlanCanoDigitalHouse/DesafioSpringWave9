@@ -2,12 +2,13 @@ package com.example.desafiospring.models;
 
 public class User {
     protected String userName;
-    protected Long userId;
+    protected Integer userId;
 
     public User() {
     }
 
-    public User(String userName, Long userId) {
+
+    public User(String userName, Integer userId) {
         this.userName = userName;
         this.userId = userId;
     }
@@ -20,11 +21,11 @@ public class User {
         this.userName = userName;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 }

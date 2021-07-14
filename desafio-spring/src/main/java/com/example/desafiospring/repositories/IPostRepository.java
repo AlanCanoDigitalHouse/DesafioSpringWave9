@@ -7,15 +7,15 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-public interface IPostRepository extends IRepository<Post, Long, PostException> {
-    Long addPost(Post post) throws PostException;
+public interface IPostRepository extends IRepository<Post, Integer, PostException> {
+    Integer addPost(Post post);
 
-    List<Post> findPromoPostsBySellerId(Long sellerId);
+    List<Post> findPromoPostsBySellerId(Integer sellerId);
 
-    List<Post> findBySellerId(Long sellerId);
+    List<Post> findBySellerId(Integer sellerId);
 
-    List<Post> findBySellersIds(Collection<Long> sellersIds);
+    List<Post> findBySellersIds(Collection<Integer> sellersIds);
 
-    List<Post> getPostAfterDateBySellersIds(Collection<Long> sellersIds, Date date);
+    List<Post> getPostAfterDateBySellersIds(Collection<Integer> sellersIds, Date date);
 
 }

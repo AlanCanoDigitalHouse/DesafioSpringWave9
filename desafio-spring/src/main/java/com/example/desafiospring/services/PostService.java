@@ -54,15 +54,14 @@ public class PostService implements IPostService {
 
     /**
      * @param postRequestDTO
-     * @throws PostException
-     * @throws SellerException
+     * @throws SellerException Exception in case the seller doesn't exists
      */
     @Override
-    public void savePost(@Valid @RequestBody PostRequestDTO postRequestDTO) throws PostException, SellerException {
+    public void savePost(@Valid @RequestBody PostRequestDTO postRequestDTO) throws SellerException {
         Seller seller = this.sellerRepository.findById(postRequestDTO.getUserId());
         ProductRequestDTO productRequestDTO = postRequestDTO.getDetail();
         Product product = mapper.convertValue(productRequestDTO, Product.class);
-        Long productId = this.productRepository.addProduct(product);
+        Integer productId = this.productRepository.addProduct(product);
         Post post = new Post(
                 seller.getUserId(),
                 null,
@@ -88,7 +87,7 @@ public class PostService implements IPostService {
         Seller seller = this.sellerRepository.findById(postRequestDTO.getUserId());
         ProductRequestDTO productRequestDTO = postRequestDTO.getDetail();
         Product product = mapper.convertValue(productRequestDTO, Product.class);
-        Long productId = this.productRepository.addProduct(product);
+        Integer productId = this.productRepository.addProduct(product);
         Post post = new Post(
                 seller.getUserId(),
                 null,
@@ -107,10 +106,11 @@ public class PostService implements IPostService {
      * @return List<PostResponseDTO>
      */
     @Override
-    public List<PostResponseDTO> getFollowedPostsByUser(Long userId, String order) throws UserException {
+    public List<PostResponseDTO> getFollowedPostsByUser(Integer userId, String order) throws UserException {
         this.userRepository.checkIfUserExistsById(userId);
         List<Seller> sellers = this.sellerRepository.findByFollowerUserId(userId);
-        List<Long> sellersIds = sellers.stream().map(User::getUserId).collect(Collectors.toList());
+
+        List<Integer> sellersIds = sellers.stream().map(User::getUserId).collect(Collectors.toList());
 
         Date date = new Date();
         Calendar c = Calendar.getInstance();
@@ -120,13 +120,13 @@ public class PostService implements IPostService {
 
         List<Post> postsFilteredBySellersAndDate = this.postRepository.getPostAfterDateBySellersIds(sellersIds, previousDate);
         List<Post> postsOrdered = postsFilteredBySellersAndDate.stream().sorted(ORDER_PARAMS.getOrDefault(order, Comparator.comparing(Post::getDate).reversed())).collect(Collectors.toList());
-        List<Long> productsIdsInFilteredPosts = postsOrdered.stream().map(Post::getProductId).collect(Collectors.toList());
+        List<Integer> productsIdsInFilteredPosts = postsOrdered.stream().map(Post::getProductId).collect(Collectors.toList());
         List<Product> products = new ArrayList<>(this.productRepository.findByIds(productsIdsInFilteredPosts));
         List<PostResponseDTO> postResponseDTOs;
         if (postsFilteredBySellersAndDate.isEmpty()) {
             postResponseDTOs = List.of();
         } else {
-            postResponseDTOs = getPostResponseDTOs(postsOrdered, products);
+            postResponseDTOs = getPostResponseDTOs(postsOrdered, products, sellers);
         }
         return postResponseDTOs;
     }
@@ -137,7 +137,7 @@ public class PostService implements IPostService {
      * @throws SellerException
      */
     @Override
-    public CountPromoPostsResponseDTO countPromoPostsPerSeller(Long userId) throws SellerException {
+    public CountPromoPostsResponseDTO countPromoPostsPerSeller(Integer userId) throws SellerException {
         Seller seller = this.sellerRepository.findById(userId);
         List<Post> posts = this.postRepository.findPromoPostsBySellerId(userId);
         CountPromoPostsResponseDTO responseDTO = new CountPromoPostsResponseDTO(seller.getUserId(), seller.getUserName(), posts.size());
@@ -150,33 +150,35 @@ public class PostService implements IPostService {
      * @throws SellerException
      */
     @Override
-    public List<PostResponseDTO> getPromoPostsPerSeller(Long sellerId) throws SellerException {
-        this.sellerRepository.checkIfSellerExistsById(sellerId);
+    public List<PostResponseDTO> getPromoPostsPerSeller(Integer sellerId, String order) throws SellerException {
+        Seller seller = this.sellerRepository.findById(sellerId);
         List<Post> posts = this.postRepository.findPromoPostsBySellerId(sellerId);
         List<PostResponseDTO> responseDTOs;
         if (posts.isEmpty()) {
             responseDTOs = List.of();
         } else {
-            List<Long> productsIdsInPromoPosts = posts.stream().map(Post::getProductId).collect(Collectors.toList());
+            List<Integer> productsIdsInPromoPosts = posts.stream().map(Post::getProductId).collect(Collectors.toList());
             List<Product> products = new ArrayList<>(this.productRepository.findByIds(productsIdsInPromoPosts));
-            responseDTOs = getPostResponseDTOs(posts, products);
+            List<Post> postsSorted = posts.stream().sorted(ORDER_PARAMS.getOrDefault(order, Comparator.comparing(Post::getDate).reversed())).collect(Collectors.toList());
+            responseDTOs = getPostResponseDTOs(postsSorted, products, List.of(seller));
         }
         return responseDTOs;
     }
 
     /**
-     * @param postsOrdered
+     * @param postsSorted
      * @param products
      * @return List<PostResponseDTO>
      */
-    private List<PostResponseDTO> getPostResponseDTOs(List<Post> postsOrdered, List<Product> products) {
+    private List<PostResponseDTO> getPostResponseDTOs(List<Post> postsSorted, List<Product> products, List<Seller> sellers) {
         List<PostResponseDTO> postResponseDTOs;
         List<ProductResponseDTO> productResponseDTOs = products.stream().map(p -> mapper.convertValue(p, ProductResponseDTO.class)).collect(Collectors.toList());
-        postResponseDTOs = postsOrdered
+        postResponseDTOs = postsSorted
                 .stream()
                 .map(
                         post -> new PostResponseDTO(
                                 post.getUserId(),
+                                sellers.stream().filter(s -> s.getUserId().equals(post.getUserId())).findAny().get().getUserName(),
                                 post.getIdPost(),
                                 post.getDate(),
                                 productResponseDTOs

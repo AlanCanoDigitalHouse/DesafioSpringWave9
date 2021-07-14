@@ -3,7 +3,7 @@ package com.example.desafiospring.dto.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CountPromoPostsResponseDTO {
-    private Long userId;
+    private Integer userId;
     private String userName;
     @JsonProperty("promoproducts_count")
     private Integer promoProductsCount;
@@ -11,17 +11,17 @@ public class CountPromoPostsResponseDTO {
     public CountPromoPostsResponseDTO() {
     }
 
-    public CountPromoPostsResponseDTO(Long userId, String userName, Integer promoProductsCount) {
+    public CountPromoPostsResponseDTO(Integer userId, String userName, Integer promoProductsCount) {
         this.userId = userId;
         this.userName = userName;
         this.promoProductsCount = promoProductsCount;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

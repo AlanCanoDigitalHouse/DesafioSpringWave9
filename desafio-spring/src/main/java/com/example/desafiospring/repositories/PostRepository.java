@@ -13,7 +13,7 @@ public class PostRepository implements IPostRepository {
     public static final String FILENAME = "posts.json";
 
     @Override
-    public Post findById(Long id) throws PostException {
+    public Post findById(Integer id) throws PostException {
         List<Post> posts = this.loadDB(FILENAME, Post.class);
         Optional<Post> result = posts.stream().filter(p -> p.getIdPost().equals(id)).findAny();
         if (result.isPresent())
@@ -23,18 +23,18 @@ public class PostRepository implements IPostRepository {
     }
 
     @Override
-    public Collection<Post> findByIds(Collection<Long> ids) {
+    public Collection<Post> findByIds(Collection<Integer> ids) {
         List<Post> posts = this.loadDB(FILENAME, Post.class);
         return posts.stream().filter(s -> ids.contains(s.getUserId())).collect(Collectors.toList());
     }
 
     @Override
-    public Long addPost(Post post) throws PostException {
+    public Integer addPost(Post post) {
         List<Post> posts = this.loadDB(FILENAME, Post.class);
-        Optional<Long> maxIdPost = posts.stream().max(Comparator.comparing(Post::getIdPost)).map(p -> p.getIdPost());
-        Long idPost;
+        Optional<Integer> maxIdPost = posts.stream().max(Comparator.comparing(Post::getIdPost)).map(p -> p.getIdPost());
+        Integer idPost;
         if (maxIdPost.isEmpty())
-            idPost = 1L;
+            idPost = 1;
         else
             idPost = maxIdPost.get() + 1;
         post.setIdPost(idPost);
@@ -44,7 +44,7 @@ public class PostRepository implements IPostRepository {
     }
 
     @Override
-    public List<Post> findPromoPostsBySellerId(Long sellerId) {
+    public List<Post> findPromoPostsBySellerId(Integer sellerId) {
         List<Post> posts = this.loadDB(FILENAME, Post.class);
         return posts.stream().filter(p -> p.getUserId().equals(sellerId))
                 .filter(p -> p.getHasPromo() != null)
@@ -52,19 +52,19 @@ public class PostRepository implements IPostRepository {
     }
 
     @Override
-    public List<Post> findBySellerId(Long sellerId) {
+    public List<Post> findBySellerId(Integer sellerId) {
         List<Post> posts = this.loadDB(FILENAME, Post.class);
         return posts.stream().filter(p -> p.getUserId().equals(sellerId)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Post> findBySellersIds(Collection<Long> sellersIds) {
+    public List<Post> findBySellersIds(Collection<Integer> sellersIds) {
         List<Post> posts = this.loadDB(FILENAME, Post.class);
         return posts.stream().filter(p -> sellersIds.contains(p.getUserId())).collect(Collectors.toList());
     }
 
     @Override
-    public List<Post> getPostAfterDateBySellersIds(Collection<Long> sellersIds, Date date) {
+    public List<Post> getPostAfterDateBySellersIds(Collection<Integer> sellersIds, Date date) {
         List<Post> posts = this.loadDB(FILENAME, Post.class);
         return posts.stream().filter(p -> sellersIds.contains(p.getUserId())).filter(p -> p.getDate().after(date)).collect(Collectors.toList());
     }

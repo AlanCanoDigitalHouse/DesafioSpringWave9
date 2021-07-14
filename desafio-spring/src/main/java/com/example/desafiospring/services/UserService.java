@@ -46,7 +46,8 @@ public class UserService implements IUserService {
      * @param sellerId
      * @throws SellerException
      */
-    public void followSeller(Long userId, Long sellerId) throws SellerException {
+    public void followSeller(Integer userId, Integer sellerId) throws SellerException, UserException {
+        this.userRepository.checkIfUserExistsById(userId);
         this.sellerRepository.addFollower(userId, sellerId);
     }
 
@@ -56,9 +57,9 @@ public class UserService implements IUserService {
      * @throws SellerException
      */
     @Override
-    public SellerResponseDTO getNumberOfFollowers(Long sellerId) throws SellerException {
+    public SellerResponseDTO getNumberOfFollowers(Integer sellerId) throws SellerException {
         Seller seller = this.sellerRepository.findById(sellerId);
-        Long numberOfFollowers = (long) seller.getFollowers().size();
+        Integer numberOfFollowers = (Integer) seller.getFollowers().size();
         SellerResponseDTO responseDTO = new SellerResponseDTO(
                 seller.getUserId(), seller.getUserName(), numberOfFollowers
         );
@@ -72,7 +73,7 @@ public class UserService implements IUserService {
      * @throws SellerException
      */
     @Override
-    public SellerResponseDTO getFollowers(Long sellerId, String order) throws SellerException {
+    public SellerResponseDTO getFollowers(Integer sellerId, String order) throws SellerException {
         Seller seller = this.sellerRepository.findById(sellerId);
         Collection<User> followers = this.userRepository.findByIds(seller.getFollowers());
         Collection<User> followersOrdered = followers.stream().sorted(ORDER_PARAMS.getOrDefault(order, Comparator.comparing(User::getUserId))).collect(Collectors.toList());
@@ -90,7 +91,7 @@ public class UserService implements IUserService {
      * @throws UserException
      */
     @Override
-    public UserResponseDTO getFollowed(Long userId, String order) throws UserException {
+    public UserResponseDTO getFollowed(Integer userId, String order) throws UserException {
         User user = this.userRepository.findById(userId);
         List<Seller> sellers = this.sellerRepository.findByFollowerUserId(userId);
         List<Seller> sellersOrdered = sellers.stream().sorted(ORDER_PARAMS.getOrDefault(order, Comparator.comparing(User::getUserId))).collect(Collectors.toList());
@@ -106,7 +107,7 @@ public class UserService implements IUserService {
      * @throws SellerException
      */
     @Override
-    public void unfollowSeller(Long userId, Long sellerId) throws SellerException {
+    public void unfollowSeller(Integer userId, Integer sellerId) throws SellerException {
         this.sellerRepository.removeFollower(userId, sellerId);
     }
 }

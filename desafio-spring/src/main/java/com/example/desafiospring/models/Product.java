@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Product {
     @JsonProperty("product_id")
-    private Long productId;
+    private Integer productId;
     private String productName;
     private String type;
     private String brand;
@@ -14,7 +14,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long productId, String productName, String type, String brand, String color, String notes) {
+    public Product(Integer productId, String productName, String type, String brand, String color, String notes) {
         this.productId = productId;
         this.productName = productName;
         this.type = type;
@@ -23,11 +23,11 @@ public class Product {
         this.notes = notes;
     }
 
-    public Long getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 

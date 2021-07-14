@@ -15,9 +15,8 @@ public class SellerRepository implements ISellerRepository {
     public static final String FILENAME = "sellers.json";
 
     @Override
-    public Seller removeFollower(Long userId, Long sellerId) throws SellerException {
+    public Seller removeFollower(Integer userId, Integer sellerId) throws SellerException {
         List<Seller> sellers = this.loadDB(FILENAME, Seller.class);
-        ;
         Optional<Seller> optionalSeller = sellers.stream().filter(s -> s.getUserId().equals(sellerId)).findAny();
         Seller seller;
         if (optionalSeller.isPresent())
@@ -29,7 +28,7 @@ public class SellerRepository implements ISellerRepository {
             throw new SellerException(SellerException.FOLLOWER_NOT_FOUND + sellerId);
 
         int sellerIndex = sellers.indexOf(seller);
-        List<Long> followersNew = seller.getFollowers().stream().filter(f -> !f.equals(userId)).collect(Collectors.toList());
+        List<Integer> followersNew = seller.getFollowers().stream().filter(f -> !f.equals(userId)).collect(Collectors.toList());
         seller.setFollowers(followersNew);
         sellers.set(sellerIndex, seller);
         this.saveToFile(FILENAME, sellers);
@@ -37,7 +36,7 @@ public class SellerRepository implements ISellerRepository {
     }
 
     @Override
-    public List<Seller> findByFollowerUserId(Long userId) {
+    public List<Seller> findByFollowerUserId(Integer userId) {
         List<Seller> sellers = this.loadDB(FILENAME, Seller.class);
         ;
         List<Seller> result = sellers.stream().filter(s -> s.getFollowers().stream().anyMatch(l -> l.equals(userId))).collect(Collectors.toList());
@@ -45,7 +44,7 @@ public class SellerRepository implements ISellerRepository {
     }
 
     @Override
-    public Boolean checkIfSellerExistsById(Long sellerId) throws SellerException {
+    public Boolean checkIfSellerExistsById(Integer sellerId) throws SellerException {
         List<Seller> sellers = this.loadDB(FILENAME, Seller.class);
         ;
         boolean result = sellers.stream().anyMatch(s -> s.getUserId().equals(sellerId));
@@ -56,7 +55,7 @@ public class SellerRepository implements ISellerRepository {
     }
 
     @Override
-    public Seller findById(Long id) throws SellerException {
+    public Seller findById(Integer id) throws SellerException {
         List<Seller> sellers = this.loadDB(FILENAME, Seller.class);
         ;
         Optional<Seller> result = sellers.stream().filter(s -> s.getUserId().equals(id)).findAny();
@@ -67,16 +66,15 @@ public class SellerRepository implements ISellerRepository {
     }
 
     @Override
-    public Collection<Seller> findByIds(Collection<Long> ids) {
+    public Collection<Seller> findByIds(Collection<Integer> ids) {
         List<Seller> sellers = this.loadDB(FILENAME, Seller.class);
         ;
         return sellers.stream().filter(s -> ids.contains(s.getUserId())).collect(Collectors.toList());
     }
 
     @Override
-    public Seller addFollower(Long userId, Long sellerId) throws SellerException {
+    public Seller addFollower(Integer userId, Integer sellerId) throws SellerException {
         List<Seller> sellers = this.loadDB(FILENAME, Seller.class);
-        ;
         Optional<Seller> optionalSeller = sellers.stream().filter(s -> s.getUserId().equals(sellerId)).findAny();
         Seller seller;
         if (optionalSeller.isPresent())
@@ -88,7 +86,7 @@ public class SellerRepository implements ISellerRepository {
             throw new SellerException(SellerException.SELLER_ALREADY_FOLLOWED + sellerId);
 
         int sellerIndex = sellers.indexOf(seller);
-        List<Long> followersNew = seller.getFollowers();
+        List<Integer> followersNew = seller.getFollowers();
         followersNew.add(userId);
         seller.setFollowers(followersNew);
         sellers.set(sellerIndex, seller);

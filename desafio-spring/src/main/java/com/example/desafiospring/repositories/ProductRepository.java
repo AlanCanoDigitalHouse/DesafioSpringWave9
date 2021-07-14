@@ -16,7 +16,7 @@ public class ProductRepository implements IProductRepository {
     public static final String FILENAME = "products.json";
 
     @Override
-    public Product findById(Long id) throws ProductException {
+    public Product findById(Integer id) throws ProductException {
         List<Product> products = this.loadDB("products.json", Product.class);
         Optional<Product> result = products.stream().filter(p -> p.getProductId().equals(id)).findAny();
         if (result.isPresent())
@@ -26,18 +26,18 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public Collection<Product> findByIds(Collection<Long> ids) {
+    public Collection<Product> findByIds(Collection<Integer> ids) {
         List<Product> products = this.loadDB(FILENAME, Product.class);
         return products.stream().filter(s -> ids.contains(s.getProductId())).collect(Collectors.toList());
     }
 
     @Override
-    public Long addProduct(Product product) {
+    public Integer addProduct(Product product) {
         List<Product> products = this.loadDB("products.json", Product.class);
-        Optional<Long> maxIdProduct = products.stream().max(Comparator.comparing(Product::getProductId)).map(p -> p.getProductId());
-        Long idProduct;
+        Optional<Integer> maxIdProduct = products.stream().max(Comparator.comparing(Product::getProductId)).map(p -> p.getProductId());
+        Integer idProduct;
         if (maxIdProduct.isEmpty())
-            idProduct = 1L;
+            idProduct = 1;
         else
             idProduct = maxIdProduct.get() + 1;
         product.setProductId(idProduct);

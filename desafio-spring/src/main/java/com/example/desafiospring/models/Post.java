@@ -7,12 +7,12 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Post {
-    private Long userId;
+    private Integer userId;
     @JsonProperty("id_post")
-    private Long idPost;
+    private Integer idPost;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date date;
-    private Long productId;
+    private Integer productId;
     private Integer category;
     private BigDecimal price;
     private Boolean hasPromo;
@@ -21,7 +21,7 @@ public class Post {
     public Post() {
     }
 
-    public Post(Long userId, Long idPost, Date date, Long productId, Integer category, BigDecimal price) {
+    public Post(Integer userId, Integer idPost, Date date, Integer productId, Integer category, BigDecimal price) {
         this.userId = userId;
         this.idPost = idPost;
         this.date = date;
@@ -30,7 +30,7 @@ public class Post {
         this.price = price;
     }
 
-    public Post(Long userId, Long idPost, Date date, Long productId, Integer category, BigDecimal price, Boolean hasPromo, BigDecimal discount) {
+    public Post(Integer userId, Integer idPost, Date date, Integer productId, Integer category, BigDecimal price, Boolean hasPromo, BigDecimal discount) {
         this.userId = userId;
         this.idPost = idPost;
         this.date = date;
@@ -41,19 +41,19 @@ public class Post {
         this.discount = discount;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public Long getIdPost() {
+    public Integer getIdPost() {
         return idPost;
     }
 
-    public void setIdPost(Long idPost) {
+    public void setIdPost(Integer idPost) {
         this.idPost = idPost;
     }
 
@@ -65,11 +65,11 @@ public class Post {
         this.date = date;
     }
 
-    public Long getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 

@@ -7,21 +7,21 @@ import java.util.List;
 public class Seller extends User {
 
     @JsonProperty("followersIds")
-    private List<Long> followers;
+    private List<Integer> followers;
 
     public Seller() {
     }
 
-    public Seller(String userName, Long userId, List<Long> followers) {
+    public Seller(String userName, Integer userId, List<Integer> followers) {
         super(userName, userId);
         this.followers = followers;
     }
 
-    public List<Long> getFollowers() {
+    public List<Integer> getFollowers() {
         return followers;
     }
 
-    public void setFollowers(List<Long> followers) {
+    public void setFollowers(List<Integer> followers) {
         this.followers = followers;
     }
 }

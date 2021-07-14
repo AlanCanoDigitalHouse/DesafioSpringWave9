@@ -15,7 +15,7 @@ public class UserRepository implements IUserRepository {
     public static final String FILENAME = "users.json";
 
     @Override
-    public User findById(Long id) throws UserException {
+    public User findById(Integer id) throws UserException {
         List<User> users = this.loadDB(FILENAME, User.class);
         Optional<User> result = users.stream().filter(u -> u.getUserId().equals(id)).findAny();
         if (result.isPresent())
@@ -25,13 +25,13 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public Collection<User> findByIds(Collection<Long> ids) {
+    public Collection<User> findByIds(Collection<Integer> ids) {
         List<User> users = this.loadDB(FILENAME, User.class);
         return users.stream().filter(u -> ids.contains(u.getUserId())).collect(Collectors.toList());
     }
 
     @Override
-    public Boolean checkIfUserExistsById(Long userId) throws UserException {
+    public Boolean checkIfUserExistsById(Integer userId) throws UserException {
         List<User> users = this.loadDB(FILENAME, User.class);
         boolean result = users.stream().anyMatch(u -> u.getUserId().equals(userId));
         if (result)

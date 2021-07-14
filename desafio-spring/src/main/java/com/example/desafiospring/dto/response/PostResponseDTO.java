@@ -9,9 +9,10 @@ import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostResponseDTO {
-    private Long userId;
+    private Integer userId;
+    private String userName;
     @JsonProperty("id_post")
-    private Long idPost;
+    private Integer idPost;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date date;
     private ProductResponseDTO detail;
@@ -23,8 +24,9 @@ public class PostResponseDTO {
     public PostResponseDTO() {
     }
 
-    public PostResponseDTO(Long userId, Long idPost, Date date, ProductResponseDTO detail, Integer category, BigDecimal price) {
+    public PostResponseDTO(Integer userId, String userName, Integer idPost, Date date, ProductResponseDTO detail, Integer category, BigDecimal price) {
         this.userId = userId;
+        this.userName = userName;
         this.idPost = idPost;
         this.date = date;
         this.detail = detail;
@@ -32,8 +34,9 @@ public class PostResponseDTO {
         this.price = price;
     }
 
-    public PostResponseDTO(Long userId, Long idPost, Date date, ProductResponseDTO detail, Integer category, BigDecimal price, Boolean hasPromo, BigDecimal discount) {
+    public PostResponseDTO(Integer userId, String userName, Integer idPost, Date date, ProductResponseDTO detail, Integer category, BigDecimal price, Boolean hasPromo, BigDecimal discount) {
         this.userId = userId;
+        this.userName = userName;
         this.idPost = idPost;
         this.date = date;
         this.detail = detail;
@@ -43,20 +46,28 @@ public class PostResponseDTO {
         this.discount = discount;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public Long getIdPost() {
+    public Integer getIdPost() {
         return idPost;
     }
 
-    public void setIdPost(Long idPost) {
+    public void setIdPost(Integer idPost) {
         this.idPost = idPost;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Date getDate() {

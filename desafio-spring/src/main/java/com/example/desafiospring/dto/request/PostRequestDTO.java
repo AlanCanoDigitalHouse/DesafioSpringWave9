@@ -16,7 +16,7 @@ import java.util.Date;
 public class PostRequestDTO {
     @NotNull(message = "userId is null")
     @Min(message = "userId has to be greater than zero", value = 0L)
-    private Long userId;
+    private Integer userId;
     @NotNull(message = "date is null")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @PastOrPresent(message = "Future or invalid date")
@@ -38,7 +38,7 @@ public class PostRequestDTO {
     public PostRequestDTO() {
     }
 
-    public PostRequestDTO(Long userId, Date date, ProductRequestDTO detail, Integer category, BigDecimal price) {
+    public PostRequestDTO(Integer userId, Date date, ProductRequestDTO detail, Integer category, BigDecimal price) {
         this.userId = userId;
         this.date = date;
         this.detail = detail;
@@ -46,7 +46,7 @@ public class PostRequestDTO {
         this.price = price;
     }
 
-    public PostRequestDTO(Long userId, Date date, ProductRequestDTO detail, Integer category, BigDecimal price, Boolean hasPromo, BigDecimal discount) {
+    public PostRequestDTO(Integer userId, Date date, ProductRequestDTO detail, Integer category, BigDecimal price, Boolean hasPromo, BigDecimal discount) {
         this.userId = userId;
         this.date = date;
         this.detail = detail;
@@ -56,11 +56,11 @@ public class PostRequestDTO {
         this.discount = discount;
     }
 
-    public Long getUserId(Long getUserId) {
+    public Integer getUserId(Integer getUserId) {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -96,7 +96,7 @@ public class PostRequestDTO {
         this.price = price;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 

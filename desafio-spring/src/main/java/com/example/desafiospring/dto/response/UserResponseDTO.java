@@ -6,29 +6,29 @@ import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserResponseDTO {
-    protected Long userId;
+    protected Integer userId;
     protected String userName;
     private List<SellerResponseDTO> followed;
 
     public UserResponseDTO() {
     }
 
-    public UserResponseDTO(Long userId, String userName) {
+    public UserResponseDTO(Integer userId, String userName) {
         this.userId = userId;
         this.userName = userName;
     }
 
-    public UserResponseDTO(Long userId, String userName, List<SellerResponseDTO> followed) {
+    public UserResponseDTO(Integer userId, String userName, List<SellerResponseDTO> followed) {
         this.userId = userId;
         this.userName = userName;
         this.followed = followed;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
