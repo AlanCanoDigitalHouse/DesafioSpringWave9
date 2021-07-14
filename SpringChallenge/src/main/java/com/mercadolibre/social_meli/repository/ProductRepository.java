@@ -1,7 +1,9 @@
 package com.mercadolibre.social_meli.repository;
 
 import com.mercadolibre.social_meli.dto.request.ProductRequestDTO;
+import com.mercadolibre.social_meli.dto.response.ProductResponseDTO;
 import com.mercadolibre.social_meli.entity.Post;
+import com.mercadolibre.social_meli.exception.InvalidQueryParamException;
 import com.mercadolibre.social_meli.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Repository
@@ -54,20 +57,42 @@ public class ProductRepository extends JSONRepository<Post> implements IProductR
     }
 
     @Override
-    public List<Post> getUserPosts(Integer userId) {
+    public List<Post> getUserPosts(Integer userId, String order) {
         var posts = getAllPosts();
         var userPosts = posts.stream().filter(post -> post.getUserId().equals(userId))
                 .collect(Collectors.toList());
 
-        var dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        userPosts.sort(Comparator.comparing(p -> LocalDate.parse(p.getDate(), dateFormatter)));
-        Collections.reverse(userPosts);
+        var postOrder = Objects.isNull(order) ? "date_desc" : order;
+        this.sortPostDates(userPosts, postOrder);
 
         return userPosts;
     }
 
     @Override
-    public List<Post> getUserPosts(Integer userId, String order) {
-        return null;
+    public List<Post> getMultipleUsersPost(List<Integer> userIds, String order) {
+        var posts = getAllPosts();
+        var userPosts = posts.stream().filter(post -> userIds.contains(post.getUserId()))
+                .collect(Collectors.toList());
+
+        var postOrder = Objects.isNull(order) ? "date_desc" : order;
+        this.sortPostDates(userPosts, postOrder);
+
+        return userPosts;
+    }
+
+    private void sortPostDates(List<Post> posts, String order) {
+        var dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        switch (order) {
+            case "date_asc":
+                posts.sort(Comparator.comparing(p -> LocalDate.parse(p.getDate(), dateFormatter)));
+                break;
+            case "date_desc":
+                posts.sort(Comparator.comparing(p -> LocalDate.parse(p.getDate(), dateFormatter)));
+                Collections.reverse(posts);
+                break;
+            default:
+                throw new InvalidQueryParamException("Order param must be date_asc or date_desc");
+        }
     }
 }

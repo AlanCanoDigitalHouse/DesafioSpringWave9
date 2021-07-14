@@ -12,8 +12,8 @@ public interface IProductRepository {
 
     List<Post> getAllPosts();
 
-    List<Post> getUserPosts(Integer userId);
-
     List<Post> getUserPosts(Integer userId, String order);
+
+    List<Post> getMultipleUsersPost(List<Integer> userIds, String order);
 
 }
