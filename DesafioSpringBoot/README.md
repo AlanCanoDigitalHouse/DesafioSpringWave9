@@ -75,7 +75,7 @@ GET http://localhost:8080/users/{1-70}/followed/list
 ~~~
 - US 0005
 ~~~http
-GET http://localhost:8080/products/newpost
+POST http://localhost:8080/products/newpost
 ~~~
 Body:
 ~~~JSON
