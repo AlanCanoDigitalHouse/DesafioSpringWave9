@@ -1,8 +1,6 @@
 package com.mercadolibre.socialmeli.services;
 
-import com.mercadolibre.socialmeli.dtos.BuyerDTO;
-import com.mercadolibre.socialmeli.dtos.PostDTO;
-import com.mercadolibre.socialmeli.dtos.SellerPostListDTO;
+import com.mercadolibre.socialmeli.dtos.*;
 import com.mercadolibre.socialmeli.exceptions.BuyerNotFoundException;
 import com.mercadolibre.socialmeli.exceptions.SellerNotFoundException;
 import com.mercadolibre.socialmeli.repositories.interfaces.ProductRepository;
@@ -12,10 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.ZonedDateTime;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,4 +61,37 @@ public class ProductServiceImpl implements ProductService {
             }
         }
     }
+
+    @Override
+    public PromoProductsCountDTO getPromoProductsCount(Integer sellerId) throws SellerNotFoundException {
+        SellerDTO seller = userRepository.getSellerById(sellerId);
+        List<PromoPostDTO> promoPostList = productRepository.getPromoPostsBySeller(sellerId);
+
+        List<ProductDTO> productList = promoPostList.stream()
+                .map(PostDTO::getDetail)
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(ProductDTO::getProduct_id))),
+                        LinkedList::new));
+
+//        List<ProductDTO> productList = promoPostList.stream()
+//                .map(PostDTO::getDetail)
+//                .collect(Collectors.toList());
+
+        PromoProductsCountDTO dto = new PromoProductsCountDTO();
+        dto.setUserId(seller.getUserId());
+        dto.setUserName(seller.getUserName());
+        dto.setPromoproducts_count(productList.size());
+        return dto;
+    }
+
+    @Override
+    public SellerPromoPostListDTO getPromoPosts(Integer sellerId) throws SellerNotFoundException {
+        SellerDTO seller = userRepository.getSellerById(sellerId);
+        List<PromoPostDTO> promos = productRepository.getPromoPostsBySeller(sellerId);
+
+        SellerPromoPostListDTO dto = new SellerPromoPostListDTO(seller);
+        dto.setPosts(promos);
+        return dto;
+    }
+
 }

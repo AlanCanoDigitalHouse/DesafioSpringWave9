@@ -12,6 +12,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @Validated
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostDTO {
 
     @NotNull(message = "userId cannot be empty")

@@ -1,8 +1,6 @@
 package com.mercadolibre.socialmeli.controllers;
 
-import com.mercadolibre.socialmeli.dtos.PostDTO;
-import com.mercadolibre.socialmeli.dtos.PromoPostDTO;
-import com.mercadolibre.socialmeli.dtos.SellerPostListDTO;
+import com.mercadolibre.socialmeli.dtos.*;
 import com.mercadolibre.socialmeli.exceptions.BuyerNotFoundException;
 import com.mercadolibre.socialmeli.exceptions.SellerNotFoundException;
 import com.mercadolibre.socialmeli.services.interfaces.ProductService;
@@ -47,6 +45,40 @@ public class ProductsController {
     public ResponseEntity<SellerPostListDTO> twoWeeksPostList(@PathVariable Integer userId,
                                                               @RequestParam(required = false, defaultValue = "fecha_desc") String order) throws BuyerNotFoundException {
         return new ResponseEntity<>(productService.twoWeeksSellerPosts(userId, order), HttpStatus.OK);
+    }
+
+    /**
+     * US 0010: Llevar a cabo la publicación de un nuevo producto en promoción
+     * @param promoPostDTO promo post payload
+     * @return ResponseEntity
+     * @throws SellerNotFoundException if seller is not found
+     */
+    @PostMapping(path = "/newpromopost")
+    public ResponseEntity newPromoPost(@RequestBody @Valid PromoPostDTO promoPostDTO) throws SellerNotFoundException {
+        productService.createPost(promoPostDTO);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    /**
+     * US 0011: Obtener la cantidad de productos en promoción de un determinado vendedor
+     * @param userId seller id
+     * @return ResponseEntity<PromoProductsCountDTO>
+     * @throws SellerNotFoundException if seller is not found
+     */
+    @GetMapping(value = "/{userId}/countPromo")
+    public ResponseEntity<PromoProductsCountDTO> promoCount(@PathVariable Integer userId) throws SellerNotFoundException {
+        return new ResponseEntity<>(productService.getPromoProductsCount(userId), HttpStatus.OK);
+    }
+
+    /**
+     * US 0012: Obtener un listado de todos los productos en promoción de un determinado vendedor
+     * @param userId seller id
+     * @return ResponseEntity<SellerPromoPostListDTO>
+     * @throws SellerNotFoundException is seller is not found
+     */
+    @GetMapping(value = "/{userId}/list")
+    public ResponseEntity<SellerPromoPostListDTO> promoPostList(@PathVariable Integer userId) throws SellerNotFoundException {
+        return new ResponseEntity<>(productService.getPromoPosts(userId), HttpStatus.OK);
     }
 
 }
