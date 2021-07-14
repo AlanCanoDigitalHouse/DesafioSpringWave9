@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -33,7 +34,7 @@ public class UserController {
     }
 
     @PostMapping("/users/{userId}/follow/{userIdToFollow}")
-    public HttpStatus follow(@PathVariable int userId , @PathVariable int userIdToFollow){
+    public ResponseEntity<HttpStatus> follow(@PathVariable int userId , @PathVariable int userIdToFollow){
         return userServices.follow(userId,userIdToFollow);
     }
 
@@ -43,12 +44,13 @@ public class UserController {
     }
 
     @GetMapping("/users/{UserID}/followers/list")
-    public FollowersListDto listFollowers(@PathVariable int UserID){
-        return userServices.followersList(UserID);
+    public FollowersListDto listFollowers(@PathVariable int UserID,@RequestParam(defaultValue = "name_asc") String order){
+            return userServices.followersList(UserID,order);
     }
+
     @GetMapping("/users/{UserID}/followed/list")
-    public SellersFollowedListDto listFollowed(@PathVariable int UserID){
-        return userServices.followedList(UserID);
+    public SellersFollowedListDto listFollowed(@PathVariable int UserID,@RequestParam(defaultValue = "name_asc") String order){
+        return userServices.followedList(UserID,order);
     }
 
     @PostMapping("/products/newpost")
@@ -57,8 +59,13 @@ public class UserController {
     }
 
     @GetMapping("/products/followed/{userId}/list")
-    public UserSeller2WeeksListDto userSeller2WeeksList(@PathVariable int userId){
-        return userServices.postList(userId);
+    public UserSeller2WeeksListDto userSeller2WeeksList(@PathVariable int userId, @RequestParam (defaultValue = "date_desc") String order ) throws ParseException {
+        return userServices.postList(userId,order);
+    }
+
+    @PostMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
+    public HttpStatus unFollow(@PathVariable int userId, @PathVariable int userIdToUnfollow){
+        return userServices.unFollow(userId,userIdToUnfollow);
     }
 
 }

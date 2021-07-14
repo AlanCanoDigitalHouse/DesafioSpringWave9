@@ -10,6 +10,17 @@ public class NewPostDto {
     private int category;
     private double price;
 
+    @Override
+    public String toString() {
+        return "NewPostDto{" +
+                "userId=" + userId +
+                ", date='" + date + '\'' +
+                ", detail=" + detail +
+                ", category=" + category +
+                ", price=" + price +
+                '}';
+    }
+
     public String getDate() {
         return date;
     }

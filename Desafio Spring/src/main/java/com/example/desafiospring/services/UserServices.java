@@ -11,6 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +56,7 @@ public class UserServices {
     return aux;
     }
 
-    public HttpStatus follow(Integer userId, Integer sellerId){
+    public ResponseEntity<HttpStatus> follow(Integer userId, Integer sellerId){
         if(verifySeller(sellerId) && verifyUser(userId)){
             if(followers.containsKey(sellerId)){
                 List<Users> aux = followers.get(sellerId);
@@ -70,9 +75,9 @@ public class UserServices {
                     }
                 }
             }
-            return HttpStatus.OK;
+            return new ResponseEntity<>(HttpStatus.OK);
          }else{
-           return HttpStatus.BAD_REQUEST;
+           return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
     private int countFollowers(int sellerId){
@@ -85,10 +90,6 @@ public class UserServices {
     }
     public FollowersCountDto usersSellersCountDto(int sellerId){
         FollowersCountDto respuesta = new FollowersCountDto();
-        dataOfSeller(sellerId,respuesta);
-        return respuesta;
-    }
-    private void dataOfSeller(int sellerId, FollowersCountDto respuesta){
         for(Sellers seller: sellers){
             if(seller.getUserId().equals(sellerId)){
                 respuesta.setUserName(seller.getUserName());
@@ -96,38 +97,57 @@ public class UserServices {
                 respuesta.setFollowers_count(countFollowers(sellerId));
             }
         }
+        //dataOfSeller(sellerId,respuesta);
+        return respuesta;
     }
-    public FollowersListDto followersList(int sellerId){
+//    private void dataOfSeller(int sellerId, FollowersCountDto respuesta){
+//        for(Sellers seller: sellers){
+//            if(seller.getUserId().equals(sellerId)){
+//                respuesta.setUserName(seller.getUserName());
+//                respuesta.setUserId(sellerId);
+//                respuesta.setFollowers_count(countFollowers(sellerId));
+//            }
+//        }
+//    }
+    public FollowersListDto followersList(int sellerId,String order){
         FollowersListDto respuesta = new FollowersListDto();
-        setFollowerList(sellerId,respuesta);
+        setFollowerList(sellerId,respuesta,order);
         return respuesta;
     }
 
-    private void setFollowerList(int sellerId, FollowersListDto respuesta){
+    private void setFollowerList(int sellerId, FollowersListDto respuesta,String order){
         for(Sellers seller: sellers){
             if(seller.getUserId().equals(sellerId)){
                 respuesta.setUserId(sellerId);
                 respuesta.setUserName(seller.getUserName());
-                respuesta.setFollowers(followers.get(sellerId));
+                if(order.equals("name_desc")){
+                    List<Users> aux = followers.get(sellerId);
+                    aux.sort((o1,o2) -> o2.getUserName().compareTo(o1.getUserName()));
+                    respuesta.setFollowers(aux);
+                }else{
+                    List<Users> aux = followers.get(sellerId);
+                    aux.sort((o1,o2) -> o1.getUserName().compareTo(o2.getUserName()));
+                    respuesta.setFollowers(aux);
+                }
             }
         }
     }
 
-    public SellersFollowedListDto followedList(int userId){
+    public SellersFollowedListDto followedList(int userId,String order){
         SellersFollowedListDto respuesta = new SellersFollowedListDto();
-        setFollowedList(userId,respuesta);
+        setFollowedList(userId,respuesta,order);
         return respuesta;
     }
-    private void setFollowedList(int userId, SellersFollowedListDto respuesta){
+    private void setFollowedList(int userId, SellersFollowedListDto respuesta,String order){
         for(Users user: users){
             if(user.getUserId().equals(userId)){
                 respuesta.setUserId(userId);
                 respuesta.setUserName(user.getUserName());
-                respuesta.setFollowed(searchFollowedDetails(userId));
+                respuesta.setFollowed(searchFollowedDetails(userId,order));
             }
         }
     }
-    private List<Sellers> searchFollowedDetails(int userId){
+    private List<Sellers> searchFollowedDetails(int userId,String order){
         List<Sellers> aux = new ArrayList<>();
         followers.forEach((k,v)-> {
             for(Users user:v){
@@ -140,6 +160,11 @@ public class UserServices {
                 }
             }
         });
+        if(order.equals("name_desc")){
+            aux.sort((o1,o2) -> o2.getUserName().compareTo(o1.getUserName()));
+        }else{
+            aux.sort((o1,o2) -> o1.getUserName().compareTo(o2.getUserName()));
+        }
          return aux;
     }
     public HttpStatus createPost(NewPostDto post){
@@ -151,16 +176,16 @@ public class UserServices {
            }
     }
 
-    public UserSeller2WeeksListDto postList(int userId){
+    public UserSeller2WeeksListDto postList(int userId,String order) throws ParseException {
         UserSeller2WeeksListDto respuesta = new UserSeller2WeeksListDto();
         respuesta.setUserId(userId);
-        respuesta.setPosts(getPostsWithUserId(userId));
+        respuesta.setPosts(orderList(userId,order));
         return respuesta;
     }
 
     private List<Integer> getSellersIdFollowed(int userId){
         List<Integer> respuesta = new ArrayList<>();
-        List<Sellers> listaCompleta =followedList(userId).getFollowed();
+        List<Sellers> listaCompleta =followedList(userId,"date_desc").getFollowed();
         for(Sellers lista : listaCompleta){
                 respuesta.add(lista.getUserId());
         }
@@ -178,10 +203,38 @@ public class UserServices {
             });
             return finalList;
         }
-    private List<NewPostDto> orderList(int userId){
+    private List<NewPostDto> orderList(int userId,String order) throws ParseException {
         List<NewPostDto> listaDesordenada= getPostsWithUserId(userId);
-        
+        if(order.equals("date_asc")){
+            listaDesordenada.sort((o1,o2) -> o1.getDate().compareTo(o2.getDate()));
+        }else {
+            listaDesordenada.sort((o1, o2) -> o2.getDate().compareTo(o1.getDate()));
+        }
+        String fechaDosSemanas = LocalDate.now().minusDays(14).format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        List<NewPostDto> listaOrdenada=new ArrayList<>();
+        for(NewPostDto lista: listaDesordenada){
+            SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+            if(sdformat.parse(lista.getDate()).compareTo(sdformat.parse(fechaDosSemanas))>0){
+                listaOrdenada.add(lista);
+            }
+        }
+        return listaDesordenada;
     }
 
+    public HttpStatus unFollow(Integer userId, Integer sellerId){
+        if(verifySeller(sellerId) && verifyUser(userId)){
+            List<Users> usuarios = followers.get(sellerId);
+            List<Users> usuariosFiltrados= new ArrayList<>();
+            for(Users user: usuarios){
+                if(!user.getUserId().equals(userId)){
+                    usuariosFiltrados.add(user);
+                }
+            }
+            followers.replace(sellerId,usuariosFiltrados);
+            return HttpStatus.OK;
+        }else{
+            return HttpStatus.BAD_REQUEST;
+        }
+    }
 
 }
