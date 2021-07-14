@@ -28,8 +28,9 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<PostListDto> getFollowedSellersPosts(@PathVariable Integer userId) throws UserException{
-        PostListDto postListDto = productService.getFollowedSellersPost(userId, "date_desc");
+    public ResponseEntity<PostListDto> getFollowedSellersPosts(@PathVariable Integer userId,
+                                                               @RequestParam(defaultValue = "date_desc") String order) throws UserException{
+        PostListDto postListDto = productService.getFollowedSellersPost(userId, order);
         return new ResponseEntity<>(postListDto, HttpStatus.OK);
     }
 }

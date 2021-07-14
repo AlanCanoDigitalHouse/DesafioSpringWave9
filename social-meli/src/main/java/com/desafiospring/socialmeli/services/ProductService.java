@@ -5,6 +5,7 @@ import com.desafiospring.socialmeli.dtos.models.Post;
 import com.desafiospring.socialmeli.dtos.requests.PostRequestDTO;
 import com.desafiospring.socialmeli.dtos.models.User;
 import com.desafiospring.socialmeli.dtos.responses.PostListDto;
+import com.desafiospring.socialmeli.exceptions.InvalidOrderRequestException;
 import com.desafiospring.socialmeli.exceptions.UserException;
 import com.desafiospring.socialmeli.handlers.ValidationHandler;
 import com.desafiospring.socialmeli.repositories.BuyerRepository;
@@ -13,6 +14,7 @@ import com.desafiospring.socialmeli.repositories.SellerRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,6 +49,11 @@ public class ProductService implements IProduct {
         /** Validar usuario */
         Buyer buyer = ValidationHandler.validateUser(userId, buyerRepository);
 
+        /** Validar orden*/
+        if(Arrays.stream(orderOptions).noneMatch(order::equals)){
+            throw new InvalidOrderRequestException();
+        }
+
         /** Obtener los posts de las ultimas 2 semanas */
         LocalDate twoWeeksBefore = LocalDate.now().minusWeeks(2);
         List<Post> lastPosts = productRepository.getAll().stream()
@@ -55,11 +62,7 @@ public class ProductService implements IProduct {
         /** Filtrar los posts de los vendedores que sigue el usuario */
         List<User> followed = buyer.getFollowed();
         List<Post> followedPosts = lastPosts.stream()
-                .filter(post -> followed.stream().map(User::getUserId).anyMatch(id -> {
-                    System.out.println(id);
-                    System.out.println(post.getUserId());
-                    return id.equals(post.getUserId());
-                }))
+                .filter(post -> followed.stream().map(User::getUserId).anyMatch(id ->  id.equals(post.getUserId())))
                 .collect(Collectors.toList());
 
         /** Ordenar segun criterio */
