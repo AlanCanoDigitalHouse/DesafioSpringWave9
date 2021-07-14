@@ -76,7 +76,7 @@ public class ProductController {
     }
 
     /**
-     * Endpoint to get the promo post of a user
+     * Endpoint to get the promo posts of a user
      *
      * @param userId the user id
      * @return a response entity

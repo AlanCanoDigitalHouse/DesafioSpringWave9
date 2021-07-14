@@ -59,7 +59,7 @@ public class UserController {
     }
 
     /**
-     * Endpoint to get the users that follow a user
+     * Endpoint to get the users that follow a user (order by name_asc or name_desc)
      *
      * @param UserID the user id
      * @param order  he user id
