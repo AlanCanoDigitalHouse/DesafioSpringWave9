@@ -1,0 +1,37 @@
+[
+  {
+    "userId": 1,
+    "userName": "pepe 1",
+    "posts": [],
+    "followers": [],
+    "followed": []
+  },
+  {
+    "userId": 2,
+    "userName": "pepe 2",
+    "posts": [],
+    "followers": [],
+    "followed": []
+  },
+  {
+    "userId": 3,
+    "userName": "pepe 3",
+    "posts": [],
+    "followers": [],
+    "followed": []
+  },
+  {
+    "userId": 4,
+    "userName": "pepe 4",
+    "posts": [],
+    "followers": [],
+    "followed": []
+  },
+  {
+    "userId": 5,
+    "userName": "pepe 5",
+    "posts": [],
+    "followers": [],
+    "followed": []
+  }
+]
