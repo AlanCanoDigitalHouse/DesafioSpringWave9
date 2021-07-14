@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @RestController
 @RequestMapping("/users")
 @Validated
@@ -40,15 +42,17 @@ public class UserController {
     }
 
     @GetMapping("/{UserID}/followers/list")
-    public ResponseEntity<FollowersResponseDTO> getFollowers(@PathVariable(name = "UserID") Integer userId) {
-        var responseBody = this.userService.getFollowers(userId);
+    public ResponseEntity<FollowersResponseDTO> getFollowers(@PathVariable(name = "UserID") Integer userId,
+                                                             @RequestParam(required = false) String order) {
+        var responseBody = this.userService.getFollowers(userId, order);
 
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
     @GetMapping("/{UserID}/followed/list")
-    public ResponseEntity<FollowedResponseDTO> getFollowed(@PathVariable(name = "UserID") Integer userId) {
-        var responseBody = this.userService.getFollowed(userId);
+    public ResponseEntity<FollowedResponseDTO> getFollowed(@PathVariable(name = "UserID") Integer userId,
+                                                           @RequestParam(required = false) String order) {
+        var responseBody = this.userService.getFollowed(userId, order);
 
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }

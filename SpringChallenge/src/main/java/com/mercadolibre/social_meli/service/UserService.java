@@ -5,9 +5,14 @@ import com.mercadolibre.social_meli.dto.response.FollowerCountResponseDTO;
 import com.mercadolibre.social_meli.dto.response.FollowersResponseDTO;
 import com.mercadolibre.social_meli.dto.response.UserResponseDTO;
 import com.mercadolibre.social_meli.entity.User;
+import com.mercadolibre.social_meli.exception.InvalidQueryParamException;
 import com.mercadolibre.social_meli.exception.NoEffectRequest;
 import com.mercadolibre.social_meli.repository.IUserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserService implements IUserService {
@@ -63,21 +68,44 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public FollowersResponseDTO getFollowers(Integer userId) {
+    public FollowersResponseDTO getFollowers(Integer userId, String order) {
         var user = this.userRepository.getUser(userId);
+        var dto = new FollowersResponseDTO(user.getUserId(), user.getUserName(), user.getFollowers());
 
-        return new FollowersResponseDTO(user.getUserId(), user.getUserName(), user.getFollowers());
+        if (Objects.nonNull(order)) {
+            this.sortUserNames(dto.getFollowers(), order);
+        }
+
+        return dto;
     }
 
     @Override
-    public FollowedResponseDTO getFollowed(Integer userId) {
+    public FollowedResponseDTO getFollowed(Integer userId, String order) {
         var user = this.userRepository.getUser(userId);
+        var dto = new FollowedResponseDTO(user.getUserId(), user.getUserName(), user.getFollowed());
 
-        return new FollowedResponseDTO(user.getUserId(), user.getUserName(), user.getFollowed());
+        if (Objects.nonNull(order)) {
+            this.sortUserNames(dto.getFollowed(), order);
+        }
+
+        return dto;
     }
 
     private Boolean isFollowing(User user, User target) {
         return user.getFollowed().stream()
                 .anyMatch(u -> u.getUserId().equals(target.getUserId()));
+    }
+
+    private void sortUserNames(List<UserResponseDTO> users, String order) {
+        switch (order) {
+            case "name_asc":
+                users.sort(Comparator.comparing(UserResponseDTO::getUserName));
+                break;
+            case "name_desc":
+                users.sort(Comparator.comparing(UserResponseDTO::getUserName).reversed());
+                break;
+            default:
+                throw new InvalidQueryParamException("Order param must be name_asc or name_desc");
+        }
     }
 }

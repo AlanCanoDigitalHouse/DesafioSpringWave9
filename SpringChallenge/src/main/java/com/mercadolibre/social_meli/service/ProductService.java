@@ -5,13 +5,11 @@ import com.mercadolibre.social_meli.dto.response.FollowedPostsResponseDTO;
 import com.mercadolibre.social_meli.dto.response.ProductResponseDTO;
 import com.mercadolibre.social_meli.dto.response.UserResponseDTO;
 import com.mercadolibre.social_meli.repository.IProductRepository;
-import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +31,7 @@ public class ProductService implements IProductService {
 
     @Override
     public FollowedPostsResponseDTO getFollowedRecentPosts(Integer userId) {
-        var followedIds = this.userService.getFollowed(userId)
+        var followedIds = this.userService.getFollowed(userId, null)
                 .getFollowed().stream().map(UserResponseDTO::getUserId).collect(Collectors.toList());
 
         var followedPosts = new FollowedPostsResponseDTO();

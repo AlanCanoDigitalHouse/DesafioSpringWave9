@@ -12,7 +12,7 @@ public interface IUserService {
 
     FollowerCountResponseDTO getFollowerCount(Integer userId);
 
-    FollowersResponseDTO getFollowers(Integer userId);
+    FollowersResponseDTO getFollowers(Integer userId, String order);
 
-    FollowedResponseDTO getFollowed(Integer userId);
+    FollowedResponseDTO getFollowed(Integer userId, String order);
 }
