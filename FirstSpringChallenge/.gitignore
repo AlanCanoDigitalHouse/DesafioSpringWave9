@@ -1,3 +1,4 @@
+.DS_Store
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -165,3 +166,6 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 .flattened-pom.xml
+*.cmd
+mvnw
+
