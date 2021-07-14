@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -31,7 +32,7 @@ public class ProductRequestDTO {
     private Integer category;
 
     @NotNull(message = "Publication needs a selling price to be valid")
-    @Min(value = 1, message = "Product price can't be below 1")
+    @DecimalMin(value = "0.1", message = "Product price can't be below 0.1")
     private Double price;
 
 }
