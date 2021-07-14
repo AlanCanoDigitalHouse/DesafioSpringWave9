@@ -18,6 +18,10 @@
     "userName": "vendedor2",
     "followers": [
       {
+        "userId": 2,
+        "userName": "cliente1"
+      },
+      {
         "userId": 3,
         "userName": "cliente3"
       }

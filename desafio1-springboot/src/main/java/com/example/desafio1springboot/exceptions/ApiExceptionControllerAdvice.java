@@ -22,6 +22,20 @@ public class ApiExceptionControllerAdvice {
     @ExceptionHandler
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage userAlreadyFollowingSeller(UserAlreadyFollowingSellerException ex) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.ERROR);
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage userClientDoesNotExistsInDatabase(UserClientDoesNotExistsException ex) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.ERROR);
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage handlerException(MethodArgumentNotValidException exception) {
         BindingResult result = exception.getBindingResult();
         List<FieldError> fieldErrors = result.getFieldErrors();

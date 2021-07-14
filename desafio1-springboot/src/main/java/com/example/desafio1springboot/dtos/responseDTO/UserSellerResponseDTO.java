@@ -8,10 +8,10 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class UserResponseDTO extends UserDTO {
+public class UserSellerResponseDTO extends UserDTO {
     private Integer followers_count;
 
-    public UserResponseDTO(Integer userId, String userName, Integer followers_count) {
+    public UserSellerResponseDTO(Integer userId, String userName, Integer followers_count) {
         super(userId, userName);
         this.followers_count = followers_count;
     }

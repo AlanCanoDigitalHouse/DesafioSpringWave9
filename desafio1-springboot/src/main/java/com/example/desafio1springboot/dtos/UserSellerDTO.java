@@ -6,9 +6,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class UserSellerDTO extends UserDTO{
     private List<UserDTO> followers;  // Todos los usuarios que siguen a este vendedor
 
