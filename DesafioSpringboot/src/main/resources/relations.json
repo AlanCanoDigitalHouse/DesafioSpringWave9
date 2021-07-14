@@ -1,0 +1,32 @@
+[
+  {
+    "relationId": 1,
+    "follower" : 3,
+    "following" : 2
+  },
+  {
+    "relationId": 2,
+    "follower" : 4,
+    "following" : 3
+  },
+  {
+    "relationId": 3,
+    "follower" : 5,
+    "following" : 2
+  },
+  {
+    "relationId": 4,
+    "follower" : 1,
+    "following" : 2
+  },
+  {
+    "relationId": 5,
+    "follower" : 5,
+    "following" : 5
+  },
+  {
+    "relationId": 6,
+    "follower" : 1,
+    "following" : 6
+  }
+]
