@@ -12,10 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -210,15 +207,18 @@ public class UserServices {
         }else {
             listaDesordenada.sort((o1, o2) -> o2.getDate().compareTo(o1.getDate()));
         }
-        String fechaDosSemanas = LocalDate.now().minusDays(14).format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        LocalDate fechaDosSemanas = LocalDate.now().minusDays(14);
         List<NewPostDto> listaOrdenada=new ArrayList<>();
         for(NewPostDto lista: listaDesordenada){
-            SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
-            if(sdformat.parse(lista.getDate()).compareTo(sdformat.parse(fechaDosSemanas))>0){
+            if(convertDate(lista.getDate()).isAfter(fechaDosSemanas)){
                 listaOrdenada.add(lista);
             }
         }
-        return listaDesordenada;
+        return listaOrdenada;
+    }
+    private LocalDate convertDate(String date){
+        String[] newDate= date.split("-");
+        return LocalDate.of(Integer.parseInt(newDate[2]) ,Integer.parseInt(newDate[1]),Integer.parseInt(newDate[0]));
     }
 
     public HttpStatus unFollow(Integer userId, Integer sellerId){
