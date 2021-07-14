@@ -7,10 +7,9 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class SellerDTO {
+@EqualsAndHashCode(callSuper = true)
+public class SellerDTO extends UserDTO {
 
-    private Integer userId;
-    private String userName;
     private List<UserDTO> followers = new LinkedList<>();
 
 }

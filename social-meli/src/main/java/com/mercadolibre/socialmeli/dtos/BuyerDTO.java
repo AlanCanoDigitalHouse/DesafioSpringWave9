@@ -7,10 +7,8 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class BuyerDTO {
-
-    private Integer userId;
-    private String userName;
+@EqualsAndHashCode(callSuper = true)
+public class BuyerDTO extends UserDTO {
 
     private List<UserDTO> followed = new LinkedList<>();
 
