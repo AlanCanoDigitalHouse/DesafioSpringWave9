@@ -1,29 +1,17 @@
 package com.example.desafio1springboot.repositories;
 
-import com.example.desafio1springboot.dtos.PostDTO;
-import com.example.desafio1springboot.dtos.UserClientDTO;
-import com.example.desafio1springboot.dtos.UserDTO;
-import com.example.desafio1springboot.dtos.UserSellerDTO;
-import com.example.desafio1springboot.exceptions.UserAlreadyFollowingSellerException;
-import com.example.desafio1springboot.exceptions.UserClientDoesNotExistsException;
-import com.example.desafio1springboot.exceptions.UserClientNotFollowingSellerException;
-import com.example.desafio1springboot.exceptions.UserSellerNotFoundExceptions;
+import com.example.desafio1springboot.dtos.*;
+import com.example.desafio1springboot.exceptions.*;
 import com.example.desafio1springboot.handlers.RepositoryHandler;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Repository
 public class UserRepositoryImpl implements IUserRepository{
-    private List<UserClientDTO> userClientDB;
     private List<UserSellerDTO> userSellerDB;
 
     public UserRepositoryImpl() {
-        this.userClientDB = RepositoryHandler.loadDatabaseUserClient();
         this.userSellerDB = RepositoryHandler.loadDatabaseUserSeller();
     }
 

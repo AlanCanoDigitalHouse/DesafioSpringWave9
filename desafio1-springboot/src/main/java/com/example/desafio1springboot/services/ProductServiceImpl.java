@@ -1,17 +1,13 @@
 package com.example.desafio1springboot.services;
 
-import com.example.desafio1springboot.dtos.PostDTO;
-import com.example.desafio1springboot.dtos.PostInPromoDTO;
-import com.example.desafio1springboot.dtos.responseDTO.UserPostsResposeDTO;
-import com.example.desafio1springboot.dtos.responseDTO.UserSellerResponseDTO;
-import com.example.desafio1springboot.exceptions.OrderNotValidException;
-import com.example.desafio1springboot.exceptions.PostNotValidDateException;
-import com.example.desafio1springboot.exceptions.UserSellerNotFoundExceptions;
-import com.example.desafio1springboot.repositories.IProductRepository;
-import com.example.desafio1springboot.repositories.IUserRepository;
+import com.example.desafio1springboot.dtos.*;
+import com.example.desafio1springboot.dtos.responseDTO.*;
+import com.example.desafio1springboot.exceptions.*;
+import com.example.desafio1springboot.repositories.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements IProductService{
@@ -35,7 +31,7 @@ public class ProductServiceImpl implements IProductService{
         if(!order.equals("date_asc") && !order.equals("date_desc"))
             throw new OrderNotValidException();
         iUserRepository.getUserSellerById(userId);
-        var userPostsResposeDTO = iProductRepository.listsPostsFromUser_(userId);
+        UserPostsResposeDTO<PostResponseDTO> userPostsResposeDTO = iProductRepository.listsPostsFromUser_(userId);
 
         if(order.equals("date_desc"))
             userPostsResposeDTO.getPosts().sort((d1, d2) -> d1.getDate().compareTo(d2.getDate()));
@@ -46,6 +42,21 @@ public class ProductServiceImpl implements IProductService{
     @Override
     public List<PostDTO> show() {
         return iProductRepository.show();
+    }
+
+    @Override
+    public UserPostsResposeDTO getPostsInPromoByUser_(Integer userId, String order) throws UserSellerNotFoundExceptions, OrderNotValidException {
+        var user = iUserRepository.getUserSellerById(userId);
+        var posts =iProductRepository.getPromoPostByUser_(userId);
+        List<PromoPostResponseDTO> promoPostResponseDTOS = posts.stream().map(PromoPostResponseDTO::toPromoPostDTO).collect(Collectors.toList());
+        UserPostsResposeDTO<PromoPostResponseDTO> userPostsResposeDTO = new UserPostsResposeDTO(userId, user.getUserName(), promoPostResponseDTOS);
+        if(!order.equals("nameProduct_asc") && !order.equals("nameProduct_desc"))
+            throw new OrderNotValidException();
+        userPostsResposeDTO.getPosts().sort((a, b) -> a.getDetail().getProductName().compareTo(b.getDetail().getProductName()));
+        if(order.equals("nameProduct_desc"))
+            userPostsResposeDTO.getPosts().sort((a, b) -> b.getDetail().getProductName().compareTo(a.getDetail().getProductName()));
+
+        return userPostsResposeDTO;
     }
 
     @Override

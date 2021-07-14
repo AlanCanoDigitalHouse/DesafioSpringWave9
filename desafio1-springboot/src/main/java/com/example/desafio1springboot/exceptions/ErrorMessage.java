@@ -1,16 +1,11 @@
 package com.example.desafio1springboot.exceptions;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Map;
 
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class ErrorMessage {
     private Integer status;
     private String error;

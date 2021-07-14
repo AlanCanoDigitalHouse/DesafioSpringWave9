@@ -1,12 +1,7 @@
 package com.example.desafio1springboot.repositories;
 
-import com.example.desafio1springboot.dtos.UserClientDTO;
-import com.example.desafio1springboot.dtos.UserDTO;
-import com.example.desafio1springboot.dtos.UserSellerDTO;
-import com.example.desafio1springboot.exceptions.UserAlreadyFollowingSellerException;
-import com.example.desafio1springboot.exceptions.UserClientDoesNotExistsException;
-import com.example.desafio1springboot.exceptions.UserClientNotFollowingSellerException;
-import com.example.desafio1springboot.exceptions.UserSellerNotFoundExceptions;
+import com.example.desafio1springboot.dtos.*;
+import com.example.desafio1springboot.exceptions.*;
 
 public interface IUserRepository {
     UserSellerDTO getUserSellerById(Integer userId) throws UserSellerNotFoundExceptions;

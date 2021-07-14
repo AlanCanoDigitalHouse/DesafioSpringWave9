@@ -1,17 +1,11 @@
 package com.example.desafio1springboot.dtos;
 
-import com.example.desafio1springboot.dtos.responseDTO.PostResponseDTO;
-import com.example.desafio1springboot.repositories.ProductRepositoryImpl;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.Date;
 
 @AllArgsConstructor

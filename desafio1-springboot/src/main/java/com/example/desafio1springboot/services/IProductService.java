@@ -1,12 +1,8 @@
 package com.example.desafio1springboot.services;
 
-import com.example.desafio1springboot.dtos.PostDTO;
-import com.example.desafio1springboot.dtos.PostInPromoDTO;
-import com.example.desafio1springboot.dtos.responseDTO.UserPostsResposeDTO;
-import com.example.desafio1springboot.dtos.responseDTO.UserSellerResponseDTO;
-import com.example.desafio1springboot.exceptions.OrderNotValidException;
-import com.example.desafio1springboot.exceptions.PostNotValidDateException;
-import com.example.desafio1springboot.exceptions.UserSellerNotFoundExceptions;
+import com.example.desafio1springboot.dtos.*;
+import com.example.desafio1springboot.dtos.responseDTO.*;
+import com.example.desafio1springboot.exceptions.*;
 
 import java.util.List;
 
@@ -16,4 +12,6 @@ public interface IProductService {
     void addNewPromoPost(PostInPromoDTO post) throws PostNotValidDateException;
     UserSellerResponseDTO countProductsInPromo(Integer userId) throws UserSellerNotFoundExceptions;
     List<PostDTO> show();
+
+    UserPostsResposeDTO getPostsInPromoByUser_(Integer userId, String order) throws UserSellerNotFoundExceptions, OrderNotValidException;
 }

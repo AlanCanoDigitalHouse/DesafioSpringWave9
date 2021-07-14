@@ -6,9 +6,7 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class UserSellerResponseDTO extends UserDTO {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer followers_count;

@@ -1,17 +1,11 @@
 package com.example.desafio1springboot.repositories;
 
-import com.example.desafio1springboot.dtos.PostDTO;
-import com.example.desafio1springboot.dtos.PostInPromoDTO;
-import com.example.desafio1springboot.dtos.responseDTO.PostResponseDTO;
-import com.example.desafio1springboot.dtos.responseDTO.UserPostsResposeDTO;
-import com.example.desafio1springboot.dtos.responseDTO.UserSellerResponseDTO;
+import com.example.desafio1springboot.dtos.*;
+import com.example.desafio1springboot.dtos.responseDTO.*;
 import com.example.desafio1springboot.exceptions.PostNotValidDateException;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -37,7 +31,7 @@ public class ProductRepositoryImpl implements IProductRepository{
         List<PostResponseDTO> postsResponse = new ArrayList<>();
         listPostFiltered.stream().forEach(postDTO -> postsResponse.add(new PostResponseDTO(postDTO.getId_post(), postDTO.getDate(), postDTO.getDetail(), postDTO.getCategory(), postDTO.getPrice())));
 
-        UserPostsResposeDTO userPostsResposeDTO = new UserPostsResposeDTO(userId);
+        UserPostsResposeDTO<PostResponseDTO> userPostsResposeDTO = new UserPostsResposeDTO(userId);
         userPostsResposeDTO.setPosts(postsResponse);
         userPostsResposeDTO.getPosts().sort((d1, d2) -> d2.getDate().compareTo(d1.getDate()));
         return userPostsResposeDTO;

@@ -1,7 +1,6 @@
 package com.example.desafio1springboot.services;
 
-import com.example.desafio1springboot.dtos.UserClientDTO;
-import com.example.desafio1springboot.dtos.UserSellerDTO;
+import com.example.desafio1springboot.dtos.*;
 import com.example.desafio1springboot.dtos.responseDTO.UserSellerResponseDTO;
 import com.example.desafio1springboot.exceptions.*;
 import com.example.desafio1springboot.repositories.IUserRepository;

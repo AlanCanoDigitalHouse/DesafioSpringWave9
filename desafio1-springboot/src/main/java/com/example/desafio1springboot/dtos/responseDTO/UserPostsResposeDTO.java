@@ -1,18 +1,20 @@
 package com.example.desafio1springboot.dtos.responseDTO;
 
-import com.example.desafio1springboot.dtos.PostDTO;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
 import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserPostsResposeDTO {
+public class UserPostsResposeDTO<T> {
     private Integer userId;
-    private List<PostResponseDTO> posts;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String userName;
+    private List<T> posts;
 
     public UserPostsResposeDTO(Integer userId) {
         this.userId = userId;

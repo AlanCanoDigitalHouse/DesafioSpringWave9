@@ -1,7 +1,6 @@
 package com.example.desafio1springboot.controllers;
 
-import com.example.desafio1springboot.dtos.UserClientDTO;
-import com.example.desafio1springboot.dtos.UserSellerDTO;
+import com.example.desafio1springboot.dtos.*;
 import com.example.desafio1springboot.dtos.responseDTO.UserSellerResponseDTO;
 import com.example.desafio1springboot.exceptions.*;
 import com.example.desafio1springboot.services.IUserService;
@@ -80,16 +79,4 @@ public class UserRestController {
         iUserService.unfollowSeller_By_(userId, userIdToFollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    /**
-     * TODO: US 0008: Retorna un listado con todos los vendedores que siga un usuario, en caso contrario [].
-     * @param userId
-     * @return ResponseEntity<UserClientDTO>
-     * @throws UserClientDoesNotExistsException
-     */
-    /*@GetMapping("/{userId}/followers/list")
-    public ResponseEntity<String> orderFollowersList(@PathVariable Integer userId, @RequestParam(defaultValue = "World") String order) {
-        var o = order;
-        return new ResponseEntity<>(o ,HttpStatus.OK);
-    }*/
 }

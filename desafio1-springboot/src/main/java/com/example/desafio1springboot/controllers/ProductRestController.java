@@ -1,12 +1,8 @@
 package com.example.desafio1springboot.controllers;
 
-import com.example.desafio1springboot.dtos.PostDTO;
-import com.example.desafio1springboot.dtos.PostInPromoDTO;
-import com.example.desafio1springboot.dtos.responseDTO.UserPostsResposeDTO;
-import com.example.desafio1springboot.dtos.responseDTO.UserSellerResponseDTO;
-import com.example.desafio1springboot.exceptions.OrderNotValidException;
-import com.example.desafio1springboot.exceptions.PostNotValidDateException;
-import com.example.desafio1springboot.exceptions.UserSellerNotFoundExceptions;
+import com.example.desafio1springboot.dtos.*;
+import com.example.desafio1springboot.dtos.responseDTO.*;
+import com.example.desafio1springboot.exceptions.*;
 import com.example.desafio1springboot.services.IProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +16,6 @@ import java.util.List;
 public class ProductRestController {
 
     IProductService iProductService;
-
     public ProductRestController(IProductService iProductService) {
         this.iProductService = iProductService;
     }
@@ -38,9 +33,7 @@ public class ProductRestController {
      * @throws UserSellerNotFoundExceptions, PostNotValidDateException
      */
     @PostMapping("/newpost")
-    public ResponseEntity<String> createNewPost(
-            @Valid @RequestBody PostDTO post
-            ) throws UserSellerNotFoundExceptions, PostNotValidDateException {
+    public ResponseEntity<String> createNewPost(@Valid @RequestBody PostDTO post) throws UserSellerNotFoundExceptions, PostNotValidDateException {
         iProductService.createNewPost(post);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -80,5 +73,17 @@ public class ProductRestController {
     @GetMapping("/{userId}/countPromo")
     public ResponseEntity<UserSellerResponseDTO> countPromoPost(@PathVariable Integer userId) throws UserSellerNotFoundExceptions {
         return new ResponseEntity<>(iProductService.countProductsInPromo(userId), HttpStatus.OK);
+    }
+
+    //DESARROLLADO Y FUNCIONANDO
+    /**
+     * TODO: US 0012: Retorna los post promocionados por un usuario
+     * @param userId
+     * @return ResponseEntity<String>
+     * @throws PostNotValidDateException, OrderNotValidException
+     */
+    @GetMapping("/{userId}/list")
+    public ResponseEntity<UserPostsResposeDTO> postPromoByUser_(@PathVariable Integer userId, @RequestParam(defaultValue = "nameProduct_asc") String order) throws UserSellerNotFoundExceptions, OrderNotValidException {
+        return new ResponseEntity<>(iProductService.getPostsInPromoByUser_(userId, order), HttpStatus.OK);
     }
 }
