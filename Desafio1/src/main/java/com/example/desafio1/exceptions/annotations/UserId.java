@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @PositiveOrZero(message = "Id should be a natural number")
 @Constraint(validatedBy = {UserIdValidator.class})
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.PARAMETER, ElementType.METHOD})
+@Target({ElementType.PARAMETER, ElementType.FIELD})
 public @interface UserId {
     String message() default "Id is not present";
     Class<?>[] groups() default{};

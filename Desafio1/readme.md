@@ -9,6 +9,7 @@ pero se implementaron annotations que consumieron bastante tiempo y no dio cabid
 - dto: Acá van las clases que se parsean, serializan y también responses.
 - exceptions: acá están las clases que se devuelven por errores, se usó un advice y también 
 una estructura de annotations y validators (constraint validations). 
+  Estos anotations se agregaron sobre la interfaz del repositorio de usuario.
   Dejo acá el link de dónde saqué la info:
   https://levelup.gitconnected.com/constraint-validation-in-spring-boot-microservices-b89805e9c540
   https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-gettingstarted

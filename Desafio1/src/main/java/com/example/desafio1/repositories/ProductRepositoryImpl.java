@@ -2,6 +2,7 @@ package com.example.desafio1.repositories;
 
 import com.example.desafio1.dto.Post;
 import com.example.desafio1.dto.User;
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -25,6 +26,8 @@ public class ProductRepositoryImpl implements IProductRepository{
     }
 
     public void addNewPost(Post post){
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-M-yyyy");
+        LocalDate testDate = LocalDate.parse(post.getDate(), df);
         post.setPostId(counter.getAndIncrement());
         posts.add(post);
     }
