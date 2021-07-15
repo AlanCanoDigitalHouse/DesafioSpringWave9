@@ -4,8 +4,8 @@
 - [iOS setup](#ios-setup)
     - [Requerimientos](#requerimientos)
         - [Set up](#set-up)
-    - [¿Cómo correrlo localmente?](#¿cómo-correrlo-localmente?)
-- [¿Cómo funciona?](#¿cómo-funciona?)
+    - [¿Cómo correrlo localmente?](#cómo-correrlo-localmente)
+- [¿Cómo funciona?](#cómo-funciona)
 - [Decisiones tomadas](#decisiones-tomadas)
 
 ## iOS-Setup
