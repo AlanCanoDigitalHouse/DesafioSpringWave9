@@ -111,7 +111,7 @@ Excepciones esperadas:
 - No se esta siguiendo a ese usuario
 - Error de tipo (letra en vez de número)
 
-### 0008: Alphabetical order (users)
+### 0008: Orden alfabetico (users)
 
 Endpoint example: GET [localhost:8080/users/1/followers/list?order=name_desc]()
 Endpoint example: GET [localhost:8080/users/7/followed/list?order=name_asc]()
@@ -123,7 +123,7 @@ Payload: Ninguna
 Excepciones esperadas (ver 0004 y 0005 para adicionales):
 - Orden ingresado no es valido
 
-### 0008: Alphabetical order (users)
+### 0009: Ordenar por fecha (posts)
 
 Endpoint example: GET [localhost:8080/products/followed/7/list?order=date_asc]()
 Endpoint example: GET [localhost:8080/products/followed/7/list?order=date_desc]()
@@ -134,5 +134,36 @@ Payload: Ninguno
 
 Excepciones esperadas (ver 0006 para adicionales):
 - Orden ingresado no es valido
+
+### 0010: Crear promo post
+
+Endpoint example POST [localhost:8080/products/newpromopost]()
+
+Payload: 
+````json
+{
+"userId": 1,
+"date": "29-04-2021",
+"detail": {
+    "productName": "Silla Gamer",
+    "type": "Gamer",
+    "brand": "Racer",
+    "color": "Red & Black",
+    "notes": "Special Edition"
+},
+"category": 100,
+"price": 15000.5,
+"hasPromo":"true",
+"discount":10
+}
+````
+Excepciones esperadas:
+- Todas las de 0006
+- Faltan atributos de promo
+- El valor del descuento está fuera del rango 0 a 1
+
+
+
+
 
 

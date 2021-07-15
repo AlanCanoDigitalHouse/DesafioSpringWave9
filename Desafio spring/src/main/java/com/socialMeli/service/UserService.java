@@ -67,8 +67,8 @@ public class UserService {
         return new UserFollowedResponseDTO(userModel.getId(), userModel.getUserName(), followed);
     }
 
-    private void orderBy(List<BasicUserResponseDTO> listToOrder,String order) throws OrderNotValidException {
-        switch (order){
+    private void orderBy(List<BasicUserResponseDTO> listToOrder, String order) throws OrderNotValidException {
+        switch (order) {
             case "name_asc":
                 listToOrder.sort((Comparator.comparing(BasicUserResponseDTO::getUserName)));
                 break;

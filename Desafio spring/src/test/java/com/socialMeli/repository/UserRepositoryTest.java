@@ -14,8 +14,7 @@ public class UserRepositoryTest {
 
     @Test
     public void createModel() throws ModelAlreadyExists, ModelNotExists {
-        UserModel userModel = new UserModel();
-        userModel.setId(1);
+        UserModel userModel = UserModel.builder().id(1).build();
         userRepository.insert(userModel);
 
         Assertions.assertEquals(1,userRepository.findById(1).getId());
@@ -23,8 +22,8 @@ public class UserRepositoryTest {
 
     @Test
     public void modifyModel() throws ModelAlreadyExists, ModelNotExists {
-        UserModel userModel = new UserModel();
-        userModel.setId(1);
+        UserModel userModel = UserModel.builder().id(1).build();
+
         userRepository.insert(userModel);
         userModel.setUserName("DIFFERENT");
         userRepository.modify(userModel);
@@ -33,8 +32,8 @@ public class UserRepositoryTest {
 
     @Test
     public void deleteModel() throws ModelAlreadyExists, ModelNotExists {
-        UserModel userModel = new UserModel();
-        userModel.setId(1);
+        UserModel userModel = UserModel.builder().id(1).build();
+
         userRepository.insert(userModel);
         userRepository.delete(userModel);
 

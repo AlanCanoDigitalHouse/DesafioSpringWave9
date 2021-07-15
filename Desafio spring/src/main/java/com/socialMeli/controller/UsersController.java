@@ -52,6 +52,7 @@ public class UsersController {
     /**
      * TODO: 0003 Get the list of the users that follow a other user
      * TODO: 0008 Users can be ordered by name
+     *
      * @param userID user that want know the followers lists
      * @return Name and id of the user, with their list of users with the id and name
      * @throws ModelNotExists The id provided not exists
@@ -64,6 +65,7 @@ public class UsersController {
     /**
      * TODO: 0004 Get the list of the users that a user follow
      * TODO: 0008 Users can be ordered by name
+     *
      * @param userID user that want know the followers lists
      * @return Name and id of the user, with their list of users with the id and name
      * @throws ModelNotExists The id provided not exists

@@ -2,6 +2,7 @@ package com.socialMeli.controller;
 
 import com.socialMeli.SocialMeliApplication;
 import com.socialMeli.dto.request.product.PostInfoToCreateDTO;
+import com.socialMeli.dto.request.product.PromoPostInfoToCreateDTO;
 import com.socialMeli.dto.response.ProductsSellersThatUserFollowsDTO;
 import com.socialMeli.exception.exception.DateNotValidException;
 import com.socialMeli.exception.exception.ModelAlreadyExists;
@@ -54,5 +55,21 @@ public class ProductsController {
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<ProductsSellersThatUserFollowsDTO> listPostsSellerThatAUserFollow(@PathVariable int userId, @RequestParam(defaultValue = "date_asc") String order) throws ModelNotExists, OrderNotValidException {
         return new ResponseEntity<>(postService.postSellersThatUserFollows(userId, order), HttpStatus.OK);
+    }
+
+    /**
+     * TODO 0010: Create a new post with a promo
+     *
+     * @param postInfo info of the post
+     * @return Status code 200 if all Ok or 400 if a error was generated
+     * @throws ModelAlreadyExists    if that post already exists
+     * @throws ParseException        Parse Date exception (technically is exception of simpleDateFormatter)
+     * @throws ModelNotExists        If the user id in the payload not exists
+     * @throws DateNotValidException If the date have a logic error, a month 15 for example
+     */
+    @PostMapping("/newpromopost")
+    public ResponseEntity<Void> newPromoPost(@Valid @RequestBody PromoPostInfoToCreateDTO postInfo) throws ModelAlreadyExists, ParseException, ModelNotExists, DateNotValidException {
+        postService.addNewPost(postInfo);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

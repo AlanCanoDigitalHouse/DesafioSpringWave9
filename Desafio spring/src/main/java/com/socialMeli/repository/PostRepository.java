@@ -1,6 +1,6 @@
 package com.socialMeli.repository;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.socialMeli.model.AbstractModel;
 import com.socialMeli.model.PostModel;
@@ -40,11 +40,11 @@ public class PostRepository extends AbstractRepository<PostModel> {
     @Override
     protected List<PostModel> mapObject(File file) {
         ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<PostModel>> typeReference = new TypeReference<>() {
-        };
+        JavaType type = objectMapper.getTypeFactory().
+                constructCollectionType(List.class, PostModel.class);
         List<PostModel> models;
         try {
-            models = objectMapper.readValue(file, typeReference);
+            models = objectMapper.readValue(file, type);
         } catch (IOException e) {
             logger.error("Cant read json (probably is empty) full error: " + e.getMessage());
             models = new ArrayList<>();

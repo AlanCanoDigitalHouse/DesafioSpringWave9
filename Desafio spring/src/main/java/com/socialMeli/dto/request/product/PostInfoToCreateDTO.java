@@ -2,6 +2,7 @@ package com.socialMeli.dto.request.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.Valid;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class PostInfoToCreateDTO {
     @NotNull(message = "User id can't be null")

@@ -64,7 +64,7 @@ public class ApiException {
 
     @SuppressWarnings("unused")
     @ExceptionHandler(OrderNotValidException.class)
-    public ResponseEntity<ErrorMessage> orderNotValid(OrderNotValidException ex){
+    public ResponseEntity<ErrorMessage> orderNotValid(OrderNotValidException ex) {
         return new ResponseEntity<>(new ErrorMessage("Order is invalid", ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
