@@ -4,13 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
-public class ResponseFollowersDto {
-    private Integer userId;
-    private String username;
-    private ArrayList<ResponseUserDto> followers;
+public class ResponseFollowersDto  extends ResponseUserDto{
+    private List<ResponseUserDto> followers;
 }

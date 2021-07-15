@@ -1,8 +1,6 @@
 package com.example.socialmeli.handlers;
 
-import com.example.socialmeli.models.Product;
 import com.example.socialmeli.models.User;
-import com.example.socialmeli.repositories.ProductRepository;
 import com.example.socialmeli.repositories.UserRepository;
 
 public class ServiceHandler {

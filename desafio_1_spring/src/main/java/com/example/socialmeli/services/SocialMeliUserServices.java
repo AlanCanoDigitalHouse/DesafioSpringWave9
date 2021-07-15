@@ -1,6 +1,7 @@
 package com.example.socialmeli.services;
 
 import com.example.socialmeli.dtos.responses.ResponseRequestDto;
+import com.example.socialmeli.exceptions.InvalidOrder;
 import com.example.socialmeli.exceptions.UserNotFound;
 import com.example.socialmeli.handlers.ServiceHandler;
 import com.example.socialmeli.handlers.UserHandler;
@@ -11,8 +12,6 @@ import com.example.socialmeli.dtos.responses.ResponseFollowersDto;
 import com.example.socialmeli.repositories.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletResponse;
 
 @Service
 public class SocialMeliUserServices implements ISocialMeliUserServices {
@@ -49,12 +48,12 @@ public class SocialMeliUserServices implements ISocialMeliUserServices {
         return UserHandler.getCantFollowers(user);
     }
 
-    public ResponseFollowersDto getFollowersInfo(Integer userId, String order) throws UserNotFound {
+    public ResponseFollowersDto getFollowersInfo(Integer userId, String order) throws UserNotFound, InvalidOrder {
         User user = userRepository.find(userId);
         return UserHandler.getFollowersInfo(user,order);
     }
 
-    public ResponseFollowedDto getFollowedInfo(Integer userId, String order) throws UserNotFound {
+    public ResponseFollowedDto getFollowedInfo(Integer userId, String order) throws UserNotFound, InvalidOrder {
         User user = userRepository.find(userId);
         return UserHandler.getFollowedInfo(user,order);
     }

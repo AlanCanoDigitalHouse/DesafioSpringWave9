@@ -1,12 +1,11 @@
 package com.example.socialmeli.dtos.responses;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@NoArgsConstructor
-public class ResponseCantFollowersDto {
-    private Integer userId;
-    private String userName;
+@Getter
+@Setter
+public class ResponseCantFollowersDto extends ResponseUserDto{
     private Integer followersCount;
+
 }

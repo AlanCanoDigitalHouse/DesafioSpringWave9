@@ -1,5 +1,7 @@
 package com.example.socialmeli.exceptions;
 
-public class UserNotFound extends Exception{
-    static final String message = "User not found";
+public class UserNotFound extends AppException{
+    public UserNotFound(){
+        message = "No se encontró el usuario buscado";
+    }
 }

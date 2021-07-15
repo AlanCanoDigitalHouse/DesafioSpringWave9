@@ -1,7 +1,6 @@
 package com.example.socialmeli.models;
 
 import com.example.socialmeli.dtos.responses.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,12 +34,10 @@ public class User {
     }
 
     public void removeFollowed(User userToUnfollow) {
-        if(followed.contains(userToUnfollow))
             followed.remove(userToUnfollow);
     }
 
     public void removeFollower(User user) {
-        if(followers.contains(user))
             followers.remove(user);
     }
 
