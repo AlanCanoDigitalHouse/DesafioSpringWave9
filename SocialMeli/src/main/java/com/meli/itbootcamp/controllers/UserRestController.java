@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/users")
 public class UserRestController {
@@ -49,7 +51,8 @@ public class UserRestController {
      * @throws UserException si el usuario que se paso no existe o no es un vendedor
      */
     @GetMapping("/{UserId}/followers/list")
-    public UserFollowsDTO sellerFollowers(@PathVariable Integer UserId,@RequestParam("order") String orderBy) throws UserException {
+    public UserFollowsDTO sellerFollowers(@PathVariable Integer UserId,
+                                          @RequestParam(value = "order") Optional<String> orderBy) throws UserException {
         return userServices.followersList(UserId, orderBy);
     }
 
@@ -61,7 +64,7 @@ public class UserRestController {
      * @throws UserException si el usuario que se paso no existe o es un usuario vendedor.
      */
     @GetMapping("/{UserId}/followed/list")
-    public UserFollowsDTO userFollows(@PathVariable Integer UserId,@RequestParam("order") String orderBy) throws UserException {
+    public UserFollowsDTO userFollows(@PathVariable Integer UserId,@RequestParam("order") Optional<String> orderBy) throws UserException {
         return userServices.followedList(UserId,orderBy);
     }
 

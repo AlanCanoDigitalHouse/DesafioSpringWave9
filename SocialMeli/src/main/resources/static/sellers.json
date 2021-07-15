@@ -1,0 +1,14 @@
+[
+  {
+    "userId": 1,
+    "userName": "vendedor1"},
+  {
+    "userId": 2,
+    "userName": "vendedor2"},
+  {
+    "userId": 5,
+    "userName": "vendedor3"},
+  {
+    "userId": 6,
+    "userName": "vendedor4"}
+]

@@ -1,5 +1,6 @@
 package com.meli.itbootcamp.repositories;
 
+import com.meli.itbootcamp.handlers.DataLoader;
 import com.meli.itbootcamp.model.User;
 import com.meli.itbootcamp.model.UserNonSeller;
 import com.meli.itbootcamp.model.UserSeller;
@@ -14,6 +15,13 @@ import java.util.Optional;
 public class UserRepositoryImpl implements  UserRepository{
     private  final static  List<UserNonSeller> usersMeli = new ArrayList<>();
     private  final static  List<UserSeller> sellersMeli = new ArrayList<>();
+
+    public UserRepositoryImpl() {
+        DataLoader.loadUserSeller().forEach(seller-> sellersMeli.add(new UserSeller(seller.getUserId(),
+                seller.getUserName())));
+        DataLoader.loadNonSeller().forEach(nonSeller-> usersMeli.add(new UserNonSeller(nonSeller.getUserId(),
+                nonSeller.getUserName())));
+    }
 
     @Override
     public UserNonSeller saveUser(UserNonSeller toSave) {

@@ -41,8 +41,14 @@ public class PostServicesImpl implements PostServices {
     }
 
     @Override
-    public ListPostSellerDTO getPostSeller(Integer nonSeller, String orderBy) throws UserException {
+    public ListPostSellerDTO getPostSeller(Integer nonSeller, Optional<String> orderByOptional) throws UserException {
         UserNonSeller userNonSeller = userServices.findUserNonSellerById(nonSeller);
+        String orderBy;
+        if(orderByOptional.isPresent()){
+            orderBy= orderByOptional.get();
+        }else {
+            orderBy ="date_des";
+        }
         if (Objects.isNull(userNonSeller)) {
             throw new UserException(UserException.NOT_USER);
         }
@@ -74,6 +80,7 @@ public class PostServicesImpl implements PostServices {
         Post newPost = new Post(newPromo.getCategory(), newProduct, newPromo.getPrice());
         newPost = postRepository.addNewPost(newPost);
         Promo newPromoPost = new Promo(newPost, newPromo.getHasPromo(), newPromo.getDiscount());
+        userSeller.addNewPromo(newPromoPost);
         return new ResponseDTO(200, "Promo created");
     }
 
@@ -84,12 +91,16 @@ public class PostServicesImpl implements PostServices {
     }
 
     @Override
-    public ListPromoSellerDTO getPromoSeller(Integer seller, String orderBy) {
+    public ListPromoSellerDTO getPromoSeller(Integer seller, Optional<String> orderByOptional) {
         UserSeller userSeller = userServices.findUserSellerById(seller);
-
+        String orderBy;
+        if(orderByOptional.isPresent()){
+            orderBy= orderByOptional.get();
+        }else {
+            orderBy ="name_des";
+        }
         List<PromoDTO> listPromoDTO = new ArrayList<>();
         List<Promo> listPromo = new ArrayList<>();
-        //TODO revisar us0004
         if (orderBy.equalsIgnoreCase("name_asc") || orderBy.equalsIgnoreCase("name_des")) {
                 listPromo = userSeller.getAllPromo().stream().sorted(Comparator.comparing(promo -> promo.getPostfromPromo().getItem().getProductName())).collect(Collectors.toList());
             if (orderBy.equalsIgnoreCase("name_asc")) {

@@ -19,6 +19,7 @@ public class Promo extends Post{
     }
     public  Promo(Post post, Boolean hasPromo, Double discount){
         super(post.getCategory(), post.getItem(), post.getPrice());
+        this.setId_post(post.getId_post());
         this.hasPromo = hasPromo;
         this.discount = discount;
     }

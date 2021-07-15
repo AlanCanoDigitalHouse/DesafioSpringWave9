@@ -11,10 +11,7 @@ import com.meli.itbootcamp.model.UserSeller;
 import com.meli.itbootcamp.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,17 +55,21 @@ public class UserServicesImpl implements UserServices {
     }
 
     @Override
-    public UserFollowsDTO followersList(Integer seller, String orderBy) throws UserException {
+    public UserFollowsDTO followersList(Integer seller, Optional<String> orderByOptional) throws UserException {
+        String orderBy;
+        if(orderByOptional.isPresent()){
+            orderBy= orderByOptional.get();
+        }else {
+            orderBy ="name_des";
+        }
         UserSeller userSeller = userRepository.findUserSellerById(seller);
 
         if (Objects.isNull(userSeller)) {
             throw new UserException(UserException.NOT_SELLER);
         }
-        //TODO aplicar orden por default
         List<User> followers=new ArrayList<>();
         if (orderBy.equalsIgnoreCase("name_asc") || orderBy.equalsIgnoreCase("name_des")) {
             if (orderBy.equalsIgnoreCase("name_asc")) {
-                //Fixme: revisar comparacion
                 followers =
                         userSeller.listFollowers().stream().sorted(Comparator.comparing(user -> user.getUserName().toUpperCase())).collect(Collectors.toList());
             } else {
@@ -81,7 +82,13 @@ public class UserServicesImpl implements UserServices {
     }
 
     @Override
-    public UserFollowsDTO followedList(Integer nonSeller, String orderBy) throws UserException {
+    public UserFollowsDTO followedList(Integer nonSeller, Optional<String> orderByOptional) throws UserException {
+        String orderBy;
+        if(orderByOptional.isPresent()){
+            orderBy= orderByOptional.get();
+        }else {
+            orderBy ="name_des";
+        }
         UserNonSeller userNonSeller = userRepository.findUserNonSellerById(nonSeller);
         if (Objects.isNull(userNonSeller)) {
             throw new UserException(UserException.NOT_SELLER);

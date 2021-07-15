@@ -9,12 +9,14 @@ import com.meli.itbootcamp.dto.request.PromoRequestDTO;
 import com.meli.itbootcamp.exceptions.PostException;
 import com.meli.itbootcamp.exceptions.UserException;
 
+import java.util.Optional;
+
 public interface PostServices {
     ResponseDTO createNewPost(PostRequestDTO newPost) throws PostException;
-    ListPostSellerDTO getPostSeller(Integer nonSeller, String orderBy) throws UserException;
+    ListPostSellerDTO getPostSeller(Integer nonSeller, Optional<String> orderBy) throws UserException;
     ResponseDTO createNewPromo(PromoRequestDTO newPromo) throws UserException;
     CountPromoDTO quantPromo(Integer seller);
-    ListPromoSellerDTO getPromoSeller(Integer seller, String orderBy);
+    ListPromoSellerDTO getPromoSeller(Integer seller, Optional<String> orderBy);
 
 
 

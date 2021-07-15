@@ -57,7 +57,7 @@ public class UserSeller extends User {
      * @return user who follow the seller
      */
     public List<User> listFollowers() {
-        return listFollowers();
+        return usersFollowme;
     }
 
     /**
@@ -92,6 +92,7 @@ public class UserSeller extends User {
      * @return
      */
     public Boolean addNewPromo(Promo newPromo) {
+
         return listPromo.add(newPromo);
     }
 

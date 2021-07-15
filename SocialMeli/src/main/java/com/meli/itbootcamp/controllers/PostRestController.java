@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
@@ -32,7 +33,7 @@ public class PostRestController {
     }
 
     /**
-     * US0009- Listado de todas las publicaciones hechas por los vendedores que sigue un usuario, y que hayan sido
+     * US0006- Listado de todas las publicaciones hechas por los vendedores que sigue un usuario, y que hayan sido
      * creada en las ultimas 2 semanas
      * @param userId usuario del que se desea obtener el listado
      * @param orderBy orden en el que se presentan las publicaciones, segun su fecha de creacion
@@ -40,7 +41,7 @@ public class PostRestController {
      * @throws UserException Si el usuario no existe, o es un vendedor
      */
     @GetMapping("/followed/{userId}/list")
-    public ListPostSellerDTO getPostSeller(@PathVariable Integer userId, @RequestParam("order") String orderBy) throws UserException {
+    public ListPostSellerDTO getPostSeller(@PathVariable Integer userId, @RequestParam("order") Optional<String> orderBy) throws UserException {
         return postServices.getPostSeller(userId, orderBy);
     }
 
@@ -73,8 +74,8 @@ public class PostRestController {
      *                contienen
      * @return Listado de todas las promociones que tiene un vendedor, con los detalles de la misma
      */
-    @GetMapping("/{userId}/list/")
-    public ListPromoSellerDTO getPromoSeller(@PathVariable Integer userId,@RequestParam("order") String orderBy) {
+    @GetMapping("/{userId}/list")
+    public ListPromoSellerDTO getPromoSeller(@PathVariable Integer userId,@RequestParam("order") Optional<String> orderBy) {
         return postServices.getPromoSeller(userId, orderBy);
     }
 

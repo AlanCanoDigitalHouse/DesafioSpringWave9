@@ -7,9 +7,9 @@ import lombok.*;
 @Getter
 @Setter
 public class CountPromoDTO{
-    private Integer promoproducts_count;
     private Integer userId;
     private String userName;
+    private Integer promoproducts_count;
     public CountPromoDTO(User seller, Integer quant){
         this.userId =seller.getUserID();
         this.userName= seller.getUserName();
