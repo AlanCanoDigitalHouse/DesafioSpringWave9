@@ -1,8 +1,8 @@
 package com.example.demo.Exceptions;
 
-public class NoFollowersException extends ExceptionHandler {
+public class NoFollowersCustomException extends CustomExceptionHandler {
 
-    public NoFollowersException() {
+    public NoFollowersCustomException() {
         super();
         this.ERROR = "El usuario no tiene seguidores";
     }

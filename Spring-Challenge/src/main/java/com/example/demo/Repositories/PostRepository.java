@@ -4,7 +4,6 @@ import com.example.demo.DTOs.FollowedPostsDTO;
 import com.example.demo.Exceptions.*;
 import com.example.demo.Handlers.GetDate;
 import com.example.demo.Handlers.SortByDate;
-import com.example.demo.Handlers.ValidateUser;
 import com.example.demo.Models.ProductModel;
 import com.example.demo.Models.UserModel;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -82,12 +81,12 @@ public class PostRepository implements IPostRepository {
     //
 
     @Override
-    public void createPost(PostModel post) throws ExceptionHandler {
+    public void createPost(PostModel post) throws CustomExceptionHandler {
         // ValidateUser.validateUser(users, post.getUserId());
         List<PostModel> userPosts = getUserPostsById(post.getUserId());
         for(PostModel p:userPosts) {
             if(post == p) {
-                throw new DuplicatedPostException();
+                throw new DuplicatedPostCustomException();
             }
         }
         this.posts.add(post);
@@ -101,20 +100,20 @@ public class PostRepository implements IPostRepository {
     //
 
     @Override
-    public ProductModel getProductById(int productId) throws ExceptionHandler {
+    public ProductModel getProductById(int productId) throws CustomExceptionHandler {
         for(ProductModel p:products){
             if (p.getProductId() == productId){
                 return p;
             }
         }
-        throw new InvalidProductException();
+        throw new InvalidProductCustomException();
     }
 
     @Override
-    public FollowedPostsDTO getFollowedPosts(int userId, String order, int daysBefore) throws ExceptionHandler {
+    public FollowedPostsDTO getFollowedPosts(int userId, String order, int daysBefore) throws CustomExceptionHandler {
         // ValidateUser.validateUser(users, userId);
         List<UserModel> following = userRepository.getListFollowing(userId);
-        if(following.size() == 0) throw new NoFollowingException();
+        if(following.size() == 0) throw new NoFollowingCustomException();
         List<PostModel> posts = new ArrayList<>();
         Date limitDate = GetDate.GetDate(new Date(), daysBefore);
         for(UserModel u:following) {
@@ -126,14 +125,14 @@ public class PostRepository implements IPostRepository {
             }
         }
         if(posts.size() == 0) {
-            throw new NoPostsException();
+            throw new NoPostsCustomException();
         }
         SortByDate.sortByDate(posts, order);
         return new FollowedPostsDTO(userId, posts);
     }
 
     @Override
-    public List<PostModel> getUserPostsById(int userId) throws ExceptionHandler {
+    public List<PostModel> getUserPostsById(int userId) throws CustomExceptionHandler {
         // ValidateUser.validateUser(users, userId);
         List<PostModel> posts = new ArrayList<>();
         for(PostModel p:this.posts) {
@@ -142,7 +141,7 @@ public class PostRepository implements IPostRepository {
             }
         }
         if(posts.size() == 0) {
-            throw new NoPostsException();
+            throw new NoPostsCustomException();
         }
         return posts;
     }

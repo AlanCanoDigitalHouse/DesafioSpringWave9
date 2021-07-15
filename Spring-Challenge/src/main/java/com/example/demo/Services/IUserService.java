@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface IUserService {
 
-    void addFollower(int follower, int following) throws ExceptionHandler;
-    FollowersDTO getFollowersAmount(int userId) throws ExceptionHandler;
-    FollowListDTO getListFollowers(int userId, String order) throws ExceptionHandler;
-    FollowListDTO getListFollowing(int userId, String order) throws ExceptionHandler;
-    void removeFollower(int userId, int userIdToUnfollow) throws ExceptionHandler;
+    void addFollower(int follower, int following) throws CustomExceptionHandler;
+    FollowersDTO getFollowersAmount(int userId) throws CustomExceptionHandler;
+    FollowListDTO getListFollowers(int userId, String order) throws CustomExceptionHandler;
+    FollowListDTO getListFollowing(int userId, String order) throws CustomExceptionHandler;
+    void removeFollower(int userId, int userIdToUnfollow) throws CustomExceptionHandler;
     List<UserModel> getUsers();
 
 }

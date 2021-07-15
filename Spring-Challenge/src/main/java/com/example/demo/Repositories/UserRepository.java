@@ -1,15 +1,15 @@
 package com.example.demo.Repositories;
 
-import com.example.demo.Exceptions.ExceptionHandler;
-import com.example.demo.Exceptions.NoFollowersException;
-import com.example.demo.Exceptions.NoFollowingException;
+import com.example.demo.Exceptions.CustomExceptionHandler;
+import com.example.demo.Exceptions.NoFollowersCustomException;
+import com.example.demo.Exceptions.NoFollowingCustomException;
 import com.example.demo.Handlers.ValidateRelation;
 import com.example.demo.Handlers.ValidateUser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
-import com.example.demo.Exceptions.InvalidUserException;
+import com.example.demo.Exceptions.InvalidUserCustomException;
 import com.example.demo.Models.UserModel;
 import com.example.demo.Models.UserRelation;
 
@@ -86,19 +86,19 @@ public class UserRepository implements IUserRepository {
     //
 
     @Override
-    public UserModel getUserById(int userId) throws ExceptionHandler {
+    public UserModel getUserById(int userId) throws CustomExceptionHandler {
         for(UserModel u:users){
             if(u.getUserId() == userId){
                 return u;
             }
         }
-        throw new InvalidUserException();
+        throw new InvalidUserCustomException();
     }
 
     //
 
     @Override
-    public void addFollower(int follower, int following) throws ExceptionHandler {
+    public void addFollower(int follower, int following) throws CustomExceptionHandler {
         boolean validFollower = ValidateUser.validateUser(users, follower);
         boolean validFollowing = ValidateUser.validateUser(users, following);
         ValidateRelation.ValidateRelation(usersRelations, follower, following);
@@ -109,7 +109,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public void removeFollower(int userId, int unfollowing) throws ExceptionHandler {
+    public void removeFollower(int userId, int unfollowing) throws CustomExceptionHandler {
         boolean validFollower = ValidateUser.validateUser(users, userId);
         boolean validFollowing = ValidateUser.validateUser(users, unfollowing);
         ValidateRelation.ValidateRelation(usersRelations, userId, unfollowing);
@@ -128,43 +128,43 @@ public class UserRepository implements IUserRepository {
     //
 
     @Override
-    public List<UserModel> getListFollowing(int userId) throws ExceptionHandler {
+    public List<UserModel> getListFollowing(int userId) throws CustomExceptionHandler {
         List<UserModel> followingList = new ArrayList<>();
         for(UserRelation r:usersRelations) {
             if(r.getFollower() == userId) {
                 try {
                     followingList.add(this.getUserById(r.getFollowing()));
-                } catch (InvalidUserException e) {
-                    throw new InvalidUserException();
+                } catch (InvalidUserCustomException e) {
+                    throw new InvalidUserCustomException();
                 }
             }
         }
         if(followingList.size() == 0) {
-            throw new NoFollowingException();
+            throw new NoFollowingCustomException();
         }
         return followingList;
     }
 
     @Override
-    public List<UserModel> getListFollowers(int userId) throws ExceptionHandler {
+    public List<UserModel> getListFollowers(int userId) throws CustomExceptionHandler {
         List<UserModel> followersList = new ArrayList<>();
         for(UserRelation r:usersRelations) {
             if(r.getFollowing() == userId){
                 try {
                     followersList.add(this.getUserById(r.getFollower()));
-                } catch (InvalidUserException e) {
-                    throw new InvalidUserException();
+                } catch (InvalidUserCustomException e) {
+                    throw new InvalidUserCustomException();
                 }
             }
         }
         if(followersList.size() == 0) {
-            throw new NoFollowersException();
+            throw new NoFollowersCustomException();
         }
         return followersList;
     }
 
     @Override
-    public int getFollowersAmount(int userId) throws ExceptionHandler {
+    public int getFollowersAmount(int userId) throws CustomExceptionHandler {
         int amount = 0;
         for(UserRelation r:usersRelations) {
             if(r.getFollowing() == userId) {
@@ -172,7 +172,7 @@ public class UserRepository implements IUserRepository {
             }
         }
         if(amount == 0) {
-            throw new NoFollowersException();
+            throw new NoFollowersCustomException();
         }
         return amount;
     }

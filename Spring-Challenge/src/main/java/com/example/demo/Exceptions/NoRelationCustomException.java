@@ -1,8 +1,8 @@
 package com.example.demo.Exceptions;
 
-public class NoRelationException extends ExceptionHandler {
+public class NoRelationCustomException extends CustomExceptionHandler {
 
-    public NoRelationException() {
+    public NoRelationCustomException() {
         super();
         this.ERROR = "No existe la relación entre los dos usuarios ingresados";
     }

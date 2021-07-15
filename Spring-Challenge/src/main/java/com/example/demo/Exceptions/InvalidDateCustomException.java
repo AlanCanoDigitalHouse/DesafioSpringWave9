@@ -1,8 +1,8 @@
 package com.example.demo.Exceptions;
 
-public class InvalidDateException extends ExceptionHandler {
+public class InvalidDateCustomException extends CustomExceptionHandler {
 
-    public InvalidDateException() {
+    public InvalidDateCustomException() {
         super();
         this.ERROR = "La fecha ingresada no es válida";
     }

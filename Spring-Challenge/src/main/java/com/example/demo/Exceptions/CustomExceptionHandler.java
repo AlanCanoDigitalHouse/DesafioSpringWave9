@@ -2,7 +2,7 @@ package com.example.demo.Exceptions;
 import lombok.Data;
 
 @Data
-public class ExceptionHandler extends Exception {
+public class CustomExceptionHandler extends Exception {
 
     /*
     private ErrorDTO error;
@@ -18,7 +18,7 @@ public class ExceptionHandler extends Exception {
     }*/
 
     public static String ERROR;
-    public ExceptionHandler() {
+    public CustomExceptionHandler() {
         super();
     }
 

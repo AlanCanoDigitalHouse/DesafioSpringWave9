@@ -1,8 +1,8 @@
 package com.example.demo.Exceptions;
 
-public class ExistingRelationException extends ExceptionHandler {
+public class ExistingRelationCustomException extends CustomExceptionHandler {
 
-    public ExistingRelationException(){
+    public ExistingRelationCustomException(){
         super();
         this.ERROR = "La relación entre ambos usuarios ya existe";
     }

@@ -1,8 +1,8 @@
 package com.example.demo.Exceptions;
 
-public class InvalidUserException extends ExceptionHandler {
+public class InvalidUserCustomException extends CustomExceptionHandler {
 
-    public InvalidUserException() {
+    public InvalidUserCustomException() {
         super();
         this.ERROR = "El ID de usuario ingresado no es válido";
     }

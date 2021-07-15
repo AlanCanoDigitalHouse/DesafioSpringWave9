@@ -2,7 +2,7 @@ package com.example.demo.Services;
 
 import com.example.demo.DTOs.FollowListDTO;
 import com.example.demo.DTOs.FollowersDTO;
-import com.example.demo.Exceptions.ExceptionHandler;
+import com.example.demo.Exceptions.CustomExceptionHandler;
 import com.example.demo.Handlers.SortAlphabetically;
 import com.example.demo.Models.UserModel;
 import com.example.demo.Repositories.IUserRepository;
@@ -26,26 +26,26 @@ public class UserService implements IUserService {
     //
 
     @Override
-    public void addFollower(int follower, int following) throws ExceptionHandler {
+    public void addFollower(int follower, int following) throws CustomExceptionHandler {
         userRepository.addFollower(follower, following);
     }
 
     @Override
-    public void removeFollower(int userId, int unfollowing) throws ExceptionHandler {
+    public void removeFollower(int userId, int unfollowing) throws CustomExceptionHandler {
         userRepository.removeFollower(userId,unfollowing);
     }
 
     //
 
     @Override
-    public FollowersDTO getFollowersAmount(int userId) throws ExceptionHandler {
+    public FollowersDTO getFollowersAmount(int userId) throws CustomExceptionHandler {
         String userName = userRepository.getUserById(userId).getUserName();
         int followers = userRepository.getFollowersAmount(userId);
         return new FollowersDTO(userId, userName, followers);
     }
 
     @Override
-    public FollowListDTO getListFollowers(int userId, String order) throws ExceptionHandler {
+    public FollowListDTO getListFollowers(int userId, String order) throws CustomExceptionHandler {
         String userName = userRepository.getUserById(userId).getUserName();
         List<UserModel> followers = userRepository.getListFollowers(userId);
         SortAlphabetically.SortAlphabetically(followers, order);
@@ -57,7 +57,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public FollowListDTO getListFollowing(int userId, String order) throws ExceptionHandler {
+    public FollowListDTO getListFollowing(int userId, String order) throws CustomExceptionHandler {
         String userName = userRepository.getUserById(userId).getUserName();
         List<UserModel> following = userRepository.getListFollowing(userId);
         SortAlphabetically.SortAlphabetically(following, order);

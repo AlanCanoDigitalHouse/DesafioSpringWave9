@@ -1,8 +1,8 @@
 package com.example.demo.Exceptions;
 
-public class NoPostsException extends ExceptionHandler {
+public class NoPostsCustomException extends CustomExceptionHandler {
 
-    public NoPostsException()  {
+    public NoPostsCustomException()  {
         super();
         this.ERROR = "No hay publicaciones disponibles";
     }

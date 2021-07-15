@@ -1,8 +1,8 @@
 package com.example.demo.Exceptions;
 
-public class InvalidRelationException extends ExceptionHandler {
+public class InvalidRelationCustomException extends CustomExceptionHandler {
 
-    public InvalidRelationException() {
+    public InvalidRelationCustomException() {
         super();
         this.ERROR = "La relación entre los dos usuarios no es válida";
     }
