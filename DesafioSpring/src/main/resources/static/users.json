@@ -3,76 +3,30 @@
     "userId": 1,
     "userName": "Aldana",
     "followers": [],
-    "followed": [
-      {
-        "userId": 2,
-        "userName": "Valentina"
-      },
-      {
-        "userId": 3,
-        "userName": "Gastón"
-      },
-      {
-        "userId": 5,
-        "userName": "Gabriela"
-      },
-      {
-        "userId": 4,
-        "userName": "Jorge"
-      }
-    ]
+    "followed": []
   },
   {
     "userId": 2,
     "userName": "Valentina",
-    "followers": [
-      {
-        "userId": 1,
-        "userName": "Aldana"
-      },
-      {
-        "userId": 4,
-        "userName": "Jorge"
-      }
-    ],
+    "followers": [],
     "followed": []
   },
   {
     "userId": 3,
     "userName": "Gastón",
-    "followers": [
-      {
-        "userId": 1,
-        "userName": "Aldana"
-      }
-    ],
+    "followers": [],
     "followed": []
   },
   {
     "userId": 4,
     "userName": "Jorge",
-    "followers": [
-      {
-        "userId": 1,
-        "userName": "Aldana"
-      }
-    ],
-    "followed": [
-      {
-        "userId": 2,
-        "userName": "Valentina"
-      }
-    ]
+    "followers": [],
+    "followed": []
   },
   {
     "userId": 5,
     "userName": "Gabriela",
-    "followers": [
-      {
-        "userId": 1,
-        "userName": "Aldana"
-      }
-    ],
+    "followers": [],
     "followed": []
   },
   {
