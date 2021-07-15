@@ -8,5 +8,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class UserClientDTO extends UserDTO{
-    private List<UserDTO> followed;  // Sigue a sus vendedores favoritos
+
+    private List<UserDTO> followed;
+
 }

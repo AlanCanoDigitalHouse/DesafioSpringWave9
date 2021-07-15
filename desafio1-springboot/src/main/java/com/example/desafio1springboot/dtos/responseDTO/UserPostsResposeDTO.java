@@ -10,10 +10,12 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class UserPostsResposeDTO<T> {
+
     private Integer userId;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userName;
+
     private List<T> posts;
 
     public UserPostsResposeDTO(Integer userId) {

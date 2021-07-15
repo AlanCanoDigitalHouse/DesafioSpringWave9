@@ -8,6 +8,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class UserSellerDTO extends UserDTO{
-    private List<UserDTO> followers;  // Todos los usuarios que siguen a este vendedor
+
+    private List<UserDTO> followers;
 
 }

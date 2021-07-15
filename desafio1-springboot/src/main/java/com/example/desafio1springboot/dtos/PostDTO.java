@@ -17,6 +17,7 @@ public class PostDTO {
 
     @Min(value = 1, message = "El valor debe ser como minimo 1")
     private Integer userId;
+
     private Integer id_post;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")

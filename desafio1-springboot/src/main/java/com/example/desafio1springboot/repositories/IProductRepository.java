@@ -12,5 +12,4 @@ public interface IProductRepository {
     void addNewPromoPost(PostInPromoDTO post) throws PostNotValidDateException;
     UserSellerResponseDTO postPromoMeBy_(Integer userId, String userName);
     List<PostInPromoDTO> getPromoPostByUser_(Integer userId);
-    List<PostDTO> show();
 }

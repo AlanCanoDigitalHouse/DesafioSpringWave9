@@ -7,10 +7,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserSellerResponseDTO extends UserDTO {
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+
     private Integer followers_count;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+
     private Integer promoproducts_count;
 
     public UserSellerResponseDTO(Integer userId, String userName, Integer followers_count) {

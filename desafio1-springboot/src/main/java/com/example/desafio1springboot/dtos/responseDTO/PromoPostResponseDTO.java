@@ -8,6 +8,7 @@ import lombok.*;
 @Data
 public class PromoPostResponseDTO extends PostResponseDTO{
     private Boolean hasPromo;
+
     private Double discount;
 
     public static PromoPostResponseDTO toPromoPostDTO(PostInPromoDTO postInPromoDTO) {

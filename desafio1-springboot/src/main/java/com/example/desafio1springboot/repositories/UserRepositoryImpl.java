@@ -16,7 +16,7 @@ public class UserRepositoryImpl implements IUserRepository{
     }
 
     @Override
-    public UserSellerDTO getUserSellerById(Integer userId) throws UserSellerNotFoundExceptions {
+    public UserSellerDTO getUserSellerByIdAndCheckIfExists(Integer userId) throws UserSellerNotFoundExceptions {
         UserSellerDTO userSeller = userSellerDB.stream().filter(userSellerDTO -> userSellerDTO.getUserId().equals(userId)).findFirst().orElse(null);
         if(Objects.isNull(userSeller))
             throw new UserSellerNotFoundExceptions();
@@ -32,8 +32,8 @@ public class UserRepositoryImpl implements IUserRepository{
     }
 
     @Override
-    public UserDTO addFollower(Integer userId, Integer userIdToFollow) throws UserSellerNotFoundExceptions, UserAlreadyFollowingSellerException { // check nombre del metodo
-        UserSellerDTO userSellerToFollow = getUserSellerById(userIdToFollow);
+    public UserDTO addClient_FollowerToUserSeller_(Integer userId, Integer userIdToFollow) throws UserSellerNotFoundExceptions, UserAlreadyFollowingSellerException { // check nombre del metodo
+        UserSellerDTO userSellerToFollow = getUserSellerByIdAndCheckIfExists(userIdToFollow);
         checkIfUserClientExistsInUserSeller(userId, userSellerToFollow);
         UserDTO user = new UserDTO(userId, "client" + (userId));
 
@@ -64,8 +64,8 @@ public class UserRepositoryImpl implements IUserRepository{
     }
 
     @Override
-    public void unfollowUser_(Integer userId, Integer userIdToFollow) throws UserSellerNotFoundExceptions, UserClientNotFollowingSellerException {
-        UserSellerDTO userSellerToUnfollow = getUserSellerById(userIdToFollow);
+    public void unfollowByClient_TheUserSeller_(Integer userId, Integer userIdToFollow) throws UserSellerNotFoundExceptions, UserClientNotFollowingSellerException {
+        UserSellerDTO userSellerToUnfollow = getUserSellerByIdAndCheckIfExists(userIdToFollow);
         if(!userSellerToUnfollow.getFollowers().removeIf(userDTO -> userDTO.getUserId().equals(userId)))
             throw new UserClientNotFollowingSellerException();
 

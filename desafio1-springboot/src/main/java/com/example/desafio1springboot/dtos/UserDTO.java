@@ -6,10 +6,9 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 public class UserDTO {
+
     private Integer userId;
+
     private String userName;
 
-    public UserDTO(Integer userId) {
-        this.userId = userId;
-    }
 }

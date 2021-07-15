@@ -23,6 +23,7 @@ public class ProductRepositoryImpl implements IProductRepository{
     public UserPostsResposeDTO listsPostsFromUser_(Integer userId) {
         List<PostDTO> listPostTemp = postDatabase;
         long twoWeeks = 604800000 * 2;
+        // Instant zonedTime = ZonedDateTime.now().minusWeeks(2).toInstant();
         Date dayToWeeksAgo = new Date(new Date().getTime() - twoWeeks);
 
         var listPostFiltered = listPostTemp.stream()
@@ -34,12 +35,11 @@ public class ProductRepositoryImpl implements IProductRepository{
         UserPostsResposeDTO<PostResponseDTO> userPostsResposeDTO = new UserPostsResposeDTO(userId);
         userPostsResposeDTO.setPosts(postsResponse);
         userPostsResposeDTO.getPosts().sort((d1, d2) -> d2.getDate().compareTo(d1.getDate()));
+        // Todo: (FeedBack compañero)
+        // userPostsResposeDTO.getPosts().sort(Comparator.comparing(PostResponseDTO::getDate)); -> ASC
+        // userPostsResposeDTO.getPosts().sort(Comparator.comparing(PostResponseDTO::getDate).reversed()); -> DESC
+        // userPostsResposeDTO.getPosts().sort(Comparator.comparing(PostResponseDTO::getDate).thenComparing()); -> Multi sort
         return userPostsResposeDTO;
-    }
-
-    @Override
-    public List<PostDTO> show() {
-        return postDatabase;
     }
 
     @Override
