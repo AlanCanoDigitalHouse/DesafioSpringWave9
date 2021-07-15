@@ -30,7 +30,7 @@ public class UserRepository implements IUserRepository {
         if (Objects.nonNull(user)) {
             return user;
         } else {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException("User with id " + userId + " was not found in the database.");
         }
     }
 

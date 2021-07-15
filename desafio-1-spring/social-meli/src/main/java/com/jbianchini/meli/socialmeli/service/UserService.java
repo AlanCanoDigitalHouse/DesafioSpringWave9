@@ -6,6 +6,7 @@ import com.jbianchini.meli.socialmeli.dto.FollowersListDTO;
 import com.jbianchini.meli.socialmeli.dto.UserDTO;
 import com.jbianchini.meli.socialmeli.dto.response.ResponseDTO;
 import com.jbianchini.meli.socialmeli.dto.response.SuccessResponseDTO;
+import com.jbianchini.meli.socialmeli.exception.ValidationException;
 import com.jbianchini.meli.socialmeli.model.User;
 import com.jbianchini.meli.socialmeli.repository.IUserRepository;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,8 @@ public class UserService implements IUserService {
 
     @Override
     public ResponseDTO follow(Integer userId, Integer userIdToFollow) {
+        this.validateSameUser(userId, userIdToFollow);
+
         User user = this.userRepository.findByUserId(userId);
         User userToFollow = this.userRepository.findByUserId(userIdToFollow);
 
@@ -58,6 +61,7 @@ public class UserService implements IUserService {
         return response;
 
     }
+
 
     @Override
     public FollowersCountDTO getFollowersCount(Integer userId) {
@@ -96,12 +100,10 @@ public class UserService implements IUserService {
 
     }
 
-    private void convertToDTO(List<UserDTO> followedDTOList, List<User> followed) {
-        followed.stream().forEach(u -> followedDTOList.add(new UserDTO(u.getUserId(), u.getUserName())));
-    }
-
     @Override
     public ResponseDTO unFollow(Integer userId, Integer userIdToUnfollow) {
+        this.validateSameUser(userId, userIdToUnfollow);
+
         User user = this.userRepository.findByUserId(userId);
         User userToUnFollow = this.userRepository.findByUserId(userIdToUnfollow);
 
@@ -120,6 +122,10 @@ public class UserService implements IUserService {
         return response;
     }
 
+    private void convertToDTO(List<UserDTO> followedDTOList, List<User> followed) {
+        followed.stream().forEach(u -> followedDTOList.add(new UserDTO(u.getUserId(), u.getUserName())));
+    }
+
     private void sortByName(List<UserDTO> users, String order) {
         switch (order) {
             case "name_asc":
@@ -130,6 +136,12 @@ public class UserService implements IUserService {
                 break;
             case "":
                 break;
+        }
+    }
+
+    private void validateSameUser(Integer userId, Integer userIdToFollow) {
+        if (userId.equals(userIdToFollow)) {
+            throw new ValidationException("An user cannot follow himself.");
         }
     }
 

@@ -9,8 +9,9 @@ import com.jbianchini.meli.socialmeli.service.IUserService;
 import com.jbianchini.meli.socialmeli.service.handler.Initializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
@@ -30,13 +31,10 @@ public class UserController {
 
     }
 
-    @PutMapping("/create")
-    public ResponseDTO create(@RequestBody UserDTO userDTO) {
+    @PostMapping("/create")
+    public ResponseDTO create(@RequestBody @Valid UserDTO userDTO) {
         return this.userService.createUser(userDTO);
     }
-
-
-    //-------------------
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseDTO follow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) {
@@ -50,13 +48,14 @@ public class UserController {
     }
 
     @GetMapping("/{UserID}/followers/list")
-    public ResponseEntity<FollowersListDTO> followers(@PathVariable Integer UserID, @RequestParam(defaultValue="") String order) {
+    public ResponseEntity<FollowersListDTO> followers(@PathVariable Integer UserID,
+                                                      @RequestParam(defaultValue = "") String order) {
         return new ResponseEntity<>(this.userService.getFollowers(UserID, order), HttpStatus.OK);
     }
 
     @GetMapping("/{UserID}/followed/list")
     public ResponseEntity<FollowedListDTO> followed(@PathVariable Integer UserID,
-                                                    @RequestParam(defaultValue="") String order) {
+                                                    @RequestParam(defaultValue = "") String order) {
         return new ResponseEntity<>(this.userService.getFollowed(UserID, order), HttpStatus.OK);
     }
 

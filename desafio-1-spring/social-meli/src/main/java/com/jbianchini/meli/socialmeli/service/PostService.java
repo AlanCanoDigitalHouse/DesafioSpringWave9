@@ -9,6 +9,7 @@ import com.jbianchini.meli.socialmeli.model.Post;
 import com.jbianchini.meli.socialmeli.model.Product;
 import com.jbianchini.meli.socialmeli.model.User;
 import com.jbianchini.meli.socialmeli.repository.IPostRepository;
+import com.jbianchini.meli.socialmeli.utils.DateUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class PostService implements IPostService {
         Product product = new Product(postDTO.getDetail().getProductName(), postDTO.getDetail().getType(),
                 postDTO.getDetail().getBrand(), postDTO.getDetail().getColor(), postDTO.getDetail().getNotes());
 
-        Post post = new Post(user, postDTO.getDate(), product, postDTO.getCategory(), postDTO.getPrice());
+        Post post = new Post(user, DateUtils.convertToLocalDate(postDTO.getDate(), "dd-MM-yyyy"), product,
+                postDTO.getCategory(), postDTO.getPrice());
 
         this.postRepository.save(post);
 
@@ -53,10 +55,10 @@ public class PostService implements IPostService {
 
         //add all the followed users posts to a single list
         followed.forEach(f -> followedPosts.addAll(this.postRepository.findByUserSinceTwoWeeksAgo(f)));
+        //sort it
+        this.sortByDate(followedPosts, order);
         //convert it to a dto list
         List<PostDTO> followedPostsDTO = this.getPostDTOList(followedPosts);
-        //sort it
-        this.sortByDate(followedPostsDTO, order);
 
         return new PostsByFollowerDTO(userId, followedPostsDTO);
 
@@ -70,14 +72,14 @@ public class PostService implements IPostService {
         return postDTOS;
     }
 
-    private void sortByDate(List<PostDTO> posts, String order) {
+    private void sortByDate(List<Post> posts, String order) {
         switch (order) {
             case "date_asc":
-                Collections.sort(posts, Comparator.comparing(PostDTO::getDate));
+                Collections.sort(posts, Comparator.comparing(Post::getDate));
                 break;
             case "date_desc":
             case "":
-                Collections.sort(posts, Comparator.comparing(PostDTO::getDate).reversed());
+                Collections.sort(posts, Comparator.comparing(Post::getDate).reversed());
                 break;
         }
     }
@@ -87,8 +89,8 @@ public class PostService implements IPostService {
         ProductDTO productDTO =
                 new ProductDTO(product.getProductName(), product.getType(), product.getBrand(), product.getColor(),
                         product.getNotes());
-        return new PostDTO(p.getUser().getUserId(), p.getDate(), productDTO, p.getCategory(), p.getPrice());
+        return new PostDTO(p.getUser().getUserId(), DateUtils.convertToString(p.getDate(), "dd-MM-yyyy"), productDTO,
+                p.getCategory(), p.getPrice());
     }
-
 
 }
