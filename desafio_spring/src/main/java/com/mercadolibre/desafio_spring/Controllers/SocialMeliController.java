@@ -2,9 +2,12 @@ package com.mercadolibre.desafio_spring.Controllers;
 
 import com.mercadolibre.desafio_spring.Router.Router;
 import com.mercadolibre.desafio_spring.Services.ISocialMeliService;
+import com.mercadolibre.desafio_spring.dtos.request.DonationRequest;
+import com.mercadolibre.desafio_spring.dtos.request.FoundingPostRequest;
 import com.mercadolibre.desafio_spring.dtos.request.NewPostRequest;
 import com.mercadolibre.desafio_spring.dtos.request.PromoPostRequest;
 import com.mercadolibre.desafio_spring.dtos.response.*;
+import com.mercadolibre.desafio_spring.entities.Donation;
 import com.mercadolibre.desafio_spring.exceptions.AlreadyExistError;
 import com.mercadolibre.desafio_spring.exceptions.IdNotFound;
 import com.mercadolibre.desafio_spring.exceptions.SortedMethodError;
@@ -112,4 +115,21 @@ public class SocialMeliController {
     public ListPromoProductsResponse getPromoProductsList(@Valid @PathVariable @Min(message = "Valor erroneo",value = 1) Integer userId)throws IdNotFound{
         return socialMeliService.getPromoProductsList(userId);
     }
+
+    // Pruesta
+    @PostMapping(value = Router.CREATE_NEW_CAMPAING)
+    public HttpStatus newCampaing(@Valid @PathVariable @Min(message = "Valor erroneo",value = 1)Integer user_id, @Valid @RequestBody FoundingPostRequest foundingPostRequest) throws IdNotFound, AlreadyExistError{
+        return socialMeliService.newDonationPost(user_id,foundingPostRequest);
+    }
+
+    @GetMapping(value = Router.NEW_DONATION)
+    public HttpStatus newDonation(@Valid @PathVariable @Min(message = "Valor erroneo",value = 1)Integer userId, @RequestBody DonationRequest donationRequest) throws IdNotFound{
+        return socialMeliService.newDonation(userId,donationRequest);
+    }
+
+    @GetMapping(value = Router.GET_CAMPAINGS_USER)
+    public ListCampaingByUserResponse listCampaings(@Valid @PathVariable Integer userId) throws IdNotFound{
+        return socialMeliService.getCampaingsByUserId(userId);
+    }
+
 }

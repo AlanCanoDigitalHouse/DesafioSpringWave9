@@ -1,13 +1,14 @@
 package com.mercadolibre.desafio_spring.Services;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.mercadolibre.desafio_spring.Repositories.ISocialMeliRepository;
 import com.mercadolibre.desafio_spring.UtilsSocialMeli.UtilsSocialMediaMeli;
+import com.mercadolibre.desafio_spring.dtos.request.DonationRequest;
+import com.mercadolibre.desafio_spring.dtos.request.FoundingPostRequest;
 import com.mercadolibre.desafio_spring.dtos.request.NewPostRequest;
 import com.mercadolibre.desafio_spring.dtos.request.PromoPostRequest;
 import com.mercadolibre.desafio_spring.dtos.response.*;
-import com.mercadolibre.desafio_spring.entities.Post;
-import com.mercadolibre.desafio_spring.entities.PromoPost;
-import com.mercadolibre.desafio_spring.entities.User;
+import com.mercadolibre.desafio_spring.entities.*;
 import com.mercadolibre.desafio_spring.exceptions.AlreadyExistError;
 import com.mercadolibre.desafio_spring.exceptions.IdNotFound;
 import com.mercadolibre.desafio_spring.exceptions.SortedMethodError;
@@ -303,6 +304,63 @@ public class SocialMeliService implements ISocialMeliService {
                     user.get().getUserName(),
                     posts
             );
+        }else throw new IdNotFound();
+        return response;
+    }
+
+    @Override
+    public HttpStatus newDonationPost(Integer userId, FoundingPostRequest foundingPostRequest) throws IdNotFound, AlreadyExistError {
+        HttpStatus responseStatus;
+        Optional<User> user = repository.findUserById(userId);
+        if(user.isPresent()){
+                for(Post oldPost :user.get().getPosts())
+                    if(foundingPostRequest.getId_post().equals(oldPost.getId_post()))
+                        throw new AlreadyExistError();
+                user.get().getPosts().add(new FoundingPost(
+                        foundingPostRequest.getUserId(),
+                        foundingPostRequest.getId_post(),
+                        foundingPostRequest.getDate(),
+                        foundingPostRequest.getDetail(),
+                        foundingPostRequest.getCategory(),
+                        foundingPostRequest.getPrice(),
+                        foundingPostRequest.getIsFounding(),
+                        foundingPostRequest.getExpectativeMoney(),
+                        foundingPostRequest.getCurrentMoney()
+                ));
+                responseStatus = HttpStatus.OK;
+        }else throw new IdNotFound();
+        return responseStatus;
+    }
+
+    @Override
+    public HttpStatus newDonation(Integer userId, DonationRequest donation) throws IdNotFound {
+        HttpStatus responseStatus = HttpStatus.BAD_REQUEST;
+        Optional<User> user = repository.findUserById(userId);
+        if(user.isPresent()){
+            for(Post oldPost :user.get().getPosts()) {
+                if (donation.getPost_id().equals(oldPost.getId_post()) && oldPost instanceof FoundingPost ) {
+                    Donation newDonation = new Donation(user.get(), donation.getDonation(), donation.getPost_id());
+                    ((FoundingPost) oldPost).getDonations().add(newDonation);
+                    responseStatus = HttpStatus.OK;
+                }
+            }
+        }else throw new IdNotFound();
+        if(responseStatus.equals(HttpStatus.BAD_REQUEST)) throw  new IdNotFound();
+        return responseStatus;
+    }
+
+    @Override
+    public ListCampaingByUserResponse getCampaingsByUserId(Integer userId) throws IdNotFound {
+        Optional<User> user = repository.findUserById(userId);
+        ListCampaingByUserResponse response = null;
+        ArrayList<Post> postCampaing = new ArrayList<>();
+        if(user.isPresent()){
+            for(Post oldPost :user.get().getPosts()) {
+               if(oldPost instanceof FoundingPost){
+                   postCampaing.add(oldPost);
+               }
+            }
+            response = new ListCampaingByUserResponse(userId,user.get().getUserName(),postCampaing);
         }else throw new IdNotFound();
         return response;
     }

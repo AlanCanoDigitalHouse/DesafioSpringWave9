@@ -14,4 +14,7 @@ public class Router {
     public static final String NEW_PROMO_POST ="/products/newpromopost";
     public static final String COUNT_PROMOS = "/products/{userId}/countPromo/";
     public static final String LISTS_PROMOS_POST = "/products/{userId}/list";
+    public static final String CREATE_NEW_CAMPAING = "/products/{user_id}/newcampaing";
+    public static final String NEW_DONATION = "/products/{userId}/campaing";
+    public static final String GET_CAMPAINGS_USER = "/products/{userId}/campaings/list";
 }

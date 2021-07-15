@@ -1,8 +1,12 @@
 package com.mercadolibre.desafio_spring.Services;
 
+import com.mercadolibre.desafio_spring.dtos.request.DonationRequest;
+import com.mercadolibre.desafio_spring.dtos.request.FoundingPostRequest;
 import com.mercadolibre.desafio_spring.dtos.request.NewPostRequest;
 import com.mercadolibre.desafio_spring.dtos.request.PromoPostRequest;
 import com.mercadolibre.desafio_spring.dtos.response.*;
+import com.mercadolibre.desafio_spring.entities.Donation;
+import com.mercadolibre.desafio_spring.entities.FoundingPost;
 import com.mercadolibre.desafio_spring.exceptions.AlreadyExistError;
 import com.mercadolibre.desafio_spring.exceptions.IdNotFound;
 import com.mercadolibre.desafio_spring.exceptions.SortedMethodError;
@@ -22,4 +26,7 @@ public interface ISocialMeliService {
     HttpStatus newPromoPost(PromoPostRequest promoPostRequest)throws IdNotFound, AlreadyExistError;
     PromoProductsCountResponse getPromoProductsCount(int userId)throws IdNotFound;
     ListPromoProductsResponse getPromoProductsList(int userid)throws IdNotFound;
+    HttpStatus newDonationPost(Integer userId, FoundingPostRequest foundingPost) throws  IdNotFound, AlreadyExistError;
+    HttpStatus newDonation(Integer userId, DonationRequest donation) throws IdNotFound;
+    ListCampaingByUserResponse getCampaingsByUserId(Integer userId) throws IdNotFound;
 }

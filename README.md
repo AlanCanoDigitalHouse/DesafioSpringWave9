@@ -12,8 +12,10 @@ Bootcamp Backend Java Desafío Spring
 - [Build&Run](#Build&Run) 
 - [API](#API)
 - [UsersForTestAPI](#UsersForTestAPI)
+- [Proposa](#Proposal)
 - [Contributors](#Contributors)
 - [License](#License)
+
 ----
 
 # Architecture
@@ -93,7 +95,18 @@ $ docker-compose down
 | 1005 | ppppp | Empty | 1002 |
 
 -----
+# Proposal
 
+Mi propuesta es el crowdfounding a traves de SocialMeli, los usuarios podran crear campañas para su ideas de productos, Meli podria apadrinar los proyectos mas viables, otros usuarios podran aportar voluntariamente dinero a estos proyectos a fin de optener descuentos en la producción de dichos proyectos. 
+
+# API Proposal
+
+| US 000 | Method | URL | VARIABLES | DESCRIPTION | 
+| ------ | ------ | --- | ------ | --------- |
+| 013 | Post | /products/{user_id}/newcampaing | userId: tipo int identification del creador de la campaña, FoundingPost (Igual a un Post Normal, mas isFoundign(boolean), expectativeMoney(Double) cuanto espera recaudar la campaña, currentMoney(Double) cuanto dinero lleva la campaña) | Crear una nueva mapaña | 
+| 013 | Post | /products/{userId}/campaing | userId(Int) Identificacion del dueño de la campaña, Donation(DonationRequest(donor(int) donador, donation(Double) cantidad donada, postId(Int) identificacion del post)) | Hacer una donación |
+| 013 | GET | /products/{userId}/campaings/list | userId(Int) identificación de dueño de campalas | Traer campañas de un usuario |
+-----
 # Contributors
 - [Manuel Alejandro García](https://github.com/ManuGarciaMeli)
 
