@@ -20,6 +20,7 @@ public class PostPromoDTO extends PostDTO {
     private Boolean hasPromo = Boolean.TRUE;
     @DecimalMin(value = "0.0", inclusive = false, message = "discount should be between 0 and 1")
     @DecimalMax(value = "1.0", message = "discount should be between 0 and 1")
+    @NotNull(message = "discount cannot be null")
     private Double discount;
 
     public PostPromoDTO clonePostPromoDTO() {
