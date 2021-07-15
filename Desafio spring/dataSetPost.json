@@ -37,5 +37,18 @@
     "notes": "Special Edition",
     "category": 3,
     "price": 1800000
+  },
+  {
+    "id": 4,
+    "userId": 4,
+    "date": "14-07-2021",
+    "product_id": 3,
+    "productName": "Computador 2",
+    "type": "Utileria",
+    "brand": "HP",
+    "color": "Red & Black",
+    "notes": "Special Edition",
+    "category": 3,
+    "price": 1800000
   }
 ]

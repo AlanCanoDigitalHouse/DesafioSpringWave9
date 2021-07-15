@@ -123,4 +123,16 @@ Payload: Ninguna
 Excepciones esperadas (ver 0004 y 0005 para adicionales):
 - Orden ingresado no es valido
 
+### 0008: Alphabetical order (users)
+
+Endpoint example: GET [localhost:8080/products/followed/7/list?order=date_asc]()
+Endpoint example: GET [localhost:8080/products/followed/7/list?order=date_desc]()
+
+Payload: Ninguno
+
+**Si no se pasa variable orden, por defecto sera name_asc**
+
+Excepciones esperadas (ver 0006 para adicionales):
+- Orden ingresado no es valido
+
 

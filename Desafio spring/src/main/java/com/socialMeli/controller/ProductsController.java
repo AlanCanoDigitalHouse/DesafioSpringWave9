@@ -6,6 +6,7 @@ import com.socialMeli.dto.response.ProductsSellersThatUserFollowsDTO;
 import com.socialMeli.exception.exception.DateNotValidException;
 import com.socialMeli.exception.exception.ModelAlreadyExists;
 import com.socialMeli.exception.exception.ModelNotExists;
+import com.socialMeli.exception.exception.OrderNotValidException;
 import com.socialMeli.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,13 +45,14 @@ public class ProductsController {
 
     /**
      * TODO: 0006 Get list of the posts made by the users that a user follow, that posts must have been created less than a week ago
+     * TODO: 0009 Order by date
      *
      * @param userId user that want know the products of the sellers that he follow
      * @return The list of products required
      * @throws ModelNotExists if the user not exists
      */
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<ProductsSellersThatUserFollowsDTO> listPostsSellerThatAUserFollow(@PathVariable int userId) throws ModelNotExists {
-        return new ResponseEntity<>(postService.postSellersThatUserFollows(userId), HttpStatus.OK);
+    public ResponseEntity<ProductsSellersThatUserFollowsDTO> listPostsSellerThatAUserFollow(@PathVariable int userId, @RequestParam(defaultValue = "date_asc") String order) throws ModelNotExists, OrderNotValidException {
+        return new ResponseEntity<>(postService.postSellersThatUserFollows(userId, order), HttpStatus.OK);
     }
 }

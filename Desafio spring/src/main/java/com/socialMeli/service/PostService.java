@@ -7,6 +7,7 @@ import com.socialMeli.dto.response.ProductsSellersThatUserFollowsDTO;
 import com.socialMeli.exception.exception.DateNotValidException;
 import com.socialMeli.exception.exception.ModelAlreadyExists;
 import com.socialMeli.exception.exception.ModelNotExists;
+import com.socialMeli.exception.exception.OrderNotValidException;
 import com.socialMeli.model.PostBuilder;
 import com.socialMeli.model.PostModel;
 import com.socialMeli.model.UserModel;
@@ -19,6 +20,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,19 +53,31 @@ public class PostService {
         postRepository.insert(postModel);
     }
 
-    public ProductsSellersThatUserFollowsDTO postSellersThatUserFollows(int userId) throws ModelNotExists {
+    public ProductsSellersThatUserFollowsDTO postSellersThatUserFollows(int userId, String order) throws ModelNotExists, OrderNotValidException {
         UserModel user = userRepository.findById(userId);
         List<UserModel> usersFollowed = getListUserById(user.getFollowed());
         List<PostModel> posts = getPostsOfUsersBeforeADate(usersFollowed, restTwoWeekToDate(new Date()));
-
         List<PostInfoResponseDTO> postInfoResponseDTOS = posts.stream().map(postModel -> {
             //Create detail
             ProductDetailResponseDTO info = new ProductDetailResponseDTO(postModel.getProduct_id(), postModel.getProductName(), postModel.getType(), postModel.getBrand(), postModel.getColor(), postModel.getNotes());
             //Create PostInfo
             return new PostInfoResponseDTO(postModel.getId(), postModel.getDate(), info, String.valueOf(postModel.getCategory()), postModel.getPrice());
         }).collect(Collectors.toList());
-
+        orderBy(postInfoResponseDTOS, order);
         return new ProductsSellersThatUserFollowsDTO(user.getId(), postInfoResponseDTOS);
+    }
+
+    private void orderBy(List<PostInfoResponseDTO> listToOrder, String order) throws OrderNotValidException {
+        switch (order){
+            case "date_asc":
+                listToOrder.sort((Comparator.comparing(PostInfoResponseDTO::getDate)));
+                break;
+            case "date_desc":
+                listToOrder.sort(((o1, o2) -> o2.getDate().compareTo(o1.getDate())));
+                break;
+            default:
+                throw new OrderNotValidException(order, "date_asc, date_desc");
+        }
     }
 
     private List<UserModel> getListUserById(List<Integer> ids) throws ModelNotExists {
@@ -80,6 +94,8 @@ public class PostService {
         posts.sort((o1, o2) -> o2.getDate().compareTo(o1.getDate()));
         return posts;
     }
+
+
 
     private List<PostModel> getPostsOfUserBeforeADate(UserModel user, Date limitDateIncluded) {
         List<PostModel> all = postRepository.findAll();
