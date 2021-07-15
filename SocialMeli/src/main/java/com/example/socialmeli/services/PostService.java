@@ -99,7 +99,7 @@ public class PostService implements IPostService{
 
     @Override
     public PromoPostResponseDto getPromoPost(Integer userId, String order) {
-        Comparator<PostDto> comparator = dateComparator(order);
+        Comparator<PostDto> comparator = nameComparator(order);
         UserDto user = userService.findUser(userId);
         return new PromoPostResponseDto(
                 userId,
@@ -126,6 +126,13 @@ public class PostService implements IPostService{
         return (o1,o2) -> o2.getDate().compareTo(o1.getDate());
     }
 
+    private Comparator<PostDto> nameComparator(String order){
+        if(order != null && !order.isEmpty() && order.equals("name_asc")){
+            return (f1,f2) -> f1.getDetail().getProductName().compareTo(f2.getDetail().getProductName());
+        }
+        return (f1,f2) -> f2.getDetail().getProductName().compareTo(f1.getDetail().getProductName());
+    }
+
     private List<PostDto> getFollowingPosts(Integer userId, Comparator<PostDto> dateComparator){
         List<FollowDto> following = userService.allFollowed(userId,null).getFollowed();
         List<PostDto> followingPosts = new ArrayList<>();
@@ -138,10 +145,10 @@ public class PostService implements IPostService{
         return followingPosts.stream().sorted(dateComparator).collect(Collectors.toList());
     }
 
-    private List<PostDto> getPromoPosts(Integer userId, Comparator<PostDto> dateComparator){
+    private List<PostDto> getPromoPosts(Integer userId, Comparator<PostDto> comparator){
         List<PostDto> items = this.postRepository.getPosts().stream()
                 .filter(postDto -> postDto.getUserId().equals(userId) && postDto.isHasPromo())
-                .sorted(dateComparator)
+                .sorted(comparator)
                 .collect(Collectors.toList());
 
         return items;

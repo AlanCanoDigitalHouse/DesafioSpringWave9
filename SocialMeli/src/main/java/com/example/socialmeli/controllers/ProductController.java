@@ -1,6 +1,5 @@
 package com.example.socialmeli.controllers;
 
-import com.example.socialmeli.dtos.PostDto;
 import com.example.socialmeli.dtos.requests.PostRequestDto;
 import com.example.socialmeli.dtos.requests.PromoPostRequestDto;
 import com.example.socialmeli.dtos.responses.CountPromoPostResponseDto;
@@ -9,7 +8,6 @@ import com.example.socialmeli.dtos.responses.PromoPostResponseDto;
 import com.example.socialmeli.services.IPostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
