@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Getter
@@ -34,11 +35,14 @@ public class Manager {
     }
 
     public static List<Post> orderPostsByName(String order, List<Post> posts) {
-        Comparator<Post> comparator = Comparator.comparing(Post::getProductName);
-        if ("name_desc".equals(order)) {
-            return posts.stream().sorted(comparator.reversed()).collect(Collectors.toList());
+        if(!Objects.isNull(order)) {
+            Comparator<Post> comparator = Comparator.comparing(Post::getProductName);
+            if ("name_desc".equals(order)) {
+                return posts.stream().sorted(comparator.reversed()).collect(Collectors.toList());
+            }
+            return posts.stream().sorted(comparator).collect(Collectors.toList());
         }
-        return posts.stream().sorted(comparator).collect(Collectors.toList());
+        return posts;
     }
 
 }
