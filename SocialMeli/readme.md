@@ -1,11 +1,11 @@
-# Desafio Spring: "SocialMeli"
+# Desafio Spring: "SocialMeli" 
 
-## Información General
+## Información General  🔎
 Api que permite a compradores y vendedores forjar lazos mas cercanos.
 Los compradores van a poder seguir a sus vendedores favoritos y enterarse de todas las novedades que los mismos posteen.
 
 
-## Donde encontrar cada requerimiento solicitado
+## Donde encontrar cada requerimiento solicitado  📋
 1. Poder realizar la acción de seguir a un determinado vendedor: **UserController** 
    
 2. Obtener el resultado de la cantidad de usuarios que siguen a un determinado vendedor: **SellerController**
@@ -17,16 +17,16 @@ Los compradores van a poder seguir a sus vendedores favoritos y enterarse de tod
 8. Ordenamiento alfabético ascendente y descendente: **UserController**
 9. Ordenamiento por fecha ascendente y descendente: **UserController**
 
-## Tecnologías
+## Tecnologías  🛠️
 * Java 11
 * Spring
 * Maven
 
-## Precondiciones para el funcionamiento
+## Precondiciones para el funcionamiento ❗
 Se debe ejecutar el siguiente endpoint para cargar los datos en memoria:
 
 `localhost:8080/users/createuser`
-## Ejemplos de requests
+## Ejemplos de requests 📚
 ### Seguir a un vendedor
 `localhost:8080/users/13/follow/10`
 ### Contar la cantidad de seguidores de un vendedor
@@ -42,10 +42,30 @@ Se debe ejecutar el siguiente endpoint para cargar los datos en memoria:
 ### Dejar de seguir a un vendedor
 `localhost:8080/users/13/unfollow/10`
 ### Ordenar nombres de mis seguidores
+* Ordena alfabeticamente de forma ascendente
+
+`/users/10/followers/list?order=name_asc`
+
+* Ordena alfabeticamente de forma ascendente
+
+ `/users/10/followers/list?order=name_desc`
 
 ### Ordenar nombres de los vendedores que sigo
+* Ordena alfabeticamente de forma ascendente
+
+`/users/13/followed/list?order=name_asc`
+
+* Ordena alfabeticamente de forma ascendente
+
+`/users/{UserID}/followed/list?order=name_desc`
 ### Mostrar los productos de un vendedor ordenadas por fecha ascendente al que sigue un usuario
-### Mostrar los productos de un vendedor ordenadas por fecha descendente al que sigue un usuario
+* Ordena de la fecha mas antigua a la mas nueva
+
+`/products/followed/{userId}/list?order=date_asc`
+
+* Ordena de la fecha mas nueva a la mas antigua
+
+`/products/followed/{userId}/list?order=date_desc`
 
 
 
