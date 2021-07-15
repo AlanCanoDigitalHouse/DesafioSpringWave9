@@ -11,5 +11,6 @@ public class SocialMeliConstants {
   public static final String VALIDATION_TRUE_MESSAGE = "El valor debe ser true";
   public static final String VALIDATION_POSITIVE_MESSAGE = "El valor debe ser positivo";
   public static final String VALIDATION_PAST_OR_PRESENT_MESSAGE = "La fecha debe estar en el presente o en el pasado";
+  public static final String VALIDATION_FUTURE_OR_PRESENT_MESSAGE = "La fecha debe estar en el presente o en el futuro";
 
 }

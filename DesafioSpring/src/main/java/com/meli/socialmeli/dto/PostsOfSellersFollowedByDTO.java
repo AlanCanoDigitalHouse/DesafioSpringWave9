@@ -13,4 +13,7 @@ public class PostsOfSellersFollowedByDTO {
     this.userId = userId;
     this.posts = posts;
   }
+
+  public PostsOfSellersFollowedByDTO() {
+  }
 }

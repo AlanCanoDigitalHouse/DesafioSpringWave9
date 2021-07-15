@@ -1,18 +1,25 @@
 package com.meli.socialmeli.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.meli.socialmeli.dto.PostDTO;
+import com.meli.socialmeli.dto.PostsOfSellersFollowedByDTO;
 import com.meli.socialmeli.dto.ProductDTO;
 import com.meli.socialmeli.dto.request.NewPostRequest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -64,7 +71,7 @@ class PostControllerTest {
             .andDo(print())
             .andExpect(jsonPath("$.posts").isNotEmpty())
             //el segundo post es mas antiguo a dos semanas
-            .andExpect(jsonPath("$.posts[1]").exists());
+            .andExpect(jsonPath("$.posts[0]").exists());
   }
 
   @Test
@@ -81,13 +88,20 @@ class PostControllerTest {
   @Test
   void findPostsOfSellersFollowedByDesc() throws Exception {
 //    newPostTest();
-    mockMvc.perform(get(GET_POST_OF_SELLERS_FOLLOWED_BY_ORDER_DESC))
+    MvcResult mvcResult = mockMvc.perform(get(GET_POST_OF_SELLERS_FOLLOWED_BY_ORDER_DESC))
             .andDo(print())
             .andExpect(jsonPath("$.posts").isNotEmpty())
             //el segundo post es mas antiguo a dos semanas
-            .andExpect(jsonPath("$.posts[0].date").value(LocalDate.now().toString()))
-            .andExpect(jsonPath("$.posts[1].date").value(LocalDate.now().minusMonths(2).toString()));
+            .andReturn();
 
+    String jsonResponse = mvcResult.getResponse().getContentAsString();
+    TypeReference<PostsOfSellersFollowedByDTO> typeReference = new TypeReference<>() {
+    };
+    PostsOfSellersFollowedByDTO postDTOS = new ObjectMapper().readValue(jsonResponse, typeReference);
+    List<PostDTO> posts = postDTOS.getPosts();
+    for (int i = 0, j = i + 1; j <= posts.size(); i++, j++) {
+      Assertions.assertTrue(posts.get(i).getDate().isAfter(posts.get(j).getDate()));
+    }
   }
 
   @Test

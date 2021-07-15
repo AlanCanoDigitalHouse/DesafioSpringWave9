@@ -64,6 +64,9 @@ public class PostDTO implements Comparable<PostDTO> {
     this.discount = discount;
   }
 
+  public PostDTO() {
+  }
+
   @Override
   public int compareTo(PostDTO post) {
     return date.isBefore(post.date) ? -1 : date.isEqual(post.date) ? 0 : 1;

@@ -11,11 +11,15 @@ import com.meli.socialmeli.util.PostDTOComparatorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImp implements PostService {
+
+  private static Integer TWO_WEEKS = 12;
 
   @Autowired
   PostRepository repo;
@@ -39,19 +43,21 @@ public class PostServiceImp implements PostService {
   @Override
   public List<PostDTO> getPostsOfUsersFollowedBy(Integer userId) throws UserNotFoundException {
     List<UserDTO> usersFollowedBy = userService.getUsersFollowedBy(userId);
-    List<PostDTO> result = new ArrayList<>();
+    List<PostDTO> allPosts = new ArrayList<>();
     for (UserDTO userDTO : usersFollowedBy) {
       List<PostDTO> userPosts = getUserPosts(userDTO.getUserId());
-      result.addAll(userPosts);
+      allPosts.addAll(userPosts);
     }
-    return result;
+    return allPosts;
   }
 
   @Override
   public List<PostDTO> getPostsOfUsersFollowedBy(Integer userId, String order) throws UserNotFoundException {
     List<PostDTO> postsOfUsersFollowedBy = getPostsOfUsersFollowedBy(userId);
-    postsOfUsersFollowedBy.sort(PostDTOComparatorFactory.getComparator(order));
-    return postsOfUsersFollowedBy;
+    List<PostDTO> postsOfUsersFollowedByOfTheLastTwoWeeks =
+            postsOfUsersFollowedBy.stream().filter(postDTO -> postDTO.getDate().isAfter(LocalDate.now().minusDays(TWO_WEEKS))).collect(Collectors.toList());
+    postsOfUsersFollowedByOfTheLastTwoWeeks.sort(PostDTOComparatorFactory.getComparator(order));
+    return postsOfUsersFollowedByOfTheLastTwoWeeks;
   }
 
 

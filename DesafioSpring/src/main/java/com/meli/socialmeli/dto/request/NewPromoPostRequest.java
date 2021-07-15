@@ -12,9 +12,7 @@ import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Data
@@ -22,23 +20,28 @@ import java.time.LocalDate;
 @Validated
 public class NewPromoPostRequest {
   @Positive(message = SocialMeliConstants.VALIDATION_POSITIVE_MESSAGE)
+  @NotNull(message = SocialMeliConstants.VALIDATION_NOT_NULL_MESSAGE)
   private Integer userId;
   @Positive(message = SocialMeliConstants.VALIDATION_POSITIVE_MESSAGE)
+  @NotNull(message = SocialMeliConstants.VALIDATION_NOT_NULL_MESSAGE)
   private Integer id_post;
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
   @JsonDeserialize(using = LocalDateDeserializer.class)
   @JsonSerialize(using = LocalDateSerializer.class)
-  @PastOrPresent(message = SocialMeliConstants.VALIDATION_PAST_OR_PRESENT_MESSAGE)
+  @FutureOrPresent(message = SocialMeliConstants.VALIDATION_FUTURE_OR_PRESENT_MESSAGE)
   private LocalDate date;
   @Valid
   private ProductDTO detail;
   @Positive(message = SocialMeliConstants.VALIDATION_POSITIVE_MESSAGE)
+  @NotNull(message = SocialMeliConstants.VALIDATION_NOT_NULL_MESSAGE)
   private Integer category;
   @Positive(message = SocialMeliConstants.VALIDATION_POSITIVE_MESSAGE)
+  @NotNull(message = SocialMeliConstants.VALIDATION_NOT_NULL_MESSAGE)
   private Double price;
   @AssertTrue(message = SocialMeliConstants.VALIDATION_TRUE_MESSAGE)
   private Boolean hasPromo;
   @Positive(message = SocialMeliConstants.VALIDATION_POSITIVE_MESSAGE)
+  @NotNull(message = SocialMeliConstants.VALIDATION_NOT_NULL_MESSAGE)
   private Double discount;
 
 

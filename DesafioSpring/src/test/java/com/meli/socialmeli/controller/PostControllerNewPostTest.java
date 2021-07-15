@@ -51,7 +51,7 @@ public class PostControllerNewPostTest {
     newPostRequest = new NewPostRequest(2, LocalDate.now().minusDays(5), productDTO, 100, 2000.0, true, .15);
     newValidRequestWithInvalidUserId = new NewPostRequest(10, LocalDate.now().minusDays(5), productDTO, 100, 2000.0,
             true, .15);
-    newInvalidPostRequest = new NewPostRequest(10, LocalDate.now().plusDays(5), productDTO, 0, 0.0, null, null);
+    newInvalidPostRequest = new NewPostRequest(10, LocalDate.now().minusMonths(5), productDTO, 0, 0.0, null, null);
     newInvalidPromoRequest = new NewPostRequest(1, LocalDate.now(), productDTO, 100, 140.0, false, 0.0);
   }
 
