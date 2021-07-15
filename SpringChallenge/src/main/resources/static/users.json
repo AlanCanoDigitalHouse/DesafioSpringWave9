@@ -1,0 +1,92 @@
+[
+  {
+    "userId": 0,
+    "userName": "JohnDoe",
+    "followed": [],
+    "followers": []
+  },
+  {
+    "userId": 1,
+    "userName": "Goku123",
+    "followed": [],
+    "followers": []
+  },
+  {
+    "userId": 2,
+    "userName": "DwightKSchrute",
+    "followed": [],
+    "followers": []
+  },
+  {
+    "userId": 3,
+    "userName": "Heisenberg",
+    "followed": [],
+    "followers": []
+  },
+  {
+    "userId": 4,
+    "userName": "AlexTurner",
+    "followed": [],
+    "followers": []
+  },
+  {
+    "userId": 5,
+    "userName": "Fleabag",
+    "followed": [],
+    "followers": []
+  },
+  {
+    "userId": 6,
+    "userName": "Loki",
+    "followed": [],
+    "followers": []
+  },
+  {
+    "userId": 7,
+    "userName": "BoJackH",
+    "followed": [],
+    "followers": []
+  },
+  {
+    "userId": 8,
+    "userName": "DtPeralta",
+    "followed": [],
+    "followers": []
+  },
+  {
+    "userId": 9,
+    "userName": "MsChanandlerBong",
+    "followed": [],
+    "followers": []
+  },
+  {
+    "userId": 10,
+    "userName": "TheBlitz",
+    "followed": [],
+    "followers": []
+  },
+  {
+    "userId": 11,
+    "userName": "Birdie",
+    "followed": [],
+    "followers": []
+  },
+  {
+    "userId": 12,
+    "userName": "Tarantulino",
+    "followed": [],
+    "followers": []
+  },
+  {
+    "userId": 13,
+    "userName": "Stark4Ever",
+    "followed": [],
+    "followers": []
+  },
+  {
+    "userId": 14,
+    "userName": "DocBrown",
+    "followed": [],
+    "followers": []
+  }
+]
