@@ -5,6 +5,7 @@ import com.socialMeli.dto.request.product.PostInfoToCreateDTO;
 import com.socialMeli.dto.request.product.PromoPostInfoToCreateDTO;
 import com.socialMeli.dto.response.CountPromoPostsResponseDTO;
 import com.socialMeli.dto.response.ProductsSellersThatUserFollowsDTO;
+import com.socialMeli.dto.response.PromoPostsOfAUserResponseDTO;
 import com.socialMeli.exception.exception.DateNotValidException;
 import com.socialMeli.exception.exception.ModelAlreadyExists;
 import com.socialMeli.exception.exception.ModelNotExists;
@@ -83,5 +84,16 @@ public class ProductsController {
     @GetMapping("/{userId}/countPromo/")
     public ResponseEntity<CountPromoPostsResponseDTO> counterPromoPost(@PathVariable int userId) throws ModelNotExists {
         return new ResponseEntity<>(postService.countPromoPosts(userId),HttpStatus.OK);
+    }
+
+    /**
+     * TODO: 0012 Get list of the promo post of a user
+     * @param userId user want know the list of posts
+     * @return Name and id of the user with the list of posts
+     * @throws ModelNotExists if the user not exists
+     */
+    @GetMapping("/{userId}/list/")
+    public ResponseEntity<PromoPostsOfAUserResponseDTO> getListPromoPosts(@PathVariable int userId) throws ModelNotExists {
+        return new ResponseEntity<>(postService.getPromoPostsLists(userId),HttpStatus.OK);
     }
 }

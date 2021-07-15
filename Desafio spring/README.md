@@ -172,6 +172,16 @@ Excepciones esperadas:
 - Si el usuario no existe
 - Si se ingresa una letra
 
+### 00012: Obtener lista de promo posts de un usuario
+
+Endpoint example: GET [localhost:8080/products/1/list/]()
+
+Payload: Ninguno
+
+Excepciones esperadas:
+- Si el usuario no existe
+- Si se ingresa una letra
+
 
 
 

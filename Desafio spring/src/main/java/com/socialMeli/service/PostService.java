@@ -2,10 +2,7 @@ package com.socialMeli.service;
 
 import com.socialMeli.dto.request.product.DetailProductDTO;
 import com.socialMeli.dto.request.product.PostInfoToCreateDTO;
-import com.socialMeli.dto.response.CountPromoPostsResponseDTO;
-import com.socialMeli.dto.response.PostInfoResponseDTO;
-import com.socialMeli.dto.response.ProductDetailResponseDTO;
-import com.socialMeli.dto.response.ProductsSellersThatUserFollowsDTO;
+import com.socialMeli.dto.response.*;
 import com.socialMeli.exception.exception.DateNotValidException;
 import com.socialMeli.exception.exception.ModelAlreadyExists;
 import com.socialMeli.exception.exception.ModelNotExists;
@@ -33,7 +30,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PostService<T extends PostModel> {
+public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
@@ -188,4 +185,48 @@ public class PostService<T extends PostModel> {
                 .userId(String.valueOf(user.getId()))
                 .build();
     }
+
+    public PromoPostsOfAUserResponseDTO getPromoPostsLists(int userId) throws ModelNotExists {
+        UserModel userModel = userRepository.findById(userId);
+        List<PostModel> promoPosts = getPromoPostsOfUser(userModel);
+        List<PromoPostInfoResponseDTO> promoPostDTO = parseModelToDTO(promoPosts);
+        return new PromoPostsOfAUserResponseDTO(userModel.getId(),userModel.getUserName(),promoPostDTO);
+    }
+
+    private List<PostModel> getPromoPostsOfUser(UserModel user) {
+        return getPostsOfUser(user).stream().filter(post -> {
+            try {
+                return post.getHasPromo();
+            } catch (NullPointerException ex) {
+                //Empty, is normal that promo was null
+            }
+            return false;
+        }).collect(Collectors.toList());
+    }
+
+    private List<PromoPostInfoResponseDTO> parseModelToDTO(List<PostModel> promoPosts) {
+        return promoPosts.stream()
+                //Parse model to dto
+                .map(promoModel -> {
+                    PromoPostInfoResponseDTO out = new PromoPostInfoResponseDTO();
+                    out.setId_post(promoModel.getId());
+                    out.setDate(promoModel.getDate());
+                    out.setDetail(ProductDetailResponseDTO.builder()
+                            .product_id(promoModel.getDetail().getProduct_id())
+                            .productName(promoModel.getDetail().getProductName())
+                            .type(promoModel.getDetail().getType())
+                            .brand(promoModel.getDetail().getBrand())
+                            .color(promoModel.getDetail().getColor())
+                            .notes(promoModel.getDetail().getNotes())
+                            .build()
+                    );
+                    out.setCategory(String.valueOf(promoModel.getCategory()));
+                    out.setPrice(promoModel.getPrice());
+                    out.setHasPromo(promoModel.getHasPromo());
+                    out.setDiscount(promoModel.getDiscount());
+                    return out;
+                }).collect(Collectors.toList());
+    }
+
+
 }
