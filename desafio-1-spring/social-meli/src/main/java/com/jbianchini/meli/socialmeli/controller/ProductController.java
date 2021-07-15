@@ -20,7 +20,9 @@ public class ProductController {
         this.productService = productService;
     }
 
-    /** Exercise 5: Creates a new post
+    /**
+     * Exercise 5: Creates a new post
+     *
      * @param postDTO new post.
      * @return ResponseDTO with the response status and the argument data
      */
@@ -29,10 +31,12 @@ public class ProductController {
         return this.productService.newPost(postDTO);
     }
 
-    /** Exercise 6: Retrieves the list of posts of users followed by user with id userId from at most two weeks ago,
-     * in a certain order. The default order is ascending.
+    /**
+     * Exercise 6: Retrieves the list of posts of users followed by user with id userId from at most two weeks ago, in a
+     * certain order. The default order is ascending.
+     *
      * @param userId follower user
-     * @param order String specifying order
+     * @param order  String specifying order
      * @return ResponseEntity with a {@link PostsByFollowerDTO} containing posts list.
      */
     @GetMapping("/followed/{userId}/list")

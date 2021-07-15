@@ -1,14 +1,16 @@
-#SOCIAL MELI APP :computer:
-:penguin: This application allows you to create a little database of users who owns posts with products to sell. You 
-can 
+# SOCIAL MELI APP :computer:
+
+:penguin: This application allows you to create a little database of users who owns posts with products to sell. You can
 create users and posts, and list them with different options.
 
 :memo: Developed in IntelliJ IDEA with Java 11 & SpringBoot.
 
-###**APPLICATION ENDPOINTS**
+### **APPLICATION ENDPOINTS**
 
 ---
-###_Sample_
+
+### _Sample_
+
 * Create all: **POST** /init/createAll
   ``` 
     Creates a sample database.
@@ -16,12 +18,11 @@ create users and posts, and list them with different options.
     ```
 
 ---
-###_User_
 
+### _User_
 
-  
 * Create user: **POST** /users/create
-    * userName: _String_ with user name.  
+    * userName: _String_ with user name.
 
   ``` 
     Allows to create a user.
@@ -33,8 +34,8 @@ create users and posts, and list them with different options.
 
 * Follow user: **POST** /users/{{userId}}/follow/{{userIdToFollow}}
     * userId: _Integer_ with follower user id.
-    * userToFollowId: _Integer_ with followed user id.  
-    
+    * userToFollowId: _Integer_ with followed user id.
+
     ``` 
     Allows to follow a user.
     Eg: /users/1/follow/2
@@ -42,17 +43,17 @@ create users and posts, and list them with different options.
 
 * Followers count: **GET** /users/{{userId}}/followers/count/
     * userId: _Integer_ user to count followers.
-    
+
     ``` 
     Gets the amount of users who follows an user.
     Eg: /users/2/followers/count/
     ```
-    
+
 
 * Followers: **GET** /users/{UserID}/followers/list
     * `UserID`: _Integer_ user.
     * `order`: _String_ **RequestParam** specific order. Expected: name_asc, name_desc. Default is _none_.
-      
+
     ```
     Gets the follower users list of a user ordered by user name
     Eg: /users/1/followers/list?order=name_asc
@@ -60,7 +61,7 @@ create users and posts, and list them with different options.
 
 * Followed: **GET** /users/{UserID}/followed/list
     * `UserID`: _Integer_ user.
-    * `order`: _String_ **RequestParam** specific order. Expected: name_asc, name_desc. Default is _none_.  
+    * `order`: _String_ **RequestParam** specific order. Expected: name_asc, name_desc. Default is _none_.
     ```
     Gets the followed users list of a user ordered by user name.
     Eg: /users/1/followed/list?order=name_desc
@@ -68,13 +69,16 @@ create users and posts, and list them with different options.
 
 * Unfollow: **POST** /{userId}/unfollow/{userIdToUnfollow}
     * `userId`: _Integer_ follower user.
-    * `userIdToUnfollow`: _Integer_ followed user.  
+    * `userIdToUnfollow`: _Integer_ followed user.
     ```
     Allows to unfollow another user.
     Eg: /users/1/unfollow/2
   ```
+
 ---
-###_Product_
+
+### _Product_
+
 * Create post: **POST** /products/newpost
     * `postDTO: _DTO_ containing post information.
 
@@ -97,7 +101,7 @@ create users and posts, and list them with different options.
         "price" : 1500.50
      }
     ```
-  
+
 * See followed posts: **GET** /products/followed/{userId}/list
     * `userId`: _Integer_ user id.
     * `order`: _String_ **RequestParam** specific order. Expected: date_asc, date_desc. Default is _desc_.
@@ -106,8 +110,8 @@ create users and posts, and list them with different options.
     Gets the followed users posts list of a user ordered by post date.
     Eg: /products/1/followed/list?order=name_desc
    ```
-  
+
 ---
 :office: **Application created during Mercadolibre&copy; BootCamp 2021**  
-:bust_in_silhouette: **Author** Juan Bianchini :email: juan.bianchini@mercadolibre.com  
+:bust_in_silhouette: **Author** Juan Bianchini :email: juan.bianchini@mercadolibre.com
 ---

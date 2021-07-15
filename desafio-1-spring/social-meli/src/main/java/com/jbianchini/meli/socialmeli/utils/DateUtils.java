@@ -8,8 +8,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class DateUtils {
 
-    /** Converts string date to Local Date
-     * @param date String with date
+    /**
+     * Converts string date to Local Date
+     *
+     * @param date   String with date
      * @param format The date format
      * @return a {@link LocalDate}
      */
@@ -19,8 +21,10 @@ public class DateUtils {
         return LocalDate.parse(date, formatter);
     }
 
-    /** Converts a Local Date to String
-     * @param date LocalDate to convert
+    /**
+     * Converts a Local Date to String
+     *
+     * @param date   LocalDate to convert
      * @param format Desired format
      * @return String with date
      */

@@ -6,7 +6,6 @@ import com.jbianchini.meli.socialmeli.dto.FollowersListDTO;
 import com.jbianchini.meli.socialmeli.dto.UserDTO;
 import com.jbianchini.meli.socialmeli.dto.response.ResponseDTO;
 import com.jbianchini.meli.socialmeli.service.IUserService;
-import com.jbianchini.meli.socialmeli.service.handler.Initializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +23,9 @@ public class UserController {
     }
 
 
-
-    /** Creates a new user
+    /**
+     * Creates a new user
+     *
      * @param userDTO DTO containing user name
      * @return ResponseDTO with the response status and the argument data
      */
@@ -36,7 +36,8 @@ public class UserController {
 
     /**
      * Exercise 1: Make user passed as argument to follow the second user.
-     * @param userId follower user id
+     *
+     * @param userId         follower user id
      * @param userIdToFollow followed user id
      * @return ResponseDTO with the response status and the argument data
      */
@@ -45,7 +46,9 @@ public class UserController {
         return this.userService.follow(userId, userIdToFollow);
     }
 
-    /** Exercise 2: Gets the amount of users following the user with the id passed.
+    /**
+     * Exercise 2: Gets the amount of users following the user with the id passed.
+     *
      * @param userId followed user id
      * @return ResponseEntity containing {@link FollowersCountDTO} with the count information
      */
@@ -55,11 +58,12 @@ public class UserController {
         return new ResponseEntity<>(this.userService.getFollowersCount(userId), HttpStatus.OK);
     }
 
-    /** Exercise 3: Retrieves the list of followers of the user id passed as argument, in certain order. The default
-     * order is
-     * ascending.
+    /**
+     * Exercise 3: Retrieves the list of followers of the user id passed as argument, in certain order. The default
+     * order is ascending.
+     *
      * @param UserID followed user id
-     * @param order String specifying order
+     * @param order  String specifying order
      * @return ResponseEntity containing {@link FollowersListDTO} with the followers
      */
     @GetMapping("/{UserID}/followers/list")
@@ -68,11 +72,12 @@ public class UserController {
         return new ResponseEntity<>(this.userService.getFollowers(UserID, order), HttpStatus.OK);
     }
 
-    /** Exercise 4: Retrieves the list of followed users of the user id passed as argument, in certain order. The
-     * default order is
-     * ascending.
+    /**
+     * Exercise 4: Retrieves the list of followed users of the user id passed as argument, in certain order. The default
+     * order is ascending.
+     *
      * @param UserID follower user id
-     * @param order String specifying order
+     * @param order  String specifying order
      * @return ResponseEntity containing {@link FollowedListDTO} with the followed users
      */
     @GetMapping("/{UserID}/followed/list")
@@ -81,8 +86,10 @@ public class UserController {
         return new ResponseEntity<>(this.userService.getFollowed(UserID, order), HttpStatus.OK);
     }
 
-    /** Exercise 7: Makes a user to unfollow another one.
-     * @param userId follower user id
+    /**
+     * Exercise 7: Makes a user to unfollow another one.
+     *
+     * @param userId           follower user id
      * @param userIdToUnfollow followed user id
      * @return ResponseDTO with the response status and the argument data
      */

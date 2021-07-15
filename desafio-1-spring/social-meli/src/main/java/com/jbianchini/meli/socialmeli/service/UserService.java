@@ -136,8 +136,8 @@ public class UserService implements IUserService {
             case "":
                 break;
             default:
-                throw new ApplicationException("The specified order is not valid.","Please enter a valid order or " +
-                        "leave it empty.");
+                throw new ApplicationException("The specified order is not valid.",
+                        "Please enter a valid order or " + "leave it empty.");
         }
     }
 
