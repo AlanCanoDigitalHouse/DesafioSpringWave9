@@ -7,11 +7,12 @@ import com.example.desafiospring.dtos.createData.Users;
 import com.example.desafiospring.dtos.response.FollowersListDto;
 import com.example.desafiospring.dtos.response.SellersFollowedListDto;
 import com.example.desafiospring.dtos.response.UserSeller2WeeksListDto;
+import com.example.desafiospring.exceptions.BadRequestException;
+import com.example.desafiospring.exceptions.ErrorMessage;
+import com.example.desafiospring.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class UserServices {
+public class UserServices implements IUserServices{
     //creacion de usuarios
     public List<Users> users = new ArrayList<>();
     public List<Sellers> sellers= new ArrayList<>();
@@ -56,6 +57,11 @@ public class UserServices {
     public ResponseEntity<HttpStatus> follow(Integer userId, Integer sellerId){
         if(verifySeller(sellerId) && verifyUser(userId)){
             if(followers.containsKey(sellerId)){
+                for(Users follower: followers.get(sellerId)){
+                    if(follower.getUserId().equals(userId)){
+                        throw new BadRequestException("Usuario ya sigue a este vendedor");
+                    }
+                }
                 List<Users> aux = followers.get(sellerId);
                 for(Users user: users){
                     if(user.getUserId().equals(userId)){
@@ -74,7 +80,7 @@ public class UserServices {
             }
             return new ResponseEntity<>(HttpStatus.OK);
          }else{
-           return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+           throw new BadRequestException("Usuario o vendedor no existe");
         }
     }
     private int countFollowers(int sellerId){
@@ -94,18 +100,9 @@ public class UserServices {
                 respuesta.setFollowers_count(countFollowers(sellerId));
             }
         }
-        //dataOfSeller(sellerId,respuesta);
         return respuesta;
     }
-//    private void dataOfSeller(int sellerId, FollowersCountDto respuesta){
-//        for(Sellers seller: sellers){
-//            if(seller.getUserId().equals(sellerId)){
-//                respuesta.setUserName(seller.getUserName());
-//                respuesta.setUserId(sellerId);
-//                respuesta.setFollowers_count(countFollowers(sellerId));
-//            }
-//        }
-//    }
+
     public FollowersListDto followersList(int sellerId,String order){
         FollowersListDto respuesta = new FollowersListDto();
         setFollowerList(sellerId,respuesta,order);
@@ -164,16 +161,19 @@ public class UserServices {
         }
          return aux;
     }
-    public HttpStatus createPost(NewPostDto post){
+    public ResponseEntity<HttpStatus> createPost(NewPostDto post){
+        if(!verifySeller(post.getUserId())){
+            throw new BadRequestException("id de vendedor no existe");
+        }
            if(Objects.nonNull(post)){
                posts.add(post);
-               return HttpStatus.OK;
+               return new ResponseEntity<>(HttpStatus.OK);
            }else{
-               return HttpStatus.BAD_REQUEST;
+               return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
            }
     }
 
-    public UserSeller2WeeksListDto postList(int userId,String order) throws ParseException {
+    public UserSeller2WeeksListDto postList(int userId,String order){
         UserSeller2WeeksListDto respuesta = new UserSeller2WeeksListDto();
         respuesta.setUserId(userId);
         respuesta.setPosts(orderList(userId,order));
@@ -200,7 +200,7 @@ public class UserServices {
             });
             return finalList;
         }
-    private List<NewPostDto> orderList(int userId,String order) throws ParseException {
+    private List<NewPostDto> orderList(int userId,String order) {
         List<NewPostDto> listaDesordenada= getPostsWithUserId(userId);
         if(order.equals("date_asc")){
             listaDesordenada.sort((o1,o2) -> o1.getDate().compareTo(o2.getDate()));
@@ -221,7 +221,7 @@ public class UserServices {
         return LocalDate.of(Integer.parseInt(newDate[2]) ,Integer.parseInt(newDate[1]),Integer.parseInt(newDate[0]));
     }
 
-    public HttpStatus unFollow(Integer userId, Integer sellerId){
+    public ResponseEntity<HttpStatus> unFollow(Integer userId, Integer sellerId){
         if(verifySeller(sellerId) && verifyUser(userId)){
             List<Users> usuarios = followers.get(sellerId);
             List<Users> usuariosFiltrados= new ArrayList<>();
@@ -231,9 +231,9 @@ public class UserServices {
                 }
             }
             followers.replace(sellerId,usuariosFiltrados);
-            return HttpStatus.OK;
+            return new ResponseEntity<>(HttpStatus.OK);
         }else{
-            return HttpStatus.BAD_REQUEST;
+            throw new BadRequestException("Usuario o vendedor no existe");
         }
     }
 
