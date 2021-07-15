@@ -1,12 +1,9 @@
 package com.example.desafiospring.repository.implementations;
 
 import com.example.desafiospring.DTOS.requests.NewPostRequestDTO;
-import com.example.desafiospring.DTOS.responses.PostResponseDTO;
-import com.example.desafiospring.DTOS.responses.PromoPostResponseDTO;
 import com.example.desafiospring.entities.PostEntity;
 import com.example.desafiospring.exceptions.general.DBNotAvailableException;
 import com.example.desafiospring.repository.interfaces.PostRepository;
-import com.example.desafiospring.repository.interfaces.ProductRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -30,12 +27,6 @@ public class PostRepositoryImpl implements PostRepository {
 
     private static final AtomicInteger autoIncrement = new AtomicInteger(getNextIDFromDB());
 
-    ProductRepository productRepository;
-
-    public PostRepositoryImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
-
     @Override
     public Integer addPost(NewPostRequestDTO newPostRequestDTO, Integer productId) {
         Integer postId = autoIncrement.getAndIncrement();
@@ -51,7 +42,7 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<PostResponseDTO> getRecentPostsOf(List<Integer> userIds, String order) {
+    public List<PostEntity> getRecentPostsOf(List<Integer> userIds, String order) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         Comparator<PostEntity> c = getDateComparator(order, formatter);
         return getDatabasePosts().stream()
@@ -61,12 +52,6 @@ public class PostRepositoryImpl implements PostRepository {
                     return days <= 14 && days >= 0;
                 })
                 .sorted(c)
-                .map(pe -> new PostResponseDTO(
-                        pe.getPostId(),
-                        pe.getDate(),
-                        productRepository.getProductResponseDTO(pe.getProductId()),
-                        pe.getCategory(),
-                        pe.getPrice()))
                 .collect(Collectors.toList());
     }
 
@@ -79,25 +64,10 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<PromoPostResponseDTO> getPromoPostsOf(Integer userId, String order) {
-        Comparator<PostEntity> c = getProductNameComparator(order);
+    public List<PostEntity> getPromoPostsOf(Integer userId) {
         return getDatabasePosts().stream()
                 .filter(p -> userId.equals(p.getUserId()) && Boolean.TRUE.equals(p.getHasPromo()))
-                .sorted(c)
-                .map(pe -> new PromoPostResponseDTO(
-                        pe.getPostId(),
-                        pe.getDate(),
-                        productRepository.getProductResponseDTO(pe.getProductId()),
-                        pe.getCategory(),
-                        pe.getPrice(),
-                        pe.getHasPromo(),
-                        pe.getDiscount()))
                 .collect(Collectors.toList());
-    }
-
-    private Comparator<PostEntity> getProductNameComparator(String order) {
-        Comparator<PostEntity> c = Comparator.comparing(p -> productRepository.getProductNameByID(p.getProductId()));
-        return "name_desc".equals(order) ? c.reversed() : c;
     }
 
     private Comparator<PostEntity> getDateComparator(String order, DateTimeFormatter formatter) {

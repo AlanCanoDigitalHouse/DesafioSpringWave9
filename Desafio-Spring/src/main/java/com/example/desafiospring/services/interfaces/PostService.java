@@ -1,4 +1,4 @@
-package com.example.desafiospring.repository.interfaces;
+package com.example.desafiospring.services.interfaces;
 
 import com.example.desafiospring.DTOS.requests.NewPostRequestDTO;
 import com.example.desafiospring.entities.PostEntity;
@@ -6,7 +6,7 @@ import com.example.desafiospring.entities.PostEntity;
 import java.util.List;
 import java.util.Set;
 
-public interface PostRepository {
+public interface PostService {
     Integer addPost(NewPostRequestDTO newPostRequestDTO, Integer productId);
 
     List<PostEntity> getRecentPostsOf(List<Integer> followedIds, String order);

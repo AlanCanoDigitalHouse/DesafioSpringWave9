@@ -7,8 +7,9 @@ import com.example.desafiospring.DTOS.responses.FollowUserResponseDTO;
 import com.example.desafiospring.DTOS.responses.FollowedListResponseDTO;
 import com.example.desafiospring.DTOS.responses.FollowerCountResponseDTO;
 import com.example.desafiospring.DTOS.responses.FollowerListResponseDTO;
-import com.example.desafiospring.repository.interfaces.FollowRepository;
+import com.example.desafiospring.entities.UserEntity;
 import com.example.desafiospring.repository.interfaces.UserRepository;
+import com.example.desafiospring.services.interfaces.FollowService;
 import com.example.desafiospring.services.interfaces.UserService;
 import org.springframework.stereotype.Service;
 
@@ -18,23 +19,23 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     UserRepository userRepository;
-    FollowRepository followRepository;
+    FollowService followService;
 
-    public UserServiceImpl(UserRepository userRepository, FollowRepository followRepository) {
+    public UserServiceImpl(UserRepository userRepository, FollowService followService) {
         this.userRepository = userRepository;
-        this.followRepository = followRepository;
+        this.followService = followService;
     }
 
     @Override
     public FollowUserResponseDTO followUser(FollowUserRequestDTO followUserRequestDTO) {
         followUserValidations(followUserRequestDTO);
-        followRepository.addNewFollow(followUserRequestDTO.getFollowerUserId(), followUserRequestDTO.getFollowedUserId());
+        followService.addNewFollow(followUserRequestDTO.getFollowerUserId(), followUserRequestDTO.getFollowedUserId());
         return new FollowUserResponseDTO("OK");
     }
 
     private void followUserValidations(FollowUserRequestDTO followUserRequestDTO) {
-        Integer followerID=followUserRequestDTO.getFollowerUserId();
-        Integer followedID=followUserRequestDTO.getFollowedUserId();
+        Integer followerID = followUserRequestDTO.getFollowerUserId();
+        Integer followedID = followUserRequestDTO.getFollowedUserId();
         validateUsersExistence(followerID, followedID);
         validateDifferentUsers(followerID, followedID);
     }
@@ -51,42 +52,48 @@ public class UserServiceImpl implements UserService {
         validateUsersExistence(userId);
         return new FollowerCountResponseDTO(
                 userId,
-                userRepository.getUserByID(userId).getUserName(),
-                followRepository.getFollowerIDs(userId).size());
+                getUserByID(userId).getUserName(),
+                followService.getFollowerIDs(userId).size());
     }
 
     @Override
     public FollowerListResponseDTO followerList(UserIDAndOrderRequestDTO userIDAndOrderRequestDTO) {
         Integer userId = userIDAndOrderRequestDTO.getUserId();
         validateUsersExistence(userId);
-        List<Integer> followerIDS = followRepository.getFollowerIDs(userId);
+        List<Integer> followerIDS = followService.getFollowerIDs(userId);
         return new FollowerListResponseDTO(
                 userId,
-                userRepository.getUserByID(userId).getUserName(),
-                userRepository.getUsersByID(followerIDS,userIDAndOrderRequestDTO.getOrder()));
+                getUserByID(userId).getUserName(),
+                userRepository.getUsersByID(followerIDS, userIDAndOrderRequestDTO.getOrder()));
     }
 
     @Override
     public FollowedListResponseDTO followedList(UserIDAndOrderRequestDTO userIDAndOrderRequestDTO) {
         Integer userId = userIDAndOrderRequestDTO.getUserId();
         validateUsersExistence(userId);
-        List<Integer> followedIDS = followRepository.getFollowedIDs(userId);
+        List<Integer> followedIDS = followService.getFollowedIDs(userId);
         return new FollowedListResponseDTO(
                 userId,
-                userRepository.getUserByID(userId).getUserName(),
+                getUserByID(userId).getUserName(),
                 userRepository.getUsersByID(followedIDS, userIDAndOrderRequestDTO.getOrder()));
     }
 
     @Override
     public FollowUserResponseDTO unFollowUser(FollowUserRequestDTO followUserRequestDTO) {
         followUserValidations(followUserRequestDTO);
-        followRepository.deleteFollow(followUserRequestDTO.getFollowerUserId(), followUserRequestDTO.getFollowedUserId());
+        followService.deleteFollow(followUserRequestDTO.getFollowerUserId(), followUserRequestDTO.getFollowedUserId());
         return new FollowUserResponseDTO("OK");
     }
 
-    private void validateUsersExistence(Integer... userIDS) {
+    @Override
+    public void validateUsersExistence(Integer... userIDS) {
         for (Integer id : userIDS) {
             userRepository.validateExistOrException(id);
         }
+    }
+
+    @Override
+    public UserEntity getUserByID(Integer userId) {
+        return userRepository.getUserByID(userId);
     }
 }

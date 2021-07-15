@@ -11,7 +11,6 @@ public class APIExceptionHandler {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage handleGeneralException(Exception exception) {
         exception.printStackTrace();
-        String message = exception.getMessage();
-        return new ErrorMessage(message);
+        return new ErrorMessage(exception.getMessage());
     }
 }
