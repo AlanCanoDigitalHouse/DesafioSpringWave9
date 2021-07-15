@@ -1,0 +1,369 @@
+{
+	"info": {
+		"_postman_id": "08175d07-9698-45b4-8011-8e4e23ce46e7",
+		"name": "Bootcamp - Sign Desafio Spring",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "REQ SOLICITADOS",
+			"item": [
+				{
+					"name": "US 0001",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/users/{userId}/follow/{userIdToFollow}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"{userId}",
+								"follow",
+								"{userIdToFollow}"
+							]
+						},
+						"description": "Poder realizar la acción de “Follow” (seguir) a un determinado vendedor"
+					},
+					"response": []
+				},
+				{
+					"name": "US 0002",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/users/{userId}/followers/count/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"{userId}",
+								"followers",
+								"count",
+								""
+							]
+						},
+						"description": "Obtener el resultado de la cantidad de usuarios que siguen a un determinado vendedor"
+					},
+					"response": []
+				},
+				{
+					"name": "US 0003",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/users/1569/followers/list",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1569",
+								"followers",
+								"list"
+							]
+						},
+						"description": "Obtener un listado de todos los usuarios que siguen a un determinado\r\nvendedor (¿Quién me sigue?)"
+					},
+					"response": []
+				},
+				{
+					"name": "US 0004",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/users/1536/followed/list",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1536",
+								"followed",
+								"list"
+							]
+						},
+						"description": "Obtener un listado de todos los vendedores a los cuales sigue un\r\ndeterminado usuario (¿A quién sigo?)"
+					},
+					"response": []
+				},
+				{
+					"name": "US 0005",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1569,\n    \"date\" : \"10-07-2021\",\n    \t\"detail\" :\n        \t{ \n                \"productName\" : \"Silla Gamer\",\n          \t    \"type\" : \"Gamer\",\n                \"brand\" : \"Racer\",\n                \"color\" : \"Red & Black\",\n                \"notes\" : \"Special Edition\"\n        \t},\n    \"category\" : 100,\n    \"price\" : 1500.50\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/products/newpost",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"newpost"
+							]
+						},
+						"description": "Dar de alta una nueva publicación"
+					},
+					"response": []
+				},
+				{
+					"name": "US 0006",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/products/followed/1536/list",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"followed",
+								"1536",
+								"list"
+							]
+						},
+						"description": "Obtener un listado de las publicaciones realizadas por los vendedores que\r\nun usuario sigue en las últimas dos semanas (para esto tener en cuenta\r\nordenamiento por fecha, publicaciones más recientes primero)."
+					},
+					"response": []
+				},
+				{
+					"name": "US 0007",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/users/4698/unfollow/1569",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"4698",
+								"unfollow",
+								"1569"
+							]
+						},
+						"description": "Poder realizar la acción de “Unfollow” (dejar de seguir) a un determinado\r\nvendedor."
+					},
+					"response": []
+				},
+				{
+					"name": "US 0008 (name_asc)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/users/1569/followers/list?order=name_asc",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1569",
+								"followers",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "name_asc"
+								}
+							]
+						},
+						"description": "Ordenamiento alfabético ascendente y descendente"
+					},
+					"response": []
+				},
+				{
+					"name": "US 0009",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/products/followed/1536/list?order=date_asc",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"followed",
+								"1536",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "date_asc"
+								}
+							]
+						},
+						"description": "Ordenamiento por fecha ascendente y descendente"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BONUS",
+			"item": [
+				{
+					"name": "US 0010",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1569,\n    \"date\" : \"10-07-2021\",\n    \"detail\" :\n        { \n            \"productName\" : \"Silla Gamer\",\n          \t\"type\" : \"Gamer\",\n            \"brand\" : \"Racer\",\n            \"color\" : \"Red & Black\",\n            \"notes\" : \"Special Edition\"\n        },\n    \"category\" : \"100\",\n    \"price\" : 1500.50,\n    \"hasPromo\": true,\n    \"discount\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/products/newpromopost",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"newpromopost"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "US 0011",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/products/1569/countPromo/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"1569",
+								"countPromo",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "US 0012",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/products/1569/list/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"1569",
+								"list",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "US 0012 (name_asc)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/products/1569/list/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"1569",
+								"list",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EXTRA",
+			"item": [
+				{
+					"name": "US 0013",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "US 0014",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
