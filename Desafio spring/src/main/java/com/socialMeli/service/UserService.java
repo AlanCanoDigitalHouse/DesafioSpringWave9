@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Qualifier("userService")
-public class UserService {
+public class UserService implements IUserService {
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -24,6 +24,7 @@ public class UserService {
     /**
      * A user can follow other user
      */
+    @Override
     public FollowResultResponseDTO follow(int userId, int userIdToFollow) throws ModelNotExists, FollowHimselfException, AlreadyFollowedException {
         UserModel userModel = userRepository.findById(userId);
         UserModel toFollow = userRepository.findById(userIdToFollow);
@@ -36,6 +37,7 @@ public class UserService {
     }
 
     @SuppressWarnings("SpellCheckingInspection")
+    @Override
     public CountFollowersResponseDTO getCountOfFollowers(int idUser) throws ModelNotExists {
         //Used for esthetic of DTO
         UserModel userObjective = userRepository.findById(idUser);
@@ -45,6 +47,7 @@ public class UserService {
         return new CountFollowersResponseDTO(userObjective.getId(), userObjective.getUserName(), followers);
     }
 
+    @Override
     public UserFollowersResponseDTO getListFollowers(int idUser, String order) throws ModelNotExists, OrderNotValidException {
         UserModel userObjective = userRepository.findById(idUser);
         List<UserModel> users = userRepository.findAll();
@@ -56,6 +59,7 @@ public class UserService {
         return new UserFollowersResponseDTO(idUser, userObjective.getUserName(), followers);
     }
 
+    @Override
     public UserFollowedResponseDTO getListUsersFollowed(int idUser, String order) throws ModelNotExists, OrderNotValidException {
         UserModel userModel = userRepository.findById(idUser);
         List<BasicUserResponseDTO> followed = new ArrayList<>();
@@ -80,7 +84,7 @@ public class UserService {
         }
     }
 
-
+    @Override
     public void unfollowUser(int userID, int userIdToUnfollow) throws ModelNotExists, UserDontFollowThisUser {
         UserModel user = userRepository.findById(userID);
         user.unFollowUser(userIdToUnfollow);

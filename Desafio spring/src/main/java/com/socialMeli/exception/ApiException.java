@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -70,6 +71,12 @@ public class ApiException {
 
     //Default exceptions
 
+    @SuppressWarnings("unused")
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ErrorMessage> httpMethodNotAllowed(HttpRequestMethodNotSupportedException ex){
+        logger.error("Try using a method not allowed: "+ex.getMessage());
+        return new ResponseEntity<>(new ErrorMessage("Method error","Used a HTTP method not allowed"),HttpStatus.BAD_REQUEST);
+    }
     @SuppressWarnings("unused")
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorMessage> httpMessageBodyNotValid(HttpMessageNotReadableException ex) {

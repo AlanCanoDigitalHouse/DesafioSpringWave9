@@ -92,6 +92,8 @@ Excepciones esperadas:
 
 ### 0006: Obtener la lista de posts (solo si tienen menos de una semana) de los vendedores que un usuario sigue
 
+Contexto: Lo pense para que cada promo post tenga un producto nuevo :)
+
 Endpoint example: GET [localhost:8080/followed/7/list]()
 
 Payload: Ninguna
@@ -102,7 +104,7 @@ Excepciones esperadas:
 
 ### 0007: Un usuario puede realizar la accion de unfollow
 
-Endpoint example: GET [localhost:8080/users/7/unfollow/1]()
+Endpoint example: POST [localhost:8080/users/7/unfollow/1]()
 
 Payload: Ninguna
 
@@ -137,6 +139,9 @@ Excepciones esperadas (ver 0006 para adicionales):
 
 ### 0010: Crear promo post
 
+Contexto: Lo pense para que cada promo post tenga un producto nuevo :)
+
+
 Endpoint example POST [localhost:8080/products/newpromopost]()
 
 Payload: 
@@ -154,7 +159,7 @@ Payload:
 "category": 100,
 "price": 15000.5,
 "hasPromo":"true",
-"discount":10
+"discount":0.4
 }
 ````
 Excepciones esperadas:

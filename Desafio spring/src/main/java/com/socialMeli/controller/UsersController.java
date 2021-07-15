@@ -5,6 +5,7 @@ import com.socialMeli.dto.response.FollowResultResponseDTO;
 import com.socialMeli.dto.response.UserFollowedResponseDTO;
 import com.socialMeli.dto.response.UserFollowersResponseDTO;
 import com.socialMeli.exception.exception.*;
+import com.socialMeli.service.IUserService;
 import com.socialMeli.service.UserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/users")
 public class UsersController {
-    final UserService userService;
+    final IUserService userService;
 
-    public UsersController(@Qualifier("userService") UserService userService) {
+    public UsersController(IUserService userService) {
         this.userService = userService;
     }
 
@@ -82,7 +83,7 @@ public class UsersController {
      * @return Name and id of the user, with their list of users with the id and name
      * @throws ModelNotExists The id provided not exists
      */
-    @GetMapping("{userID}/unfollow/{userIdToUnfollow}")
+    @PostMapping("{userID}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<Void> unfollowUser(@PathVariable int userID, @PathVariable int userIdToUnfollow) throws UserDontFollowThisUser, ModelNotExists {
         userService.unfollowUser(userID, userIdToUnfollow);
         return new ResponseEntity<>(HttpStatus.OK);

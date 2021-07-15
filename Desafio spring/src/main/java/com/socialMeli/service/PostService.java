@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PostService {
+public class PostService implements IPostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
@@ -39,11 +39,13 @@ public class PostService {
         this.userRepository = userRepository;
     }
 
+    @Override
     public void addNewPost(@Valid PostInfoToCreateDTO dataPost) throws ParseException, ModelNotExists, ModelAlreadyExists, DateNotValidException {
         PostModel postModel = parseToPostModel(dataPost);
         postRepository.insert(postModel);
     }
 
+    @Override
     public ProductsSellersThatUserFollowsDTO postSellersThatUserFollows(int userId, String order) throws ModelNotExists, OrderNotValidException {
         UserModel user = userRepository.findById(userId);
         List<UserModel> usersFollowed = getListUserById(user.getFollowed());
@@ -169,6 +171,7 @@ public class PostService {
         return postModelBuilder.build();
     }
 
+    @Override
     public CountPromoPostsResponseDTO countPromoPosts(int userId) throws ModelNotExists {
         UserModel user = userRepository.findById(userId);
         List<PostModel> promoPosts = getPostsOfUser(user).stream().filter(post -> {
@@ -186,11 +189,12 @@ public class PostService {
                 .build();
     }
 
+    @Override
     public PromoPostsOfAUserResponseDTO getPromoPostsLists(int userId) throws ModelNotExists {
         UserModel userModel = userRepository.findById(userId);
         List<PostModel> promoPosts = getPromoPostsOfUser(userModel);
         List<PromoPostInfoResponseDTO> promoPostDTO = parseModelToDTO(promoPosts);
-        return new PromoPostsOfAUserResponseDTO(userModel.getId(),userModel.getUserName(),promoPostDTO);
+        return new PromoPostsOfAUserResponseDTO(userModel.getId(), userModel.getUserName(), promoPostDTO);
     }
 
     private List<PostModel> getPromoPostsOfUser(UserModel user) {

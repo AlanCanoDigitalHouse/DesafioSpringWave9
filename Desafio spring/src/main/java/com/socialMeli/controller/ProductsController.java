@@ -10,6 +10,7 @@ import com.socialMeli.exception.exception.DateNotValidException;
 import com.socialMeli.exception.exception.ModelAlreadyExists;
 import com.socialMeli.exception.exception.ModelNotExists;
 import com.socialMeli.exception.exception.OrderNotValidException;
+import com.socialMeli.service.IPostService;
 import com.socialMeli.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +25,9 @@ import java.text.ParseException;
 @RequestMapping("/products")
 public class ProductsController {
     private final Logger logger = LoggerFactory.getLogger(SocialMeliApplication.class);
-    private final PostService postService;
+    private final IPostService postService;
 
-    public ProductsController(PostService postService) {
+    public ProductsController(IPostService postService) {
         this.postService = postService;
     }
 
@@ -77,23 +78,25 @@ public class ProductsController {
 
     /**
      * TODO: 0011  Count of promo post by userId
+     *
      * @param userId id of the user to get counter
      * @return counter of promo posts
      * @throws ModelNotExists If the user not exists
      */
     @GetMapping("/{userId}/countPromo/")
     public ResponseEntity<CountPromoPostsResponseDTO> counterPromoPost(@PathVariable int userId) throws ModelNotExists {
-        return new ResponseEntity<>(postService.countPromoPosts(userId),HttpStatus.OK);
+        return new ResponseEntity<>(postService.countPromoPosts(userId), HttpStatus.OK);
     }
 
     /**
      * TODO: 0012 Get list of the promo post of a user
+     *
      * @param userId user want know the list of posts
      * @return Name and id of the user with the list of posts
      * @throws ModelNotExists if the user not exists
      */
     @GetMapping("/{userId}/list/")
     public ResponseEntity<PromoPostsOfAUserResponseDTO> getListPromoPosts(@PathVariable int userId) throws ModelNotExists {
-        return new ResponseEntity<>(postService.getPromoPostsLists(userId),HttpStatus.OK);
+        return new ResponseEntity<>(postService.getPromoPostsLists(userId), HttpStatus.OK);
     }
 }

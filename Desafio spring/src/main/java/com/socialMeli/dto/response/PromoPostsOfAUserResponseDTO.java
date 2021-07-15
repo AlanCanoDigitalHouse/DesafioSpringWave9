@@ -7,7 +7,10 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PromoPostsOfAUserResponseDTO {
     private int userId;
     private String userName;
