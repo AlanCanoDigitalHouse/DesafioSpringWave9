@@ -22,7 +22,7 @@ create users and posts, and list them with different options.
 ### _User_
 
 * Create user: **POST** /users/create
-    * userName: _String_ with user name.
+    * `userName`: _String_ with user name.
 
   ``` 
     Allows to create a user.
@@ -33,8 +33,8 @@ create users and posts, and list them with different options.
     ```
 
 * Follow user: **POST** /users/{{userId}}/follow/{{userIdToFollow}}
-    * userId: _Integer_ with follower user id.
-    * userToFollowId: _Integer_ with followed user id.
+    * `userId`: _Integer_ with follower user id.
+    * `userToFollowId`: _Integer_ with followed user id.
 
     ``` 
     Allows to follow a user.
@@ -42,7 +42,7 @@ create users and posts, and list them with different options.
     ```
 
 * Followers count: **GET** /users/{{userId}}/followers/count/
-    * userId: _Integer_ user to count followers.
+    * `userId`: _Integer_ user to count followers.
 
     ``` 
     Gets the amount of users who follows an user.
@@ -80,7 +80,7 @@ create users and posts, and list them with different options.
 ### _Product_
 
 * Create post: **POST** /products/newpost
-    * `postDTO: _DTO_ containing post information.
+    * `postDTO`: _DTO_ containing post information.
 
   ``` 
     Allows to create a post.
@@ -113,5 +113,4 @@ create users and posts, and list them with different options.
 
 ---
 :office: **Application created during Mercadolibre&copy; BootCamp 2021**  
-:bust_in_silhouette: **Author** Juan Bianchini :email: juan.bianchini@mercadolibre.com
----
+:bust_in_silhouette: **Author** Juan Bianchini :email: `juan.bianchini@mercadolibre.com`
