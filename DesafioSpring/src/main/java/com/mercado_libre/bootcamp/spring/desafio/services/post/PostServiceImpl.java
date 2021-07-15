@@ -7,6 +7,7 @@ import com.mercado_libre.bootcamp.spring.desafio.dtos.response.PromoListResponse
 import com.mercado_libre.bootcamp.spring.desafio.models.Post;
 import com.mercado_libre.bootcamp.spring.desafio.models.Seller;
 import com.mercado_libre.bootcamp.spring.desafio.services.seller.SellerServiceImpl;
+import com.mercado_libre.bootcamp.spring.desafio.services.strategies.SortPostStrategy;
 import com.mercado_libre.bootcamp.spring.desafio.utils.DateUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,8 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
 
     private final SellerServiceImpl sellerService;
+
+    private final SortPostStrategy sortPostStrategy;
 
     @Override
     public HttpStatus addNewProduct(NewProductRequestDTO newProductRequest) {
@@ -70,11 +73,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PromoListResponseDTO getPromoList(int sellerId) {
+    public PromoListResponseDTO getPromoList(int sellerId, String order) {
         Seller seller = sellerService.getSeller(sellerId);
 
         List<Post> posts = seller.getPosts().stream().filter(Post::isHasPromo)
                 .collect(Collectors.toList());
+
+        sortPostStrategy.getImplementation(order).sort(posts);
 
         return new PromoListResponseDTO(seller.getUserId(), seller.getUserName(), posts);
     }

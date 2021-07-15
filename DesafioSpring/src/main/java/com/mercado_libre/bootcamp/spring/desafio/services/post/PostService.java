@@ -14,5 +14,5 @@ public interface PostService {
 
     public PromoCountResponseDTO getPromosCount(int sellerId);
 
-    public PromoListResponseDTO getPromoList(int sellerId);
+    public PromoListResponseDTO getPromoList(int sellerId, String order);
 }

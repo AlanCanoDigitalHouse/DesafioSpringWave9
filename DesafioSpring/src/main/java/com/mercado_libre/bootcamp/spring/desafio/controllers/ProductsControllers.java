@@ -44,8 +44,8 @@ public class ProductsControllers {
     }
 
     @GetMapping("/{userId}/list")
-    public ResponseEntity<PromoListResponseDTO> getPromoList(@PathVariable int userId) {
-        return new ResponseEntity<>(postService.getPromoList(userId), HttpStatus.OK);
+    public ResponseEntity<PromoListResponseDTO> getPromoList(@PathVariable int userId, @RequestParam(required = false, defaultValue = "NONE") String order) {
+        return new ResponseEntity<>(postService.getPromoList(userId, order), HttpStatus.OK);
     }
 
 }
