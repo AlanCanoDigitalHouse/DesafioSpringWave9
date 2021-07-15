@@ -31,14 +31,10 @@ Se debe ejecutar el siguiente endpoint para cargar los datos en memoria:
 `localhost:8080/users/13/follow/10`
 ### Contar la cantidad de seguidores de un vendedor
 `localhost:8080/users/10/followers/count/`
-### Mostrar los seguidores de un vendedor
-`localhost:8080/users/10/followers/list`
-### Mostrar los vendedores que sigue un usuario
-`localhost:8080/users/13/followed/list`
+
 ### Dar de alta un nuevo "post" de un producto
 `localhost:8080/products/newpost`
-### Mostrar los productos de un vendedor al que sigue un usuario
-`localhost:8080/products/followed/13/list`
+
 ### Dejar de seguir a un vendedor
 `localhost:8080/users/13/unfollow/10`
 ### Ordenar nombres de mis seguidores
