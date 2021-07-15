@@ -1,8 +1,8 @@
 package com.example.socialmeli.exceptions;
 
 import com.example.socialmeli.dtos.response.ExceptionResponseDTO;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -88,9 +88,9 @@ public class ApiControllerAdvice {
     @ExceptionHandler
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionResponseDTO invalidFormat(InvalidFormatException ex) {
+    public ExceptionResponseDTO invalidFormat(HttpMessageNotReadableException ex) {
         Map<String, String> detail = new HashMap<>();
-        detail.put("Value:" + ex.getValue().toString(), ex.getMessage());
+        detail.put("Error en el parseo:", ex.getMessage());
         return ExceptionResponseDTO.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .msg("Error al obtener el Json: ")
