@@ -30,6 +30,8 @@ Abra el proyecto en Intellij de *Run* en la clase main *DesafioSpringWave9Applic
 
 # Uso
 
+Los datos se cargan en tiempo de ejecución. Los id's de los usuarios disponibles son del 1 al 4.
+
 Las solicitudes disponibles son:
 
 1. Poder realizar la acción de “Follow” (seguir) a un determinado vendedor
