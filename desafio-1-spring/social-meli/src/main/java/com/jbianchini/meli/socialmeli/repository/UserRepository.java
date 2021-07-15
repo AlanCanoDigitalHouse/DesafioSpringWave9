@@ -1,12 +1,13 @@
 package com.jbianchini.meli.socialmeli.repository;
 
+import com.jbianchini.meli.socialmeli.exception.UserNotFoundException;
 import com.jbianchini.meli.socialmeli.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Objects;
 
 @Repository
 public class UserRepository implements IUserRepository {
@@ -19,16 +20,18 @@ public class UserRepository implements IUserRepository {
             user.setFollowed(new ArrayList<>());
             user.setFollowers(new ArrayList<>());
         }
-        //TODO: make the database to just update the user if exists
         database.put(user.getUserId(), user);
         return user;
     }
 
     @Override
-    public Optional<User> findByUserId(Integer userId) {
-        //TODO: Throw exception here if the user was not found
+    public User findByUserId(Integer userId) {
         User user = database.get(userId);
-        return Optional.ofNullable(user);
+        if (Objects.nonNull(user)) {
+            return user;
+        } else {
+            throw new UserNotFoundException();
+        }
     }
 
     @Override

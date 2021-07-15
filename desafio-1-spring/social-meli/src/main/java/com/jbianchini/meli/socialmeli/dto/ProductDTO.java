@@ -1,13 +1,15 @@
-package com.jbianchini.meli.socialmeli.model;
+package com.jbianchini.meli.socialmeli.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class ProductDTO {
     private String productName;
     private String type;
     private String brand;

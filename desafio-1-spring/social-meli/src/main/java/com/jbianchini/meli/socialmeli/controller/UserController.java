@@ -1,63 +1,68 @@
 package com.jbianchini.meli.socialmeli.controller;
 
-import com.jbianchini.meli.socialmeli.dto.request.UserRequestDTO;
-import com.jbianchini.meli.socialmeli.dto.response.FollowedListDTO;
-import com.jbianchini.meli.socialmeli.dto.response.FollowersCountDTO;
-import com.jbianchini.meli.socialmeli.dto.response.FollowersListDTO;
-import com.jbianchini.meli.socialmeli.exception.ApplicationException;
-import com.jbianchini.meli.socialmeli.exception.UserNotFoundException;
-import com.jbianchini.meli.socialmeli.model.User;
+import com.jbianchini.meli.socialmeli.dto.FollowedListDTO;
+import com.jbianchini.meli.socialmeli.dto.FollowersCountDTO;
+import com.jbianchini.meli.socialmeli.dto.FollowersListDTO;
+import com.jbianchini.meli.socialmeli.dto.UserDTO;
+import com.jbianchini.meli.socialmeli.dto.response.ResponseDTO;
 import com.jbianchini.meli.socialmeli.service.IUserService;
+import com.jbianchini.meli.socialmeli.service.handler.Initializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     IUserService userService;
+    Initializer initializer;
 
-
-    public UserController(IUserService userService) {
+    public UserController(IUserService userService, Initializer initializer) {
         this.userService = userService;
+        this.initializer = initializer;
     }
 
-    @PutMapping("/createAll")
-    public void createAll(HttpServletResponse response) throws ApplicationException {
-        this.userService.createAll(response);
+    @GetMapping("/createAll")
+    public void createAll() {
+        this.initializer.createAll();
 
     }
 
     @PutMapping("/create")
-    public ResponseEntity<User> create(@RequestBody UserRequestDTO userRequestDTO) {
-        return new ResponseEntity<>(this.userService.create(userRequestDTO), HttpStatus.OK);
+    public ResponseDTO create(@RequestBody UserDTO userDTO) {
+        return this.userService.createUser(userDTO);
     }
 
+
+    //-------------------
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public void follow(@PathVariable int userId, @PathVariable int userIdToFollow, HttpServletResponse response)
-            throws ApplicationException {
-        this.userService.follow(userId, userIdToFollow, response);
+    public ResponseDTO follow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) {
+        return this.userService.follow(userId, userIdToFollow);
     }
 
-    @GetMapping("/users/{userId}/followers/count/")
-    public ResponseEntity<FollowersCountDTO> followersCount(@PathVariable int userId)
-            throws UserNotFoundException {
+    @GetMapping("/{userId}/followers/count/")
+    public ResponseEntity<FollowersCountDTO> followersCount(@PathVariable Integer userId) {
 
         return new ResponseEntity<>(this.userService.getFollowersCount(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/users/{UserID}/followers/list")
-    public ResponseEntity<FollowersListDTO> followers(@PathVariable int UserID) throws UserNotFoundException {
-        return new ResponseEntity<>(this.userService.getFollowers(UserID), HttpStatus.OK);
+    @GetMapping("/{UserID}/followers/list")
+    public ResponseEntity<FollowersListDTO> followers(@PathVariable Integer UserID, @RequestParam(defaultValue="") String order) {
+        return new ResponseEntity<>(this.userService.getFollowers(UserID, order), HttpStatus.OK);
     }
 
-    @GetMapping("/users/{UserID}/followed/list")
-    public ResponseEntity<FollowedListDTO> followed(@PathVariable int UserID) throws UserNotFoundException {
-        return new ResponseEntity<>(this.userService.getFollowed(UserID), HttpStatus.OK);
+    @GetMapping("/{UserID}/followed/list")
+    public ResponseEntity<FollowedListDTO> followed(@PathVariable Integer UserID,
+                                                    @RequestParam(defaultValue="") String order) {
+        return new ResponseEntity<>(this.userService.getFollowed(UserID, order), HttpStatus.OK);
+    }
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseDTO unFollow(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) {
+        return this.userService.unFollow(userId, userIdToUnfollow);
     }
 
 }

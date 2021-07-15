@@ -1,4 +1,4 @@
-package com.jbianchini.meli.socialmeli.dto.response;
+package com.jbianchini.meli.socialmeli.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

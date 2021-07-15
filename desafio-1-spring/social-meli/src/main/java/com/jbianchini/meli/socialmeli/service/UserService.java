@@ -1,19 +1,19 @@
 package com.jbianchini.meli.socialmeli.service;
 
-import com.jbianchini.meli.socialmeli.dto.request.UserRequestDTO;
-import com.jbianchini.meli.socialmeli.dto.response.FollowedListDTO;
-import com.jbianchini.meli.socialmeli.dto.response.FollowersCountDTO;
-import com.jbianchini.meli.socialmeli.dto.response.FollowersListDTO;
-import com.jbianchini.meli.socialmeli.dto.response.UserDTO;
-import com.jbianchini.meli.socialmeli.exception.ApplicationException;
-import com.jbianchini.meli.socialmeli.exception.UserNotFoundException;
+import com.jbianchini.meli.socialmeli.dto.FollowedListDTO;
+import com.jbianchini.meli.socialmeli.dto.FollowersCountDTO;
+import com.jbianchini.meli.socialmeli.dto.FollowersListDTO;
+import com.jbianchini.meli.socialmeli.dto.UserDTO;
+import com.jbianchini.meli.socialmeli.dto.response.ResponseDTO;
+import com.jbianchini.meli.socialmeli.dto.response.SuccessResponseDTO;
 import com.jbianchini.meli.socialmeli.model.User;
 import com.jbianchini.meli.socialmeli.repository.IUserRepository;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class UserService implements IUserService {
@@ -24,93 +24,121 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void createAll(HttpServletResponse response) throws ApplicationException {
-        User juan = this.create(new UserRequestDTO("Juan"));
-        User mati = this.create(new UserRequestDTO("Mati"));
-        User alvaro = this.create(new UserRequestDTO("Alvaro"));
+    public ResponseDTO createUser(UserDTO userDTO) {
+        User user = this.create(userDTO);
+        userDTO.setUserId(user.getUserId());
 
-        this.follow(juan.getUserId(), mati.getUserId(), response);
-        this.follow(alvaro.getUserId(), mati.getUserId(), response);
-        this.follow(alvaro.getUserId(), juan.getUserId(), response);
-
-    }
-
-
-    @Override
-    public User create(UserRequestDTO userRequestDTO) {
-        return this.userRepository.save(new User(userRequestDTO.getUserName()));
+        return new SuccessResponseDTO("User created successfully", userDTO);
     }
 
     @Override
-    public void follow(Integer userId, Integer userIdToFollow, HttpServletResponse response)
-            throws ApplicationException {
-        var user = this.userRepository.findByUserId(userId);
-        var userToFollow = this.userRepository.findByUserId(userIdToFollow);
+    public User findByUserId(Integer userId) {
+        return this.userRepository.findByUserId(userId);
+    }
 
-        if (user.isPresent() && userToFollow.isPresent()) {
-            if (this.follows(user, userToFollow)) {
-                return;
-            }
-            user.get().getFollowed().add(userToFollow.get());
-            userToFollow.get().getFollowers().add(user.get());
+    @Override
+    public ResponseDTO follow(Integer userId, Integer userIdToFollow) {
+        User user = this.userRepository.findByUserId(userId);
+        User userToFollow = this.userRepository.findByUserId(userIdToFollow);
 
-            response.setStatus(HttpServletResponse.SC_OK);
+        ResponseDTO response =
+                new SuccessResponseDTO("", new UserDTO(userToFollow.getUserId(), userToFollow.getUserName()));
+
+        if (this.follows(user, userToFollow)) {
+            //TODO: Take this to .properties
+            response.setMessage("User already followed");
         } else {
-            throw new UserNotFoundException();
+
+            user.getFollowed().add(userToFollow);
+            userToFollow.getFollowers().add(user);
+
+            response.setMessage("User followed successfully");
+        }
+
+        return response;
+
+    }
+
+    @Override
+    public FollowersCountDTO getFollowersCount(Integer userId) {
+        User user = this.userRepository.findByUserId(userId);
+
+        FollowersCountDTO response = new FollowersCountDTO();
+        response.setUserId(user.getUserId());
+        response.setUserName(user.getUserName());
+        response.setFollowers_count(user.getFollowers().size());
+        return response;
+    }
+
+    @Override
+    public FollowersListDTO getFollowers(Integer userID, String order) {
+        User user = this.userRepository.findByUserId(userID);
+        List<UserDTO> followersDTOList = new ArrayList<>();
+
+        convertToDTO(followersDTOList, user.getFollowers());
+
+        this.sortByName(followersDTOList, order);
+
+        return new FollowersListDTO(user.getUserId(), user.getUserName(), followersDTOList);
+
+    }
+
+    @Override
+    public FollowedListDTO getFollowed(Integer userID, String order) {
+        User user = this.userRepository.findByUserId(userID);
+        List<UserDTO> followedDTOList = new ArrayList<>();
+
+        convertToDTO(followedDTOList, user.getFollowed());
+
+        this.sortByName(followedDTOList, order);
+
+        return new FollowedListDTO(user.getUserId(), user.getUserName(), followedDTOList);
+
+    }
+
+    private void convertToDTO(List<UserDTO> followedDTOList, List<User> followed) {
+        followed.stream().forEach(u -> followedDTOList.add(new UserDTO(u.getUserId(), u.getUserName())));
+    }
+
+    @Override
+    public ResponseDTO unFollow(Integer userId, Integer userIdToUnfollow) {
+        User user = this.userRepository.findByUserId(userId);
+        User userToUnFollow = this.userRepository.findByUserId(userIdToUnfollow);
+
+        ResponseDTO response =
+                new SuccessResponseDTO("", new UserDTO(userToUnFollow.getUserId(), userToUnFollow.getUserName()));
+
+        if (this.follows(user, userToUnFollow)) {
+            user.getFollowed().remove(userToUnFollow);
+            userToUnFollow.getFollowers().remove(user);
+            response.setMessage("User successfully unfollowed");
+        } else {
+            //TODO: Take this to .properties
+            response.setMessage("User not followed yet");
+        }
+
+        return response;
+    }
+
+    private void sortByName(List<UserDTO> users, String order) {
+        switch (order) {
+            case "name_asc":
+                Collections.sort(users, Comparator.comparing(UserDTO::getUserName));
+                break;
+            case "name_desc":
+                Collections.sort(users, Comparator.comparing(UserDTO::getUserName).reversed());
+                break;
+            case "":
+                break;
         }
     }
 
-    private boolean follows(Optional<User> user, Optional<User> userToFollow) {
-        return user.get().getFollowed().contains(userToFollow.get());
+    private boolean follows(User user, User userToFollow) {
+        return user.getFollowed().contains(userToFollow);
     }
 
-    @Override
-    public FollowersCountDTO getFollowersCount(int userId) throws UserNotFoundException {
-        var user = this.userRepository.findByUserId(userId);
-
-        if (user.isPresent()) {
-            FollowersCountDTO response = new FollowersCountDTO();
-            response.setUserId(user.get().getUserId());
-            response.setUserName(user.get().getUserName());
-            response.setFollowers_count(user.get().getFollowers().size());
-            return response;
-        } else {
-            throw new UserNotFoundException();
-        }
-    }
-
-    @Override
-    public FollowersListDTO getFollowers(int userID) throws UserNotFoundException {
-        var user = this.userRepository.findByUserId(userID);
-        var followers = new ArrayList<UserDTO>();
-
-        if (user.isPresent()) {
-
-            user.get().getFollowers().stream()
-                    .forEach(u -> followers.add(new UserDTO(u.getUserId(), u.getUserName())));
-
-            return new FollowersListDTO(user.get().getUserId(), user.get().getUserName(), followers);
-        } else {
-            throw new UserNotFoundException();
-        }
-
-    }
-
-    @Override
-    public FollowedListDTO getFollowed(int userID) throws UserNotFoundException {
-        var user = this.userRepository.findByUserId(userID);
-        var followed = new ArrayList<UserDTO>();
-
-        if (user.isPresent()) {
-
-            user.get().getFollowed().stream()
-                    .forEach(u -> followed.add(new UserDTO(u.getUserId(), u.getUserName())));
-
-            return new FollowedListDTO(user.get().getUserId(), user.get().getUserName(), followed);
-        } else {
-            throw new UserNotFoundException();
-        }
-
+    private User create(UserDTO userDTO) {
+        return this.userRepository.save(new User(userDTO.getUserName()));
     }
 
 }

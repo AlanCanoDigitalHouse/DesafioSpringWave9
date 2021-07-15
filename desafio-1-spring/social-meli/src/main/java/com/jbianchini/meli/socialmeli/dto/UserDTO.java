@@ -1,4 +1,4 @@
-package com.jbianchini.meli.socialmeli.dto.response;
+package com.jbianchini.meli.socialmeli.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,4 +10,8 @@ import lombok.Setter;
 public class UserDTO {
     private int userId;
     private String userName;
+
+    public UserDTO(String userName) {
+        this.userName = userName;
+    }
 }
