@@ -2,6 +2,7 @@ package com.example.desafiospring.controllers;
 
 
 import com.example.desafiospring.dtos.User;
+import com.example.desafiospring.exceptions.AlreadyFollow;
 import com.example.desafiospring.exceptions.SameUserException;
 import com.example.desafiospring.exceptions.UserDontHaveFollowersorFollowed;
 import com.example.desafiospring.exceptions.UserNotExistException;
@@ -28,7 +29,7 @@ public class UsersController {
                 @Min(message = "need positive number, min required 0", value=0) Integer userId,
             @PathVariable
                 @Min(message = "need positive number, min required 0", value=0) Integer userIdToFollow)
-            throws UserNotExistException, SameUserException {
+            throws UserNotExistException, SameUserException, AlreadyFollow {
             userService.follow(userId, userIdToFollow);
         return ResponseEntity.ok().build();
     }

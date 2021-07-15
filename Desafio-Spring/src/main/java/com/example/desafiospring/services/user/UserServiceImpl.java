@@ -2,6 +2,7 @@ package com.example.desafiospring.services.user;
 
 
 import com.example.desafiospring.dtos.User;
+import com.example.desafiospring.exceptions.AlreadyFollow;
 import com.example.desafiospring.exceptions.SameUserException;
 import com.example.desafiospring.exceptions.UserDontHaveFollowersorFollowed;
 import com.example.desafiospring.exceptions.UserNotExistException;
@@ -20,7 +21,8 @@ public class UserServiceImpl implements UserService {
     SocialMediaRepository socialMediaRepository;
 
     @Override
-    public void follow(Integer userId, Integer userIdToFollow) throws UserNotExistException, SameUserException {
+    public void follow(Integer userId, Integer userIdToFollow)
+            throws UserNotExistException, SameUserException, AlreadyFollow {
         Optional<User> optionalBuyer = socialMediaRepository.findById(userId);
         if(optionalBuyer.isEmpty()) {
             throw new UserNotExistException();
@@ -33,6 +35,11 @@ public class UserServiceImpl implements UserService {
 
         if(optionalBuyer.get().getUserId().equals(optionalSeller.get().getUserId())) {
             throw new SameUserException();
+        }
+
+        if(optionalBuyer.get().getFollowed().contains(new User
+                (optionalSeller.get().getUserId(),optionalSeller.get().getUserName(), null,null,null,null))) {
+            throw new AlreadyFollow();
         }
 
         socialMediaRepository.saveFollowed(userId, optionalSeller.get());

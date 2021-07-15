@@ -1,1 +1,116 @@
-{"users":[{"userId":1234,"userName":"Vendedor1","followers":[{"userId":4782,"userName":"Carlos"},{"userId":1569,"userName":"Buyer2"}]},{"userId":4782,"userName":"Buyer1"},{"userId":1569,"userName":"Buyer2","followed":[{"userId":1234,"userName":"Vendedor1"}]}]}
+{
+  "users": [
+    {
+      "userId": 1001,
+      "userName": "Daniel Sanchez",
+      "followers": [
+        {
+          "userId": 1002,
+          "userName": "Fernando Gutierrez"
+        },
+        {
+          "userId": 1005,
+          "userName": "Laura Macias"
+        }
+      ]
+    },
+    {
+      "userId": 1002,
+      "userName": "Fernando Gutierrez",
+      "followed": [
+        {
+          "userId": 1001,
+          "userName": "Daniel Sanchez"
+        }
+      ],
+      "followers": [
+        {
+          "userId": 1004,
+          "userName": "Diana Morales"
+        },
+        {
+          "userId": 1005,
+          "userName": "Laura Macias"
+        }
+      ]
+    },
+    {
+      "userId": 1003,
+      "userName": "Claudia Guerrero",
+      "followers": [
+        {
+          "userId": 1005,
+          "userName": "Laura Macias"
+        }
+      ]
+    },
+    {
+      "userId": 1004,
+      "userName": "Diana Morales",
+      "followed": [
+        {
+          "userId": 1002,
+          "userName": "Fernando Gutierrez"
+        }
+      ]
+    },
+    {
+      "userId": 1005,
+      "userName": "Laura Macias",
+      "followed": [
+        {
+          "userId": 1001,
+          "userName": "Daniel Sanchez"
+        },
+        {
+          "userId": 1002,
+          "userName": "Fernando Gutierrez"
+        },
+        {
+          "userId": 1003,
+          "userName": "Claudia Guerrero"
+        }
+      ],
+      "followers": [
+        {
+          "userId": 1006,
+          "userName": "Lourdes Lopez"
+        }
+      ]
+    },
+    {
+      "userId": 1006,
+      "userName": "Lourdes Lopez",
+      "followed": [
+        {
+          "userId": 1005,
+          "userName": "Laura Macias"
+        }
+      ]
+    },
+    {
+      "userId": 1007,
+      "userName": "Damian Lopez",
+      "followed": [],
+      "followers": []
+    },
+    {
+      "userId": 1008,
+      "userName": "Lorena Diaz",
+      "followed": [],
+      "followers": []
+    },
+    {
+      "userId": 1009,
+      "userName": "Cristina Sanchez",
+      "followed": [],
+      "followers": []
+    },
+    {
+      "userId": 1010,
+      "userName": "Arantxa Estrada",
+      "followed": [],
+      "followers": []
+    }
+  ]
+}

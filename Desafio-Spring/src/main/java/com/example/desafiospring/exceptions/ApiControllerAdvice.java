@@ -1,5 +1,6 @@
 package com.example.desafiospring.exceptions;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -8,12 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.validation.ConstraintViolationException;
-import javax.validation.UnexpectedTypeException;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.List;
 
 @ControllerAdvice(annotations = RestController.class)
 public class ApiControllerAdvice {
+
     @ExceptionHandler
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -78,10 +80,50 @@ public class ApiControllerAdvice {
     @ExceptionHandler
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorMessage handler(UserDontHavePosts ex){
-        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+    public ErrorMessage handler(UserDontHavePostsException ex){
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.ERROR_POSTS_LIST);
     }
 
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handler(AlreadyFollow ex){
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.ERROR_FOLLOW);
+    }
 
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handler(DateTimeParseException ex){
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), "Correct format for date: 'dd/MM/yyyy'");
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handler(JsonParseException ex) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), "Use correct format for post ");
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handler(NeedDiscountException ex) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.ERROR_DISCOUNT);
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handler(HasPromoException ex) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.ERROR_PROMO);
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handler(DontNeedDiscountException ex) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.ERROR_PROMO_DISC);
+    }
 
 }

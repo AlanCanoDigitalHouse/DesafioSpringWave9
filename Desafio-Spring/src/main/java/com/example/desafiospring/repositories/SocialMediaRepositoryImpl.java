@@ -1,7 +1,7 @@
 package com.example.desafiospring.repositories;
 
 import com.example.desafiospring.dtos.*;
-import com.example.desafiospring.exceptions.UserDontHavePosts;
+import com.example.desafiospring.exceptions.UserDontHavePostsException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.stereotype.Repository;
@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Repository
@@ -38,10 +37,13 @@ public class SocialMediaRepositoryImpl implements SocialMediaRepository{
     }
 
     @Override
-    public List<Post> findPostsByUserId(Integer userId) throws UserDontHavePosts {
+    public List<Post> findPostsByUserId(Integer userId) throws UserDontHavePostsException {
         JsonDatabasePostsDto jsonDatabasePostsDto = loadPostFile();
         if(jsonDatabasePostsDto.getUserPosts().isEmpty()) {
-            throw new UserDontHavePosts();
+            throw new UserDontHavePostsException();
+        }
+        if(jsonDatabasePostsDto.getUserPosts().get(userId) == null) {
+            throw new UserDontHavePostsException();
         }
         return new ArrayList<>(jsonDatabasePostsDto.getUserPosts().get(userId).values());
     }

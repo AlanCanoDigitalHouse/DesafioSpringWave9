@@ -2,20 +2,16 @@ package com.example.desafiospring.services.posts;
 
 import com.example.desafiospring.dtos.Post;
 import com.example.desafiospring.dtos.UserPosts;
-import com.example.desafiospring.exceptions.UserDontHaveFollowersorFollowed;
-import com.example.desafiospring.exceptions.UserDontHavePosts;
-import com.example.desafiospring.exceptions.UserNotExistException;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import com.example.desafiospring.exceptions.*;
 
 
 public interface PostService {
 
-    void createPost(Post post) throws UserNotExistException;
-    UserPosts findPostsByUserId (Integer userId, String order) throws UserNotExistException, UserDontHavePosts, UserDontHaveFollowersorFollowed;
+    void createPost(Post post) throws UserNotExistException, NeedDiscountException;
+    public void createPromoPost(Post post) throws UserNotExistException, NeedDiscountException, HasPromoException, DontNeedDiscountException;
+    UserPosts findPostsByUserId (Integer userId, String order) throws UserNotExistException, UserDontHavePostsException, UserDontHaveFollowersorFollowed;
     public UserPosts getOrderedPosts (UserPosts userPosts, String order);
-    public UserPosts countPromo (Integer userId) throws UserNotExistException, UserDontHavePosts;
-    public UserPosts getPosts (Integer userId) throws UserDontHavePosts, UserNotExistException;
+    public UserPosts countPromo (Integer userId) throws UserNotExistException, UserDontHavePostsException;
+    public UserPosts getPosts (Integer userId) throws UserDontHavePostsException, UserNotExistException, NotHavePromoProducts;
 
 }

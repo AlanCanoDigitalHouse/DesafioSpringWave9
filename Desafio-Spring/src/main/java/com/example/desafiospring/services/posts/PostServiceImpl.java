@@ -3,9 +3,7 @@ package com.example.desafiospring.services.posts;
 import com.example.desafiospring.dtos.Post;
 import com.example.desafiospring.dtos.User;
 import com.example.desafiospring.dtos.UserPosts;
-import com.example.desafiospring.exceptions.UserDontHaveFollowersorFollowed;
-import com.example.desafiospring.exceptions.UserDontHavePosts;
-import com.example.desafiospring.exceptions.UserNotExistException;
+import com.example.desafiospring.exceptions.*;
 import com.example.desafiospring.repositories.SocialMediaRepository;
 import com.example.desafiospring.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +29,35 @@ public class PostServiceImpl implements PostService {
     @Override
     public void createPost(Post post) throws UserNotExistException {
         validateUser(post.getUserId());
+        if(post.getHasPromo()==null){
+            post.setHasPromo(null);
+            post.setDiscount(null);
+        }
+        socialMediaRepository.savePost(post);
+    }
+
+    @Override
+    public void createPromoPost(Post post)
+            throws UserNotExistException, NeedDiscountException, HasPromoException, DontNeedDiscountException {
+        validateUser(post.getUserId());
+        if(post.getHasPromo()==null) {
+            throw new HasPromoException();
+        }
+
+        if(post.getHasPromo()&&post.getDiscount()==null) {
+            throw new NeedDiscountException();
+        }
+
+        if(!post.getHasPromo()&&post.getDiscount()!=null) {
+            throw new DontNeedDiscountException();
+        }
+
         socialMediaRepository.savePost(post);
     }
 
     @Override
     public UserPosts findPostsByUserId (Integer userId, String order)
-            throws UserNotExistException, UserDontHaveFollowersorFollowed {
+            throws UserNotExistException, UserDontHaveFollowersorFollowed, UserDontHavePostsException {
         validateUser(userId);
         List<Integer> listIdsFollowed = getFollowedList(userId);
 
@@ -45,13 +66,16 @@ public class PostServiceImpl implements PostService {
         }
         UserPosts userPosts = new UserPosts(
                 userId,null, null, socialMediaRepository.findPostsByUserIds(listIdsFollowed));
-        LocalDate maxDate = LocalDate.now();
-        LocalDate minDate = maxDate.minusWeeks(2);
+        LocalDate maxDate = LocalDate.now().plusDays(1);
+        LocalDate minDate = maxDate.minusWeeks(2).minusDays(1);
         userPosts.setPosts(userPosts.getPosts()
                 .stream()
                 .filter(post -> post.getDate().isAfter(minDate)&& post.getDate().isBefore(maxDate))
                 .collect(Collectors.toList()));
         userPosts.getPosts().sort(Comparator.comparing(Post::getDate).reversed());
+        if(userPosts.getPosts().isEmpty()) {
+            throw new UserDontHavePostsException();
+        }
 
         if(!order.isEmpty()) {
             return getOrderedPosts(userPosts, order);
@@ -61,23 +85,31 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public UserPosts countPromo (Integer userId) throws UserNotExistException, UserDontHavePosts {
+    public UserPosts countPromo (Integer userId) throws UserNotExistException, UserDontHavePostsException {
         Optional<User> user = socialMediaRepository.findById(userId);
         if(user.isEmpty()) {
             throw new UserNotExistException();
         }
         UserPosts userPosts = new UserPosts(userId,null ,null , socialMediaRepository.findPostsByUserId(userId));
-        userPosts.setPosts(userPosts.getPosts().stream().filter(Post::getHasPromo).collect(Collectors.toList()));
+
+        userPosts.setPosts(userPosts.getPosts().stream()
+                .filter(post -> post.getHasPromo()!=null)
+                .filter(Post::getHasPromo).collect(Collectors.toList()));
 
         return new UserPosts(userId,user.get().getUserName(), userPosts.getPosts().size(), null);
     }
 
     @Override
-    public UserPosts getPosts (Integer userId) throws UserDontHavePosts, UserNotExistException {
+    public UserPosts getPosts (Integer userId) throws UserDontHavePostsException, UserNotExistException, NotHavePromoProducts {
         validateUser(userId);
         UserPosts userPosts = new UserPosts(
                 userId,null ,null , socialMediaRepository.findPostsByUserId(userId));
-        userPosts.setPosts(userPosts.getPosts().stream().filter(Post::getHasPromo).collect(Collectors.toList()));
+        userPosts.setPosts(userPosts.getPosts().stream()
+                .filter(post -> post.getHasPromo()!=null)
+                .filter(Post::getHasPromo).collect(Collectors.toList()));
+        if(userPosts.getPosts().isEmpty()) {
+            throw new NotHavePromoProducts();
+        }
         return userPosts;
     }
 
