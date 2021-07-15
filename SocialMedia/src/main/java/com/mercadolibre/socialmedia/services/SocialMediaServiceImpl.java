@@ -3,6 +3,7 @@ package com.mercadolibre.socialmedia.services;
 import com.mercadolibre.socialmedia.dtos.PostDto;
 import com.mercadolibre.socialmedia.dtos.User;
 import com.mercadolibre.socialmedia.dtos.UserDto;
+import com.mercadolibre.socialmedia.dtos.request.PostPromoRequest;
 import com.mercadolibre.socialmedia.dtos.request.PostRequestDto;
 import com.mercadolibre.socialmedia.dtos.response.FollowedUsersResponse;
 import com.mercadolibre.socialmedia.dtos.response.FollowersQuantityResponse;
@@ -102,6 +103,10 @@ public class SocialMediaServiceImpl implements ISocialMediaService{
         post.setDetail(postRequestDto.getDetail());
         post.setCategory(postRequestDto.getCategory());
         post.setPrice(postRequestDto.getPrice());
+        if( postRequestDto instanceof PostPromoRequest){
+            post.setHasPromo(((PostPromoRequest) postRequestDto).getHasPromo());
+            post.setDiscount(((PostPromoRequest) postRequestDto).getDiscount());
+        }
         return post;
     }
 
@@ -110,6 +115,7 @@ public class SocialMediaServiceImpl implements ISocialMediaService{
         UserDto user = iSocialMediaRepository.findUserById(postDto.getUserId());
         PostDto post = this.mapPost(postDto);
         List<PostDto> posts = user.getPosts();
+        post.setId_post(posts.size());
         posts.add(post);
         user.setPosts(posts);
         return new ResponseEntity(HttpStatus.OK);

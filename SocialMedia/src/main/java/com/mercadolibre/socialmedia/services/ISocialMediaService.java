@@ -1,6 +1,6 @@
 package com.mercadolibre.socialmedia.services;
 
-import com.mercadolibre.socialmedia.dtos.PostDto;
+
 import com.mercadolibre.socialmedia.dtos.request.PostRequestDto;
 import com.mercadolibre.socialmedia.dtos.response.FollowedUsersResponse;
 import com.mercadolibre.socialmedia.dtos.response.FollowersQuantityResponse;
@@ -22,5 +22,4 @@ public interface ISocialMediaService {
 
     ResponseEntity unfollowUser(Integer parseInt, Integer userToUnfollow);
 
-   // ResponseEntity addNewPostPromo(PostPromoRequestDto postPromoRequestDto);
 }

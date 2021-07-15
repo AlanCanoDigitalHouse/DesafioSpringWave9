@@ -1,6 +1,7 @@
 package com.mercadolibre.socialmedia.controllers;
 
 import com.mercadolibre.socialmedia.dtos.PostDto;
+import com.mercadolibre.socialmedia.dtos.request.PostPromoRequest;
 import com.mercadolibre.socialmedia.dtos.request.PostRequestDto;
 import com.mercadolibre.socialmedia.dtos.response.FollowedUsersResponse;
 import com.mercadolibre.socialmedia.dtos.response.FollowersQuantityResponse;
@@ -47,7 +48,7 @@ public class SocialMediaController {
 
     // 0004
     @GetMapping("/users/{UserID}/followed/list")
-    public FollowedUsersResponse usersFollowed( @PathVariable Integer UserID, @RequestParam(defaultValue = "name_asc") String order){
+    public FollowedUsersResponse usersFollowed(@Valid @Min(0) @PathVariable Integer UserID, @RequestParam(defaultValue = "name_asc") String order){
         return iSocialMediaService.getFollowedUserList(UserID, order);
     }
 
@@ -59,14 +60,19 @@ public class SocialMediaController {
 
     // 0006
     @GetMapping("/products/followed/{userId}/list")
-    public PostsUserResponse getPosts( @PathVariable Integer userId, @RequestParam(defaultValue = "date_asc") String order){
+    public PostsUserResponse getPosts(@Valid  @Min(0) @PathVariable Integer userId, @RequestParam(defaultValue = "date_asc") String order){
         return iSocialMediaService.getLastPostsByUser(userId, order);
     }
 
     // 0007
     @PostMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity unfollowUser( @PathVariable Integer userId, @PathVariable Integer userIdToUnfollow){
+    public ResponseEntity unfollowUser(@Valid @PathVariable @Min(0) Integer userId, @PathVariable Integer userIdToUnfollow){
         return iSocialMediaService.unfollowUser(userId, userIdToUnfollow);
     }
 
+    // 0010
+    @PostMapping("/products/newpromopost")
+    public ResponseEntity addNewPostPromo(@Valid @RequestBody PostPromoRequest postPromoRequest){
+        return iSocialMediaService.addNewPost(postPromoRequest);
+    }
 }
