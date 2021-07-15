@@ -1,6 +1,7 @@
 package com.mercadolibre.socialmeli.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,6 +20,13 @@ public class APIExceptionHandler {
         List<FieldError> fieldErrors = result.getFieldErrors();
         return fieldErrors.get(0).getDefaultMessage();
     }
+
+    @ExceptionHandler
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public String handlerException(HttpMessageNotReadableException exception) {
+        return "Invalid request payload";
+    }
+
 
     @ExceptionHandler
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)

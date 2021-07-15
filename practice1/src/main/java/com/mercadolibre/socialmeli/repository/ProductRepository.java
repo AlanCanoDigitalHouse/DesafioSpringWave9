@@ -1,7 +1,7 @@
 package com.mercadolibre.socialmeli.repository;
 
-import com.mercadolibre.socialmeli.dto.PostDTO;
-import com.mercadolibre.socialmeli.dto.ProductDTO;
+import com.mercadolibre.socialmeli.dto.request.ProductDTO;
+import com.mercadolibre.socialmeli.model.Post;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,11 +12,11 @@ public interface ProductRepository {
 
     Optional<ProductDTO> findProductByProductId(Integer productId);
 
-    PostDTO savePost(PostDTO post);
+    Post savePost(Post post);
 
-    Optional<PostDTO> findPostByPostId(Integer postId);
+    Optional<Post> findPostByPostId(Integer postId);
 
-    List<PostDTO> findPostByUserId(Integer userId);
+    List<Post> findPostByUserId(Integer userId);
 
     void delete(ProductDTO product);
 }

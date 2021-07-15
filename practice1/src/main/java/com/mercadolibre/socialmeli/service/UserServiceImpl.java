@@ -113,4 +113,11 @@ public class UserServiceImpl implements UserService {
                             user2.getUserName().compareTo(user1.getUserName()));
         return response;
     }
+
+    @Override
+    public UserDTO findUserById(Integer userId) {
+        Optional<UserDTO> user = userRepository.findUserByUserId(userId);
+        if (user.isEmpty()) throw new ServiceException("User not found");
+        return user.get();
+    }
 }

@@ -1,5 +1,6 @@
 package com.mercadolibre.socialmeli.service;
 
+import com.mercadolibre.socialmeli.dto.UserDTO;
 import com.mercadolibre.socialmeli.dto.response.FollowedResponseDTO;
 import com.mercadolibre.socialmeli.dto.response.FollowersCountResponseDTO;
 import com.mercadolibre.socialmeli.dto.response.FollowersResponseDTO;
@@ -20,4 +21,6 @@ public interface UserService {
     FollowedResponseDTO getFollowed(Integer followerUserId) throws ServiceException;
 
     FollowedResponseDTO getFollowed(Integer followerUserId, String order) throws ServiceException;
+
+    UserDTO findUserById(Integer userId);
 }

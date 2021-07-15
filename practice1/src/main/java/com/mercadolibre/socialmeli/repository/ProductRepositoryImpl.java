@@ -1,7 +1,7 @@
 package com.mercadolibre.socialmeli.repository;
 
-import com.mercadolibre.socialmeli.dto.PostDTO;
-import com.mercadolibre.socialmeli.dto.ProductDTO;
+import com.mercadolibre.socialmeli.dto.request.ProductDTO;
+import com.mercadolibre.socialmeli.model.Post;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
 
-    private final Map<Integer, PostDTO> posts = new HashMap<>();
+    private final Map<Integer, Post> posts = new HashMap<>();
     private final Map<Integer, ProductDTO> products = new HashMap<>();
 
     public ProductRepositoryImpl() {
@@ -26,14 +26,18 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     private void loadPosts() {
-        posts.put(0, new PostDTO(1, 0,
-                LocalDate.of(2021, Month.JULY, 2), new ProductDTO(), 0, 150.0));
-        posts.put(1, new PostDTO(1, 1,
-                LocalDate.of(2021, Month.JULY, 12), new ProductDTO(), 5, 50.0));
-        posts.put(2, new PostDTO(2, 1,
-                LocalDate.of(2021, Month.JULY, 5), new ProductDTO(), 5, 30.0));
-        posts.put(3, new PostDTO(3, 1,
-                LocalDate.of(2021, Month.JULY, 5), new ProductDTO(), 8, 380.0));
+        posts.put(0, new Post(1, 0,
+                LocalDate.of(2021, Month.JULY, 2), new ProductDTO(), 0, 150.0D,
+                Boolean.FALSE, 0D));
+        posts.put(1, new Post(1, 1,
+                LocalDate.of(2021, Month.JULY, 12), new ProductDTO(), 5, 50.0D,
+                Boolean.FALSE, 0D));
+        posts.put(2, new Post(2, 1,
+                LocalDate.of(2021, Month.JULY, 5), new ProductDTO(), 5, 30.0D,
+                Boolean.FALSE, 0D));
+        posts.put(3, new Post(3, 1,
+                LocalDate.of(2021, Month.JULY, 5), new ProductDTO(), 8, 380.0,
+                Boolean.FALSE, 0D));
     }
 
     private void loadProducts() {
@@ -51,7 +55,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public PostDTO savePost(PostDTO post) {
+    public Post savePost(Post post) {
 
         if (post.getId_post() == null)
             post.setId_post(posts.values().size());
@@ -60,12 +64,12 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Optional<PostDTO> findPostByPostId(Integer postId) {
+    public Optional<Post> findPostByPostId(Integer postId) {
         return Optional.empty();
     }
 
     @Override
-    public List<PostDTO> findPostByUserId(Integer userId) {
+    public List<Post> findPostByUserId(Integer userId) {
         return posts.values().stream()
                 .filter(postDTO ->
                         postDTO.getUserId().equals(userId)

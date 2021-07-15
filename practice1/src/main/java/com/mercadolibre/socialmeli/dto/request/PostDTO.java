@@ -1,4 +1,4 @@
-package com.mercadolibre.socialmeli.dto;
+package com.mercadolibre.socialmeli.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -8,8 +8,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.Min;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 
 @Data
@@ -17,22 +19,21 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Validated
 public class PostDTO {
-    // User FK
-    @NotNull
+    @NotNull(message = "User id is mandatory")
     private Integer userId;
-    // PK
     private Integer id_post;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @JsonDeserialize(using = LocalDateDeserializer.class)
+    @PastOrPresent(message = "Invalid Date")
+    @NotNull(message = "Date is mandatory")
     private LocalDate date;
-    @NotNull
+    @NotNull(message = "A product must be specified")
+    @Valid
     private ProductDTO detail;
-    // Category FK
-    @NotNull
+    @NotNull(message = "Category is mandatory")
     private Integer category;
-    @Min(value = 0)
-    @NotNull
-    private double price;
+    @NotNull(message = "Price is mandatory")
+    @Positive(message = "Price must be a positive value")
+    private Double price;
 
 }
