@@ -7,8 +7,8 @@ import java.util.Map;
 @Getter
 public class ExceptionMessage {
 
-  private String errorMessage;
-  private Map<String, String> errors;
+  private final String errorMessage;
+  private final Map<String, String> errors;
 
   public ExceptionMessage(String errorMessage, Map<String, String> errors) {
     this.errorMessage = errorMessage;

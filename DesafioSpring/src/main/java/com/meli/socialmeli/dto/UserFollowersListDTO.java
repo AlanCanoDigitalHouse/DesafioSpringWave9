@@ -16,7 +16,12 @@ public class UserFollowersListDTO {
   public UserFollowersListDTO(Integer userId, String userName, Collection<User> users) {
     this.userId = userId;
     this.userName = userName;
-    this.followers = MapperUtils.usersToDTO(users);
+    this.followers = MapperUtils.usersToDTOs(users);
   }
 
+  public UserFollowersListDTO(Integer userId, String userName, List<UserDTO> followers) {
+    this.userId = userId;
+    this.userName = userName;
+    this.followers = followers;
+  }
 }

@@ -1,14 +1,14 @@
 package com.meli.socialmeli.util;
 
-import com.meli.socialmeli.model.Post;
+import com.meli.socialmeli.dto.PostDTO;
 
 import java.util.Comparator;
 
-public class PostComparatorFactory {
+public class PostDTOComparatorFactory {
   private static final String DATE_ASCENDING = "date_asc";
   private static final String DATE_DESCENDING = "date_desc";
 
-  public static Comparator<Post> getComparator(String order) {
+  public static Comparator<PostDTO> getComparator(String order) {
     if (order != null) {
       switch (order) {
         case DATE_ASCENDING:
@@ -16,11 +16,10 @@ public class PostComparatorFactory {
         case DATE_DESCENDING:
           return (o1, o2) -> o1.getDate().isBefore(o2.getDate()) ? 1 : o1.getDate().isAfter(o2.getDate()) ? -1 : 0;
         default:
-          return Post::compareTo;
+          return PostDTO::compareTo;
       }
     } else {
-      return Post::compareTo;
+      return PostDTO::compareTo;
     }
   }
-
 }

@@ -24,6 +24,8 @@ public class NewPostRequest {
 
   @Positive(message = SocialMeliConstants.VALIDATION_POSITIVE_MESSAGE)
   private Integer userId;
+  @Positive(message = SocialMeliConstants.VALIDATION_POSITIVE_MESSAGE)
+  private Integer id_post;
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
   @JsonDeserialize(using = LocalDateDeserializer.class)
   @JsonSerialize(using = LocalDateSerializer.class)
@@ -50,6 +52,17 @@ public class NewPostRequest {
 
   public NewPostRequest(Integer userId, LocalDate date, ProductDTO detail, Integer category, Double price, Boolean hasPromo, Double discount) {
     this.userId = userId;
+    this.date = date;
+    this.detail = detail;
+    this.category = category;
+    this.price = price;
+    this.hasPromo = hasPromo;
+    this.discount = discount;
+  }
+
+  public NewPostRequest(Integer userId, Integer id_post, LocalDate date, ProductDTO detail, Integer category, Double price, Boolean hasPromo, Double discount) {
+    this.userId = userId;
+    this.id_post = id_post;
     this.date = date;
     this.detail = detail;
     this.category = category;

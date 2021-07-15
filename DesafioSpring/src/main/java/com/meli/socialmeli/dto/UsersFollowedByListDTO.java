@@ -16,6 +16,12 @@ public class UsersFollowedByListDTO {
   public UsersFollowedByListDTO(Integer userId, String userName, Collection<User> followed) {
     this.userId = userId;
     this.userName = userName;
-    this.followed = MapperUtils.usersToDTO(followed);
+    this.followed = MapperUtils.usersToDTOs(followed);
+  }
+
+  public UsersFollowedByListDTO(Integer userId, String userName, List<UserDTO> followed) {
+    this.userId = userId;
+    this.userName = userName;
+    this.followed = followed;
   }
 }

@@ -74,8 +74,8 @@ class PostControllerTest {
             .andDo(print())
             .andExpect(jsonPath("$.posts").isNotEmpty())
             //el segundo post es mas antiguo a dos semanas
-            .andExpect(jsonPath("$.posts[0].date").value("2021-07-10"))
-            .andExpect(jsonPath("$.posts[1].date").value("2021-07-13"));
+            .andExpect(jsonPath("$.posts[0].date").value(LocalDate.now().minusMonths(2).toString()))
+            .andExpect(jsonPath("$.posts[1].date").value(LocalDate.now().toString()));
   }
 
   @Test
@@ -85,8 +85,9 @@ class PostControllerTest {
             .andDo(print())
             .andExpect(jsonPath("$.posts").isNotEmpty())
             //el segundo post es mas antiguo a dos semanas
-            .andExpect(jsonPath("$.posts[0].date").value("2021-07-13"))
-            .andExpect(jsonPath("$.posts[1].date").value("2021-07-10"));
+            .andExpect(jsonPath("$.posts[0].date").value(LocalDate.now().toString()))
+            .andExpect(jsonPath("$.posts[1].date").value(LocalDate.now().minusMonths(2).toString()));
+
   }
 
   @Test

@@ -16,13 +16,14 @@ import java.util.stream.Collectors;
 
 public class MapperUtils {
 
-  public static List<UserDTO> usersToDTO(Collection<User> users) {
-    return users.stream().map(user -> new UserDTO(user.getUserId(), user.getUserName())).collect(Collectors.toCollection(ArrayList::new));
+  public static List<UserDTO> usersToDTOs(Collection<User> users) {
+    return users.stream().map(MapperUtils::userToDto).collect(Collectors.toCollection(ArrayList::new));
   }
 
   public static Post dtoToPost(Integer userId, PostDTO postDTO) {
     return Post.builder()
             .userId(userId)
+            .postId(postDTO.getId_post())
             .date(postDTO.getDate())
             .detail(dtoToProdcut(postDTO.getDetail()))
             .category(postDTO.getCategory())
@@ -34,6 +35,8 @@ public class MapperUtils {
 
   public static PostDTO toPostDTO(Post post) {
     return PostDTO.builder()
+            .userId(post.getUserId())
+            .id_post(post.getPostId())
             .date(post.getDate())
             .detail(toProdcutDTO(post.getDetail()))
             .category(post.getCategory())
@@ -55,6 +58,7 @@ public class MapperUtils {
 
   public static Product dtoToProdcut(ProductDTO productDTO) {
     return Product.builder()
+            .productId(productDTO.getProduct_id())
             .productName(productDTO.getProductName())
             .type(productDTO.getType())
             .brand(productDTO.getBrand())
@@ -65,6 +69,8 @@ public class MapperUtils {
 
   public static PostDTO buildDTOFromRequest(NewPostRequest request) {
     return PostDTO.builder()
+            .userId(request.getUserId())
+            .id_post(request.getId_post())
             .date(request.getDate())
             .detail(request.getDetail())
             .category(request.getCategory())
@@ -76,6 +82,8 @@ public class MapperUtils {
 
   public static PostDTO buildDTOFromRequest(NewPromoPostRequest request) {
     return PostDTO.builder()
+            .id_post(request.getId_post())
+            .userId(request.getUserId())
             .date(request.getDate())
             .detail(request.getDetail())
             .category(request.getCategory())
@@ -85,9 +93,13 @@ public class MapperUtils {
             .build();
   }
 
-  public static List<PostDTO> postDTOList(List<Post> posts) {
+  public static List<PostDTO> postToDTOList(List<Post> posts) {
     ArrayList<PostDTO> postDTOs = new ArrayList<>();
     posts.forEach(post -> postDTOs.add(toPostDTO(post)));
     return postDTOs;
+  }
+
+  public static UserDTO userToDto(User user) {
+    return new UserDTO(user.getUserId(), user.getUserName());
   }
 }
