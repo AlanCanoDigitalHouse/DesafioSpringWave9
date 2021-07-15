@@ -1,0 +1,224 @@
+{
+    "info": {
+        "_postman_id": "5dfe5c81-a05b-6c08-b6ea-8ec6f4e7ec65",
+        "name": "Meli",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "localhost:8080/products/newpost",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \t\"userId\": 1234,\n   \t\t\"id_post\" : 121,\n\t\t\"date\" : \"20-04-2022\",\n\t\t\"detail\":\n\t\t{ \n\t\t\t\"product_id\" : 2,\n\t    \t\"productName\" : \"Silla No Gamer\"\n\t\t},\n     \t\"category\" : 101,\n     \t\"price\" : 500.50\n}"
+                },
+                "url": "localhost:8080/products/newpost"
+            },
+            "response": []
+        },
+        {
+            "name": "localhost:8080/users/2/follow/1",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "localhost:8080/users/1235/follow/2"
+            },
+            "response": []
+        },
+        {
+            "name": "localhost:8080/users/2/followers/count/",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "localhost:8080/users/1236/followers/count/"
+            },
+            "response": []
+        },
+        {
+            "name": "localhost:8080/users/1/followers/list",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "localhost:8080/users/1/followers/list?order=name_desc",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "users",
+                        "1",
+                        "followers",
+                        "list"
+                    ],
+                    "query": [
+                        {
+                            "key": "order",
+                            "value": "name_desc"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "localhost:8080/users/{UserID}/followers/list",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "localhost:8080/users/{UserID}/followers/list"
+            },
+            "response": []
+        },
+        {
+            "name": "localhost:8080/users/1/followed/list",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "localhost:8080/users/1/followed/list"
+            },
+            "response": []
+        },
+        {
+            "name": "localhost:8080/users/1/unfollow/2",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "localhost:8080/users/1235/unfollow/1"
+            },
+            "response": []
+        },
+        {
+            "name": "localhost:8080/products/followed//list",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "localhost:8080/products/followed//list"
+            },
+            "response": []
+        },
+        {
+            "name": "localhost:8080/products/followed/1235/list",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "localhost:8080/products/followed/1234/list"
+            },
+            "response": []
+        },
+        {
+            "name": "localhost:8080/users/1/followed/list?order=name_asc",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": {
+                    "raw": "localhost:8080/users/1/followed/list?order=name_asc",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "users",
+                        "1",
+                        "followed",
+                        "list"
+                    ],
+                    "query": [
+                        {
+                            "key": "order",
+                            "value": "name_asc"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "localhost:8080/products/newpromopost",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n\t\"userId\": 1234,\n\t\"id_post\" : 18,\n\t\"date\" : \"29-04-2021\",\n\t\"detail\" :{\n\t\t\"product_id\" : 1,\n\t\t\"productName\" : \"Silla Gamer\",\n  \t\t\"type\" : \"Gamer\",\n    \t\"brand\" : \"Racer\",\n    \t\"color\" : \"Red & Black\",\n    \t\"notes\" : \"Special Edition\"\n    },\n    \"category\" : 100,\n \t\"price\" : 1500.50,\n \t\"hasPromo\": true,\n \t\"discount\": 0.25\n}"
+                },
+                "url": "localhost:8080/products/newpromopost"
+            },
+            "response": []
+        },
+        {
+            "name": "localhost:8080/products/1234/countPromo/",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "localhost:8080/products/1234/countPromo/"
+            },
+            "response": []
+        },
+        {
+            "name": "localhost:8080/users/all",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "localhost:8080/users/all"
+            },
+            "response": []
+        }
+    ]
+}
