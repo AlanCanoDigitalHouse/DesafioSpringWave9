@@ -4,7 +4,7 @@
 * Proyecto: SocialMeli
 * Autor: Regis Emiliano
 
-## Setup
+## Info
 - Dentro de resources/static hay dos archivos ".json".
 - Uno contiene 3 vendedores (ids: 1,2,3) y el otro 3 compradores (ids: 100,101,102)
 - Los archivos cargan al instanciarse UserRepositoryImpl (metodo anotado con @PostConstruct)
