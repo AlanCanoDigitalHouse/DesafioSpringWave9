@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "nombre": "Pepita Perez",
+    "rol": "Compradora",
+    "seguidores": 1,
+    "listaSeguidores": [
+      {
+        "id": 2,
+        "nombre": "Camila Gomez"
+      }],
+    "seguidos": 0,
+    "listaSeguidos":[]
+  },
+  {
+    "id": 2,
+    "nombre": "Camila Gomez ",
+    "rol": "Vendedora",
+    "seguidores": 0,
+    "listaSeguidores": [],
+    "seguidos": 1,
+    "listaSeguidos": [
+      {
+        "id": 1,
+        "nombre": "Pepita Perez"
+      }
+    ]
+  }
+]
