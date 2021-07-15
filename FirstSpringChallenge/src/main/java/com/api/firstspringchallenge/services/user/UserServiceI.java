@@ -1,11 +1,12 @@
 package com.api.firstspringchallenge.services.user;
 
 import com.api.firstspringchallenge.models.Seller;
+import com.api.firstspringchallenge.models.User;
 import org.springframework.http.ResponseEntity;
 
-public interface SellerServiceI {
+public interface UserServiceI {
 
-    Seller findSellerById(int userId);
+    User findSellerById(int userId);
 
     ResponseEntity<Void> follow(int userId, int otherUserId);
 
@@ -17,5 +18,6 @@ public interface SellerServiceI {
 
     ResponseEntity<Void> unfollow(int userId, int otherUserId);
 
+    ResponseEntity getUsers();
 
 }
