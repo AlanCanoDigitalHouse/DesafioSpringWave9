@@ -1,0 +1,1 @@
+{"users":[{"userId":1234,"userName":"Vendedor1","followers":[{"userId":4782,"userName":"Carlos"},{"userId":1569,"userName":"Buyer2"}]},{"userId":4782,"userName":"Buyer1"},{"userId":1569,"userName":"Buyer2","followed":[{"userId":1234,"userName":"Vendedor1"}]}]}

@@ -1,0 +1,21 @@
+package com.example.desafiospring.dtos;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class UserPosts {
+
+    private Integer userId;
+    private String userName;
+    private Integer promoProductsCount;
+    private List<Post> posts;
+
+}
