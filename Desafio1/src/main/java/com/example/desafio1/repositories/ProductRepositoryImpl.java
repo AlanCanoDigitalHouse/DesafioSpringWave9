@@ -2,12 +2,12 @@ package com.example.desafio1.repositories;
 
 import com.example.desafio1.dto.Post;
 import com.example.desafio1.dto.User;
-import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -30,7 +30,7 @@ public class ProductRepositoryImpl implements IProductRepository{
     }
 
     private boolean compareDates(String dateToSearch) {
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-M-yyyy");
         LocalDate d1 = LocalDate.parse(dateToSearch, df);
         LocalDate d2 = LocalDate.now().minusDays(14);
         return d1.isAfter(d2);
@@ -41,7 +41,7 @@ public class ProductRepositoryImpl implements IProductRepository{
         List<Post> posts = new ArrayList<>();
         for(User user: vendors){
             posts.addAll(
-                    this.posts.stream()
+                    ProductRepositoryImpl.posts.stream()
                             .filter(pe -> pe.getUserId().equals(user.getUserId())
                                     && compareDates(pe.getDate()))
                             .collect(Collectors.toList())

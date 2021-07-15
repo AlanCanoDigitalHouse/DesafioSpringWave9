@@ -10,13 +10,17 @@ import java.util.stream.Collectors;
 
 @Repository
 public class UserRepositoryImpl implements IUserRepository{
-    private static Map<Integer, User> users = initMap();
-    private static List<List<Integer>> userFollows = initUserMatrix();
+    private static final Map<Integer, User> users = initMap();
+    private static final List<List<Integer>> userFollows = initUserMatrix();
 
     private static Map<Integer, User> initMap(){
         Map<Integer, User> users = new HashMap<>();
-        users.put(1235, new Client(1235, "Juanita"));
-        users.put(1569, new Seller(1569, "Jesus"));
+        users.put(1, new Client(1, "Juanita"));
+        users.put(2, new Seller(2, "Jesus"));
+        users.put(3, new Client(3, "Eduardo"));
+        users.put(4, new Seller(4, "Constanza"));
+        users.put(5, new Client(5, "Elisa"));
+        users.put(6, new Seller(6, "Diego"));
         return users;
     }
 
@@ -61,5 +65,12 @@ public class UserRepositoryImpl implements IUserRepository{
                 .filter(entry -> entry.get(0).equals(userId))
                 .map(e -> findUserById(e.get(1)))
                 .collect(Collectors.toList());
+    }
+
+    public boolean isFollowing(Integer followingUserId, Integer followedUserId){
+        List<Integer> pair = new ArrayList<>();
+        pair.add(followingUserId);
+        pair.add(followedUserId);
+        return userFollows.contains(pair);
     }
 }
