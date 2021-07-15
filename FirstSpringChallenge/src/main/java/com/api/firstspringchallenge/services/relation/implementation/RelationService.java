@@ -2,7 +2,6 @@ package com.api.firstspringchallenge.services.relation.implementation;
 
 import com.api.firstspringchallenge.exceptions.DuplicatedFollowException;
 import com.api.firstspringchallenge.exceptions.UnableToFollowYourselfException;
-import com.api.firstspringchallenge.exceptions.UnexistingRelationException;
 import com.api.firstspringchallenge.models.Relation;
 import com.api.firstspringchallenge.models.Seller;
 import com.api.firstspringchallenge.models.User;
