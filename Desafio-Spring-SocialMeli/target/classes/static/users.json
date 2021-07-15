@@ -1,0 +1,38 @@
+[
+  {
+    "userId": 1,
+    "userName": "Alabama",
+    "followers": [],
+    "followed": []
+  },
+  {
+    "userId": 2,
+    "userName": "Arkansas",
+    "followers": [],
+    "followed": []
+  },
+  {
+    "userId": 3,
+    "userName": "Georgia",
+    "followers": [],
+    "followed": []
+  },
+  {
+    "userId": 4,
+    "userName": "Kansas",
+    "followers": [],
+    "followed": []
+  },
+  {
+    "userId": 5,
+    "userName": "Tennessee",
+    "followers": [],
+    "followed": []
+  },
+  {
+    "userId": 6,
+    "userName": "Nevada",
+    "followers": [],
+    "followed": []
+  }
+]
