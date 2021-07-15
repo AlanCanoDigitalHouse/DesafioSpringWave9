@@ -1,8 +1,10 @@
 package com.mercadolibre.social_meli.service;
 
 import com.mercadolibre.social_meli.dto.request.ProductRequestDTO;
+import com.mercadolibre.social_meli.dto.request.PromoProductRequestDTO;
 import com.mercadolibre.social_meli.dto.response.FollowedPostsResponseDTO;
 import com.mercadolibre.social_meli.dto.response.ProductResponseDTO;
+import com.mercadolibre.social_meli.dto.response.PromoCountResponseDTO;
 import com.mercadolibre.social_meli.dto.response.UserResponseDTO;
 import com.mercadolibre.social_meli.exception.InvalidValueException;
 import com.mercadolibre.social_meli.helper.DateValidator;
@@ -10,7 +12,6 @@ import com.mercadolibre.social_meli.repository.IProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
@@ -40,6 +41,18 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public void postNewPromoProduct(PromoProductRequestDTO productData) {
+        // this is used as a check for user existence. Throws a runtime exception when no user is found.
+        this.userService.getUserById(productData.getUserId());
+        if (DateValidator.isValid(productData.getDate()) && productData.getHasPromo()) {
+            this.productRepository.saveProduct(productData);
+        } else {
+            var errorMessage = productData.getHasPromo() ? "Date must be in dd-MM-yyyy format" : "Field hasPromo needs to be true";
+            throw new InvalidValueException(errorMessage);
+        }
+    }
+
+    @Override
     public FollowedPostsResponseDTO getFollowedRecentPosts(Integer userId, String order) {
         var followedIds = this.userService.getFollowed(userId, null)
                 .getFollowed().stream().map(UserResponseDTO::getUserId).collect(Collectors.toList());
@@ -58,6 +71,14 @@ public class ProductService implements IProductService {
 
         followedPosts.setUserId(userId);
         return followedPosts;
+    }
+
+    @Override
+    public PromoCountResponseDTO getUserPromoCount(Integer userId) {
+        var user = this.userService.getUserById(userId);
+        var promoPosts = this.productRepository.getUserPromoPosts(userId, null);
+
+        return new PromoCountResponseDTO(user.getUserId(), user.getUserName(), promoPosts.size());
     }
 
     private List<ProductResponseDTO> filterRecentPosts(List<ProductResponseDTO> posts) {

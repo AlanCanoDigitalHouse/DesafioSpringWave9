@@ -1,6 +1,7 @@
 package com.mercadolibre.social_meli.repository;
 
 import com.mercadolibre.social_meli.dto.request.ProductRequestDTO;
+import com.mercadolibre.social_meli.dto.request.PromoProductRequestDTO;
 import com.mercadolibre.social_meli.entity.Post;
 import com.mercadolibre.social_meli.exception.InvalidValueException;
 import com.mercadolibre.social_meli.exception.ResourceNotFoundException;
@@ -36,7 +37,24 @@ public class ProductRepository extends JSONRepository<Post> implements IProductR
         var posts = getData();
         var detail = productData.getDetail();
         detail.setProduct_id(newId);
-        var newPost = new Post(newId, productData.getUserId(), productData.getDate(), detail, productData.getCategory(), productData.getPrice());
+        var newPost = new Post(
+                newId, productData.getUserId(), productData.getDate(), detail, productData.getCategory(),
+                productData.getPrice(), false, 0D);
+
+        posts.add(newPost);
+        writeDatabase(posts);
+    }
+
+    @Override
+    public void saveProduct(PromoProductRequestDTO productData) {
+        var newId = lastIndex.getAndAdd(1);
+
+        var posts = getData();
+        var detail = productData.getDetail();
+        detail.setProduct_id(newId);
+        var newPost = new Post(
+                newId, productData.getUserId(), productData.getDate(), detail, productData.getCategory(),
+                productData.getPrice(), productData.getHasPromo(), productData.getDiscount());
 
         posts.add(newPost);
         writeDatabase(posts);
@@ -76,6 +94,18 @@ public class ProductRepository extends JSONRepository<Post> implements IProductR
     public List<Post> getMultipleUsersPost(List<Integer> userIds, String order) {
         var posts = getAllPosts();
         var userPosts = posts.stream().filter(post -> userIds.contains(post.getUserId()))
+                .collect(Collectors.toList());
+
+        var postOrder = Objects.isNull(order) ? "date_desc" : order;
+        this.sortPostDates(userPosts, postOrder);
+
+        return userPosts;
+    }
+
+    @Override
+    public List<Post> getUserPromoPosts(Integer userId, String order) {
+        var posts = getAllPosts();
+        var userPosts = posts.stream().filter(post -> post.getUserId().equals(userId) && post.getHasPromo())
                 .collect(Collectors.toList());
 
         var postOrder = Objects.isNull(order) ? "date_desc" : order;
