@@ -39,8 +39,14 @@ public class PublicationRequestDTO {
     @Min(value = 0, message = "El campo category debe ser un numero mayor 0.")
     private Integer category;
 
-    @NotNull(message = "El campo 'price' no puede ser Nulol.")
+    @NotNull(message = "El campo 'price' no puede ser Null.")
     @Positive(message = "El campo 'price' debe ser un numero positivo.")
     @Min(value = 0, message = "El campo 'price' debe ser un numero mayor 0.")
     private Double price;
+
+    @AssertTrue
+    private Boolean hasPromo;
+
+    @Min(value = 0, message = "El campo 'discount' debe ser un numero mayor 0.")
+    private Double discount;
 }

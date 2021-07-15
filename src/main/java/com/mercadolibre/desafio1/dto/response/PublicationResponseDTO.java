@@ -24,13 +24,17 @@ public class PublicationResponseDTO {
     private ProductResponseDTO detail;
     private Integer category;
     private Double price;
+    private Boolean hasPromo;
+    private Double discount;
 
-    public PublicationResponseDTO(PublicationResponseDTO publicationResponseDTO) {
-        this.id_post = publicationResponseDTO.getId_post();
-        this.userId = publicationResponseDTO.getUserId();
-        this.date = publicationResponseDTO.getDate();
-        this.detail = publicationResponseDTO.getDetail();
-        this.category = publicationResponseDTO.getCategory();
-        this.price = publicationResponseDTO.getPrice();
+    public PublicationResponseDTO(PublicationResponseDTO publication) {
+        this.id_post = publication.id_post;
+        this.userId = publication.userId;
+        this.date = publication.date;
+        this.detail = publication.detail;
+        this.category = publication.category;
+        this.price = publication.price;
+        this.hasPromo = publication.hasPromo;
+        this.discount = publication.discount;
     }
 }

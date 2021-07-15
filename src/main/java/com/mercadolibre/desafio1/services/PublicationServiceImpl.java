@@ -3,9 +3,7 @@ package com.mercadolibre.desafio1.services;
 import com.mercadolibre.desafio1.dto.UserDTO;
 import com.mercadolibre.desafio1.dto.request.ProductRequestDTO;
 import com.mercadolibre.desafio1.dto.request.PublicationRequestDTO;
-import com.mercadolibre.desafio1.dto.response.FollowedUserListResponseDTO;
-import com.mercadolibre.desafio1.dto.response.ProductResponseDTO;
-import com.mercadolibre.desafio1.dto.response.PublicationResponseDTO;
+import com.mercadolibre.desafio1.dto.response.*;
 import com.mercadolibre.desafio1.exceptions.DateAfterNowException;
 import com.mercadolibre.desafio1.exceptions.UserNotExistException;
 import com.mercadolibre.desafio1.repositories.interfaces.ProductRepository;
@@ -33,7 +31,7 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public PublicationResponseDTO newPost(PublicationRequestDTO publicationRequestDTO) throws UserNotExistException, DateAfterNowException {
+    public PublicationResponseDTO newPost(PublicationRequestDTO publicationRequestDTO,Boolean isPromo) throws UserNotExistException, DateAfterNowException {
         if(Objects.isNull(userRepository.getUserById(publicationRequestDTO.getUserId()))) {
             throw new UserNotExistException("El usuario con ID "+publicationRequestDTO.getUserId()+" no existe.");
         }
@@ -42,20 +40,26 @@ public class PublicationServiceImpl implements PublicationService {
             throw new DateAfterNowException("No puede ingresar una fecha posterior a la fecha actual.");
         }
 
-        //enviar objeto entero al repository
         ProductRequestDTO product = publicationRequestDTO.getDetail();
         ProductResponseDTO newProductResponse = productRepository.addProduct(product.getProductName(),
                                                                              product.getType(),
                                                                              product.getBrand(),
                                                                              product.getColor(),
                                                                              product.getNotes());
+        Boolean promo = null;
+        Double discount = null;
+        if(isPromo) {
+            promo = true;
+            discount = publicationRequestDTO.getDiscount();
+        }
 
         PublicationResponseDTO newPublicationResponse = publicationRepository.addPublication(publicationRequestDTO.getUserId(),
                                                                                              publicationRequestDTO.getDate(),
                                                                                              newProductResponse,
                                                                                              publicationRequestDTO.getCategory(),
-                                                                                             publicationRequestDTO.getPrice());
-
+                                                                                             publicationRequestDTO.getPrice(),
+                                                                                             promo,
+                                                                                             discount);
         return newPublicationResponse;
     }
 
@@ -69,11 +73,12 @@ public class PublicationServiceImpl implements PublicationService {
         ArrayList<PublicationResponseDTO> publicationsTotal = new ArrayList<>();
 
         for(Integer id:followsIds){
-            ArrayList<PublicationResponseDTO> publicationsUser = publicationRepository.getPublicationsByUserId(id);
+            ArrayList<PublicationResponseDTO> publicationsUser = publicationRepository.getPublicationsByUserId(id,false);
 
             for(PublicationResponseDTO publication:publicationsUser) {
                 PublicationResponseDTO newPublication = new PublicationResponseDTO(publication);
                 newPublication.setUserId(null);
+                newPublication.setHasPromo(null);
                 publicationsTotal.add(newPublication);
             }
         }
@@ -85,6 +90,30 @@ public class PublicationServiceImpl implements PublicationService {
 
         this.orderPublications(publicationsTotal,order);
         return new FollowedUserListResponseDTO(userId,publicationsTotal);
+    }
+
+    @Override
+    public UserPromoCountResponseDTO getCountProductsPromoByUser(Integer userId) throws UserNotExistException {
+        UserDTO user = userRepository.getUserById(userId);
+
+        if(Objects.isNull(user)){
+            throw new UserNotExistException("No existe un usuario con el ID "+userId);
+        }
+        ArrayList<PublicationResponseDTO> promoPublicationsUser = publicationRepository.getPublicationsByUserId(userId,true);
+
+        return new UserPromoCountResponseDTO(userId,user.getUserName(),promoPublicationsUser.size());
+    }
+
+    @Override
+    public UserPromoListResponseDTO getListProductsPromoByUser(Integer userId) throws UserNotExistException {
+        UserDTO user = userRepository.getUserById(userId);
+
+        if(Objects.isNull(user)){
+            throw new UserNotExistException("No existe un usuario con el ID "+userId);
+        }
+        ArrayList<PublicationResponseDTO> promoPublicationsUser = publicationRepository.getPublicationsByUserId(userId,true);
+
+        return new UserPromoListResponseDTO(userId,user.getUserName(),promoPublicationsUser);
     }
 
     private void orderPublications(ArrayList<PublicationResponseDTO> publicationList, String order){

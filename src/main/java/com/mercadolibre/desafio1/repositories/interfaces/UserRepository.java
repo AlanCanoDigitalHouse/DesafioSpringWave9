@@ -1,6 +1,7 @@
 package com.mercadolibre.desafio1.repositories.interfaces;
 
 import com.mercadolibre.desafio1.dto.UserDTO;
+import com.mercadolibre.desafio1.dto.response.PublicationResponseDTO;
 
 import java.util.ArrayList;
 import java.util.Map;

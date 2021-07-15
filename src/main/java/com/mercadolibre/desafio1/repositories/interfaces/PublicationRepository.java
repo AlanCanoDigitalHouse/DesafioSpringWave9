@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public interface PublicationRepository {
     PublicationResponseDTO getPublicationById(Integer productId);
-    PublicationResponseDTO addPublication(Integer userId, LocalDate date, ProductResponseDTO detail, Integer category, Double price);
-    ArrayList<PublicationResponseDTO> getPublicationsByUserId(Integer id);
+    PublicationResponseDTO addPublication(Integer userId, LocalDate date, ProductResponseDTO detail, Integer category, Double price, Boolean hasPromo, Double discount);
+    ArrayList<PublicationResponseDTO> getPublicationsByUserId(Integer id, Boolean promo);
+
 }

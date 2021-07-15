@@ -3,6 +3,8 @@ package com.mercadolibre.desafio1.controllers;
 import com.mercadolibre.desafio1.dto.request.PublicationRequestDTO;
 import com.mercadolibre.desafio1.dto.response.FollowedUserListResponseDTO;
 import com.mercadolibre.desafio1.dto.response.PublicationResponseDTO;
+import com.mercadolibre.desafio1.dto.response.UserPromoCountResponseDTO;
+import com.mercadolibre.desafio1.dto.response.UserPromoListResponseDTO;
 import com.mercadolibre.desafio1.exceptions.DateAfterNowException;
 import com.mercadolibre.desafio1.exceptions.UserNotExistException;
 import com.mercadolibre.desafio1.services.interfaces.PublicationService;
@@ -26,12 +28,27 @@ public class ProductController {
 
     @PostMapping("/newpost")
     public ResponseEntity<PublicationResponseDTO> newPost(@Valid @RequestBody PublicationRequestDTO publicationRequestDTO) throws UserNotExistException, DateAfterNowException {
-        return new ResponseEntity<>(productService.newPost(publicationRequestDTO), HttpStatus.OK);
+        return new ResponseEntity<>(productService.newPost(publicationRequestDTO,false), HttpStatus.OK);
+    }
+
+    @PostMapping("/newpromopost")
+    public ResponseEntity<PublicationResponseDTO> newPromoPost(@Valid @RequestBody PublicationRequestDTO publicationRequestDTO) throws UserNotExistException, DateAfterNowException {
+        return new ResponseEntity<>(productService.newPost(publicationRequestDTO,true), HttpStatus.OK);
     }
 
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<FollowedUserListResponseDTO> getFollowersUserList(@Valid @PathVariable@NotNull @Positive(message = "Debe ingresar un ID mayor a 0.")  Integer userId,
                                                                                    @RequestParam(name = "order", required = false, defaultValue = "date_desc") String order) throws UserNotExistException {
         return new ResponseEntity<>(productService.getFollowersUserList(userId,order), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/countPromo")
+    public ResponseEntity<UserPromoCountResponseDTO> getCountProductsPromoByUser(@Valid @PathVariable@NotNull @Positive(message = "Debe ingresar un ID mayor a 0.")  Integer userId) throws UserNotExistException {
+        return new ResponseEntity<>(productService.getCountProductsPromoByUser(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/list")
+    public ResponseEntity<UserPromoListResponseDTO> getListProductsPromoByUser(@Valid @PathVariable@NotNull @Positive(message = "Debe ingresar un ID mayor a 0.")  Integer userId) throws UserNotExistException {
+        return new ResponseEntity<>(productService.getListProductsPromoByUser(userId), HttpStatus.OK);
     }
 }

@@ -1,6 +1,7 @@
 package com.mercadolibre.desafio1.repositories;
 
 import com.mercadolibre.desafio1.dto.UserDTO;
+import com.mercadolibre.desafio1.dto.response.PublicationResponseDTO;
 import com.mercadolibre.desafio1.repositories.interfaces.UserRepository;
 import org.springframework.stereotype.Repository;
 
@@ -37,4 +38,6 @@ public class UserRepositoryImpl implements UserRepository {
     public ArrayList<Integer> getFollowsById(Integer userId) {
         return this.getUserById(userId).getFollows();
     }
+
+
 }
