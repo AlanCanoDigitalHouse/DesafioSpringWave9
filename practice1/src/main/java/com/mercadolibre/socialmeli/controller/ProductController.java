@@ -24,8 +24,9 @@ public class ProductController {
     }
 
     @GetMapping("followed/{userId}/list")
-    public ResponseEntity<?> findPostFromFollowedUsers(@PathVariable Integer userId) {
-        return new ResponseEntity<>(productService.findPostFromFollowedUsers(userId), HttpStatus.OK);
+    public ResponseEntity<?> findPostFromFollowedUsers(@PathVariable Integer userId,
+                                                       @RequestParam(defaultValue = "date_desc", required = false) String order) {
+        return new ResponseEntity<>(productService.findPostFromFollowedUsers(userId, order), HttpStatus.OK);
     }
 
 }

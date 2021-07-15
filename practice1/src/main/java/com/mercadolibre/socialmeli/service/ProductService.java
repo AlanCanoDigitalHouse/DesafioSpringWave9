@@ -7,4 +7,6 @@ public interface ProductService {
     PostDTO createPost(PostDTO post);
 
     PostResponseListDTO findPostFromFollowedUsers(Integer followerId);
+
+    PostResponseListDTO findPostFromFollowedUsers(Integer followerId, String order);
 }

@@ -9,6 +9,7 @@ import com.mercadolibre.socialmeli.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -42,11 +43,19 @@ public class ProductServiceImpl implements ProductService {
                             allPosts.addAll(productRepository.findPostByUserId(followedUser.getUserID()))
             );
         }
-        // Sort newest first
-        allPosts.sort((postDTO, postDTO1) -> -(postDTO.getDate().compareTo(postDTO1.getDate())));
         final PostResponseListDTO postResponseList = new PostResponseListDTO();
         postResponseList.setUserId(followerId);
         postResponseList.setPosts(allPosts);
         return postResponseList;
+    }
+
+    @Override
+    public PostResponseListDTO findPostFromFollowedUsers(Integer followerId, String order) {
+        PostResponseListDTO response = findPostFromFollowedUsers(followerId);
+        if (order.equals("date_asc"))
+            response.getPosts().sort(Comparator.comparing(PostDTO::getDate));
+        else if (order.equals("date_desc"))
+            response.getPosts().sort((post1, postDTO2) -> postDTO2.getDate().compareTo(post1.getDate()));
+        return response;
     }
 }

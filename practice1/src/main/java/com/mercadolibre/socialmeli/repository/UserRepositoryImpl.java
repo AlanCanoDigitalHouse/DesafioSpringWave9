@@ -24,9 +24,9 @@ public class UserRepositoryImpl implements UserRepository {
     private void loadUsers() {
         users.put(0, new UserDTO(0, "user1"));
         users.put(1, new UserDTO(1, "vendor1"));
-        users.put(2, new UserDTO(2, "user2"));
-        users.put(3, new UserDTO(3, "vendor2"));
-        users.put(4, new UserDTO(4, "vendor3"));
+        users.put(2, new UserDTO(2, "Luis"));
+        users.put(3, new UserDTO(3, "Simon"));
+        users.put(4, new UserDTO(4, "Carla"));
     }
 
     private void loadFollows() {

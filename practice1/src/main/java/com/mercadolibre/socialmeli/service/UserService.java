@@ -15,5 +15,9 @@ public interface UserService {
 
     FollowersResponseDTO getFollowers(Integer followedUserId) throws ServiceException;
 
+    FollowersResponseDTO getFollowers(Integer followedUserId, String order) throws ServiceException;
+
     FollowedResponseDTO getFollowed(Integer followerUserId) throws ServiceException;
+
+    FollowedResponseDTO getFollowed(Integer followerUserId, String order) throws ServiceException;
 }

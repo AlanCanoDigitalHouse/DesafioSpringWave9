@@ -10,6 +10,7 @@ import com.mercadolibre.socialmeli.exception.ServiceException;
 import com.mercadolibre.socialmeli.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,6 +76,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public FollowersResponseDTO getFollowers(Integer followedUserId, String order) throws ServiceException {
+        FollowersResponseDTO response = this.getFollowers(followedUserId);
+        if (order.equals("name_asc"))
+            response.getFollowers().sort(Comparator.comparing(UserDTO::getUserName));
+        else if (order.equals("name_desc"))
+            response.getFollowers().sort(
+                    (user1, user2) ->
+                            user2.getUserName().compareTo(user1.getUserName()));
+        return response;
+    }
+
+    @Override
     public FollowedResponseDTO getFollowed(Integer followerUserId) {
         Optional<UserDTO> followerUser = userRepository.findUserByUserId(followerUserId);
         final FollowedResponseDTO followedResponseDTO = new FollowedResponseDTO();
@@ -87,5 +100,17 @@ public class UserServiceImpl implements UserService {
             followedResponseDTO.setUserName(followerUser.get().getUserName());
         } else throw new ServiceException("No user found");
         return followedResponseDTO;
+    }
+
+    @Override
+    public FollowedResponseDTO getFollowed(Integer followerUserId, String order) throws ServiceException {
+        FollowedResponseDTO response = this.getFollowed(followerUserId);
+        if (order.equals("name_asc"))
+            response.getFollowed().sort(Comparator.comparing(UserDTO::getUserName));
+        else if (order.equals("name_desc"))
+            response.getFollowed().sort(
+                    (user1, user2) ->
+                            user2.getUserName().compareTo(user1.getUserName()));
+        return response;
     }
 }
