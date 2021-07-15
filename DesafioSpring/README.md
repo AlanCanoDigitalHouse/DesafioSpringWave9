@@ -126,19 +126,3 @@ En la carpeta /src/main/resources/static se encuentra el archivo database.json e
    ```
     curl --location --request GET 'http://localhost:8080/products/2/list'
    ``` 
-
-### Analice las pruebas end-to-end 🔩
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
-
-### Y las pruebas de estilo de codificación ⌨️
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
