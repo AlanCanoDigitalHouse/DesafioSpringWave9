@@ -7,9 +7,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,42 +23,48 @@ public class ApiExceptionHandler {
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     @ExceptionHandler(UserIdException.class)
     public ResponseEntity<ErrorDto> handleException(UserIdException exception) {
-        ErrorDto errorDto = new ErrorDto("Invalid UserId.", exception.getMsg());
+        String error = "Invalid UserId.";
+        ErrorDto errorDto = new ErrorDto(HttpStatus.NOT_FOUND, exception.getMsg(), error);
         return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(FollowException.class)
     public ResponseEntity<ErrorDto> handleException(FollowException exception) {
-        ErrorDto errorDto = new ErrorDto("Follow Exception.", exception.getMsg());
+        String error = "Follow Exception.";
+        ErrorDto errorDto = new ErrorDto(HttpStatus.BAD_REQUEST, exception.getMsg(), error);
         return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ErrorDto> handleException(ConstraintViolationException exception) {
-        ErrorDto errorDto = new ErrorDto("ConstraintViolationException", "Error in PathVariabls");
+    public ResponseEntity<ErrorDto> handleException(ConstraintViolationException ex) {
+        List<String> errors = new ArrayList<String>();
+        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+            errors.add(violation.getRootBeanClass().getName() + " " + violation.getPropertyPath() + ": " + violation.getMessage());
+        }
+        ErrorDto errorDto = new ErrorDto(HttpStatus.BAD_REQUEST, "Follow Exception.", errors);
         return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(RequestParamException.class)
     public ResponseEntity<ErrorDto> handleException(RequestParamException exception) {
-        ErrorDto errorDto = new ErrorDto("RequestParamException", exception.getMsg());
+        ErrorDto errorDto = new ErrorDto(HttpStatus.BAD_REQUEST,  exception.getMsg(),"RequestParamException");
         return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ParseException.class)
     public ResponseEntity<ErrorDto> handleException(ParseException exception) {
-        ErrorDto errorDto = new ErrorDto("ParseException", "The format of the field Date is invalid.");
+        ErrorDto errorDto = new ErrorDto(HttpStatus.BAD_REQUEST, "The format of the field Date is invalid.","ParseException");
         return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public FieldErrorDto methodArgumentNotValidException(MethodArgumentNotValidException ex) {
+    public FieldErrorDto handleException(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         List<FieldError> fieldErrors = result.getFieldErrors();
         return processFieldErrors(fieldErrors);
@@ -72,9 +81,18 @@ public class ApiExceptionHandler {
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ResponseBody
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorDto> handleException(MethodArgumentTypeMismatchException ex) {
+        String error = ex.getName() + " should be of type " + ex.getRequiredType().getName();
+        ErrorDto errorDto = new ErrorDto(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
+        return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ResponseBody
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErrorDto> methodArgumentNotValidException(HttpMessageNotReadableException ex) {
-        ErrorDto errorDto = new ErrorDto("HttpMessageNotReadableException", ex.getMessage());
+    public ResponseEntity<ErrorDto> handleException(HttpMessageNotReadableException ex) {
+        ErrorDto errorDto = new ErrorDto(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), "HttpMessageNotReadableException" );
         return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
     }
 
