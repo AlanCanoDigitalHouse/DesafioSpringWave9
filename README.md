@@ -1,6 +1,6 @@
-# DesafioSpringWave9
+# Desafio Spring (Wave 9)
 Repositorio donde guardaremos el código de nuestros proyectos Spring
-## Table of contents
+## Tabla de contenido
 * [US0001](#us0001)
 * [US0002](#us0002)
 * [US0003](#us0003)
@@ -14,7 +14,7 @@ Repositorio donde guardaremos el código de nuestros proyectos Spring
 * [US0011](#us0008)
 * [US0012](#us0009)
 
-##Ejecución del código
+## Ejecución del código
 Para ejecutar la API es necesario descargar el repositorio y compilar. 
 1. Es necesario agregar varios usuarios a la siguiente URL localhost:8080/users/create usando el metodo POST con la estructura:
 ```
