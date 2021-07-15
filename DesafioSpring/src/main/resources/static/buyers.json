@@ -1,0 +1,21 @@
+[
+  {
+    "userId": 1235,
+    "userName": "Juan Posada",
+    "following": []
+  },
+  {
+    "userId": 1200,
+    "userName": "Ana Castaño",
+    "following": [
+      {
+        "userId": 1569,
+        "userName": "Luis Vendedor1"
+      },
+      {
+        "userId": 1000,
+        "userName": "Bibiana Vendedor2"
+      }
+    ]
+  }
+]

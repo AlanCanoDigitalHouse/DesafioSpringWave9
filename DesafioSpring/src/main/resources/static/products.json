@@ -1,0 +1,23 @@
+[
+  {
+    "productName": "Silla Gamer",
+    "type": "Gamer",
+    "brand": "Racer",
+    "color": "Red & Black",
+    "notes": "Special Edition"
+  },
+  {
+    "productName": "Teclado Logitech",
+    "type": "Gamer",
+    "brand": "LogiGo",
+    "color": "Black",
+    "notes": "Gamer Edition"
+  },
+  {
+    "productName": "Guitarra electrica Gibson",
+    "type": "Musician",
+    "brand": "Gibson",
+    "color": "White & Black",
+    "notes": "Gibson Edition"
+  }
+]

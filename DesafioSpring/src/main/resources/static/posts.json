@@ -1,0 +1,28 @@
+[
+  {
+    "userId": 1569,
+    "date": "11-07-2021",
+    "detail": {
+      "productName": "Silla Gamer",
+      "type": "Gamer",
+      "brand": "Racer",
+      "color": "Red & Black",
+      "notes": "Special Edition"
+    },
+    "category": 100,
+    "price": 1500.50
+  },
+  {
+    "userId": 1569,
+    "date": "12-07-2021",
+    "detail": {
+      "productName": "Teclado Logitech",
+      "type": "Gamer",
+      "brand": "LogiGo",
+      "color": "Black",
+      "notes": "Gamer Edition"
+    },
+    "category": 58,
+    "price": 1500.50
+  }
+]
