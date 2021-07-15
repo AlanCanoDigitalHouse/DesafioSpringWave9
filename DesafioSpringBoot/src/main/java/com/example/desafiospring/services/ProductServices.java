@@ -137,7 +137,6 @@ public class ProductServices implements Sorter<PostResponseDto> {
      * @throws LogicValidationException if the format can't be parsed
      */
     private Long getMilli(PostResponseDto post) {
-        System.out.println(post.getDate());
         SimpleDateFormat simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
         try {
             return simpleFormat.parse(post.getDate()).getTime();

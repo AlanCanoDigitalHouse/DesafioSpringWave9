@@ -3,6 +3,7 @@ package com.example.desafiospring.exceptions;
 
 import com.fasterxml.jackson.core.JacksonException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -66,6 +67,12 @@ public class ApiExceptionHandler {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage handleParseError(JacksonException ex) {
         return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.getOriginalMessage());
+    }
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleNotReadable(HttpMessageNotReadableException ex){
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), "Can't read the request body");
     }
 
 }
