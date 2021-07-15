@@ -39,6 +39,19 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
+    public int removeFollower(int userId, int userIdToUnfollow){
+        int relationId = -1;
+        for(UserRelation r:userRelations){
+            if(r.getFollower() == userId && r.getFollowing()==userIdToUnfollow){
+                relationId = r.getRelationId();
+                this.userRelations.remove(r);
+                break;
+            }
+        }
+        return relationId;
+    }
+
+    @Override
     public int countFollowers(int userId){
         int count = 0;
         for(UserRelation r:userRelations){
@@ -95,6 +108,22 @@ public class UserRepository implements IUserRepository {
             }
         }
         return followers;
+    }
+
+    //0004
+    @Override
+    public List<UserModel> getFollowed(int userId){
+        List<UserModel> followed = new ArrayList<>();
+        for(UserRelation r:userRelations){
+            if(r.getFollower()==userId){
+                try{
+                    followed.add(this.getUserById(r.getFollowing()));
+                }catch (UserNotValidException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        return followed;
     }
 
 
