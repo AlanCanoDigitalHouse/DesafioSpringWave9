@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 @Getter
 @Setter
-public class FollowedListDTO extends UserDTO {
+public class ListFollowedDTO extends UserDTO {
 
     private ArrayList<UserDTO> followed;
 
-    public FollowedListDTO(Integer userId, String userName, ArrayList<UserDTO> followed) {
+    public ListFollowedDTO(Integer userId, String userName, ArrayList<UserDTO> followed) {
         super(userId, userName);
         this.followed = followed;
     }

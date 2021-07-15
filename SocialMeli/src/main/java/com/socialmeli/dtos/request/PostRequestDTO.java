@@ -1,17 +1,14 @@
 package com.socialmeli.dtos.request;
 
-import jdk.jfr.Timestamp;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+import javax.validation.constraints.*;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -24,7 +21,8 @@ public class PostRequestDTO {
 
     //private Integer id_post;
     @NotNull(message = "Date value is null value")
-    private Date date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private LocalDate date;
 
     @NotNull(message = "Product is null value")
     @Valid
@@ -36,6 +34,6 @@ public class PostRequestDTO {
 
     @NotNull(message = "Date value is null value")
     @Min(message = "Price value is less than zero", value = 0)
-    private Float price;
+    private Double price;
 
 }

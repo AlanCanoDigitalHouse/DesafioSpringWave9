@@ -3,6 +3,7 @@ package com.socialmeli.dtos.request;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @AllArgsConstructor
+@Validated
 public class ProductRequestDTO {
 
     @NotNull(message = "Product id is null value")
@@ -20,7 +22,7 @@ public class ProductRequestDTO {
     private String productName;
 
     @NotNull(message = "Product type is null value")
-    @NotBlank(message = "Product tyoe is empty")
+    @NotBlank(message = "Product type is empty")
     private String type;
 
     @NotNull(message = "Product brand is null value")
@@ -31,6 +33,6 @@ public class ProductRequestDTO {
     @NotBlank(message = "Product brand is empty")
     private String color;
 
-    @NotNull(message = "Aditional notes is null value")
+    @NotNull(message = "Additional notes is null value")
     private String notes;
 }

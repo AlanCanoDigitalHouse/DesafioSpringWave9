@@ -1,7 +1,6 @@
 package com.socialmeli.repositories.impl;
 
-import com.socialmeli.exceptions.UserNotFoundException;
-import com.socialmeli.models.User;
+import com.socialmeli.exceptions.Found.UserNotFoundException;
 import com.socialmeli.models.UserSocial;
 import com.socialmeli.repositories.ISocialRepository;
 import org.springframework.stereotype.Repository;
@@ -18,27 +17,30 @@ public class SocialRepository implements ISocialRepository {
     public SocialRepository() {
 
         this.usersDatabase = new HashMap<>();
-        this.usersDatabase.put(0,new UserSocial(0, "Logitech"));
-        this.usersDatabase.put(1,new UserSocial(1, "Josean-py"));
+        this.saveUser(new UserSocial(0, "Logitech"));
+        this.saveUser(new UserSocial(1, "Josean-py"));
     }
 
     @Override
     public UserSocial findUserbyId(Integer sellerId) {
         UserSocial sellerFind = usersDatabase.get(sellerId);
-        if(Objects.isNull(sellerFind))
+        if (Objects.isNull(sellerFind))
             throw new UserNotFoundException();
         return sellerFind;
     }
 
     @Override
     public UserSocial saveUser(UserSocial user) {
-        if (user.getId() == null)
+        if (Objects.isNull(user.getId()))
             user.setId(usersDatabase.values().size());
         usersDatabase.put(user.getId(), user);
         return user;
     }
 
-
+    @Override
+    public void delete(UserSocial user) {
+        usersDatabase.remove(user.getId());
+    }
 
 
 }
