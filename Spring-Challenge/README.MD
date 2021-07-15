@@ -1,6 +1,7 @@
-Spring Challenge - Mercado Libre IT Bootcamp
+Spring Challenge - IT Bootcamp
 
 Con este proyecto es posible:
+-
 
 POST /users/{userId}/follow/{userIdToFollow}
 Ralizar la acción de “Follow” (seguir) a un determinado vendedor
