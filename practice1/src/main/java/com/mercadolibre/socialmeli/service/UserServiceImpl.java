@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
             followersCountResponseDTO.setFollowers(followers);
             followersCountResponseDTO.setUserId(followedUser.get().getUserID());
             followersCountResponseDTO.setUserName(followedUser.get().getUserName());
-        } else throw new ServiceException("No user found");
+        } else throw new ServiceException("User not found");
         return followersCountResponseDTO;
     }
 
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
             followedResponseDTO.setFollowed(followed);
             followedResponseDTO.setUserId(followerUser.get().getUserID());
             followedResponseDTO.setUserName(followerUser.get().getUserName());
-        } else throw new ServiceException("No user found");
+        } else throw new ServiceException("User not found");
         return followedResponseDTO;
     }
 

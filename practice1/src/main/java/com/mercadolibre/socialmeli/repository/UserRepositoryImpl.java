@@ -56,7 +56,7 @@ public class UserRepositoryImpl implements UserRepository {
         if (currentFollow.isPresent())
             throw new EntityException("User Already followed");
         if (!users.containsKey(follow.getFollower()) || !users.containsKey(follow.getFollowed()))
-            throw new EntityException("No follower or followed user was found");
+            throw new EntityException("One of both users not found");
         follows.add(follow);
         return follow;
     }
