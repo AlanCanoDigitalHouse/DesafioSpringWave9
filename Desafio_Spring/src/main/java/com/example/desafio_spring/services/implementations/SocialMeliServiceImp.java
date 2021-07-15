@@ -1,8 +1,10 @@
 package com.example.desafio_spring.services.implementations;
 
+import com.example.desafio_spring.dtos.request.PostPromoRequestDTO;
 import com.example.desafio_spring.dtos.request.PostRequestDTO;
 import com.example.desafio_spring.dtos.request.UserRequestDTO;
 import com.example.desafio_spring.dtos.response.PostResponseByUserDTO;
+import com.example.desafio_spring.dtos.response.PostResponsePromoByUserDTO;
 import com.example.desafio_spring.dtos.response.UserResponseDTO;
 import com.example.desafio_spring.entities.Post;
 import com.example.desafio_spring.entities.User;
@@ -124,6 +126,15 @@ public class SocialMeliServiceImp implements ISocialMeliService {
         }
     }
 
+    @Override
+    public User PostPromoCount(Integer userId) {
+        ArrayList<Post> posts = iSocialMeliRepository.getPostList();
+        ArrayList<Post> filteredPost;
+        User user = iSocialMeliRepository.getUserById(userId);
+        filteredPost = posts.stream().filter(x -> x.getUserId().equals(userId) && x.isHasPromo()).collect(Collectors.toCollection(ArrayList::new));
+        return new User(userId,user.getUserName(),filteredPost.size(),true);
+    }
+
     /**
      * Metodo para validar si un usuario ya es seguido por otro
      * @param userId
@@ -228,6 +239,34 @@ public class SocialMeliServiceImp implements ISocialMeliService {
         return post;
     }
 
+    @Override
+    public Post savePostPromo(PostPromoRequestDTO postPromoRequestDTO) throws ParseException {
+        Post post = new Post();
+        Integer exists = iSocialMeliRepository.getPostById(post.getId_post());
+        if (exists > 0) {
+            post.setId_post(exists);
+            post.setUserId(post.getUserId());
+            post.setCategory(post.getCategory());
+            post.setDate(post.getDate());
+            post.setDetail(post.getDetail());
+            post.setPrice(post.getPrice());
+            post.setHasPromo(post.isHasPromo());
+            post.setDiscount(post.getDiscount());
+        }else{
+            post.setId_post(iSocialMeliRepository.savePostPromo(postPromoRequestDTO));//savePost
+            iSocialMeliRepository.saveListPostPromo(postPromoRequestDTO);
+            post.setUserId(postPromoRequestDTO.getUserId());
+            post.setDate(postPromoRequestDTO.getDate());
+            post.setCategory(postPromoRequestDTO.getCategory());
+            post.setDetail(new ArrayList<>());
+            post.setPrice(postPromoRequestDTO.getPrice());
+            post.setHasPromo(true);
+            post.setDiscount(postPromoRequestDTO.getDiscount());
+        }
+        return post;
+    }
+
+
     /**
      * Metodo para retornar todos los post guardados en memoria
      * @return
@@ -287,6 +326,15 @@ public class SocialMeliServiceImp implements ISocialMeliService {
         }else {
             throw new PostNotExistException("El usuario no tiene posts");
         }
+    }
+
+    @Override
+    public PostResponsePromoByUserDTO getPostByUserId(Integer userId) {
+        ArrayList<Post> posts = iSocialMeliRepository.getPostList();
+        ArrayList<Post> filteredPost;
+        User user = iSocialMeliRepository.getUserById(userId);
+        filteredPost = posts.stream().filter(x -> x.getUserId().equals(userId) && x.isHasPromo()).collect(Collectors.toCollection(ArrayList::new));
+        return new PostResponsePromoByUserDTO(userId,user.getUserName(),filteredPost);
     }
 
 

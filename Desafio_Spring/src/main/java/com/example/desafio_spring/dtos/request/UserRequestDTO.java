@@ -1,18 +1,18 @@
 package com.example.desafio_spring.dtos.request;
 
-import com.example.desafio_spring.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRequestDTO {
-
+    @NotNull(message = "Debe contener un nombre de usuario")
+    @NotBlank(message = "Debe contener un nombre de usuario")
     private String userName;
 
 }

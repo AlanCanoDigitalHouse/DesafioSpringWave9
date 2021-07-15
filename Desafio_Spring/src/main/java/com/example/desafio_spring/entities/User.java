@@ -18,6 +18,7 @@ public class User {
     private Integer follower_count;
     private ArrayList<UserResponseDTO> followers;
     private ArrayList<UserResponseDTO> followed;
+    private Integer promoproducts_count;
 
     public User(Integer userId, String userName) {
         this.userId = userId;
@@ -25,6 +26,7 @@ public class User {
         this.follower_count = 0;
         this.followers = new ArrayList<>();
         this.followed = new ArrayList<>();
+
     }
     //Constructor para retornar solo userId, userName, followerCount
     public User(Integer userId, String userName, Integer follower_count) {
@@ -43,5 +45,11 @@ public class User {
         this.userId = userId;
         this.userName = userName;
         this.followed = followed;
+    }
+
+    public User(Integer userId, String userName, Integer promoproducts_count, boolean aux ) {
+        this.userId = userId;
+        this.userName = userName;
+        this.promoproducts_count = promoproducts_count;
     }
 }

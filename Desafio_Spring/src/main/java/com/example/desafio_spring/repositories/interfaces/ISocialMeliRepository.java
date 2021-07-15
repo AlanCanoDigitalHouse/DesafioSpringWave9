@@ -1,5 +1,6 @@
 package com.example.desafio_spring.repositories.interfaces;
 
+import com.example.desafio_spring.dtos.request.PostPromoRequestDTO;
 import com.example.desafio_spring.dtos.request.PostRequestDTO;
 import com.example.desafio_spring.dtos.request.UserRequestDTO;
 import com.example.desafio_spring.entities.Post;
@@ -19,8 +20,12 @@ public interface ISocialMeliRepository{
     Map<Integer, Post> getPosts();
     ArrayList<Post> getPostList();
     Integer savePost(PostRequestDTO postRequestDTO) throws ParseException;
+    Integer savePostPromo(PostPromoRequestDTO postPromoRequestDTO) throws ParseException;
     Integer getPostById(Integer postId);
     Integer saveListPost(PostRequestDTO postRequestDTO) throws ParseException;
+    void saveListPostPromo(PostPromoRequestDTO postPromoRequestDTO);
     boolean isFollowedBy(Integer userId, Integer userIdToFollow);
+
+
     //metodos productos
 }

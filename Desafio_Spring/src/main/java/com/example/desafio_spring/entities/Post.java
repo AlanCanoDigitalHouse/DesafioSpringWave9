@@ -2,17 +2,18 @@ package com.example.desafio_spring.entities;
 
 import com.example.desafio_spring.dtos.request.ProductRequestDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.AssertTrue;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 @Data
 @NoArgsConstructor
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Post {
     private Integer userId;
     private Integer id_post;
@@ -21,6 +22,10 @@ public class Post {
     private ArrayList<ProductRequestDTO> detail;
     private Integer category;
     private Double price;
+
+    @AssertTrue(message = "El valor debe ser true")
+    private boolean hasPromo;
+    private Double discount;
 
 
 
@@ -31,6 +36,17 @@ public class Post {
         this.detail = detail;
         this.category = category;
         this.price = price;
+    }
+
+    public Post(Integer userId, Integer id_post, Date date, ArrayList<ProductRequestDTO> detail, Integer category, Double price, boolean hasPromo, Double discount) {
+        this.userId = userId;
+        this.id_post = id_post;
+        this.date = date;
+        this.detail = detail;
+        this.category = category;
+        this.price = price;
+        this.hasPromo = hasPromo;
+        this.discount = discount;
     }
     /*
     public void setDate(String date) throws ParseException {
