@@ -2,10 +2,12 @@ package com.example.desafiospring.controllers;
 
 import com.example.desafiospring.dtos.request.PublicationRequestDTO;
 import com.example.desafiospring.dtos.response.FollowerPostListDTO;
-import com.example.desafiospring.exceptions.UserNotFindException;
+import com.example.desafiospring.exceptions.UserNotFindOrEqualException;
 import com.example.desafiospring.services.PublicationServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("products")
@@ -20,16 +22,15 @@ public class PublicationController {
 
     //005
     @PostMapping(path = "/newpost")
-    public ResponseEntity<?> newPost(@RequestBody PublicationRequestDTO publicationRequestDTO) throws UserNotFindException {
-        System.out.println("newPost");
+    public ResponseEntity<?> newPost(@Valid @RequestBody PublicationRequestDTO publicationRequestDTO) throws UserNotFindOrEqualException {
+
         return publicationService.newPost(publicationRequestDTO.getUserId(), publicationRequestDTO);
     }
 
     //006
     @GetMapping(path = "/followed/{userId}/list")
-    public FollowerPostListDTO getFollowersPostList(@PathVariable Integer userId, @RequestParam(value = "order", defaultValue = "default") String order) throws UserNotFindException {
-        System.out.println("get follower list post");
-        System.out.println("orde: "+ order);
+    public FollowerPostListDTO getFollowersPostList(@PathVariable Integer userId,
+                                                    @RequestParam(value = "order", defaultValue = "default") String order) throws UserNotFindOrEqualException {
         return publicationService.getAllPost(userId, order);
     }
 }

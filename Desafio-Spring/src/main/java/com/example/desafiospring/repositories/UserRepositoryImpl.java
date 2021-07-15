@@ -1,7 +1,6 @@
 package com.example.desafiospring.repositories;
 
 import com.example.desafiospring.dtos.general.UserInfo;
-import com.example.desafiospring.dtos.response.UserDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -11,9 +10,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Set;
+
 
 @Repository
 public class UserRepositoryImpl implements IUserRepository{
@@ -29,7 +28,6 @@ public class UserRepositoryImpl implements IUserRepository{
         File file = null;
         try {
             file = ResourceUtils.getFile(pathName);
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -40,7 +38,6 @@ public class UserRepositoryImpl implements IUserRepository{
     private Map<Integer, UserInfo> mapObject(File file) {
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<Map<Integer, UserInfo>> typeReference = new TypeReference<>() {};
-
         Map<Integer, UserInfo> userDtos = null;
         try {
             userDtos = mapper.readValue(file, typeReference);
@@ -53,13 +50,10 @@ public class UserRepositoryImpl implements IUserRepository{
 
     @Override
     public void updateUsersFile() {
-        System.out.println("guardando: "+ this.usersDatabase);
         try {
             ObjectMapper mapper = new ObjectMapper();
-
             // convert map to JSON file
             mapper.writeValue(Paths.get(this.PATH_NAME_USERS).toFile(), this.usersDatabase);
-            System.out.println("Archivo sobreescrito");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,6 +62,11 @@ public class UserRepositoryImpl implements IUserRepository{
     @Override
     public UserInfo getUser(Integer userId) {
         return usersDatabase.get(userId);
+    }
+
+    @Override
+    public Set<Integer> getKey() {
+        return usersDatabase.keySet();
     }
 
 

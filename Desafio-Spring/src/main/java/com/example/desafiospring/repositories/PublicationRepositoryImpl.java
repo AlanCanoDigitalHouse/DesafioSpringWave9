@@ -1,8 +1,6 @@
 package com.example.desafiospring.repositories;
 
-import com.example.desafiospring.dtos.general.Product;
 import com.example.desafiospring.dtos.general.Publication;
-import com.example.desafiospring.dtos.general.UserInfo;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -33,7 +31,6 @@ public class PublicationRepositoryImpl implements IPublicationRepository{
         File file = null;
         try {
             file = ResourceUtils.getFile(pathName);
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -47,37 +44,26 @@ public class PublicationRepositoryImpl implements IPublicationRepository{
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         TypeReference<Map<Integer, List<Publication>>> typeReference = new TypeReference<>() {
         };
-
         Map<Integer, List<Publication>> publicationsDtos = null;
         try {
             publicationsDtos= mapper.readValue(file, typeReference);
-
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Archivo vacío");
+            System.out.println("No content to map, creating a map empty.");
             publicationsDtos = new HashMap<>();
         }
-
         return publicationsDtos;
-
     }
 
     @Override
     public void updatePublicationFile() {
-        System.out.println("guardando: "+ this.publicationsDatabase);
-
         try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.registerModule(new JavaTimeModule());
             mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-            // convert map to JSON file
             mapper.writeValue(Paths.get(this.PATH_NAME_PUBLICATIONS).toFile(), this.publicationsDatabase);
-            System.out.println("Archivo sobreescrito");
         } catch (IOException e) {
             e.printStackTrace();
-
         }
-
     }
 
     @Override
