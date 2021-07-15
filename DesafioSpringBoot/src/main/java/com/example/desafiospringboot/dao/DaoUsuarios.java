@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.example.meli.model.Usuario;
+import com.example.desafiospringboot.model.Usuario;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,7 +21,7 @@ public class DaoUsuarios {
     }
     public Usuario getUser(int id){
         JSONArray users = this.loadUsers();
-        for (int i = 0; i < users.size(); i++) {
+        for (int i = 0; i <= users.size(); i++) {
             //System.out.println(userList.get(i).);
             JSONObject item = (JSONObject) users.get(i);
             Long a = (Long) item.get("userId");
@@ -39,13 +39,13 @@ public class DaoUsuarios {
         users.add(toSave);
         this.writeUsers(users);
         return "";
-    } 
+    }
     public boolean writeUsers(JSONArray users){
         try (FileWriter file = new FileWriter("usuarios.json")) {
             //We can write any JSONArray or JSONObject instance to the file
-            file.write(users.toJSONString()); 
+            file.write(users.toJSONString());
             file.flush();
- 
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,13 +79,13 @@ public class DaoUsuarios {
         try {
             Object obj = jsonParser.parse(new FileReader("usuarios.json"));
             JSONArray userList = (JSONArray) obj;
-            
+
             for (int i = 0; i < userList.size(); i++) {
                 //System.out.println(userList.get(i).);
                 JSONObject item = (JSONObject) userList.get(i);
                 System.out.println(item.get("userId"));
             }
-            
+
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

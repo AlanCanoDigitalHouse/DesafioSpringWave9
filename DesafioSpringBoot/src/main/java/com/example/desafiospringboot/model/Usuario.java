@@ -2,7 +2,7 @@ package com.example.desafiospringboot.model;
 
 import org.json.simple.JSONObject;
 
-public class Usuario {
+public class Usuario implements JSONAble {
     private int userId;
     private String userName;
     public JSONObject toJson(){
@@ -17,7 +17,7 @@ public class Usuario {
     }
     public Usuario(JSONObject info){
         this.userName = (String) info.get("userName");
-        Long a = (Long) info.get("userId"); 
+        Long a = (Long) info.get("userId");
         int b = a.intValue();
         this.userId = b;
     }
@@ -33,5 +33,10 @@ public class Usuario {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    
+    @Override
+    public void asimilar(JSONObject body) {
+        // TODO Auto-generated method stub
+
+    }
+
 }

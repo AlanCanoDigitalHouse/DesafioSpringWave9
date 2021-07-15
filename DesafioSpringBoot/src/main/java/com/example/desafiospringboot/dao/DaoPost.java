@@ -5,8 +5,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.example.meli.model.Post;
-import com.example.meli.model.Usuario;
+import com.example.desafiospringboot.model.Post;
+import com.example.desafiospringboot.model.Usuario;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -25,13 +25,7 @@ public class DaoPost {
         try {
             Object obj = jsonParser.parse(new FileReader("post.json"));
             JSONArray userList = (JSONArray) obj;
-            /*
-            for (int i = 0; i < userList.size(); i++) {
-                //System.out.println(userList.get(i).);
-                JSONObject item = (JSONObject) userList.get(i);
-                System.out.println(item.get("userId"));
-            }
-            */
+
             return userList;
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
@@ -50,26 +44,29 @@ public class DaoPost {
         JSONObject toSave = post.toJson();
         postsArray.add(toSave);
         try (FileWriter file = new FileWriter("post.json")) {
-            //We can write any JSONArray or JSONObject instance to the file
-            file.write(postsArray.toJSONString()); 
+            file.write(postsArray.toJSONString());
             file.flush();
-    
+
         } catch (IOException e) {
             e.printStackTrace();
         }
         return true;
     }
-    public JSONArray fetchPosts(Usuario usr){
+    public JSONArray fetchPosts(int usr){
         JSONArray allPosts = this.loadPost();
+        System.out.println(allPosts.get(2));
+        JSONArray filtered = new JSONArray();
         for (int i = 0; i < allPosts.size(); i++) {
             //System.out.println(userList.get(i).);
             JSONObject item = (JSONObject) allPosts.get(i);
-            Long a = (Long) item.get("idAutor");
+            Long a = (Long) item.get("userId");
             int b = a.intValue();
-            if(b != usr.getUserId()){
-                allPosts.remove(i);
+            System.out.println("---"+i);
+            if(b == usr){
+                //System.out.println("removed---- "+item);
+                filtered.add(item);
             }
-        }   
-        return allPosts;
+        }
+        return filtered;
     }
 }
