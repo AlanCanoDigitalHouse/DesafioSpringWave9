@@ -4,7 +4,7 @@ import com.api.firstspringchallenge.dtos.request.FollowersListRequestDTO;
 import com.api.firstspringchallenge.dtos.response.FollowedResponseDTO;
 import com.api.firstspringchallenge.dtos.response.FollowersCountResponseDTO;
 import com.api.firstspringchallenge.dtos.response.FollowersResponseDTO;
-import com.api.firstspringchallenge.services.user.implementation.SellerService;
+import com.api.firstspringchallenge.services.user.implementation.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +18,12 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class UsersController {
 
-    private final SellerService service;
+    private final UserService service;
 
+    @GetMapping("/users")
+    public ResponseEntity<FollowersCountResponseDTO> users() {
+        return service.getUsers();
+    }
     @PostMapping("/users/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<Void> followSeller(@PathVariable("userId") int userId, @PathVariable("userIdToFollow") int userIdToFollow) {
         return service.follow(userId, userIdToFollow);
