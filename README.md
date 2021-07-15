@@ -10,13 +10,14 @@ Aplicacion práctica para el seguimiento de usuarios y sus respectivas publicaci
 
 ## Informacion general
 La aplicacion permite simular el proceso de seguir usuarios, lo que implica:
--Que un usuario pueda seguir a otro
--Que un usuario pueda dejar de seguir a otro
--Que un usuario pueda consultar su cantidad de seguidores, y la informacion de cada uno de ellos.
--Que un usuario pueda consultar su cantidad de seguidos
+- Que un usuario pueda seguir a otro
+- Que un usuario pueda dejar de seguir a otro
+- Que un usuario pueda consultar su cantidad de seguidores, y la informacion de cada uno de ellos.
+- Que un usuario pueda consultar su cantidad de seguidos
 
 Asimismo, esta informacion es almacenada de forma dinámica en la memoria, por lo que los datos solo duran el tiempo de vida de la aplicación, una vez cerrada ésta, se pierde la informacion guardada.
 Como contramedida, se genera de manera automática al levantar la aplicacion 3 usuarios, con sus respectivos Ids, y nombres, el resto de la información, seguir usuarios, postear productos, debe ser cargada manualmente.
+Se habla unicamente de usuarios porque se considera innecesaria la distincion entre vendedores y compradores.
 
 ## Componentes
 - Controladores:
