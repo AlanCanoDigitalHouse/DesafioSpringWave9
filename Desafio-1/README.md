@@ -9,7 +9,7 @@ Cree dos repositorios **BuyerRepository** y **SellerRepository** que manejan la 
 
 El servicio **SocialMeliService** se encarga de realizar la mayoria de lógica de negocio para dar respuesta a las peticiones de alguno de los controladores.
 
-Se deben **crear** post  y postPromo ya que no existen en los datos cargados, así como generar las relaciones entre Buyer y Seller.
+Se deben **crear** nuevos datos para post  y postPromo ya que no existen en los datos cargados, así como generar las relaciones entre Buyer y Seller.
 
 A continuación se mostraran una serie de pasos para obtener un **correcto** funcionamiento de mi programa:
 
