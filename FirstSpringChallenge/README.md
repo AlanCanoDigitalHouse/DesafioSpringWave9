@@ -2,9 +2,19 @@
 
 ## Tabla de contenido
 - [iOS setup](#ios-setup)
-    - [Requirements](#requirements)
+    - [Requerimientos](#requerimientos)
         - [Set up](#set-up)
-    - [How to setup to run locally](#how-to-run-locally)
-- [How it works](#how-it-works)
-- [Decision taken](#decisions-taken)
+    - [¿Cómo correrlo localmente?](#¿cómo-correrlo-localmente?)
+- [¿Cómo funciona?](#¿cómo-funciona?)
+- [Decisiones tomadas](#decisiones-tomadas)
 
+## iOS-Setup
+
+### Requerimientos
+#### Set up
+
+### ¿Cómo correrlo localmente?
+
+## ¿Cómo funciona?
+
+## Decisiones tomadas
