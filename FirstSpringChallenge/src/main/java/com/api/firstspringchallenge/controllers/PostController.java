@@ -22,7 +22,7 @@ public class PostController {
 
     @GetMapping("/products/followed/{userId}/list")
     public ResponseEntity<Void> getPostsBy(@Valid PostsRequestDTO request) {
-        return service.getPostsBy(request.getUserId(), request.getOrder());
+        return service.getPostsBy(request);
     }
 
     @PostMapping("/products/newpromopost")
@@ -36,8 +36,8 @@ public class PostController {
     }
 
     @GetMapping("/products/{userId}/list")
-    public ResponseEntity<Void> promoList(@PathVariable("userId") int userId) {
-        return service.getPromoList(userId);
+    public ResponseEntity<Void> promoList(@Valid PostsRequestDTO request) {
+        return service.getPromoList(request);
     }
 
 }

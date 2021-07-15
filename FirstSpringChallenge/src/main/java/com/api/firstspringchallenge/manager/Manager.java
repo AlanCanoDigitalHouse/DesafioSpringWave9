@@ -1,6 +1,7 @@
 package com.api.firstspringchallenge.manager;
 
 import com.api.firstspringchallenge.models.Post;
+import com.api.firstspringchallenge.models.Product;
 import com.api.firstspringchallenge.models.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,9 +25,17 @@ public class Manager {
         return users;
     }
 
-    public static List<Post> orderPostsBy(String order, List<Post> posts) {
+    public static List<Post> orderPostsByDate(String order, List<Post> posts) {
         Comparator<Post> comparator = Comparator.comparing(Post::getDate);
         if ("date_desc".equals(order)) {
+            return posts.stream().sorted(comparator.reversed()).collect(Collectors.toList());
+        }
+        return posts.stream().sorted(comparator).collect(Collectors.toList());
+    }
+
+    public static List<Post> orderPostsByName(String order, List<Post> posts) {
+        Comparator<Post> comparator = Comparator.comparing(Post::getProductName);
+        if ("name_desc".equals(order)) {
             return posts.stream().sorted(comparator.reversed()).collect(Collectors.toList());
         }
         return posts.stream().sorted(comparator).collect(Collectors.toList());

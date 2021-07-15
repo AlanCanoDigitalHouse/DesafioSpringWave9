@@ -1,6 +1,7 @@
 package com.api.firstspringchallenge.services.post.implementation;
 
 import com.api.firstspringchallenge.dtos.request.PostRequestDTO;
+import com.api.firstspringchallenge.dtos.request.PostsRequestDTO;
 import com.api.firstspringchallenge.dtos.request.PromoPostRequestDTO;
 import com.api.firstspringchallenge.dtos.response.*;
 import com.api.firstspringchallenge.manager.Manager;
@@ -37,15 +38,15 @@ public class PostService implements PostServiceI {
     }
 
     @Override
-    public ResponseEntity getPostsBy(int userId, String order) {
-        Seller seller = (Seller) sellerService.findUserById(userId);
+    public ResponseEntity getPostsBy(PostsRequestDTO request) {
+        Seller seller = (Seller) sellerService.findUserById(request.getUserId());
         List<Seller> sellers = relationService.getSellers(seller);
         List<Post> posts = sellers.stream()
                 .flatMap(s -> s.getPosts().stream())
                 .filter(p -> p.getDate().after(Date.from(Instant.now().minus(14, ChronoUnit.DAYS))))
                 .collect(Collectors.toList());
         PostsResponseDTO response = new PostsResponseDTO(seller.getUserId(),
-                Manager.orderPostsBy(order, posts)
+                Manager.orderPostsByDate(request.getOrder(), posts)
                         .stream().map(p-> new PostResponseDTO(p.getDate(),p.getDetail(),p.getCategory().getValue(),p.getPrice())).collect(Collectors.toList())
         );
         return new ResponseEntity(response, HttpStatus.OK);
@@ -68,11 +69,12 @@ public class PostService implements PostServiceI {
     }
 
     @Override
-    public ResponseEntity getPromoList(int userId) {
-        Seller seller = (Seller) sellerService.findUserById(userId);
+    public ResponseEntity getPromoList(PostsRequestDTO request) {
+        Seller seller = (Seller) sellerService.findUserById(request.getUserId());
         List<Post> posts = seller.getPosts().stream().filter(p-> p.isHasPromo()).collect(Collectors.toList());
         PromoPostsListResponseDTO response = new PromoPostsListResponseDTO(seller,
-                posts.stream().map(p-> new PostPromoResponseDTO(p.getDate(),p.getDetail(),p.getCategory().getValue(),p.getPrice(),p.isHasPromo(),p.getDiscount())).collect(Collectors.toList())
+                Manager.orderPostsByName(request.getOrder(), posts)
+                        .stream().map(p-> new PostPromoResponseDTO(p.getDate(),p.getDetail(),p.getCategory().getValue(),p.getPrice(),p.isHasPromo(),p.getDiscount())).collect(Collectors.toList())
         );
         return new ResponseEntity(response,HttpStatus.OK);
     }

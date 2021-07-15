@@ -24,4 +24,9 @@ public class Post {
         this.category = category;
         this.price = price;
     }
+
+    public String getProductName(){
+        return detail.getProductName();
+    }
+
 }
