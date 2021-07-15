@@ -86,7 +86,7 @@ public class PostController {
     }
 
     /**
-     * 
+     *
      * @param userId
      * @return
      */

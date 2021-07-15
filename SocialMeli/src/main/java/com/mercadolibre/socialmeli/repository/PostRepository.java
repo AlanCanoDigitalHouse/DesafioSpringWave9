@@ -40,7 +40,7 @@ public class PostRepository {
                 postRequestDTO.getDetail(),
                 postRequestDTO.getCategory(),
                 postRequestDTO.getPrice(),
-                false,
+                postRequestDTO.getHasPromo(),
                 null
         );
         postsDatabase.add(post);
@@ -58,7 +58,7 @@ public class PostRepository {
                 postRequestDTO.getDetail(),
                 postRequestDTO.getCategory(),
                 postRequestDTO.getPrice(),
-                true,
+                postRequestDTO.getHasPromo(),
                 postRequestDTO.getDiscount()
         );
         postsDatabase.add(post);

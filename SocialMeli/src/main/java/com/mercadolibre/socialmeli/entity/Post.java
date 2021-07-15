@@ -28,8 +28,9 @@ public class Post {
     int category;
     @DecimalMin(value = "0.0", inclusive = false, message = "Price cannot be zero or negative")
     double price;
-    Boolean hasPromo;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    Boolean hasPromo = false;
     @DecimalMin(value = "0.0", inclusive = false, message = "Discount cannot be zero or negative")
-    @DecimalMax(value = "1.0", message = "Discount cannot be more dan 1")
+    @DecimalMax(value = "1.0", message = "Discount cannot be more than 1")
     Double discount;
 }

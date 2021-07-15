@@ -1,5 +1,6 @@
 package com.mercadolibre.socialmeli.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class UserBase {
         this.userName = userName;
     }
 
+    @JsonIgnore
     public String getUserNameUpper(){
         return this.userName.toUpperCase();
     }
