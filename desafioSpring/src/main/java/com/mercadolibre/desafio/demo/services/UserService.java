@@ -21,12 +21,10 @@ import java.util.Optional;
 @Service
 public class UserService implements IUserService {
     DataBaseUserRepository dataBaseUserRepository;
-    ValidationService validationService;
     UtilService utilService;
 
-    public UserService(DataBaseUserRepository dataBaseUserRepository, ValidationService validationService, UtilService utilService) {
+    public UserService(DataBaseUserRepository dataBaseUserRepository,UtilService utilService) {
         this.dataBaseUserRepository = dataBaseUserRepository;
-        this.validationService = validationService;
         this.utilService = utilService;
     }
 

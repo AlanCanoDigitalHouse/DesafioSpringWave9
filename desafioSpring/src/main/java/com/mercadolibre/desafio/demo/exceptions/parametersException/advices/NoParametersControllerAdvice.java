@@ -22,21 +22,4 @@ public class NoParametersControllerAdvice {
                 e.getParameterName()
         ),HttpStatus.BAD_REQUEST) ;
      }
-
-
-
-
-//    @ResponseBody    MalformedURLException | UnknownHostException
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ExceptionHandler(value = HttpMessageNotReadableException.class)
-//    public ResponseEntity<NoParametersMessage> handlerValidationBodyException(
-//            HttpMessageNotReadableException e
-//    ) {
-//        System.out.println(e);
-//        return new ResponseEntity<NoParametersMessage>(new NoParametersMessage(
-//                HttpStatus.BAD_REQUEST.value(),
-//                e.getMessage(),
-//                "Required request body is missing"
-//        ),HttpStatus.BAD_REQUEST) ;
-//     }
 }

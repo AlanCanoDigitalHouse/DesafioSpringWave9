@@ -18,13 +18,11 @@ import java.util.stream.Collectors;
 public class ProductService implements IProductService {
 
     DataBaseProductsRepository dataBaseProductsRepository;
-    ValidationService validationService;
     UtilService utilService;
     UserService userService;
 
-    public ProductService(DataBaseProductsRepository dataBaseProductsRepository, ValidationService validationService, UtilService utilService,  UserService userService) {
+    public ProductService(DataBaseProductsRepository dataBaseProductsRepository, UtilService utilService,  UserService userService) {
         this.dataBaseProductsRepository = dataBaseProductsRepository;
-        this.validationService = validationService;
         this.utilService = utilService;
         this.userService = userService;
     }
@@ -49,6 +47,7 @@ public class ProductService implements IProductService {
         return this.dataBaseProductsRepository.getProducts();
     }
 
+    // Override methods =====================================
     @Override
     public SuccessfullyResponseDTO createPost(NewPostDTO newPostDTO) {
         UserModel userModel = this.userService.validateUserExist(newPostDTO.getUserId());
@@ -114,7 +113,7 @@ public class ProductService implements IProductService {
         );
     }
 
-
+    // End Override methods =====================================
 
 
 }

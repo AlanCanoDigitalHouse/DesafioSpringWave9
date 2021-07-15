@@ -32,21 +32,3 @@ public class DetailRequestDTO {
 
 }
 
-
-/**
- *   {
- *     	"userId": 1235,
- *      "date" : "29-04-2021",
- *     	“detail" :
- *                        { “product_id” : 1,
- *                "productName" : "Silla Gamer",
- *           	   "type" : "Gamer",,
- *                "brand" : "Racer"
- *                "color" : "Red & Black",
- *                "notes" : "Special Edition"
- *      },
- *      "category" : 100,
- *      "price" : 1500.50,
- *    }
- */
-

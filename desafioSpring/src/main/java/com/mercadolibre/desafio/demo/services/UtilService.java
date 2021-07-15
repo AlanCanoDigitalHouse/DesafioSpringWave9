@@ -29,12 +29,9 @@ public class UtilService {
 
         ProductModel productModel = validProductExist(newPostDTO.getDetail());
 
-
-
         return new PublicModel(
                 id_post_counter++,
                 newPostDTO.getDate(),
-//                mapperPoductDto(newPostDTO.getDetail()),
                 productModel,
                 newPostDTO.getCategory(),
                 newPostDTO.getPrice()
@@ -99,7 +96,7 @@ public class UtilService {
         return new SimpleDateFormat("dd-MM-yyyy").format(date);
     }
 
-    // Dozermapper
+
     // map a newPostDto object to PublicModel to save
     public PublicPromoModel mapperToPostPromDto(NewPostPromDTO newPostPromDTO) {
         ProductModel productModel = validProductExist(newPostPromDTO.getDetail());
@@ -107,7 +104,6 @@ public class UtilService {
         return new PublicPromoModel(
                 id_post_counter++,
                 newPostPromDTO.getDate(),
-//                mapperPoductDto(newPostPromDTO.getDetail()),
                 productModel,
                 newPostPromDTO.getCategory(),
                 newPostPromDTO.getPrice(),
@@ -116,7 +112,7 @@ public class UtilService {
         );
     }
 
-    // order by
+    // order  ======================================
     public void orderByDate(String order, List<PublicsResponseDTO> list){
         switch (order){
             case "date_asc":
@@ -158,12 +154,15 @@ public class UtilService {
                 break;
         }
     }
+    // end order  ======================================
 
+    // weeks between
     public Long weeksBetween(Date date1, Date date2) {
         long days = ChronoUnit.DAYS.between(date1.toInstant(), date2.toInstant());
         return days / 7 + (days % 7 == 0 ? 0 : 1);
     }
 
+    // Exception by order name
     public void throwExceptionOrden(String[] strs){
         List<String> ordersNames = new ArrayList<>(Arrays.asList(strs));
         throw new NoOrderException("Only the following values are accepted in the 'order' :",ordersNames);

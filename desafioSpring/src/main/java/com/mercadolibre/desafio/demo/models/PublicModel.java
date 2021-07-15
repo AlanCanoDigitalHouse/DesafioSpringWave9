@@ -9,7 +9,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class PublicModel {
 
-    //    private Integer userId;
+
     private Integer id_post;
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date date;

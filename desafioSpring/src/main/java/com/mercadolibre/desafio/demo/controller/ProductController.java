@@ -79,11 +79,6 @@ public class ProductController {
         return new ResponseEntity<>(productService.listPromoPublics(userId), HttpStatus.OK);
     }
 
-
-
-
-
-
 }
 
 
