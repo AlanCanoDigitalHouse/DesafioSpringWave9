@@ -19,12 +19,10 @@ import java.util.stream.Collectors;
 public class ProductRepository extends JSONRepository<Post> implements IProductRepository {
 
     private static final String POSTS_DIR = "classpath:static/posts.json";
-    private AtomicInteger lastIndex = getLastIndex();
-    private final IUserRepository userRepository;
+    private final AtomicInteger lastIndex = getLastIndex();
 
-    public ProductRepository(IUserRepository userRepository) {
+    public ProductRepository() {
         super(POSTS_DIR, Post.class);
-        this.userRepository = userRepository;
     }
 
     private AtomicInteger getLastIndex() {
@@ -33,8 +31,6 @@ public class ProductRepository extends JSONRepository<Post> implements IProductR
 
     @Override
     public void saveProduct(ProductRequestDTO productData) {
-        // If user doesn't exist this method will throw a custom runtime exception
-        this.userRepository.getUser(productData.getUserId());
         var newId = lastIndex.getAndAdd(1);
 
         var posts = getData();

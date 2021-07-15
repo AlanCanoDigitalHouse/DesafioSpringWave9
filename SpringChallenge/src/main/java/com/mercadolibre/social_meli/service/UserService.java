@@ -24,6 +24,12 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public UserResponseDTO getUserById(Integer userId) {
+        var user = this.userRepository.getUser(userId);
+        return new UserResponseDTO(user.getUserId(), user.getUserName());
+    }
+
+    @Override
     public void followUser(Integer userId, Integer userIdToFollow) {
         var users = this.userRepository.getUsers();
         var user = this.userRepository.getUser(userId);

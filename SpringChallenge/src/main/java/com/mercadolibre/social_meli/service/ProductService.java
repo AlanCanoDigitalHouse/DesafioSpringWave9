@@ -28,6 +28,8 @@ public class ProductService implements IProductService {
 
     @Override
     public void postNewProduct(ProductRequestDTO productData) {
+        // this is used as a check for user existence. Throws a runtime exception when no user is found.
+        this.userService.getUserById(productData.getUserId());
         this.productRepository.saveProduct(productData);
     }
 
