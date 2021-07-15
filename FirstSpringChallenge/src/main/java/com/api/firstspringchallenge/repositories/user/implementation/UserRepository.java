@@ -36,7 +36,7 @@ public class UserRepository implements SellerRepositoryI {
     }
 
     @Override
-    public User findSellerById(int userId) {
+    public User findUserById(int userId) {
         return this.users.stream().filter(s -> s.getUserId() == userId).findAny().orElse(null);
     }
 

@@ -8,7 +8,7 @@ public interface SellerRepositoryI {
 
     boolean isSeller(int userId);
 
-    User findSellerById(int userId);
+    User findUserById(int userId);
 
     List<User> getUsers();
 

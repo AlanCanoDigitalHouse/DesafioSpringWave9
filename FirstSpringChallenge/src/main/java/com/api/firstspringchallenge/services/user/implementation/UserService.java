@@ -27,9 +27,9 @@ public class UserService implements UserServiceI {
     private final RelationService relationService;
 
     @Override
-    public User findSellerById(int userId) {
+    public User findUserById(int userId) {
         validateUser(userId);
-        return repository.findSellerById(userId);
+        return repository.findUserById(userId);
     }
 
     public void validateUser(int userId){
@@ -40,15 +40,15 @@ public class UserService implements UserServiceI {
 
     @Override
     public ResponseEntity<Void> follow(int userId, int otherUserId) {
-        User follower = findSellerById(userId);
-        User followed = findSellerById(otherUserId);
+        User follower = findUserById(userId);
+        User followed = findUserById(otherUserId);
         relationService.createRelation(follower, followed);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity getFollowersQuantity(int userId) {
-        User seller = findSellerById(userId);
+        User seller = findUserById(userId);
         List<User> followers = relationService.getFollowers(seller);
         FollowersCountResponseDTO response = new FollowersCountResponseDTO(seller, followers.size());
         return new ResponseEntity(response, HttpStatus.OK);
@@ -56,7 +56,7 @@ public class UserService implements UserServiceI {
 
     @Override
     public ResponseEntity getFollowers(int userId, String order) {
-        User seller = findSellerById(userId);
+        User seller = findUserById(userId);
         List<User> followers = relationService.getFollowers(seller);
         List<User> ordered = Manager.orderUserBy(order, followers);
         FollowersResponseDTO response = new FollowersResponseDTO(seller, ordered);
@@ -65,7 +65,7 @@ public class UserService implements UserServiceI {
 
     @Override
     public ResponseEntity getFollowed(int userId) {
-        User seller = findSellerById(userId);
+        User seller = findUserById(userId);
         List<User> followers = relationService.getFollowed(seller);
         FollowedResponseDTO response = new FollowedResponseDTO(seller, followers);
         return new ResponseEntity(response, HttpStatus.OK);
@@ -73,8 +73,8 @@ public class UserService implements UserServiceI {
 
     @Override
     public ResponseEntity<Void> unfollow(int userId, int otherUserId) {
-        User follower = findSellerById(userId);
-        User followed = findSellerById(otherUserId);
+        User follower = findUserById(userId);
+        User followed = findUserById(otherUserId);
         Relation relation = relationService.findRelation(follower, followed);
         relationService.deleteRelation(relation);
 

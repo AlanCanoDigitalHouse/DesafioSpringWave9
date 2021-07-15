@@ -30,7 +30,7 @@ public class PostService implements PostServiceI {
 
     @Override
     public ResponseEntity newPost(PostRequestDTO postDTO) {
-        Seller seller = (Seller) sellerService.findSellerById(postDTO.getUserId());
+        Seller seller = (Seller) sellerService.findUserById(postDTO.getUserId());
         Post post = new Post(postDTO.getDate(), postDTO.getDetail(), postDTO.getCategory(), postDTO.getPrice());
         seller.addPost(post);
         return new ResponseEntity(HttpStatus.OK);
@@ -38,7 +38,7 @@ public class PostService implements PostServiceI {
 
     @Override
     public ResponseEntity getPostsBy(int userId, String order) {
-        Seller seller = (Seller) sellerService.findSellerById(userId);
+        Seller seller = (Seller) sellerService.findUserById(userId);
         List<Seller> sellers = relationService.getSellers(seller);
         List<Post> posts = sellers.stream()
                 .flatMap(s -> s.getPosts().stream())
@@ -53,7 +53,7 @@ public class PostService implements PostServiceI {
 
     @Override
     public ResponseEntity newPromoPost(PromoPostRequestDTO postDTO) {
-        Seller seller = (Seller) sellerService.findSellerById(postDTO.getUserId());
+        Seller seller = (Seller) sellerService.findUserById(postDTO.getUserId());
         Post post = new Post(postDTO.getDate(), postDTO.getDetail(), postDTO.getCategory(), postDTO.getPrice(), postDTO.isHasPromo(), postDTO.getDiscount());
         seller.addPost(post);
         return new ResponseEntity(HttpStatus.OK);
@@ -61,7 +61,7 @@ public class PostService implements PostServiceI {
 
     @Override
     public ResponseEntity getPromoQuantity(int userId) {
-        Seller seller = (Seller) sellerService.findSellerById(userId);
+        Seller seller = (Seller) sellerService.findUserById(userId);
         List<Post> posts = seller.getPosts().stream().filter(p-> p.isHasPromo()).collect(Collectors.toList());
         PromoPostsCountResponseDTO response = new PromoPostsCountResponseDTO(seller, posts.size());
         return new ResponseEntity(response,HttpStatus.OK);
@@ -69,7 +69,7 @@ public class PostService implements PostServiceI {
 
     @Override
     public ResponseEntity getPromoList(int userId) {
-        Seller seller = (Seller) sellerService.findSellerById(userId);
+        Seller seller = (Seller) sellerService.findUserById(userId);
         List<Post> posts = seller.getPosts().stream().filter(p-> p.isHasPromo()).collect(Collectors.toList());
         PromoPostsListResponseDTO response = new PromoPostsListResponseDTO(seller,
                 posts.stream().map(p-> new PostPromoResponseDTO(p.getDate(),p.getDetail(),p.getCategory().getValue(),p.getPrice(),p.isHasPromo(),p.getDiscount())).collect(Collectors.toList())

@@ -1,12 +1,11 @@
 package com.api.firstspringchallenge.services.user;
 
-import com.api.firstspringchallenge.models.Seller;
 import com.api.firstspringchallenge.models.User;
 import org.springframework.http.ResponseEntity;
 
 public interface UserServiceI {
 
-    User findSellerById(int userId);
+    User findUserById(int userId);
 
     ResponseEntity<Void> follow(int userId, int otherUserId);
 
