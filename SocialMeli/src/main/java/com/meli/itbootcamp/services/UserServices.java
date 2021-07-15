@@ -19,6 +19,5 @@ public interface UserServices {
     ResponseDTO unfollowSeller(Integer nonSeller,Integer seller) throws UserException;
     UserSeller findUserSellerById(Integer seller);
     UserNonSeller findUserNonSellerById(Integer nonSeller);
-//    ListPostSellerDTO getPost(Integer nonSeller);
 
 }

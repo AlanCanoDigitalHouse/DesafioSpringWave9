@@ -1,6 +1,5 @@
 package com.meli.itbootcamp.model;
 
-import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Product {

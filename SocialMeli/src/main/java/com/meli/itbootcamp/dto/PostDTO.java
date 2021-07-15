@@ -1,7 +1,6 @@
 package com.meli.itbootcamp.dto;
 
 import com.meli.itbootcamp.model.Post;
-import com.meli.itbootcamp.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

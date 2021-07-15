@@ -1,6 +1,5 @@
 package com.meli.itbootcamp.dto;
 
-import com.meli.itbootcamp.model.Post;
 import com.meli.itbootcamp.model.Product;
 import lombok.*;
 

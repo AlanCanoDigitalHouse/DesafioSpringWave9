@@ -28,7 +28,4 @@ public class Promo extends Post{
         return this.getPost();
     }
 
-    public Promo getPromo(){
-        return this;
-    }
 }

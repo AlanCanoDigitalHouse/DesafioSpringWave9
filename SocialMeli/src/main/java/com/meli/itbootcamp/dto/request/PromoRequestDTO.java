@@ -1,6 +1,5 @@
 package com.meli.itbootcamp.dto.request;
 
-import com.meli.itbootcamp.dto.request.PostRequestDTO;
 import lombok.*;
 
 import javax.validation.constraints.DecimalMax;
