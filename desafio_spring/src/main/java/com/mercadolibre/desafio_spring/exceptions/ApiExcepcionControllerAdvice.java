@@ -22,6 +22,27 @@ public class ApiExcepcionControllerAdvice{
         return processField(fieldErrors);
     }
 
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public SErrorMessage handlerExeptionSorted(SortedMethodError ex){
+        return new SErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.ERROR);
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public SErrorMessage handlerExeptionIdNotFOund(IdNotFound ex){
+        return new SErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.ERROR);
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public SErrorMessage handlerExeptionAlreadyExist(AlreadyExistError ex){
+        return new SErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.ERROR);
+    }
+
     public ErrorMessage processField( List<FieldError> fieldErrors){
         HashMap<String, String> fields = new HashMap<>();
         for (FieldError fieldError : fieldErrors){

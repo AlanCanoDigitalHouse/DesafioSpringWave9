@@ -16,11 +16,11 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
-    int userId;
-    int id_post;
+    Integer userId;
+    Integer id_post;
     @JsonFormat(pattern="dd-MM-yyyy")
     Date date;
     Product detail;
-    int category;
-    double price;
+    Integer category;
+    Double price;
 }
