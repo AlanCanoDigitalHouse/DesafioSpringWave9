@@ -17,14 +17,10 @@ public interface ISocialMeliService {
     void unFollow(Integer id, Integer idToUnFollow);
     User FollwerCount(Integer userId) throws UserNotExistException;
     boolean validateFollowUser(Integer userId, Integer useIdToFollow) throws UserAlreadyFollowedException;
-    User FollowersList(Integer userId) throws UserNotExistException;
-    User FollowersListSorted(String order, Integer userId) throws UserNotExistException;
-    User FollwedList(Integer userId) throws UserNotExistException;
+    User FollowersListSorted(String order, Integer userId) throws UserNotExistException, InvalidInputVariableException;
     User FollwedListSorted(String order, Integer userId) throws UserNotExistException, InvalidInputVariableException;
     //Metodos para publicaciones
     Post savePost(PostRequestDTO postRequestDTO) throws ParseException;
     Map<Integer, Post> getAllPosts();
-
-    PostResponseByUserDTO getPostByUserid(Integer userId) throws ParseException;
     PostResponseByUserDTO getPostByUseridSorted(String order, Integer userId) throws PostNotExistException, InvalidInputVariableException;
 }

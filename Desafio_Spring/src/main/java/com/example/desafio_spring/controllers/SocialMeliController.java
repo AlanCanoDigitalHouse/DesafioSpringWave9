@@ -41,7 +41,7 @@ public class SocialMeliController {
     @PostMapping("/{userId}/unfollow/{userIdToUnFollow}")
     public void unfollow(@PathVariable(value = "userId") Integer id,
                        @PathVariable(value = "userIdToUnFollow") Integer idToUnFollow, HttpServletResponse response) throws UserAlreadyFollowedException, UserNotExistException, FollowSameUserException {
-        iSocialMeliService.unFollow(id,idToUnFollow);;
+        iSocialMeliService.unFollow(id,idToUnFollow);
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
@@ -50,7 +50,7 @@ public class SocialMeliController {
         return ResponseEntity.ok(iSocialMeliService.FollwerCount(userId));
     }
     @GetMapping("{userId}/followers/list")
-    public ResponseEntity<User> followersList(@PathVariable(value = "userId") Integer userId, @RequestParam(required = false, defaultValue = "name_desc") String order) throws UserNotExistException {
+    public ResponseEntity<User> followersList(@PathVariable(value = "userId") Integer userId, @RequestParam(required = false, defaultValue = "name_desc") String order) throws UserNotExistException, InvalidInputVariableException {
         return ResponseEntity.ok(iSocialMeliService.FollowersListSorted(order, userId));
     }
     @GetMapping("{userId}/followed/list")

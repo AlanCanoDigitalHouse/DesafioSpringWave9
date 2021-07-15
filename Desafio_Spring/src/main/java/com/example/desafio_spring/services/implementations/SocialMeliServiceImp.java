@@ -26,6 +26,11 @@ public class SocialMeliServiceImp implements ISocialMeliService {
         this.iSocialMeliRepository = iSocialMeliRepository;
     }
 
+    /**
+     * Guarda un usuario en memoria del repositorio
+     * @param userRequestDTO
+     * @return User
+     */
     @Override
     public User saveUser(UserRequestDTO userRequestDTO) {
         //TODO: validaciones para el usuario guardado
@@ -47,11 +52,23 @@ public class SocialMeliServiceImp implements ISocialMeliService {
         return user;
     }
 
+    /**
+     * Retorna un map con todos los usuarios guardados en memoria del repositorio
+     * @return
+     */
     @Override
     public Map<Integer, User> getAllUsers() {
         return iSocialMeliRepository.getUsers();
     }
 
+    /**
+     * Metodo que sirve para seguir a un usuario determinado
+     * @param id
+     * @param idToFollow
+     * @throws UserAlreadyFollowedException
+     * @throws UserNotExistException
+     * @throws FollowSameUserException
+     */
     @Override
     public void Follow(Integer id, Integer idToFollow) throws UserAlreadyFollowedException, UserNotExistException, FollowSameUserException {
         User user = iSocialMeliRepository.getUserById(id);
@@ -64,7 +81,6 @@ public class SocialMeliServiceImp implements ISocialMeliService {
                     iSocialMeliRepository.saveUserByUser(user);
                     iSocialMeliRepository.saveUserByUser(userToFollow);
                 }
-
             }else{
                 throw new FollowSameUserException("Está tratando de seguir al mismo usuario");
             }
@@ -73,6 +89,11 @@ public class SocialMeliServiceImp implements ISocialMeliService {
         }
     }
 
+    /**
+     * Metodo para dejar de seguir a un usuario
+     * @param id
+     * @param idToUnFollow
+     */
     @Override
     public void unFollow(Integer id, Integer idToUnFollow) {
         User user = iSocialMeliRepository.getUserById(id);
@@ -85,6 +106,12 @@ public class SocialMeliServiceImp implements ISocialMeliService {
         }
     }
 
+    /**
+     * Metodo para retornar el número de seguidores que tiene un usuario
+     * @param userId
+     * @return
+     * @throws UserNotExistException
+     */
     @Override
     public User FollwerCount(Integer userId) throws UserNotExistException {
         User user = iSocialMeliRepository.getUserById(userId);
@@ -97,30 +124,34 @@ public class SocialMeliServiceImp implements ISocialMeliService {
         }
     }
 
+    /**
+     * Metodo para validar si un usuario ya es seguido por otro
+     * @param userId
+     * @param userIdToFollow
+     * @return
+     * @throws UserAlreadyFollowedException
+     */
     @Override
     public boolean validateFollowUser(Integer userId, Integer userIdToFollow) throws UserAlreadyFollowedException {
         if (iSocialMeliRepository.isFollowedBy(userId, userIdToFollow)) {
-            throw new UserAlreadyFollowedException("El usuario " + userId
-                    + " ya esta siguiendo al usuario " + userIdToFollow);
+            throw new UserAlreadyFollowedException("El usuario " + userId + " ya sigue al usuario " + userIdToFollow);
         }else{
             return true;
         }
     }
 
+    /**
+     * Metodo para retornar la lista de seguidores de un usuario, en orden ascendente o descendente
+     * Cumple con el US0003 y US008
+     * @param order
+     * @param userId
+     * @return
+     * @throws UserNotExistException
+     */
     @Override
-    public User FollowersList(Integer userId) throws UserNotExistException {
+    public User FollowersListSorted(String order, Integer userId) throws UserNotExistException, InvalidInputVariableException {
         User user = iSocialMeliRepository.getUserById(userId);
-        if (Objects.nonNull(user)){
-            return new User(user.getUserId(),user.getUserName(),user.getFollowers());
-        }else{
-            throw new UserNotExistException("El usuario asociado al id indicado no existe");
-        }
-    }
-
-    @Override
-    public User FollowersListSorted(String order, Integer userId) throws UserNotExistException {
-        User user = iSocialMeliRepository.getUserById(userId);
-        User result = new User();
+        User result;
         if (Objects.nonNull(user)){
             if(order.equals("name_asc")){
                 user.getFollowers().sort(Comparator.comparing(UserResponseDTO::getUserName));
@@ -131,26 +162,26 @@ public class SocialMeliServiceImp implements ISocialMeliService {
                 user.getFollowers().sort(Comparator.comparing(UserResponseDTO::getUserName).reversed());
                 result = new User(user.getUserId(),user.getUserName(),user.getFollowers());
                 return result;
+            }else{
+                throw new InvalidInputVariableException("El parametro de ordenamiento no es correcto");
             }
-            return result;
         }
         else throw new UserNotExistException("El usuario no existe");
     }
 
-    @Override
-    public User FollwedList(Integer userId) throws UserNotExistException {
-        User user = iSocialMeliRepository.getUserById(userId);
-        if (Objects.nonNull(user)){
-            return new User(user.getUserId(),user.getUserName(),user.getFollowed(), true);
-        }else{
-            throw new UserNotExistException("El usuario asociado al id indicado no existe");
-        }
-    }
-
+    /**
+     * Metodo para retornar la lista de seguidos por un usuario, en orden ascendente o descendente
+     * Cumple con el US004 y US008
+     * @param order
+     * @param userId
+     * @return
+     * @throws UserNotExistException
+     * @throws InvalidInputVariableException
+     */
     @Override
     public User FollwedListSorted(String order, Integer userId) throws UserNotExistException, InvalidInputVariableException {
         User user = iSocialMeliRepository.getUserById(userId);
-        User result;// = new User();// = new User();
+        User result;
         if (Objects.nonNull(user)){
             if(order.equals("name_asc")){
                 user.getFollowed().sort(Comparator.comparing(UserResponseDTO::getUserName).reversed());
@@ -164,17 +195,20 @@ public class SocialMeliServiceImp implements ISocialMeliService {
             }else{
                 throw new InvalidInputVariableException("Debe ingresar name_asc o name_desc");
             }
-            /*return order == "name_asc" ? new User(user.getUserId(),user.getUserName(),user.getFollowed(), true) :
-                    new User(user.getUserId(),user.getUserName(),user.getFollowed(), true);*/
         }
         else throw new UserNotExistException("El usuario no existe");
     }
 
+    /**
+     * Metodo para guardar un post en memoria
+     * @param postRequestDTO
+     * @return
+     * @throws ParseException
+     */
     @Override
     public Post savePost(PostRequestDTO postRequestDTO) throws ParseException {
         Post post = new Post();
         Integer exists = iSocialMeliRepository.getPostById(post.getId_post());
-        //Product product = iSocialMeliRepository.getProductById();
         if (exists > 0) {
             post.setId_post(exists);
             post.setUserId(post.getUserId());
@@ -183,7 +217,7 @@ public class SocialMeliServiceImp implements ISocialMeliService {
             post.setDetail(post.getDetail());
             post.setPrice(post.getPrice());
         }else{
-            post.setId_post(iSocialMeliRepository.savePost(postRequestDTO));
+            post.setId_post(iSocialMeliRepository.savePost(postRequestDTO));//savePost
             iSocialMeliRepository.saveListPost(postRequestDTO);
             post.setUserId(postRequestDTO.getUserId());
             post.setDate(postRequestDTO.getDate());
@@ -194,51 +228,65 @@ public class SocialMeliServiceImp implements ISocialMeliService {
         return post;
     }
 
+    /**
+     * Metodo para retornar todos los post guardados en memoria
+     * @return
+     */
     @Override
     public Map<Integer, Post> getAllPosts() {
         return iSocialMeliRepository.getPosts();
     }
 
+    /**
+     * Metodo para obtener las publicaciones de los usuarios seguidos por un usuario determinado
+     * @param order
+     * @param userId
+     * @return
+     * @throws PostNotExistException
+     * @throws InvalidInputVariableException
+     */
     @Override
-    public PostResponseByUserDTO getPostByUserid(Integer userId) throws ParseException {
+    public PostResponseByUserDTO getPostByUseridSorted(String order, Integer userId) throws PostNotExistException, InvalidInputVariableException {
         ArrayList<Post> allPost = iSocialMeliRepository.getPostList();
         User user = iSocialMeliRepository.getUserById(userId);
         ArrayList<Post> postResponse;
+
         ArrayList<Integer> idFolloweds = new ArrayList<>();
         ArrayList<UserResponseDTO> followed = user.getFollowed();
+
+        ArrayList<Post> responseArray = new ArrayList<>();
 
         for (UserResponseDTO userFollowed: followed) {
             idFolloweds.add(userFollowed.getUserId());
         }
-        
         ZoneId defaultZoneId = ZoneId.systemDefault();
         LocalDate currentDate = LocalDate.now();
         LocalDate startDate = currentDate.minusDays(14);
         Date current = Date.from(currentDate.atStartOfDay(defaultZoneId).toInstant());//cambiar Date to LocalDate
         Date start = Date.from(startDate.atStartOfDay(defaultZoneId).toInstant());//Cambiar Date to localDate
 
-        postResponse = allPost.stream().filter(x -> x.getUserId().equals(userId) && x.getDate().after(start) && x.getDate().before(current)).collect(Collectors.toCollection(ArrayList::new));
-        postResponse.sort(Comparator.comparing(Post::getDate).reversed());
-        PostResponseByUserDTO postResponseByUserDTO = new PostResponseByUserDTO(userId,postResponse);
-        return postResponseByUserDTO;
-    }
-
-    @Override
-    public PostResponseByUserDTO getPostByUseridSorted(String order, Integer userId) throws PostNotExistException, InvalidInputVariableException {
-        ArrayList<Post> allPost = iSocialMeliRepository.getPostList();
         if(Objects.nonNull(allPost)){
+            for (Integer id:
+                 idFolloweds) {
+                //Capturar cada array y guardarlo en un array para retornar
+                postResponse = allPost.stream().filter(x -> x.getUserId().equals(id) && x.getDate().after(start) && x.getDate().before(current)).collect(Collectors.toCollection(ArrayList::new));
+                for (int i = 0; i < postResponse.size(); i++) {
+                    responseArray.add(postResponse.get(i));
+                }
+            }
+
             if(order.equals("date_asc")){
-                allPost.sort(Comparator.comparing(Post::getDate));
+                responseArray.sort(Comparator.comparing(Post::getDate).reversed());
+                return new PostResponseByUserDTO(userId,responseArray);
             }else if(order.equals("date_desc")){
-                allPost.sort(Comparator.comparing(Post::getDate));
+                responseArray.sort(Comparator.comparing(Post::getDate));
+                return new PostResponseByUserDTO(userId,responseArray);
             }else {
                 throw new InvalidInputVariableException("Debe ingresar date_asc o date desc");
             }
         }else {
             throw new PostNotExistException("El usuario no tiene posts");
         }
-        PostResponseByUserDTO postResponseByUserDTO = new PostResponseByUserDTO(userId, allPost);
-        return postResponseByUserDTO;
     }
 
 

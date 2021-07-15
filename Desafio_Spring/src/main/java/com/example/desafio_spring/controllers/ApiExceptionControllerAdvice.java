@@ -1,9 +1,7 @@
 package com.example.desafio_spring.controllers;
 
 import com.example.desafio_spring.dtos.response.ErrorMessage;
-import com.example.desafio_spring.exceptions.FollowSameUserException;
-import com.example.desafio_spring.exceptions.UserAlreadyFollowedException;
-import com.example.desafio_spring.exceptions.UserNotExistException;
+import com.example.desafio_spring.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,18 +17,26 @@ public class ApiExceptionControllerAdvice {
     @ExceptionHandler(FollowSameUserException.class)
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ErrorMessage> handlerException(FollowSameUserException exception) {
-        return new ResponseEntity<>(
-                new ErrorMessage(HttpStatus.BAD_REQUEST.value(), exception.getMessage()),
-                HttpStatus.BAD_REQUEST);
+    public ErrorMessage handlerException(FollowSameUserException exception) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
     }
     @ExceptionHandler(UserAlreadyFollowedException.class)
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ErrorMessage> handlerException(UserAlreadyFollowedException exception) {
-        return new ResponseEntity<>(
-                new ErrorMessage(HttpStatus.BAD_REQUEST.value(), exception.getMessage()),
-                HttpStatus.BAD_REQUEST);
+    public ErrorMessage handlerException(UserAlreadyFollowedException exception) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    }
+    @ExceptionHandler(PostNotExistException.class)
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage handlerException(PostNotExistException exception) {
+        return new ErrorMessage(HttpStatus.NO_CONTENT.value(), exception.getMessage());
+    }
+    @ExceptionHandler(InvalidInputVariableException.class)
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage handlerException(InvalidInputVariableException exception) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
     }
     /*
     @ExceptionHandler(PasswordNotValidException.class)
