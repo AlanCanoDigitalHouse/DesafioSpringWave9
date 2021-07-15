@@ -68,7 +68,7 @@ public class PostRepository {
                 new Product(AUTO_INCREMENT_PRODUCT.next(),
                         productDetail.getProductName(),
                         productDetail.getType(),
-                        productDetail.getType(),
+                        productDetail.getBrand(),
                         productDetail.getColor(),
                         productDetail.getNotes());
     }

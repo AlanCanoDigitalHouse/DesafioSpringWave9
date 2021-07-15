@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
-    UserRepository userRepository = new UserRepository();
+    private final UserRepository userRepository = new UserRepository();
 
     public ResponseEntity<HttpStatus> newUserFollow(String userId, String userIdToFollow) {
         if (!Objects.isNull(userGetter(userId)) && !Objects.isNull(userGetter(userIdToFollow))) {

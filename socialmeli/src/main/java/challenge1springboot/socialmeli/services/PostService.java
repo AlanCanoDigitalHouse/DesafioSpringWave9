@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -26,8 +25,8 @@ import java.util.stream.Collectors;
 @Service
 public class PostService {
 
-    PostRepository postRepository = new PostRepository();
-    UserRepository userRepository = new UserRepository();
+    private final PostRepository postRepository = new PostRepository();
+    private final UserRepository userRepository = new UserRepository();
 
     public ResponseEntity<HttpStatus> newPost(NewPostRequestDTO newPostRequestDTO) {
         if (!DateValidator.validDate(newPostRequestDTO.getDate()))
@@ -49,7 +48,7 @@ public class PostService {
         LocalDate lastTwoWeek = LocalDate.now().minusDays(14);
         List<Post> posts = postRepository.listPostPublishedByUser(ids)
                 .stream()
-                .filter(post -> post.getDateValue().isAfter(lastTwoWeek))
+                .filter(post -> DateValidator.dateValidFormat(post.getDate()).isAfter(lastTwoWeek))
                 .collect(Collectors.toList());
         sort(order, posts);
         return new PostListResponseDTO(user, posts);
@@ -65,11 +64,12 @@ public class PostService {
         return user;
     }
 
+    // default : ORDER_DESC -> most new first
     private void sort(String order, List<Post> posts) {
-        if (order.equals(Reference.DATE_ASC))
-            new SorterUtil<Post>().sort(posts, Comparator.comparing(Post::getDateValue), Reference.ORDER_ASC);
-        else if (order.equals(Reference.DATE_DESC))
-            new SorterUtil<Post>().sort(posts, Comparator.comparing(Post::getDateValue), Reference.ORDER_DESC);
+        new SorterUtil<Post>().sort(posts, (p1, p2) -> DateValidator
+                        .dateValidFormat(p1.getDate()).isAfter(DateValidator.dateValidFormat(p2.getDate())) ? 1 : DateValidator
+                        .dateValidFormat(p1.getDate()).isBefore(DateValidator.dateValidFormat(p2.getDate())) ? -1 : 0,
+                order.equals(Reference.DATE_ASC) ? Reference.ORDER_ASC : Reference.ORDER_DESC);
     }
 }
 

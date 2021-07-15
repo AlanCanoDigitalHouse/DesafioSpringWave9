@@ -16,16 +16,16 @@ import javax.validation.constraints.Min;
 public class NewPostRequestDTO {
 
     @Min(value = 0, message = Message.MIN_VALUE + 0)
-    int userId;
+    private int userId;
 
-    String date;
+    private String date;
 
     @Valid
-    ProductDetailDTO detail;
+    private ProductDetailDTO detail;
 
     @Min(value = 0, message = Message.MIN_VALUE + 0)
-    int category;
+    private int category;
 
     @DecimalMin(value = "0.1", message = Message.MIN_VALUE + "0.1")
-    double price;
+    private double price;
 }

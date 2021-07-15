@@ -15,19 +15,19 @@ public class ProductDetailDTO {
 
     @NotBlank(message = "Blank name is not possible")
     @NotNull(message = "Null name is not possible")
-    String productName;
+    private String productName;
 
     @NotBlank(message = "Blank type is not possible")
     @NotNull(message = "Null type is not possible")
-    String type;
+    private String type;
 
     @NotBlank(message = "Blank brand is not possible")
     @NotNull(message = "Null brand is not possible")
-    String brand;
+    private String brand;
 
     @NotBlank(message = "Blank name is not possible")
     @NotNull(message = "Null name is not possible")
-    String color;
+    private String color;
 
-    String notes;
+    private String notes;
 }

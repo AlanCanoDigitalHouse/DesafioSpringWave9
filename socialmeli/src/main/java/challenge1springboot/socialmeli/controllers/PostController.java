@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @Validated
 public class PostController {
 
-    PostService postService;
+    private final PostService postService;
 
     public PostController(PostService postService) {
         this.postService = postService;
