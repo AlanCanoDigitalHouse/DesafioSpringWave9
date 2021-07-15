@@ -1,5 +1,6 @@
 package com.example.desafio1springboot.handlers;
 
+import com.example.desafio1springboot.dtos.PostDTO;
 import com.example.desafio1springboot.dtos.UserSellerDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,4 +24,19 @@ public class RepositoryHandler {
         }
         return UserSellerDTOS;
     }
+
+    public static List<PostDTO> loadDatabasePosts() {
+        File file = null;
+        List<PostDTO> UserSellerDTOS = null;
+        try {
+            file = ResourceUtils.getFile("classpath:static/posts.json");
+            ObjectMapper objectMapper = new ObjectMapper();
+            TypeReference<List<PostDTO>> typeReference = new TypeReference<List<PostDTO>>() {};
+            UserSellerDTOS = objectMapper.readValue(file, typeReference);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return UserSellerDTOS;
+    }
+    
 }

@@ -3,6 +3,7 @@ package com.example.desafio1springboot.repositories;
 import com.example.desafio1springboot.dtos.*;
 import com.example.desafio1springboot.dtos.responseDTO.*;
 import com.example.desafio1springboot.exceptions.PostNotValidDateException;
+import com.example.desafio1springboot.handlers.RepositoryHandler;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -10,7 +11,11 @@ import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepositoryImpl implements IProductRepository{
-    List<PostDTO> postDatabase = new ArrayList<>();
+    private List<PostDTO> postDatabase;
+
+    public ProductRepositoryImpl(List<PostDTO> postDatabase) {
+        this.postDatabase = RepositoryHandler.loadDatabasePosts();
+    }
 
     @Override
     public void addNewPost(PostDTO post) throws PostNotValidDateException {
