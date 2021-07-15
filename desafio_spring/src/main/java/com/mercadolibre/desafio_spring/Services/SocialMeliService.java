@@ -27,6 +27,7 @@ public class SocialMeliService implements ISocialMeliService {
     @Autowired
     ISocialMeliRepository repository;
 
+    //001 seguir a un determinado vendedor
     @Override
     public HttpStatus follow(int userId, int userIdToFollow) {
         HttpStatus responseStatus = HttpStatus.BAD_REQUEST;
@@ -44,6 +45,7 @@ public class SocialMeliService implements ISocialMeliService {
         return responseStatus;
     }
 
+    //002 cantidad de usuarios que siguen a un determinado vendedor
     @Override
     public FollowersCountResponse followersCount(int userId) {
         Optional<User> user =repository.findUserById(userId);
@@ -58,6 +60,7 @@ public class SocialMeliService implements ISocialMeliService {
         return followersCountResponse;
     }
 
+    //003 ¿Quien me sigue?
     @Override
     public FollowersListResponse followersList(int userId) {
         Optional<User> user = repository.findUserById(userId);
@@ -76,6 +79,7 @@ public class SocialMeliService implements ISocialMeliService {
         return followersListResponse;
     }
 
+    //004 ¿A quién sigo?
     @Override
     public FollowedListResponse followedList(int UserId) {
         Optional<User> user = repository.findUserById(UserId);
@@ -96,6 +100,7 @@ public class SocialMeliService implements ISocialMeliService {
         return followedListResponse;
     }
 
+    //005 Nuevo Post Normal
     @Override
     public HttpStatus newPost(NewPostRequest newPostRequest) {
         HttpStatus responseStatus = HttpStatus.BAD_REQUEST;
@@ -114,15 +119,21 @@ public class SocialMeliService implements ISocialMeliService {
         return responseStatus;
     }
 
+    //006
     @Override
     public ListPostByUserResponse listPostUser(int userId) {
         ListPostByUserResponse listPostByUserResponse = null;
         Optional<User> user = repository.findUserById(userId);
         if(user.isPresent()){
             ArrayList<Post> listPost= new ArrayList<>();
-            for(Post post: user.get().getPosts()) {
-                if (Period.between(UtilsSocialMediaMeli.toLocalDate(post.getDate()), LocalDate.now()).getDays() < 14 ) {
-                    listPost.add(post);
+            //Traer Usuarios a los vendedores que sigue el usuario
+            for(User follower: user.get().getFollowing()) {
+                //Traer los post de esos vendedores
+                for(Post post: follower.getPosts()) {
+                    //Filtro dos semanas
+                    if (Period.between(UtilsSocialMediaMeli.toLocalDate(post.getDate()), LocalDate.now()).getDays() < 14) {
+                        listPost.add(post);
+                    }
                 }
             }
             listPostByUserResponse = new ListPostByUserResponse(
@@ -133,6 +144,7 @@ public class SocialMeliService implements ISocialMeliService {
         return listPostByUserResponse;
     }
 
+    //007 dejar de seguir a un determiando vendedor
     @Override
     public void unfollow(int userId, int userIdToUnfollow) {
         Optional<User> userFollower = repository.findUserById(userId);
@@ -147,19 +159,25 @@ public class SocialMeliService implements ISocialMeliService {
         }
     }
 
+    //008 ordenamiento alfabetico por nombres de usuarios que siguen a otro usuario
     @Override
     public void sortedFollowersUser(int userId, String sortedMet) {
         Optional<User> user = repository.findUserById(userId);
         if (user.isPresent()) {
             if(sortedMet.equals("name_asc")){
-                user.get().getFollowers().stream().sorted(Comparator.comparing(User::getUserName));
+                List<User> tempUsers = user.get().getFollowers().stream().sorted(Comparator.comparing(User::getUserName)).collect(Collectors.toList());
+                user.get().setFollowing((ArrayList<User>) tempUsers);
             }
             else if(sortedMet.equals("name_desc"))
-            {user.get().getFollowers().stream().sorted(Comparator.comparing(User::getUserName).reversed());}
+            {
+                List<User> tempUsers = user.get().getFollowers().stream().sorted(Comparator.comparing(User::getUserName).reversed()).collect(Collectors.toList());
+                user.get().setFollowing((ArrayList<User>) tempUsers);
+            }
             repository.putUser(user.get());
         }
     }
 
+    //008 ordenamiento alfabetico por nombres de
     @Override
     public void sortedFollowedUser(int userId, String sortedMet) {
         Optional<User> user = repository.findUserById(userId);

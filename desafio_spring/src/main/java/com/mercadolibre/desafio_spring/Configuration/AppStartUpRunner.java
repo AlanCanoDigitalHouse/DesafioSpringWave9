@@ -15,14 +15,18 @@ public class AppStartUpRunner implements ApplicationRunner {
     @Autowired
     ISocialMeliRepository socialMeliRepository;
 
-    User user1 = new User(1001,"Usuario1",new ArrayList<>(),new ArrayList<>(), new ArrayList<>());
-    User user2 = new User(1002,"Usuario2",new ArrayList<>(),new ArrayList<>(), new ArrayList<>());
-    User user3 = new User(1003,"usuario3" ,new ArrayList<>(),new ArrayList<>(), new ArrayList<>());
+    User user1 = new User(1001,"aaabbb",new ArrayList<>(),new ArrayList<>(), new ArrayList<>());
+    User user2 = new User(1002,"zzzzz",new ArrayList<>(),new ArrayList<>(), new ArrayList<>());
+    User user3 = new User(1003,"xxxxx" ,new ArrayList<>(),new ArrayList<>(), new ArrayList<>());
+    User user4 = new User(1004,"ccccc" ,new ArrayList<>(),new ArrayList<>(), new ArrayList<>());
+    User user5 = new User(1005,"ppppp" ,new ArrayList<>(),new ArrayList<>(), new ArrayList<>());
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         socialMeliRepository.saveUser(user1);
         socialMeliRepository.saveUser(user2);
         socialMeliRepository.saveUser(user3);
+        socialMeliRepository.saveUser(user4);
+        socialMeliRepository.saveUser(user5);
     }
 }
