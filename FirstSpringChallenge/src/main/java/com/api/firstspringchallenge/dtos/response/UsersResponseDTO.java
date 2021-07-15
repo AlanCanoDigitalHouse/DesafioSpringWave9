@@ -1,15 +1,15 @@
 package com.api.firstspringchallenge.dtos.response;
 
+import com.api.firstspringchallenge.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
-public class PostsResponseDTO {
-    private int userId;
-    private List<PostResponseDTO> posts;
+public class UsersResponseDTO {
+    private List<User> users;
 }

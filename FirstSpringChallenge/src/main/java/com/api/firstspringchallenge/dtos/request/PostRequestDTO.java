@@ -8,8 +8,6 @@ import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Validated
@@ -20,8 +18,8 @@ public class PostRequestDTO {
     @NotNull(message = "usedid cannot be null")
     private int userId;
     @NotNull(message = "date cannot be null")
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date date; // TODO: change date type because it doesn´t save the date correct
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private Date date;
     @NotNull(message = "detail cannot be null")
     private Product detail;
     @NotNull(message = "category cannot be null")

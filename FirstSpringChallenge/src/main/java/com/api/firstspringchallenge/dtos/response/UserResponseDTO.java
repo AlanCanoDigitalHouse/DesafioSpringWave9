@@ -1,4 +1,4 @@
-package com.api.firstspringchallenge.dtos.request;
+package com.api.firstspringchallenge.dtos.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserDTO {
+public class UserResponseDTO {
     private double id;
     private String username;
 }

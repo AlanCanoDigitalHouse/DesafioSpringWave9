@@ -11,9 +11,9 @@ import java.util.List;
 public class PromoPostsListResponseDTO {
     private int userId;
     private String username;
-    private List<Post> posts;
+    private List<PostPromoResponseDTO> posts;
 
-    public PromoPostsListResponseDTO(User user, List<Post> posts) {
+    public PromoPostsListResponseDTO(User user, List<PostPromoResponseDTO> posts) {
         this.userId=user.getUserId();
         this.username=user.getUsername();
         this.posts = posts;

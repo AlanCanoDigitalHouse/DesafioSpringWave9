@@ -2,6 +2,7 @@ package com.api.firstspringchallenge.dtos.request;
 
 import com.api.firstspringchallenge.enumerates.Category;
 import com.api.firstspringchallenge.models.Product;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
@@ -20,6 +21,7 @@ public class PromoPostRequestDTO {
     @NotNull(message = "usedid cannot be null")
     private int userId;
     @NotNull(message = "date cannot be null")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date date;
     @NotNull(message = "detail cannot be null")
     private Product detail;
@@ -32,7 +34,7 @@ public class PromoPostRequestDTO {
     @NotNull(message = "discount cannot be null")
     @Min(message = "discount cannot be negative", value = 0)
     private double discount;
-
+/*
     public PromoPostRequestDTO(int userId, String date, Category category, double price, Product detail, boolean hasPromo, double discount) throws ParseException {
         this.userId = userId;
         this.date = new SimpleDateFormat("dd-MM-yyyy").parse(date);
@@ -41,5 +43,5 @@ public class PromoPostRequestDTO {
         this.price = price;
         this.hasPromo = hasPromo;
         this.discount = discount;
-    }
+    }*/
 }
