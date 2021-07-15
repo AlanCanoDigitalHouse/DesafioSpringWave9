@@ -2,10 +2,7 @@ package com.mercadolibre.social_meli.service;
 
 import com.mercadolibre.social_meli.dto.request.ProductRequestDTO;
 import com.mercadolibre.social_meli.dto.request.PromoProductRequestDTO;
-import com.mercadolibre.social_meli.dto.response.FollowedPostsResponseDTO;
-import com.mercadolibre.social_meli.dto.response.ProductResponseDTO;
-import com.mercadolibre.social_meli.dto.response.PromoCountResponseDTO;
-import com.mercadolibre.social_meli.dto.response.UserResponseDTO;
+import com.mercadolibre.social_meli.dto.response.*;
 import com.mercadolibre.social_meli.exception.InvalidValueException;
 import com.mercadolibre.social_meli.helper.DateValidator;
 import com.mercadolibre.social_meli.repository.IProductRepository;
@@ -79,6 +76,13 @@ public class ProductService implements IProductService {
         var promoPosts = this.productRepository.getUserPromoPosts(userId, null);
 
         return new PromoCountResponseDTO(user.getUserId(), user.getUserName(), promoPosts.size());
+    }
+
+    @Override
+    public UserPromoPostsResponseDTO getUserPromoPosts(Integer userId, String order) {
+        var user = this.userService.getUserById(userId);
+        var promoPosts = this.productRepository.getUserPromoPosts(userId, order);
+        return new UserPromoPostsResponseDTO(user.getUserId(), user.getUserName(), promoPosts);
     }
 
     private List<ProductResponseDTO> filterRecentPosts(List<ProductResponseDTO> posts) {

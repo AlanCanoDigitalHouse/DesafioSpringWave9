@@ -108,8 +108,8 @@ public class ProductRepository extends JSONRepository<Post> implements IProductR
         var userPosts = posts.stream().filter(post -> post.getUserId().equals(userId) && post.getHasPromo())
                 .collect(Collectors.toList());
 
-        var postOrder = Objects.isNull(order) ? "date_desc" : order;
-        this.sortPostDates(userPosts, postOrder);
+        var postOrder = Objects.isNull(order) ? "name_asc" : order;
+        this.sortProductNames(userPosts, postOrder);
 
         return userPosts;
     }
@@ -127,6 +127,20 @@ public class ProductRepository extends JSONRepository<Post> implements IProductR
                 break;
             default:
                 throw new InvalidValueException("Order param must be date_asc or date_desc");
+        }
+    }
+
+    private void sortProductNames(List<Post> posts, String order) {
+        switch (order) {
+            case "name_asc":
+                posts.sort(Comparator.comparing(p -> p.getDetail().getProductName()));
+                break;
+            case "name_desc":
+                posts.sort(Comparator.comparing(p -> p.getDetail().getProductName()));
+                Collections.reverse(posts);
+                break;
+            default:
+                throw new InvalidValueException("Order param must be name_asc or name_desc");
         }
     }
 }

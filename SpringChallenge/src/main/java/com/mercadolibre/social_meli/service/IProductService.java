@@ -4,6 +4,7 @@ import com.mercadolibre.social_meli.dto.request.ProductRequestDTO;
 import com.mercadolibre.social_meli.dto.request.PromoProductRequestDTO;
 import com.mercadolibre.social_meli.dto.response.FollowedPostsResponseDTO;
 import com.mercadolibre.social_meli.dto.response.PromoCountResponseDTO;
+import com.mercadolibre.social_meli.dto.response.UserPromoPostsResponseDTO;
 
 public interface IProductService {
     void postNewProduct(ProductRequestDTO productData);
@@ -13,4 +14,6 @@ public interface IProductService {
     FollowedPostsResponseDTO getFollowedRecentPosts(Integer userId, String order);
 
     PromoCountResponseDTO getUserPromoCount(Integer userId);
+
+    UserPromoPostsResponseDTO getUserPromoPosts(Integer userId, String order);
 }

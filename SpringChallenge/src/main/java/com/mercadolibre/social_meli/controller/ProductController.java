@@ -4,6 +4,7 @@ import com.mercadolibre.social_meli.dto.request.ProductRequestDTO;
 import com.mercadolibre.social_meli.dto.request.PromoProductRequestDTO;
 import com.mercadolibre.social_meli.dto.response.FollowedPostsResponseDTO;
 import com.mercadolibre.social_meli.dto.response.PromoCountResponseDTO;
+import com.mercadolibre.social_meli.dto.response.UserPromoPostsResponseDTO;
 import com.mercadolibre.social_meli.service.IProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +50,15 @@ public class ProductController {
         var posts = this.productService.getFollowedRecentPosts(userId, order);
 
         return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/list")
+    public ResponseEntity<UserPromoPostsResponseDTO> getUserPromoPosts(@PathVariable Integer userId,
+                                                                       @RequestParam(required = false) String order) {
+
+        var userPromoPosts = this.productService.getUserPromoPosts(userId, order);
+
+        return new ResponseEntity<>(userPromoPosts, HttpStatus.OK);
     }
 
 }
