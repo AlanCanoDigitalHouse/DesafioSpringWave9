@@ -10,7 +10,7 @@ public class ErrorMessage {
     private String error;
     private Map<String, String> message;
 
-    public ErrorMessage(){
+    public ErrorMessage() {
 
     }
 

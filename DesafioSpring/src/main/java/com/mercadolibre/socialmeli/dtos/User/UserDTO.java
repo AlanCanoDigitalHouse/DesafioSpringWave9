@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO implements Comparable<UserDTO>{
+public class UserDTO implements Comparable<UserDTO> {
     private Integer userId;
     private String userName;
 
     @Override
     public int compareTo(UserDTO o) {
-       return o.getUserName().compareTo(getUserName());
+        return o.getUserName().compareTo(getUserName());
     }
 }

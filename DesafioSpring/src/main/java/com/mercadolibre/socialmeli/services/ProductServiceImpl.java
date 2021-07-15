@@ -6,7 +6,6 @@ import com.mercadolibre.socialmeli.dtos.Product.response.CountPromoDTO;
 import com.mercadolibre.socialmeli.dtos.Product.response.PostUserDTO;
 import com.mercadolibre.socialmeli.dtos.Product.response.UserPostsDTO;
 import com.mercadolibre.socialmeli.dtos.Product.response.UserPromoPostDTO;
-import com.mercadolibre.socialmeli.dtos.User.UserCountDTO;
 import com.mercadolibre.socialmeli.dtos.User.UserDTO;
 import com.mercadolibre.socialmeli.dtos.UserResponseDTO;
 import com.mercadolibre.socialmeli.exceptions.ExceptionOrder;
@@ -14,7 +13,6 @@ import com.mercadolibre.socialmeli.exceptions.ExceptionUserNotFound;
 import com.mercadolibre.socialmeli.models.Post;
 import com.mercadolibre.socialmeli.models.User;
 import com.mercadolibre.socialmeli.repositories.ProductRepository;
-import com.mercadolibre.socialmeli.utils.DateFormatter;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -95,6 +93,7 @@ public class ProductServiceImpl implements ProductService {
             posts.sort((Comparator.comparing(post -> post.getDate())));
         } else if (order.equalsIgnoreCase("date_desc")) {
             Collections.sort(posts);
-        } else throw new ExceptionOrder("Su parámetro de ordenamiento esta mal escrito. Puede ordenar por date_asc o date_desc");
+        } else
+            throw new ExceptionOrder("Su parámetro de ordenamiento esta mal escrito. Puede ordenar por date_asc o date_desc");
     }
 }

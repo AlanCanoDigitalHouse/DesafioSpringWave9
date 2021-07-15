@@ -5,8 +5,6 @@ import com.mercadolibre.socialmeli.dtos.Product.request.PromoPostDTO;
 import com.mercadolibre.socialmeli.dtos.Product.response.CountPromoDTO;
 import com.mercadolibre.socialmeli.dtos.Product.response.UserPostsDTO;
 import com.mercadolibre.socialmeli.dtos.Product.response.UserPromoPostDTO;
-import com.mercadolibre.socialmeli.dtos.User.UserCountDTO;
-import com.mercadolibre.socialmeli.dtos.User.UserFollowersDTO;
 import com.mercadolibre.socialmeli.dtos.UserResponseDTO;
 import com.mercadolibre.socialmeli.exceptions.ExceptionOrder;
 import com.mercadolibre.socialmeli.exceptions.ExceptionUserNotFound;
@@ -15,10 +13,8 @@ import com.mercadolibre.socialmeli.services.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -45,8 +41,10 @@ public class ProductController {
     }
 
     //DESARROLLADO Y FUNCIONANDO
+
     /**
      * US 0005: Creación de un nuevo post con un producto
+     *
      * @param post
      * @return UserResponseDTO
      * @throws ExceptionUserNotFound
@@ -61,6 +59,7 @@ public class ProductController {
     /**
      * US 0006: Listar publicaciones de las últimas 2 semanas de usuarios seguidos
      * US 0009: Ordenamiento por fecha.
+     *
      * @param userId
      * @param order
      * @return
@@ -74,8 +73,10 @@ public class ProductController {
     }
 
     //DESARROLLADO Y FUNCIONANDO
+
     /**
      * Bonus: US 0010: Creación de un post en promoción
+     *
      * @param post
      * @return UserResponseDTO
      * @throws ExceptionUserNotFound
@@ -86,8 +87,10 @@ public class ProductController {
     }
 
     //DESARROLLADO Y FUNCIONANDO
+
     /**
      * Bonus: US 0011: Listar los post de promoción de un usuario
+     *
      * @param userId
      * @return ResponseEntity<CountPromoDTO>
      * @throws ExceptionUserNotFound
@@ -99,8 +102,10 @@ public class ProductController {
     }
 
     //DESARROLLADO Y FUNCIONANDO
+
     /**
      * Bonus US 0012: Listar las publicaciones en promoción de un usuario.
+     *
      * @param userId
      * @return ResponseEntity<UserPromoPostDTO>
      * @throws ExceptionUserNotFound

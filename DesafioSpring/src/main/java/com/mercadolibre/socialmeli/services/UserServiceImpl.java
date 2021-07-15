@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
         User follower = userRepository.findUserById(userId);
         User followed = userRepository.findUserById(userIdToFollow);
         UserResponseDTO userResponseDTO = null;
-        if(userId == userIdToFollow){
+        if (userId == userIdToFollow) {
             throw new ExcepcionEqualsUserId("No puedes auto-seguirte");
         }
         try {
@@ -139,7 +139,8 @@ public class UserServiceImpl implements UserService {
             list.sort(Comparator.comparing(UserDTO::getUserName));
         } else if (order.equalsIgnoreCase("name_desc")) {
             Collections.sort(list);
-        } else throw new ExceptionOrder("Su parámetro de ordenamiento esta mal escrito. Puede ordenar por name_asc o name_desc");
+        } else
+            throw new ExceptionOrder("Su parámetro de ordenamiento esta mal escrito. Puede ordenar por name_asc o name_desc");
 
     }
 

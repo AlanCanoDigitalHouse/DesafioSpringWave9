@@ -23,17 +23,17 @@ public class ApiExceptionControllerAdvice {
     }
 
     @ExceptionHandler
-    public ResponseEntity<ErrorMessageException> httpMessageNotReadableExceptionHandler(HttpMessageNotReadableException exception){
+    public ResponseEntity<ErrorMessageException> httpMessageNotReadableExceptionHandler(HttpMessageNotReadableException exception) {
         ErrorMessageException errorMessage = new ErrorMessageException(HttpStatus.BAD_REQUEST.value(),
                 "Fallo al intentar convertir valor");
-        return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler
-    public ResponseEntity<ErrorMessageException> httpMessageNotReadableExceptionHandler(MethodArgumentTypeMismatchException exception){
+    public ResponseEntity<ErrorMessageException> httpMessageNotReadableExceptionHandler(MethodArgumentTypeMismatchException exception) {
         ErrorMessageException errorMessage = new ErrorMessageException(HttpStatus.BAD_REQUEST.value(),
                 "Fallo al intentar convertir valor");
-        return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler
@@ -60,7 +60,7 @@ public class ApiExceptionControllerAdvice {
     @ExceptionHandler
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ErrorMessage handlerException(MethodArgumentNotValidException exception){
+    public ErrorMessage handlerException(MethodArgumentNotValidException exception) {
         BindingResult result = exception.getBindingResult();
         List<FieldError> fieldErrors = result.getFieldErrors();
         return processField(fieldErrors);
@@ -68,10 +68,10 @@ public class ApiExceptionControllerAdvice {
 
     private ErrorMessage processField(List<FieldError> fieldErrors) {
         HashMap<String, String> fields = new HashMap<>();
-        for(FieldError fieldError : fieldErrors){
+        for (FieldError fieldError : fieldErrors) {
             fields.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
-        return  new ErrorMessage(HttpStatus.BAD_REQUEST.value(), "Validation error", fields);
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), "Validation error", fields);
     }
 
 }

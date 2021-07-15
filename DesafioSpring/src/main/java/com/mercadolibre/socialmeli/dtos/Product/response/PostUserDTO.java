@@ -3,7 +3,6 @@ package com.mercadolibre.socialmeli.dtos.Product.response;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mercadolibre.socialmeli.models.Post;
 import com.mercadolibre.socialmeli.models.Product;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
