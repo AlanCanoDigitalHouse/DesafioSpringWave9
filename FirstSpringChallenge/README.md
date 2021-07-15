@@ -46,7 +46,7 @@ Corra los siguientes comandos en el raiz de la carpeta del proyecto:
 
 ## ¿Cómo funciona?
 
-Previo al levantarse el server para poder realizarle las request deseadas, se levantará un archivo `.JSON`, que se encuentra en `src/java/resources/json`. Ya se encuentra pre-cargado usuarios que se encuentran en el archivo `users.json`, pero puede haber en el mismo lugar otro llamado `relations.json` (actualmente se encuentra vacío, pero debe respetar la estructura dada por el model `Relation`).
+Previo al levantarse el server para poder realizarle las request deseadas, se levantará un archivo `.JSON`, que se encuentra en `src/java/resources/json`. Ya se encuentra pre-cargado vendedores que se encuentran en el archivo `sellers.json`, pero puede haber en el mismo lugar otro llamado `relations.json` (actualmente se encuentra vacío, pero debe respetar la estructura dada por el model `Relation`).
 
 Todos los endpoints se encuentran detallados y explicados en el [siguiente documento](https://drive.google.com/file/d/1iPdb8VVgxi4SZtWNqwHo_lo-quODgi3i/view).
 
