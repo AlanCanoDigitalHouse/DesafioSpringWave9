@@ -122,7 +122,7 @@ public class FollowServiceImpl implements FollowService {
         ArrayList <String> listaNombres = new ArrayList<String>();
         for (int i = 0; i < a.size(); i++) {
             Usuario usu = daoUsuarios.getUser(a.get(i));
-            listaNombres.add(usu.getUserName().toLowerCase());
+            listaNombres.add(usu.getUserName());
         }
         if(asc){
             Collections.sort(listaNombres);
@@ -144,6 +144,11 @@ public class FollowServiceImpl implements FollowService {
         payload.setUserId(usuario);
         payload.setFollowers(retorno);
         return payload;
+    }
+
+    @Override
+    public Boolean checkFollow(int seguidor, int seguido) {
+        return daoFollow.checkFollow(seguidor, seguido);
     }
     
 }

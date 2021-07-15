@@ -4,6 +4,7 @@ import com.example.desafiospringboot.dao.DaoPost;
 import com.example.desafiospringboot.dao.DaoUsuarios;
 import com.example.desafiospringboot.dto.UserPost;
 import com.example.desafiospringboot.model.Post;
+import com.example.desafiospringboot.model.PromoPost;
 import com.example.desafiospringboot.service.PostService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -56,6 +57,29 @@ public class PostServiceImpl implements PostService{
         System.out.println("salida ordenada : "+toSort);
         payload.setPosts(posts);
         return payload;
+    }
+
+    @Override
+    public JSONArray getAllPosts() {
+        return daoPost.loadPost();
+    }
+
+    @Override
+    public boolean newPromoPost(PromoPost toPost) {
+        
+        return daoPost.writePromoPost(toPost);
+    }
+
+    @Override
+    public JSONArray postPromo(int userId) {
+        return daoPost.loadPromos(userId);
+    }
+
+    @Override
+    public Boolean idOnUse(int id) {
+        
+        // TODO Auto-generated method stub
+        return daoPost.idOnUse(id);
     }
     
 }

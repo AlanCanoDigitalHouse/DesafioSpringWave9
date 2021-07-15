@@ -17,7 +17,7 @@ public class Usuario implements JSONAble {
     }
     public Usuario(JSONObject info){
         this.userName = (String) info.get("userName");
-        Long a = (Long) info.get("userId");
+        Long a = (Long) info.get("userId"); 
         int b = a.intValue();
         this.userId = b;
     }
@@ -36,7 +36,7 @@ public class Usuario implements JSONAble {
     @Override
     public void asimilar(JSONObject body) {
         // TODO Auto-generated method stub
-
+        
     }
-
+    
 }

@@ -1,10 +1,9 @@
 package com.example.desafiospringboot.model;
 
 
-import java.util.Date;
-import java.util.LinkedHashMap;
-
 import org.json.simple.JSONObject;
+
+import java.util.LinkedHashMap;
 
 public class Post implements JSONAble {
     private int userId;
@@ -36,7 +35,7 @@ public class Post implements JSONAble {
         int c = (Integer) body.get("category");
         this.userId = a;
         this.id_post = b;
-        this.price = (Double) body.get("price");
+        this.price = (Double) body.get("price"); 
         this.category = c;
         this.detail = new PostDetail();
 
@@ -80,6 +79,5 @@ public class Post implements JSONAble {
     public void setDate(String date) {
         this.date = date;
     }
-
+    
 }
-

@@ -1,21 +1,18 @@
 package com.example.desafiospringboot.dao;
 
+import com.example.desafiospringboot.model.Follow;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.springframework.stereotype.Repository;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.example.desafiospringboot.model.Follow;
-import com.example.desafiospringboot.model.Usuario;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.springframework.stereotype.Repository;
-
-import org.json.simple.parser.ParseException;
 
 @Repository
 public class DaoFollow {
@@ -53,9 +50,9 @@ public class DaoFollow {
         System.out.println(data);
         try (FileWriter file = new FileWriter("follow.json")) {
             //We can write any JSONArray or JSONObject instance to the file
-            file.write(data.toJSONString());
+            file.write(data.toJSONString()); 
             file.flush();
-
+    
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,15 +65,15 @@ public class DaoFollow {
             JSONObject item = (JSONObject) data.get(i);
             Long a = (Long) item.get("follower");
             Long b = (Long) item.get("followed");
-
+            
             if(a==follower && b==followed){
                 data.remove(i);
             }
         }
         try (FileWriter file = new FileWriter("follow.json")) {
-            file.write(data.toJSONString());
+            file.write(data.toJSONString()); 
             file.flush();
-
+    
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -110,5 +107,17 @@ public class DaoFollow {
         }
         return list;
     }
-    
+    public Boolean checkFollow(int seguidor, int seguido) {
+        JSONArray data = this.loadFollow();
+        for (int i = 0; i < data.size(); i++) {
+            //System.out.println(userList.get(i).);
+            JSONObject item = (JSONObject) data.get(i);
+            Long a = (Long) item.get("follower");
+            Long b = (Long) item.get("followed");
+            if(a.intValue() == seguidor && b.intValue() == seguido){
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -6,8 +6,8 @@ public class Follow implements JSONAble{
     private int follower;
     private int followed;
     /**
-     *
-     * @param a
+     * 
+     * @param a 
      * el seguidor
      * @param b
      * el seguido
@@ -29,7 +29,7 @@ public class Follow implements JSONAble{
         this.followed = a.intValue();
         this.follower = b.intValue();
         // TODO Auto-generated method stub
-
+        
     }
 }
 
