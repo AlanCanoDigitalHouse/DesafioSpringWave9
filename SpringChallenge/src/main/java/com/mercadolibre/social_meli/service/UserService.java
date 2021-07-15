@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements IUserService {
@@ -27,6 +28,13 @@ public class UserService implements IUserService {
     public UserResponseDTO getUserById(Integer userId) {
         var user = this.userRepository.getUser(userId);
         return new UserResponseDTO(user.getUserId(), user.getUserName());
+    }
+
+    @Override
+    public List<UserResponseDTO> getAllUsers() {
+        return this.userRepository.getUsers()
+                .stream().map(u -> new UserResponseDTO(u.getUserId(), u.getUserName()))
+                .collect(Collectors.toList());
     }
 
     @Override
