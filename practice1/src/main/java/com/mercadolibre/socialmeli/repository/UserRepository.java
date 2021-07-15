@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository {
+
+    List<UserDTO> findAll();
+
     UserDTO save(UserDTO user);
 
     FollowDTO saveFollow(FollowDTO follow) throws EntityException;

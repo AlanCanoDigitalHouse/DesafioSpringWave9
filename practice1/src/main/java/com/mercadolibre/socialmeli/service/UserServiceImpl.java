@@ -23,6 +23,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserDTO> allUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
     public void addFollower(Integer followerUserId, Integer followedUserId) throws ServiceException {
         if (!followerUserId.equals(followedUserId)) {
             final FollowDTO followDTO = new FollowDTO();

@@ -43,6 +43,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public List<UserDTO> findAll() {
+        return new ArrayList<>(users.values());
+    }
+
+    @Override
     public UserDTO save(UserDTO user) {
         if (user.getUserID() == 0)
             user.setUserID(users.values().size());

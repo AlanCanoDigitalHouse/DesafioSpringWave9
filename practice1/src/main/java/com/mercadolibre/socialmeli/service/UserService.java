@@ -6,7 +6,11 @@ import com.mercadolibre.socialmeli.dto.response.FollowersCountResponseDTO;
 import com.mercadolibre.socialmeli.dto.response.FollowersResponseDTO;
 import com.mercadolibre.socialmeli.exception.ServiceException;
 
+import java.util.List;
+
 public interface UserService {
+
+    List<UserDTO> allUsers();
 
     void addFollower(Integer followerUserId, Integer followedUserId) throws ServiceException;
 

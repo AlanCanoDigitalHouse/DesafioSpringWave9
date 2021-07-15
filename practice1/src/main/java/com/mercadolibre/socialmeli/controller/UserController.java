@@ -1,5 +1,6 @@
 package com.mercadolibre.socialmeli.controller;
 
+import com.mercadolibre.socialmeli.dto.UserDTO;
 import com.mercadolibre.socialmeli.dto.response.FollowedResponseDTO;
 import com.mercadolibre.socialmeli.dto.response.FollowersCountResponseDTO;
 import com.mercadolibre.socialmeli.dto.response.FollowersResponseDTO;
@@ -7,6 +8,8 @@ import com.mercadolibre.socialmeli.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("users")
@@ -16,6 +19,11 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> allUsers() {
+        return new ResponseEntity<>(userService.allUsers(), HttpStatus.OK);
     }
 
     @GetMapping("{userId}/followers/count")
