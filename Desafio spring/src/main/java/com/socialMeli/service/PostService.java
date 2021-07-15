@@ -2,6 +2,7 @@ package com.socialMeli.service;
 
 import com.socialMeli.dto.request.product.DetailProductDTO;
 import com.socialMeli.dto.request.product.PostInfoToCreateDTO;
+import com.socialMeli.dto.response.CountPromoPostsResponseDTO;
 import com.socialMeli.dto.response.PostInfoResponseDTO;
 import com.socialMeli.dto.response.ProductDetailResponseDTO;
 import com.socialMeli.dto.response.ProductsSellersThatUserFollowsDTO;
@@ -50,25 +51,27 @@ public class PostService<T extends PostModel> {
         UserModel user = userRepository.findById(userId);
         List<UserModel> usersFollowed = getListUserById(user.getFollowed());
         List<PostModel> posts = getPostsOfUsersBeforeADate(usersFollowed, restTwoWeekToDate(new Date()));
-        List<PostInfoResponseDTO> postInfoResponseDTOS = posts.stream().map(postModel -> {
-            //Create detail
-            ProductDetailResponseDTO info = new ProductDetailResponseDTO(
-                    postModel.getDetail().getProduct_id(),
-                    postModel.getDetail().getProductName(),
-                    postModel.getDetail().getType(),
-                    postModel.getDetail().getBrand(),
-                    postModel.getDetail().getColor(),
-                    postModel.getDetail().getNotes()
-            );
-            //Create PostInfo
-            return new PostInfoResponseDTO(
-                    postModel.getId(),
-                    postModel.getDate(),
-                    info,
-                    String.valueOf(postModel.getCategory()),
-                    postModel.getPrice()
-            );
-        }).collect(Collectors.toList());
+        List<PostInfoResponseDTO> postInfoResponseDTOS = posts.stream()
+                .filter(post -> post.getHasPromo() == null || !post.getHasPromo())
+                .map(postModel -> {
+                    //Create detail
+                    ProductDetailResponseDTO info = new ProductDetailResponseDTO(
+                            postModel.getDetail().getProduct_id(),
+                            postModel.getDetail().getProductName(),
+                            postModel.getDetail().getType(),
+                            postModel.getDetail().getBrand(),
+                            postModel.getDetail().getColor(),
+                            postModel.getDetail().getNotes()
+                    );
+                    //Create PostInfo
+                    return new PostInfoResponseDTO(
+                            postModel.getId(),
+                            postModel.getDate(),
+                            info,
+                            String.valueOf(postModel.getCategory()),
+                            postModel.getPrice()
+                    );
+                }).collect(Collectors.toList());
         orderBy(postInfoResponseDTOS, order);
         return new ProductsSellersThatUserFollowsDTO(user.getId(), postInfoResponseDTOS);
     }
@@ -114,6 +117,11 @@ public class PostService<T extends PostModel> {
     private List<PostModel> getPostsOfUserBeforeADate(UserModel user, Date limitDateIncluded) {
         List<PostModel> all = postRepository.findAll();
         return all.stream().filter(post -> post.getUserId() == user.getId() && dateIsInLimit(limitDateIncluded, post.getDate())).collect(Collectors.toList());
+    }
+
+    private List<PostModel> getPostsOfUser(UserModel user) {
+        List<PostModel> all = postRepository.findAll();
+        return all.stream().filter(post -> post.getUserId() == user.getId()).collect(Collectors.toList());
     }
 
     private boolean dateIsInLimit(Date limit, Date eval) {
@@ -162,5 +170,22 @@ public class PostService<T extends PostModel> {
             }
         }
         return postModelBuilder.build();
+    }
+
+    public CountPromoPostsResponseDTO countPromoPosts(int userId) throws ModelNotExists {
+        UserModel user = userRepository.findById(userId);
+        List<PostModel> promoPosts = getPostsOfUser(user).stream().filter(post -> {
+            try {
+                return post.getHasPromo();
+            } catch (NullPointerException ex) {
+                //Empty, is normal that promo was null
+            }
+            return false;
+        }).collect(Collectors.toList());
+        return CountPromoPostsResponseDTO.builder()
+                .promoproducts_count(promoPosts.size())
+                .userName(user.getUserName())
+                .userId(String.valueOf(user.getId()))
+                .build();
     }
 }

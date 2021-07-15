@@ -2,7 +2,7 @@
 
 ## Iniciando
 
-La aplicación realiza el guardado de datos en JSON en los archivos (se crean automaticamente)
+La aplicación realiza el guardado de datos en JSON en los archivos (se crean automáticamente)
 
 - post.json
 - user.json
@@ -161,6 +161,16 @@ Excepciones esperadas:
 - Todas las de 0006
 - Faltan atributos de promo
 - El valor del descuento está fuera del rango 0 a 1
+
+### 00011: Obtener cantidad de promo posts de un usuario
+
+Endpoint example: GET [localhost:8080/products/1/countPromo/]()
+
+Payload: Ninguno
+
+Excepciones esperadas:
+- Si el usuario no existe
+- Si se ingresa una letra
 
 
 

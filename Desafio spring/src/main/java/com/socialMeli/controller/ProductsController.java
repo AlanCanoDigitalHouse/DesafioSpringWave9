@@ -3,6 +3,7 @@ package com.socialMeli.controller;
 import com.socialMeli.SocialMeliApplication;
 import com.socialMeli.dto.request.product.PostInfoToCreateDTO;
 import com.socialMeli.dto.request.product.PromoPostInfoToCreateDTO;
+import com.socialMeli.dto.response.CountPromoPostsResponseDTO;
 import com.socialMeli.dto.response.ProductsSellersThatUserFollowsDTO;
 import com.socialMeli.exception.exception.DateNotValidException;
 import com.socialMeli.exception.exception.ModelAlreadyExists;
@@ -71,5 +72,16 @@ public class ProductsController {
     public ResponseEntity<Void> newPromoPost(@Valid @RequestBody PromoPostInfoToCreateDTO postInfo) throws ModelAlreadyExists, ParseException, ModelNotExists, DateNotValidException {
         postService.addNewPost(postInfo);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * TODO: 0011  Count of promo post by userId
+     * @param userId id of the user to get counter
+     * @return counter of promo posts
+     * @throws ModelNotExists If the user not exists
+     */
+    @GetMapping("/{userId}/countPromo/")
+    public ResponseEntity<CountPromoPostsResponseDTO> counterPromoPost(@PathVariable int userId) throws ModelNotExists {
+        return new ResponseEntity<>(postService.countPromoPosts(userId),HttpStatus.OK);
     }
 }
