@@ -2,7 +2,6 @@ package com.meli.socialmeli.controller;
 
 import com.meli.socialmeli.dto.response.ResponseErrorDTO;
 import com.meli.socialmeli.exceptions.*;
-import com.meli.socialmeli.utils.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

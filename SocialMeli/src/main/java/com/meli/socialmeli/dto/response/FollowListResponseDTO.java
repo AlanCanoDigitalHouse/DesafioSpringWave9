@@ -1,7 +1,6 @@
 package com.meli.socialmeli.dto.response;
 
 import com.meli.socialmeli.dto.Follower;
-import com.meli.socialmeli.dto.FollowerB;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

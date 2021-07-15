@@ -1,7 +1,6 @@
 package com.meli.socialmeli.controller;
 
 import com.meli.socialmeli.dto.request.PostRequestDTO;
-import com.meli.socialmeli.dto.response.FollowedListResponseDTO;
 import com.meli.socialmeli.dto.response.PostListResponse;
 import com.meli.socialmeli.exceptions.*;
 import com.meli.socialmeli.service.UserService;
@@ -30,13 +29,14 @@ public class ProductController {
     }
 
     /**
-     * Metodo para conocer a quienes sigue un usuario
+     * Metodo para conocer las publicaciones realizadas por los que sigue el usuario
      * @author Garduño Perez Josue Daniel
      * @param userId {Integer} id of the user.
      * @return {UserDTO} user fount.
      **/
     @RequestMapping(value = Constant.URIPRODUCTLIST, method= RequestMethod.GET)
-    public ResponseEntity<PostListResponse> obtainPostList(@PathVariable(value = "userId")Integer userId) throws UserNullException, DataBaseException {
-        return userService.obtainPostList(userId);
+    public ResponseEntity<PostListResponse> obtainPostList(@PathVariable(value = "userId")Integer userId,@RequestParam(defaultValue = Constant.ORDERNAMIENTO_ASC)
+            String order) throws UserNullException, DataBaseException {
+        return userService.obtainPostList(userId, order);
     }
 }

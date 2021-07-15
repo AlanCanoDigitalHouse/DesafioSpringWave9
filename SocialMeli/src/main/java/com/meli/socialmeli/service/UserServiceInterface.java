@@ -1,6 +1,5 @@
 package com.meli.socialmeli.service;
 
-import com.meli.socialmeli.dto.UserDTO;
 import com.meli.socialmeli.dto.request.PostRequestDTO;
 import com.meli.socialmeli.dto.response.FollowCountResponseDTO;
 import com.meli.socialmeli.dto.response.FollowListResponseDTO;
@@ -16,5 +15,5 @@ public interface UserServiceInterface {
     ResponseEntity<?> unFollowUser(Integer userId, Integer userIdFollow) throws UserNullException, DataBaseException;
     ResponseEntity<FollowedListResponseDTO> obtainFollowedList(Integer userId,String order) throws UserNullException, DataBaseException;
     ResponseEntity<?> newPost(PostRequestDTO request) throws UserNullException, DataBaseException, RepeatedPostException, ProductNullException, DateNotValidException;
-    ResponseEntity<PostListResponse> obtainPostList(Integer userId) throws UserNullException, DataBaseException;
+    ResponseEntity<PostListResponse> obtainPostList(Integer userId, String order) throws UserNullException, DataBaseException;
 }

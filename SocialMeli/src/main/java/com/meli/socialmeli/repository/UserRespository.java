@@ -21,7 +21,7 @@ import java.util.Optional;
 @Repository
 public class UserRespository implements UserRepositoryInterface{
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(UserRespository.class);
+    private static final Logger LOGGER =  LoggerFactory.getLogger(UserRespository.class);
 
     /**
      * Metodo para realizar la busqueda de un usuario mediante su Id
@@ -46,7 +46,12 @@ public class UserRespository implements UserRepositoryInterface{
             throw new DataBaseException();
     }
 
-
+    /**
+     * Metodo para actualizar los followers que tiene el usuario
+     * @author Garduño Perez Josue Daniel
+     * @param newFollower {UserDTO} nuevo seguidor
+     * @param usuarioDTO {UserDTO} nuevo usuario que sera seguido
+     * */
     public void modificarFollowersUsuario(UserDTO newFollower,UserDTO usuarioDTO){
         List<UserDTO> lista = loadDatabase();
         List<Follower> listaFollowers = usuarioDTO.getFollowers();
@@ -56,6 +61,12 @@ public class UserRespository implements UserRepositoryInterface{
         updateDatabase(lista);
     }
 
+    /**
+     * Metodo para actualizar los followed que tiene el usuario
+     * @author Garduño Perez Josue Daniel
+     * @param newFollower {UserDTO} nuevo seguidor
+     * @param usuarioDTO {UserDTO} nuevo usuario que sera seguido
+     * */
     public void modificarFollowedUsuario(UserDTO newFollower,UserDTO usuarioDTO){
         List<UserDTO> lista = loadDatabase();
         List<Follower> listaFollowed = newFollower.getFollowed();
@@ -65,6 +76,12 @@ public class UserRespository implements UserRepositoryInterface{
         updateDatabase(lista);
     }
 
+    /**
+     * Metodo para dejar de seguir a un usuario
+     * @author Garduño Perez Josue Daniel
+     * @param unFollower {UserDTO} usuario que dejara de ser seguidor
+     * @param userToUnfollow {UserDTO} usuario que dejara de seguir
+     * */
     public void eliminarFollowerUsuario(UserDTO unFollower,UserDTO userToUnfollow){
         List<UserDTO> lista = loadDatabase();
         List<Follower> listaFollowers = userToUnfollow.getFollowers();
@@ -79,6 +96,12 @@ public class UserRespository implements UserRepositoryInterface{
         updateDatabase(lista);
     }
 
+    /**
+     * Metodo para eliminar al seguidor del usuario
+     * @author Garduño Perez Josue Daniel
+     * @param unFollower {UserDTO} usuario que dejara de ser seguidor
+     * @param userToUnfollow {UserDTO} usuario que dejara de seguir
+     * */
     public void eliminarFollowedUsuario(UserDTO unFollower,UserDTO userToUnfollow){
         List<UserDTO> lista = loadDatabase();
         List<Follower> listaFollowed = unFollower.getFollowed();
@@ -92,6 +115,12 @@ public class UserRespository implements UserRepositoryInterface{
         updateDatabase(lista);
     }
 
+    /**
+     * Metodo para añadir el identificador de la publicacion hecha por el usuario
+     * @author Garduño Perez Josue Daniel
+     * @param newPost {UserDTO} usuario que tendra la nueva publicacion
+     * @param idPublicacion {idPulicacion} identificador de la publicacion a registrar
+     * */
     public void modificarPostUsuario(UserDTO newPost, Integer idPublicacion){
         List<UserDTO> lista = loadDatabase();
         List<Integer> listaPost = newPost.getPosts();
@@ -117,7 +146,6 @@ public class UserRespository implements UserRepositoryInterface{
      * Metodo para actualizar la base de datos
      * @author Garduño Perez Josue Daniel
      * @param lista {List<UserDTO>} id of the user.
-     * @return {UserDTO} user fount.
      * */
     private void updateDatabase(List<UserDTO> lista){
         File file = null;

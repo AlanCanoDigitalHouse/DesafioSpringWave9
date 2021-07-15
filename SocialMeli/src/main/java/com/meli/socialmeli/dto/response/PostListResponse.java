@@ -1,7 +1,6 @@
 package com.meli.socialmeli.dto.response;
 
 import com.meli.socialmeli.dto.PostDTO;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

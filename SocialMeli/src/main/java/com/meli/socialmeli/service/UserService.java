@@ -14,8 +14,6 @@ import com.meli.socialmeli.dto.Follower;
 import com.meli.socialmeli.dto.UserDTO;
 import com.meli.socialmeli.utils.Constant;
 import com.meli.socialmeli.utils.Utils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +32,6 @@ public class UserService implements UserServiceInterface{
 
     @Autowired
     private ProductRespository productRespository;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserRespository.class);
 
     /**
      * Metodo para que un usuario pueda seguir a otro
@@ -104,7 +100,7 @@ public class UserService implements UserServiceInterface{
     }
 
     /**
-     * Metodo para obtener crear nueva publicacion
+     * Metodo para crear nueva publicacion
      * @author Garduño Perez Josue Daniel
      * @param request {PostRequestDTO} id of the user.
      * @return {UserDTO} user fount.
@@ -146,15 +142,15 @@ public class UserService implements UserServiceInterface{
     }
 
     /**
-     * Metodo para obtener la lista de publicaciones de los que siguen
+     * Metodo para obtener la lista de publicaciones de los que el usuario sigue
      * @author Garduño Perez Josue Daniel
      * @param userId {Integer} id of the user.
      * @return {UserDTO} user fount.
      **/
     @Override
-    public ResponseEntity<PostListResponse> obtainPostList(Integer userId) throws UserNullException, DataBaseException{
+    public ResponseEntity<PostListResponse> obtainPostList(Integer userId, String order) throws UserNullException, DataBaseException{
         List<PostDTO> postsFollowed = productRespository.searchUsersRecentPosts(userRespository.obtenerUsuario(userId));
-        postsFollowed = Utils.postsSorter(postsFollowed);
+        postsFollowed = Utils.postsSorter(postsFollowed,order);
         return new ResponseEntity<>(new PostListResponse(userId, postsFollowed), HttpStatus.OK);
     }
 
