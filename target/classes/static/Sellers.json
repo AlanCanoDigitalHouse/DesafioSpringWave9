@@ -1,0 +1,36 @@
+[
+  {
+    "userId": 6082,
+    "userName": "vendedor1",
+    "followers": [
+      {
+        "userId": 1029,
+        "userName": "comprador3"
+      }
+    ]
+  },
+  {
+    "userId": 4698,
+    "userName": "vendedor2",
+    "followers": [
+    ]
+  },
+  {
+    "userId": 2389,
+    "userName": "vendedor3",
+    "followers": [
+      {
+        "userId": 1029,
+        "userName": "comprador3"
+      },
+      {
+        "userId": 8932,
+        "userName": "comprador4"
+      },
+      {
+        "userId": 9045,
+        "userName": "comprador6"
+      }
+    ]
+  }
+]

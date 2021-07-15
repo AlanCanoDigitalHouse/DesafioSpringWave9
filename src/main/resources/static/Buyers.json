@@ -1,0 +1,71 @@
+[
+  {
+    "userId": 1822,
+    "userName": "comprador1",
+    "followed": []
+  },
+  {
+    "userId": 2834,
+    "userName": "comprador2",
+    "followed": []
+  },
+  {
+    "userId": 1029,
+    "userName": "comprador3",
+    "followed": [
+      {
+        "userId": 2389,
+        "userName": "vendedor3"
+      },
+      {
+        "userId": 6082,
+        "userName": "vendedor1"
+      }
+    ]
+  },
+  {
+    "userId": 8932,
+    "userName": "comprador4",
+    "followed": [
+      {
+        "userId": 2389,
+        "userName": "vendedor3"
+      }
+    ]
+  },
+  {
+    "userId": 4123,
+    "userName": "comprador5",
+    "followed": []
+  },
+  {
+    "userId": 9045,
+    "userName": "comprador6",
+    "followed": [
+      {
+        "userId": 2389,
+        "userName": "vendedor3"
+      }
+    ]
+  },
+  {
+    "userId": 1752,
+    "userName": "comprador7",
+    "followed": []
+  },
+  {
+    "userId": 4698,
+    "userName": "comprador8",
+    "followed": []
+  },
+  {
+    "userId": 1023,
+    "userName": "comprador9",
+    "followed": []
+  },
+  {
+    "userId": 3896,
+    "userName": "comprador10",
+    "followed": []
+  }
+]
