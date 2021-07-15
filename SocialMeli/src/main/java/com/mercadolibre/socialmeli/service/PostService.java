@@ -1,6 +1,8 @@
 package com.mercadolibre.socialmeli.service;
 
+import com.mercadolibre.socialmeli.dto.request.PostPromoRequestDTO;
 import com.mercadolibre.socialmeli.dto.request.PostRequestDTO;
+import com.mercadolibre.socialmeli.dto.response.PostCountPromoResponseDTO;
 import com.mercadolibre.socialmeli.dto.response.PostResponseDTO;
 import com.mercadolibre.socialmeli.entity.Post;
 import com.mercadolibre.socialmeli.entity.User;
@@ -25,9 +27,24 @@ public class PostService {
         return this.postRepository.createPost(postRequestDTO);
     }
 
-    public PostResponseDTO getPostsFollowed(int userId){
+    public Integer newPostPromo(PostPromoRequestDTO postPromoRequestDTO){
+        return this.postRepository.createPostPromo(postPromoRequestDTO);
+    }
+
+    public PostCountPromoResponseDTO getPostsPromoCount(int userId){
         User user = this.userRepository.findUserById(userId);
-        List<Post> posts = this.postRepository.getPostsFollowed(user);
+        return this.postRepository.countPromosInPostsByUser(user);
+    }
+
+    public PostResponseDTO getPostsFollowed(int userId, String order){
+        User user = this.userRepository.findUserById(userId);
+        List<Post> posts = this.postRepository.getPostsFollowed(user, order);
+        return new PostResponseDTO(userId, posts);
+    }
+
+    public PostResponseDTO getPostsWithPromoByUser(int userId){
+        User user = this.userRepository.findUserById(userId);
+        List<Post> posts = this.postRepository.getPostsWithPromoByUser(user);
         return new PostResponseDTO(userId, posts);
     }
 }

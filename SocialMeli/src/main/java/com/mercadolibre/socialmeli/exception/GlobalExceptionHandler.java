@@ -26,10 +26,24 @@ public class GlobalExceptionHandler {
         return  new ErrorMessage(ex.getStatus().value(), ex.getReason());
     }
 
+    @ExceptionHandler(UserCannotUnFollowOneSelfException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorMessage handlerUserCannotUnFollowOneSelf(UserCannotUnFollowOneSelfException ex){
+        return  new ErrorMessage(ex.getStatus().value(), ex.getReason());
+    }
+
     @ExceptionHandler(UserAlreadyFollowSellerException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorMessage handlerUserAlreadyFollowSeller(UserAlreadyFollowSellerException ex){
+        return  new ErrorMessage(ex.getStatus().value(), ex.getReason());
+    }
+
+    @ExceptionHandler(UserAlreadyUnFollowSellerException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorMessage handlerUserUnAlreadyFollowSeller(UserAlreadyUnFollowSellerException ex){
         return  new ErrorMessage(ex.getStatus().value(), ex.getReason());
     }
 
@@ -45,8 +59,8 @@ public class GlobalExceptionHandler {
             errors.put(fieldName, errorMessage);
         });
         StringBuilder errorMessage = new StringBuilder("");
-        errors.forEach((__, message) -> errorMessage.append(message));
-        return new ErrorMessage(HttpStatus.UNPROCESSABLE_ENTITY.value(), errorMessage.toString());
+        errors.forEach((__, message) -> errorMessage.append(message + ". "));
+        return new ErrorMessage(HttpStatus.UNPROCESSABLE_ENTITY.value(), errorMessage.deleteCharAt(errorMessage.length() - 1).toString());
     }
 
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -55,6 +69,14 @@ public class GlobalExceptionHandler {
     public ErrorMessage handleValidationDateExceptions(
             DateTimeParseException ex) {
         return new ErrorMessage(HttpStatus.UNPROCESSABLE_ENTITY.value(), ex.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ResponseBody
+    @ExceptionHandler(InvalidRequestParamException.class)
+    public ErrorMessage handleValidationMethodArgumentTypeMismatchException(
+            InvalidRequestParamException ex) {
+        return new ErrorMessage(HttpStatus.NOT_ACCEPTABLE.value(), ex.getReason());
     }
 }
 

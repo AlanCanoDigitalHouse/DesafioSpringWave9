@@ -11,9 +11,11 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Repository
 public class UserRepository {
@@ -38,11 +40,22 @@ public class UserRepository {
         }
     }
 
-    public List<UserBase> getFollowersByUser(User user){
-        return user.getFollowers().stream().map(
+    public List<UserBase> getFollowersByUser(User user, String order){
+        Stream<UserBase> list = user.getFollowers().stream().map(
                 item -> {
                     User follower = this.findUserById(item);
                     return new UserBase(follower.getUserId(), follower.getUserName());
+                });
+        if (order.equals("name_asc")) return list.sorted(Comparator.comparing(UserBase::getUserNameUpper)).collect(Collectors.toList());
+        if (order.equals("name_desc")) return list.sorted(Comparator.comparing(UserBase::getUserNameUpper).reversed()).collect(Collectors.toList());
+        return new ArrayList<>();
+    }
+
+    public List<UserBase> getFollowedByUser(User user){
+        return user.getFollowed().stream().map(
+                item -> {
+                    User followed = this.findUserById(item);
+                    return new UserBase(followed.getUserId(), followed.getUserName());
                 }).collect(Collectors.toList());
     }
 

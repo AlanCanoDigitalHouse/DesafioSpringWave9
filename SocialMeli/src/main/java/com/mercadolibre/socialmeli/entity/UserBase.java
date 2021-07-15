@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Locale;
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserBase {
@@ -26,5 +28,9 @@ public class UserBase {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserNameUpper(){
+        return this.userName.toUpperCase();
     }
 }
