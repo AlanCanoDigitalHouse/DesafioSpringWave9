@@ -4,6 +4,9 @@ import lombok.Getter;
 
 import java.util.Map;
 
+/**
+ * An error message to be used in the controller.
+ */
 @Getter
 public class ErrorMessage {
 

@@ -6,6 +6,7 @@ import com.jbianchini.meli.socialmeli.dto.FollowersListDTO;
 import com.jbianchini.meli.socialmeli.dto.UserDTO;
 import com.jbianchini.meli.socialmeli.dto.response.ResponseDTO;
 import com.jbianchini.meli.socialmeli.dto.response.SuccessResponseDTO;
+import com.jbianchini.meli.socialmeli.exception.ApplicationException;
 import com.jbianchini.meli.socialmeli.exception.ValidationException;
 import com.jbianchini.meli.socialmeli.model.User;
 import com.jbianchini.meli.socialmeli.repository.IUserRepository;
@@ -48,7 +49,6 @@ public class UserService implements IUserService {
                 new SuccessResponseDTO("", new UserDTO(userToFollow.getUserId(), userToFollow.getUserName()));
 
         if (this.follows(user, userToFollow)) {
-            //TODO: Take this to .properties
             response.setMessage("User already followed");
         } else {
 
@@ -115,7 +115,6 @@ public class UserService implements IUserService {
             userToUnFollow.getFollowers().remove(user);
             response.setMessage("User successfully unfollowed");
         } else {
-            //TODO: Take this to .properties
             response.setMessage("User not followed yet");
         }
 
@@ -136,6 +135,9 @@ public class UserService implements IUserService {
                 break;
             case "":
                 break;
+            default:
+                throw new ApplicationException("The specified order is not valid.","Please enter a valid order or " +
+                        "leave it empty.");
         }
     }
 

@@ -5,6 +5,7 @@ import com.jbianchini.meli.socialmeli.dto.PostsByFollowerDTO;
 import com.jbianchini.meli.socialmeli.dto.ProductDTO;
 import com.jbianchini.meli.socialmeli.dto.response.ResponseDTO;
 import com.jbianchini.meli.socialmeli.dto.response.SuccessResponseDTO;
+import com.jbianchini.meli.socialmeli.exception.ApplicationException;
 import com.jbianchini.meli.socialmeli.model.Post;
 import com.jbianchini.meli.socialmeli.model.Product;
 import com.jbianchini.meli.socialmeli.model.User;
@@ -30,7 +31,6 @@ public class PostService implements IPostService {
 
     @Override
     public ResponseDTO newPost(PostDTO postDTO) {
-        //TODO: See what kind of exception will throw this if fails.
         User user = this.userService.findByUserId(postDTO.getUserId());
 
         Product product = new Product(postDTO.getDetail().getProductName(), postDTO.getDetail().getType(),
@@ -64,14 +64,6 @@ public class PostService implements IPostService {
 
     }
 
-    private List<PostDTO> getPostDTOList(List<Post> posts) {
-        List<PostDTO> postDTOS = new ArrayList<>();
-
-        posts.forEach(p -> postDTOS.add(this.convertToPostDTO(p)));
-
-        return postDTOS;
-    }
-
     private void sortByDate(List<Post> posts, String order) {
         switch (order) {
             case "date_asc":
@@ -81,7 +73,18 @@ public class PostService implements IPostService {
             case "":
                 Collections.sort(posts, Comparator.comparing(Post::getDate).reversed());
                 break;
+            default:
+                throw new ApplicationException("The specified order is not valid.","Please enter a valid order or " +
+                        "leave it empty.");
         }
+    }
+
+    private List<PostDTO> getPostDTOList(List<Post> posts) {
+        List<PostDTO> postDTOS = new ArrayList<>();
+
+        posts.forEach(p -> postDTOS.add(this.convertToPostDTO(p)));
+
+        return postDTOS;
     }
 
     private PostDTO convertToPostDTO(Post p) {

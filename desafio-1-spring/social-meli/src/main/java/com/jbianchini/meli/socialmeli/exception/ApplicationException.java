@@ -2,6 +2,9 @@ package com.jbianchini.meli.socialmeli.exception;
 
 import lombok.Getter;
 
+/**
+ * ApplicationException is the main runtime exception of the application and it's used to throw exceptions when needed.
+ */
 @Getter
 public class ApplicationException extends RuntimeException {
     private String details;

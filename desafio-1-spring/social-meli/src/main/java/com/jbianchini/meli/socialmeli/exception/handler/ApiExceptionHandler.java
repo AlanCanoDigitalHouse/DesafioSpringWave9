@@ -1,6 +1,5 @@
 package com.jbianchini.meli.socialmeli.exception.handler;
 
-import com.jbianchini.meli.socialmeli.exception.ApplicationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
@@ -9,23 +8,15 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class for API exception handling purposes.
+ */
 @ControllerAdvice(annotations = RestController.class)
 public class ApiExceptionHandler {
-
-    @ExceptionHandler
-    @ResponseBody
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ErrorMessage handlerException(ApplicationException exception) {
-        Map<String, String> details = new HashMap<>();
-        details.put("Detail", exception.getDetails());
-
-        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), exception.getMessage(), details);
-    }
 
     @ExceptionHandler
     @ResponseBody

@@ -15,8 +15,8 @@ import javax.validation.constraints.NotNull;
 public class UserDTO {
     private int userId;
 
-    @NotNull(message="Please enter a valid name.")
-    @NotBlank(message="The name is empty")
+    @NotNull(message = "Please enter a valid name.")
+    @NotBlank(message = "The name is empty")
     private String userName;
 
     public UserDTO(String userName) {
