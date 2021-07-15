@@ -1,0 +1,64 @@
+[
+  {
+    "userId": 1001,
+    "userName": "PPerez",
+    "usersFollowed": [
+      {
+        "userId": 1002,
+        "userName": "LRodriguez"
+      }
+    ],
+    "followers": [
+      {
+        "userId": 1002,
+        "userName": "LRodriguez"
+      }
+    ]
+  },
+  {
+    "userId": 1002,
+    "userName": "LRodriguez",
+    "usersFollowed": [
+      {
+        "userId": 1001,
+        "userName": "PPerez"
+      }
+    ],
+    "followers": [
+      {
+        "userId": 1001,
+        "userName": "PPerez"
+      }
+    ]
+  },
+  {
+    "userId": 1003,
+    "userName": "HFernandez",
+    "usersFollowed": [],
+    "followers": []
+  },
+  {
+    "userId": 1004,
+    "userName": "AMartinez",
+    "usersFollowed": [
+      {
+        "userId": 1002,
+        "userName": "LRodriguez"
+      },
+      {
+        "userId": 1001,
+        "userName": "PPerez"
+      },
+      {
+        "userId": 1003,
+        "userName": "HFernandez"
+      }
+    ],
+    "followers": [
+      {
+        "userId": 1002,
+        "userName": "LRodriguez"
+      }
+    ]
+  }
+]
