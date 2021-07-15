@@ -84,10 +84,10 @@ public class UserService implements UserServiceInterface{
      * @return {UserDTO} user fount.
      **/
     @Override
-    public ResponseEntity<FollowListResponseDTO> obtainFollowList(Integer userId) throws UserNullException, DataBaseException{
+    public ResponseEntity<FollowListResponseDTO> obtainFollowList(Integer userId, String order) throws UserNullException, DataBaseException{
         UserDTO usuarioDTO = userRespository.obtenerUsuario(userId);
         return new ResponseEntity<>(new FollowListResponseDTO(usuarioDTO.getUserId(),
-                usuarioDTO.getUserName(),usuarioDTO.getFollowers()), HttpStatus.OK);
+                usuarioDTO.getUserName(),Utils.sorter(usuarioDTO.getFollowers(),order)), HttpStatus.OK);
     }
 
     /**
@@ -97,10 +97,10 @@ public class UserService implements UserServiceInterface{
      * @return {UserDTO} user fount.
      **/
     @Override
-    public ResponseEntity<FollowedListResponseDTO> obtainFollowedList(Integer userId) throws UserNullException, DataBaseException{
+    public ResponseEntity<FollowedListResponseDTO> obtainFollowedList(Integer userId, String order) throws UserNullException, DataBaseException{
         UserDTO usuarioDTO = userRespository.obtenerUsuario(userId);
         return new ResponseEntity<>(new FollowedListResponseDTO(usuarioDTO.getUserId(),
-                usuarioDTO.getUserName(),usuarioDTO.getFollowed()), HttpStatus.OK);
+                usuarioDTO.getUserName(),Utils.sorter(usuarioDTO.getFollowed(),order)), HttpStatus.OK);
     }
 
     /**

@@ -12,9 +12,9 @@ import org.springframework.http.ResponseEntity;
 public interface UserServiceInterface {
     ResponseEntity<?> followUser(Integer userId, Integer userIdFollow) throws UserNullException, DataBaseException;
     ResponseEntity<FollowCountResponseDTO> countFollow(Integer userId) throws UserNullException, DataBaseException;
-    ResponseEntity<FollowListResponseDTO> obtainFollowList(Integer userId) throws UserNullException, DataBaseException;
+    ResponseEntity<FollowListResponseDTO> obtainFollowList(Integer userId, String order) throws UserNullException, DataBaseException;
     ResponseEntity<?> unFollowUser(Integer userId, Integer userIdFollow) throws UserNullException, DataBaseException;
-    ResponseEntity<FollowedListResponseDTO> obtainFollowedList(Integer userId) throws UserNullException, DataBaseException;
+    ResponseEntity<FollowedListResponseDTO> obtainFollowedList(Integer userId,String order) throws UserNullException, DataBaseException;
     ResponseEntity<?> newPost(PostRequestDTO request) throws UserNullException, DataBaseException, RepeatedPostException, ProductNullException, DateNotValidException;
     ResponseEntity<PostListResponse> obtainPostList(Integer userId) throws UserNullException, DataBaseException;
 }

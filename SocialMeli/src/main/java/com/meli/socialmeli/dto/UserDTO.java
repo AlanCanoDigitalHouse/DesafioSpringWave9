@@ -1,7 +1,6 @@
 package com.meli.socialmeli.dto;
 
 import lombok.*;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Objects;

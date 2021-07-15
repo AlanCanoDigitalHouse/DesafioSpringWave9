@@ -49,8 +49,9 @@ public class UserController {
      * @return {UserDTO} user fount.
      **/
     @RequestMapping(value = Constant.URIFOLLOWERSLIST, method= RequestMethod.GET)
-    public ResponseEntity<FollowListResponseDTO> obtainFollowList(@PathVariable(value = "UserID")Integer userId) throws UserNullException, DataBaseException {
-        return userService.obtainFollowList(userId);
+    public ResponseEntity<FollowListResponseDTO> obtainFollowList(@PathVariable(value = "UserID")Integer userId,@RequestParam(defaultValue = Constant.ORDERNAMIENTO_ASC)
+            String order) throws UserNullException, DataBaseException {
+        return userService.obtainFollowList(userId, order);
     }
 
     /**
@@ -60,8 +61,9 @@ public class UserController {
      * @return {UserDTO} user fount.
      **/
     @RequestMapping(value = Constant.URIFOLLOWEDLIST, method= RequestMethod.GET)
-    public ResponseEntity<FollowedListResponseDTO> obtainFollowedList(@PathVariable(value = "UserID")Integer userId) throws UserNullException, DataBaseException {
-        return userService.obtainFollowedList(userId);
+    public ResponseEntity<FollowedListResponseDTO> obtainFollowedList(@PathVariable(value = "UserID")Integer userId, @RequestParam(defaultValue = Constant.ORDERNAMIENTO_ASC)
+            String order) throws UserNullException, DataBaseException {
+        return userService.obtainFollowedList(userId,order);
     }
 
     /**

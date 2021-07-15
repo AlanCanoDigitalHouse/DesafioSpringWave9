@@ -1,6 +1,7 @@
 package com.meli.socialmeli.dto.response;
 
 import com.meli.socialmeli.dto.Follower;
+import com.meli.socialmeli.dto.FollowerB;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FollowedListResponseDTO extends UserResponseDTO{
-
     private List<Follower> followed;
 
     public FollowedListResponseDTO(Integer userId, String userName, List<Follower> followed) {
