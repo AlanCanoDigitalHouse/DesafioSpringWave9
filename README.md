@@ -37,7 +37,7 @@ A continuacion se presentan los metodos que que se desarrollaron para cumplir co
 | **UserRepository.obtenerUsuario(userId)** | Metodo para realizar la busqueda de un usuario mediante su Id|
 
 
-### US 0003: 
+### US 0003 y 0009: 
 **Descripcion:** Obtener un listado de todos los usuarios que siguen a un determinado
 vendedor (¿Quién me sigue?)
 
@@ -52,7 +52,7 @@ vendedor (¿Quién me sigue?)
 | **UserRepository.obtenerUsuario(userId)** | Metodo para realizar la busqueda de un usuario mediante su Id|
 
 
-### US 0004: 
+### US 0004 y 0009: 
 **Descripcion:** Obtener un listado de todos los vendedores a los cuales sigue un
 determinado usuario (¿A quién sigo?)
 
@@ -84,7 +84,7 @@ determinado usuario (¿A quién sigo?)
 | **UserRespository.modificarPostUsuario()** | Metodo para añadir el identificador de la publicacion hecha por el usuario|
 
 
-### US 0006: 
+### US 0006 y 00009: 
 **Descripcion:** Obtener un listado de las publicaciones realizadas por los vendedores que un usuario sigue en las últimas dos semanas (para esto tener en cuenta ordenamiento por fecha, publicaciones más recientes primero).
 
 |URI| Sign|
@@ -100,23 +100,6 @@ determinado usuario (¿A quién sigo?)
 
 ### US 0007: 
 **Descripcion:** Poder realizar la acción de “Unfollow” (dejar de seguir) a un determinado vendedor.
-
-|URI| Sign|
-| ------------- | ------------- |
-| /users/{userId}/unfollow/{userIdToUnfollow}|GET|
-
-|Metodo | Descripción |
-| ------------- | ------------- |
-| **UserController.obtainPostList()**  | Metodo para la llamada al servicio para dejar de seguir a alguien|
-| **UserService.eliminarFollowerUsuario()** | Metodo para dejar de seguir a un usuario|
-| **ProductRespository.eliminarFollowedUsuario()** | Metodo para eliminar al seguidor del usuario|
-| **Utils.postsSorter()** | Metodo para realizar el ordenamiento de las publicaciones|
-| **UserRepository.obtenerUsuario(userId)** | Metodo para realizar la busqueda de un usuario mediante su Id|
-
-
-
-### US 0008: 
-**Descripcion:** Ordenamiento alfabético ascendente y descendente.
 
 |URI| Sign|
 | ------------- | ------------- |
