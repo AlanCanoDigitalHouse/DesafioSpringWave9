@@ -2,6 +2,7 @@ package com.mercadolibre.desafio.spring.dtos.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mercadolibre.desafio.spring.dtos.request.PostDto;
+import com.mercadolibre.desafio.spring.dtos.request.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,8 @@ import java.util.ArrayList;
 
 public class PostResponseDto {
     private Integer userId;
+    private String userName;
+    private Integer promoproducts_count;
     private ArrayList<PostDto> posts= new ArrayList<>();
+
 }

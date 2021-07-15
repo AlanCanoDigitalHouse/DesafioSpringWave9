@@ -1,7 +1,6 @@
 package com.mercadolibre.desafio.spring.service;
 
 import com.mercadolibre.desafio.spring.dtos.request.PostDto;
-import com.mercadolibre.desafio.spring.dtos.request.UserDto;
 import com.mercadolibre.desafio.spring.dtos.response.NumberFollowersResponseDto;
 import com.mercadolibre.desafio.spring.dtos.response.PostResponseDto;
 import com.mercadolibre.desafio.spring.dtos.response.UserFollowedResponseDto;
@@ -23,6 +22,10 @@ public interface IService {
     void unFollowUser(Integer userId, Integer userIdToUnFollow);
 
     PostResponseDto getPosts(Integer userId, String order);
+
+    PostResponseDto listOfPromoPostById(Integer userId, String order);
+
+    PostResponseDto numberOfPromoPostById(Integer userId);
 
 
 }

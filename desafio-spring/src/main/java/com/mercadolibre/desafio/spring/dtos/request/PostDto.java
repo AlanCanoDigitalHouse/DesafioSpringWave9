@@ -20,5 +20,12 @@ public class PostDto {
     private ProductDto detail;
     private Integer category;
     private Double price;
+    private Boolean hasPromo;
+    private Double discount;
+
+    public String getProductName(){
+        return this.detail.getProductName();
+    }
+
 
 }

@@ -153,7 +153,7 @@ public class AppSocialMeliService implements IService {
         response.setUserId(user.getUserId());
 
         if (user.getFollowed().isEmpty()) {
-            throw new InvalidUserException("The user does not have any followed");
+            throw new InvalidUserException("The user does not have any followed user");
         }
         user.getFollowed().forEach(integer -> postsList.stream()
                 .filter(p -> p.getUserId().equals(integer))
@@ -212,4 +212,47 @@ public class AppSocialMeliService implements IService {
                 break;
         }
     }
+    @Override
+    public PostResponseDto numberOfPromoPostById(Integer userId) {
+        PostResponseDto postDtoResponse = listOfPromoPostById(userId, null);
+        postDtoResponse.setPromoproducts_count(postDtoResponse.getPosts().size());
+        postDtoResponse.setPosts(null);
+        return postDtoResponse;
+    }
+
+    @Override
+    public PostResponseDto listOfPromoPostById(Integer userId, String order) {
+        UserDto userDto= validateUser(userId);
+            PostResponseDto postDtoResponse = new PostResponseDto();
+            postDtoResponse.setUserId(userDto.getUserId());
+            postDtoResponse.setUserName(userDto.getUserName());
+            postDtoResponse.setPosts(new ArrayList<>());
+            for (PostDto post : postsList) {
+                if (post.getHasPromo() != (null)) {
+                    if (post.getUserId().equals(userId) && post.getHasPromo().equals(true)) {
+                        postDtoResponse.getPosts().add(post);
+                    }
+                }
+            }
+            if (order != null) {
+                sortByProduct(postDtoResponse, order);
+            }
+            return postDtoResponse;
+        }
+
+
+    private PostResponseDto sortByProduct(PostResponseDto postDisordered, String order) {
+        switch (order) {
+            case "name_asc":
+                postDisordered.getPosts().sort(Comparator.comparing(PostDto::getProductName));
+                break;
+            case "name_desc":
+                postDisordered.getPosts().sort(Comparator.comparing(PostDto::getProductName).reversed());
+                break;
+        }
+        return postDisordered;
+    }
+
+
+
 }

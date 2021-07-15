@@ -33,5 +33,47 @@
     "notes" : "Full"
   },
   "category" : 16,
-  "price" : 53000.0
+  "price" : 53000.0,
+  "hasPromo" : true,
+  "discount" : 0.25
+}, {
+  "userId" : 8,
+  "date" : "28-06-2021",
+  "detail" : {
+    "productName" : "Celular",
+    "type" : "Dual SIM",
+    "brand" : "LG",
+    "color" : "White",
+    "notes" : "Camara Full"
+  },
+  "category" : 12,
+  "price" : 45000.0
+}, {
+  "userId" : 2,
+  "date" : "22-05-2021",
+  "detail" : {
+    "productName" : "Secador de pelo",
+    "type" : "Premium",
+    "brand" : "Phillips",
+    "color" : "Black",
+    "notes" : "Con cepillo incluido"
+  },
+  "category" : 56,
+  "price" : 4000.0,
+  "hasPromo" : true,
+  "discount" : 0.45
+}, {
+  "userId" : 5,
+  "date" : "19-06-2021",
+  "detail" : {
+    "productName" : "Notebook",
+    "type" : "Gamer",
+    "brand" : "HP",
+    "color" : "Black",
+    "notes" : "Con camara web, pantalla 24 pulgadas"
+  },
+  "category" : 34,
+  "price" : 89000.0,
+  "hasPromo" : true,
+  "discount" : 0.3
 } ]

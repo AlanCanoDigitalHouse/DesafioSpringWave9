@@ -73,7 +73,7 @@ public class AppSocialMeliController {
     }
 
     /** US 0005
-     * @param post: JSON with the data of the new publication (post).
+     * @param post: JSON with the data of the new post.
      * @return Status 200 - OK - operation successful.
      * Add a new post
      */
@@ -108,7 +108,37 @@ public class AppSocialMeliController {
         service.unFollowUser(userId, userIdToUnFollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    /** US 0010
+     * @param post: JSON with the data of the new promo post.
+     * @return Status 200 - OK - operation successful.
+     * Add a new post with promo
+     */
+    @PostMapping("/products/newpromopost")
+    public ResponseEntity<?> setNewPromoPost(@RequestBody @Valid PostDto post) {
+        service.createNewPost(post);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
-
+    /** US 0011
+     * @param userId
+     * @return Status 200 - OK - operation successful.
+     * Shows the quantity of products with promo
+     */
+    @GetMapping("/products/{userId}/countPromo/")
+    public ResponseEntity<?> numberOfPromoPosts(@PathVariable Integer userId){
+        return new ResponseEntity<>(service.numberOfPromoPostById(userId), HttpStatus.OK);
+    }
+    /** US 0012
+     * @param userId: ID  of the user that shows the product list
+     * @param order: parameter: (optional) - To list the products with promo ordered by name.
+     *-order: name_asc - ascending alphabetical order.
+     *-order: name_desc - descending alphabetical order.
+     * @return Status 200 - OK - operation successful.
+     * Lists the products with promo made of a user
+     */
+    @GetMapping("/products/{userId}/list/")
+    public ResponseEntity<?> listOfPromoPosts(@PathVariable Integer userId, @RequestParam (required = false, defaultValue = "name_asc")  String order){
+        return new ResponseEntity<>(service.listOfPromoPostById(userId, order), HttpStatus.OK);
+    }
 
 }
