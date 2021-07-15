@@ -1,8 +1,9 @@
-package com.mercadolibre.socialmeli.repositories;
+package com.mercadolibre.socialmeli.repositories.imp;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mercadolibre.socialmeli.dto.Publication;
+import com.mercadolibre.socialmeli.repositories.ProductRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -75,5 +76,7 @@ public class ProductRepositoryImp implements ProductRepository {
         }
         return publications;
     }
+
+
 
 }

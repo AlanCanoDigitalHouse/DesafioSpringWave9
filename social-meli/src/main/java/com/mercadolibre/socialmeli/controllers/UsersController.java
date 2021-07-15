@@ -7,6 +7,7 @@ import com.mercadolibre.socialmeli.dto.respons.UserFollowersListResponse;
 import com.mercadolibre.socialmeli.exceptions.ExpectationFailed;
 import com.mercadolibre.socialmeli.exceptions.UserBadRequest;
 import com.mercadolibre.socialmeli.services.UserServices;
+import com.mercadolibre.socialmeli.services.UserToUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,14 +24,13 @@ public class UsersController {
         this.service = service;
     }
 
-
     @GetMapping("/all")
     public ResponseEntity<List<User>> getAllUsers() {
         return new ResponseEntity(service.getAllUsers(), HttpStatus.OK);
     }
 
     @PostMapping("/{userid}/follow/{userIdToFollow}")
-    public ResponseEntity postFollow(@PathVariable int userid, @PathVariable int userIdToFollow) throws UserBadRequest, ExpectationFailed {
+    public ResponseEntity postFollow(@PathVariable int userid, @PathVariable int userIdToFollow) throws ExpectationFailed, UserBadRequest {
         return new ResponseEntity(service.postFollow(userid, userIdToFollow), HttpStatus.NO_CONTENT);
     }
 
@@ -50,7 +50,7 @@ public class UsersController {
     }
 
     @PostMapping("/{userid}/unfollow/{userIdToFollow}")
-    public ResponseEntity postUnfollow(@PathVariable int userid, @PathVariable int userIdToFollow) throws UserBadRequest {
+    public ResponseEntity postUnfollow(@PathVariable int userid, @PathVariable int userIdToFollow) throws ExpectationFailed, UserBadRequest {
         return new ResponseEntity(service.postUnfollow(userid, userIdToFollow), HttpStatus.NO_CONTENT);
     }
 

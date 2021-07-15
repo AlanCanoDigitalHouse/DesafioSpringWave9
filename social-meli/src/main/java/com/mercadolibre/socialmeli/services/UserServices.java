@@ -9,7 +9,6 @@ import com.mercadolibre.socialmeli.exceptions.UserBadRequest;
 import java.util.List;
 
 public interface UserServices {
-    Object postFollow(int userid, int userIdToFollow) throws UserBadRequest, ExpectationFailed;
 
     Object getCountFollowers(int userid) throws UserBadRequest;
 
@@ -17,7 +16,13 @@ public interface UserServices {
 
     UserFollowedListResponse getAllFollowed(int userid, String order) throws UserBadRequest;
 
-    Object postUnfollow(int userid, int userIdToFollow) throws UserBadRequest;
-
     List<User> getAllUsers();
+
+    boolean userIsExist(int userid);
+
+    User getUserById(int userid);
+
+    Object postFollow(int userid, int userIdToFollow) throws UserBadRequest, ExpectationFailed;
+
+    Object postUnfollow(int userid, int userIdToFollow) throws UserBadRequest, ExpectationFailed;
 }
