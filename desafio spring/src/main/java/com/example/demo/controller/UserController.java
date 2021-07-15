@@ -61,22 +61,4 @@ public class UserController {
     public ResponseEntity<ListFollowedResponseDto> whoIsFollowing(@PathVariable int userId, @RequestParam(value = "order", required = false) String order){
         return new ResponseEntity<>(buyerService.listFollowed(userService.getUser(userId) , userService.getUsers(), order), HttpStatus.OK);
     }
-
-/*
-{
-    "userId":3,
-    "id_post":23,
-    "date":"10-07-2021",
-    "detail":{
-        "product_id":1,
-        "productName":"silla gammer",
-        "type":"Gamer",
-        "brand":"Racer",
-        "color":"Red",
-        "notes":"Special"
-    },
-    "category":100,
-    "price":1500
-}
- */
 }

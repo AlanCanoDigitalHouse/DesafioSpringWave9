@@ -27,7 +27,7 @@ public class BuyerServiceImpl implements BuyerService {
             UserDto userDto = new UserDto(followedUser.getUserId() , followedUser.getUserName());
             usersDtos.add(userDto);
         }
-        this.orderByName(order , usersDtos);
+        if(order != null) {this.orderByName(order , usersDtos);}
         ListFollowedResponseDto followeds = new ListFollowedResponseDto(user.getUserId(),
                                                                         user.getUserName(),
                                                                         usersDtos);

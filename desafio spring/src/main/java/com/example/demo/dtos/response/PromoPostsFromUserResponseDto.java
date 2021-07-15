@@ -10,9 +10,9 @@ public class PromoPostsFromUserResponseDto {
 
     private int userId;
     private String userName;
-    private List<PostDto> posts;
+    private List<PostResponseDto> posts;
 
-    public PromoPostsFromUserResponseDto(int userId, String userName, List<PostDto> posts) {
+    public PromoPostsFromUserResponseDto(int userId, String userName, List<PostResponseDto> posts) {
         this.userId = userId;
         this.userName = userName;
         this.posts = posts;

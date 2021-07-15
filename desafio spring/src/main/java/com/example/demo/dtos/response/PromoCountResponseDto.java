@@ -1,5 +1,8 @@
 package com.example.demo.dtos.response;
 
+import lombok.Data;
+
+@Data
 public class PromoCountResponseDto {
 
     private int userId;

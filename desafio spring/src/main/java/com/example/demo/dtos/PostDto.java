@@ -15,8 +15,8 @@ public class PostDto {
     private int userId;
     private int id_post;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    //@DateTimeFormat(pattern="dd-MM-yyyy")
+
+    @DateTimeFormat(pattern="dd-MM-yyyy")
     private Date date;
 
     private Product detail;

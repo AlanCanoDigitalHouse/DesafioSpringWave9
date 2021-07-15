@@ -29,7 +29,7 @@ public class SellerServiceImpl implements SellerService {
             UserDto userDto = new UserDto(follower.getUserId() , follower.getUserName());
             usersDtos.add(userDto);
         }
-        this.orderByName(order , usersDtos);
+        if(order != null) {this.orderByName(order , usersDtos);}
         ListFollowersResponseDto followers = new ListFollowersResponseDto(user.getUserId(),
                                                                         user.getUserName(),
                                                                         usersDtos);

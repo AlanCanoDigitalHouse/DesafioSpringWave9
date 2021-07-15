@@ -59,7 +59,7 @@ public class PostServiceImpl implements PostService {
                 postsList.add(post);
             }
         }
-        return new PromoPostsFromUserResponseDto(user.getUserId() , user.getUserName(), postsList);
+        return new PromoPostsFromUserResponseDto(user.getUserId() , user.getUserName(), PostServiceUtils.parsePostToResponseDto(postsList));
     }
 }
 
