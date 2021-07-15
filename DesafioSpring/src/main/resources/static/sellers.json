@@ -2,12 +2,28 @@
   {
     "userId": 1569,
     "userName": "vendedor1",
-    "posts": []
+    "posts": [
+      {
+        "date": "14-07-2021",
+        "detail": {
+          "productName": "Silla Gamer",
+          "type": "Gamer",
+          "brand": "Racer",
+          "color": "Red & Black",
+          "notes": "Special Edition"
+        },
+        "category": 100,
+        "price": 19999.99,
+        "hasPromo": false,
+        "discount": 0
+      }
+    ]
   },
   {
     "userId": 6632,
     "userName": "vendedor2",
-    "posts": []
+    "posts": [
+    ]
   },
   {
     "userId": 6631,

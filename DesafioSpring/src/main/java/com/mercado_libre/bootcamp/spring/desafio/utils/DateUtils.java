@@ -11,4 +11,8 @@ public class DateUtils {
                 .atZone(ZoneId.of("UTC"))
                 .toLocalDate();
     }
+
+    private DateUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 }

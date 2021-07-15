@@ -1,5 +1,6 @@
 package com.mercado_libre.bootcamp.spring.desafio.services.strategies;
 
+import com.mercado_libre.bootcamp.spring.desafio.exceptions.StrategyException;
 import com.mercado_libre.bootcamp.spring.desafio.models.UserOrder;
 import com.mercado_libre.bootcamp.spring.desafio.sorter.AscendentSorterImpl;
 import com.mercado_libre.bootcamp.spring.desafio.sorter.DescendentSorterImpl;
@@ -26,8 +27,8 @@ public class SortUserStrategy {
     public Sorter getImplementation(String order) {
         try {
             return comparators.get(UserOrder.valueOf(order.toUpperCase()));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (IllegalArgumentException e) {
+            throw new StrategyException("El valor del campo order es inválido: [" + order + "]");
         }
     }
 }

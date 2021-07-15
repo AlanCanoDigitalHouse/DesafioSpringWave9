@@ -2,6 +2,7 @@ package com.mercado_libre.bootcamp.spring.desafio.services.seller;
 
 import com.mercado_libre.bootcamp.spring.desafio.dtos.response.FollowersCountResponseDTO;
 import com.mercado_libre.bootcamp.spring.desafio.dtos.response.FollowersListResponseDTO;
+import com.mercado_libre.bootcamp.spring.desafio.dtos.response.SellerInformationResponseDTO;
 import com.mercado_libre.bootcamp.spring.desafio.models.Post;
 import com.mercado_libre.bootcamp.spring.desafio.models.Seller;
 import com.mercado_libre.bootcamp.spring.desafio.models.User;
@@ -53,5 +54,10 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public void savePost(int userId, Post post) {
         sellerRepository.savePost(userId, post);
+    }
+
+    @Override
+    public SellerInformationResponseDTO getSellers() {
+        return new SellerInformationResponseDTO(sellerRepository.getSellers());
     }
 }

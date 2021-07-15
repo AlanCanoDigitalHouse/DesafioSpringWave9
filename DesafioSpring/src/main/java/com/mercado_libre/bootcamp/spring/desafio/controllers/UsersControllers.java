@@ -1,6 +1,5 @@
 package com.mercado_libre.bootcamp.spring.desafio.controllers;
 
-import com.mercado_libre.bootcamp.spring.desafio.dtos.response.FollowResponseDTO;
 import com.mercado_libre.bootcamp.spring.desafio.dtos.response.FollowedListResponseDTO;
 import com.mercado_libre.bootcamp.spring.desafio.dtos.response.FollowersCountResponseDTO;
 import com.mercado_libre.bootcamp.spring.desafio.dtos.response.FollowersListResponseDTO;
@@ -29,8 +28,8 @@ public class UsersControllers {
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToFollow}")
-    public ResponseEntity<FollowResponseDTO> unfollowSeller(@PathVariable int userId, @PathVariable int userIdToFollow) {
-        return new ResponseEntity<>(followService.unfollowSeller(userId, userIdToFollow), HttpStatus.OK);
+    public ResponseEntity<HttpStatus> unfollowSeller(@PathVariable int userId, @PathVariable int userIdToFollow) {
+        return new ResponseEntity<>(followService.unfollowSeller(userId, userIdToFollow));
     }
 
     @GetMapping("/{userId}/followers/count")

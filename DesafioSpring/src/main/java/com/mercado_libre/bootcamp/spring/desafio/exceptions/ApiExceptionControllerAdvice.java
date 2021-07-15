@@ -38,11 +38,18 @@ public class ApiExceptionControllerAdvice {
         return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), httpMessageNotReadableException.getMessage(), "El formato de alguno de los campos no es correcto");
     }
 
-    @ExceptionHandler({SellerRepositoryException.class, UserRepositoryException.class})
+    @ExceptionHandler({SellerRepositoryException.class, UserRepositoryException.class, FollowException.class})
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage handlerException(RuntimeException repositoryException) {
         return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), repositoryException.getLocalizedMessage(), "Por favor, ingresá un userId válido");
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage handlerException(StrategyException strategyException) {
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), strategyException.getLocalizedMessage(), "Por favor, ingresá el campo order correctamente");
     }
 
     private ErrorMessages processField(List<FieldError> fieldErrors) {

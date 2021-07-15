@@ -1,6 +1,6 @@
 package com.mercado_libre.bootcamp.spring.desafio.services.follow;
 
-import com.mercado_libre.bootcamp.spring.desafio.dtos.response.FollowResponseDTO;
+import com.mercado_libre.bootcamp.spring.desafio.exceptions.FollowException;
 import com.mercado_libre.bootcamp.spring.desafio.models.Seller;
 import com.mercado_libre.bootcamp.spring.desafio.models.User;
 import com.mercado_libre.bootcamp.spring.desafio.services.relation.RelationServiceImpl;
@@ -34,7 +34,7 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public FollowResponseDTO unfollowSeller(int userId, int userIdToFollow) {
+    public HttpStatus unfollowSeller(int userId, int userIdToFollow) {
 
         checkIfTheyAreTheSameUser(userId, userIdToFollow);
 
@@ -43,12 +43,12 @@ public class FollowServiceImpl implements FollowService {
 
         relationService.unfollowSeller(seller, user);
 
-        return new FollowResponseDTO("OK");
+        return HttpStatus.OK;
     }
 
     private void checkIfTheyAreTheSameUser(int userId, int userIdToFollow) {
         if (userId == userIdToFollow) {
-            throw new RuntimeException();
+            throw new FollowException("No puedes seguirte a vos mismo");
         }
     }
 }

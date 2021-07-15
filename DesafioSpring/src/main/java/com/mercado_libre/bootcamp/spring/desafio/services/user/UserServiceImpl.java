@@ -3,6 +3,7 @@ package com.mercado_libre.bootcamp.spring.desafio.services.user;
 import com.mercado_libre.bootcamp.spring.desafio.dtos.SellerDTO;
 import com.mercado_libre.bootcamp.spring.desafio.dtos.response.FollowedListResponseDTO;
 import com.mercado_libre.bootcamp.spring.desafio.dtos.response.FollowedProductResponseDTO;
+import com.mercado_libre.bootcamp.spring.desafio.dtos.response.UserInformationResponseDTO;
 import com.mercado_libre.bootcamp.spring.desafio.models.Post;
 import com.mercado_libre.bootcamp.spring.desafio.models.Seller;
 import com.mercado_libre.bootcamp.spring.desafio.models.User;
@@ -64,5 +65,10 @@ public class UserServiceImpl implements UserService {
         PostUtils.sortPostsByParam(posts, order);
 
         return new FollowedProductResponseDTO(userId, posts);
+    }
+
+    @Override
+    public UserInformationResponseDTO getUsers() {
+        return new UserInformationResponseDTO(userRepository.getUsers());
     }
 }

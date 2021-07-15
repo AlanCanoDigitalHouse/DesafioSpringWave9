@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mercado_libre.bootcamp.spring.desafio.exceptions.UserRepositoryException;
 import com.mercado_libre.bootcamp.spring.desafio.models.User;
+import lombok.Getter;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -17,6 +18,7 @@ import java.util.List;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
+    @Getter
     private List<User> users;
 
     @PostConstruct

@@ -16,10 +16,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
+
 @Repository
 public class SellerRepositoryImpl implements SellerRepository {
 
+    @Getter
     private List<Seller> sellers;
 
     @PostConstruct
@@ -41,6 +42,7 @@ public class SellerRepositoryImpl implements SellerRepository {
         try {
             return objectMapper.readValue(file, typeReference);
         } catch (IOException e) {
+            e.printStackTrace();
             return new ArrayList<>();
         }
     }
