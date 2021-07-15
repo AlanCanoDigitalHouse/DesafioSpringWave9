@@ -9,8 +9,6 @@ public class Post {
     private Product detail;
     private int category;
     private double price;
-    private boolean hasPromo;
-    private double discount;
 
     @Override
     public String toString(){
@@ -19,8 +17,6 @@ public class Post {
                 "\n" + "detail: " + this.detail.toString() +
                 "\n" + "category: " + this.category +
                 "\n" + "price: " + this.price +
-                "\n" + "hasPromo: " + this.hasPromo +
-                "\n" + "discount: " + this.discount +
                 "\n}";
     }
 }

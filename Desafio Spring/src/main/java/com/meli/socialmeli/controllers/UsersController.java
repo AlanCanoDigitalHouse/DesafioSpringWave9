@@ -4,7 +4,6 @@ import com.meli.socialmeli.dtos.response.FollowedUserListDTO;
 import com.meli.socialmeli.dtos.response.FollowersCountDTO;
 import com.meli.socialmeli.dtos.response.FollowersUserListDTO;
 import com.meli.socialmeli.exceptions.FollowException;
-import com.meli.socialmeli.exceptions.UserDoesNotExistException;
 import com.meli.socialmeli.services.UsersService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

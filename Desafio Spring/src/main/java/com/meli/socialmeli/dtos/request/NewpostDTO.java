@@ -4,20 +4,24 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.meli.socialmeli.models.Product;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.*;
 import java.util.Calendar;
 
 @Setter
 @Getter
+@Validated
 public class NewpostDTO {
+    @Positive(message = "Must be greater than 0.")
     private int userId;
+    @FutureOrPresent(message = "Must be a date on the future or present.") //Can schedule a post
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Calendar date;
     private Product detail;
     private int category;
+    @Positive(message = "Must be greater than 0.")
     private double price;
-    private boolean hasPromo;
-    private double discount;
 
     @Override
     public String toString(){
@@ -26,8 +30,6 @@ public class NewpostDTO {
                 "\n" + "detail: " + this.detail.toString() +
                 "\n" + "category: " + this.category +
                 "\n" + "price: " + this.price +
-                "\n" + "hasPromo: " + this.hasPromo +
-                "\n" + "discount: " + this.discount +
                 "\n}";
     }
 }
