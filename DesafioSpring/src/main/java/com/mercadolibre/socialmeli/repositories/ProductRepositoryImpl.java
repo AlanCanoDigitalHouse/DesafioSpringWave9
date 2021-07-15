@@ -63,6 +63,37 @@ public class ProductRepositoryImpl implements ProductRepository {
         return latestsPostDTO;
     }
 
+    @Override
+    public Integer getCountPost(Integer userId) {
+        List<Post> posts = loadDatabase();
+        Integer result = 0;
+        try {
+            if (Objects.nonNull(posts)) {
+                List<Post> postsUser = posts.stream().filter(post -> post.getUserId().equals(userId)).collect(Collectors.toList());
+                List<Post> promoPosts = postsUser.stream().filter(o -> Boolean.TRUE.equals(o.getHasPromo())).collect(Collectors.toList());
+                result = promoPosts.size();
+            }
+        } catch (NullPointerException e) {
+            return 0;
+        }
+        return result;
+    }
+
+    @Override
+    public List<Post> getAllPromoPost(Integer userId) {
+        List<Post> posts = loadDatabase();
+        List<Post> promoPosts = null;
+        try {
+            if (Objects.nonNull(posts)) {
+                List<Post> postsUser = posts.stream().filter(post -> post.getUserId().equals(userId)).collect(Collectors.toList());
+                promoPosts = postsUser.stream().filter(o -> Boolean.TRUE.equals(o.getHasPromo())).collect(Collectors.toList());
+            }
+        } catch (NullPointerException e) {
+            return null;
+        }
+        return promoPosts;
+    }
+
     private List<Post> loadDatabase() {
         File file = null;
         try {

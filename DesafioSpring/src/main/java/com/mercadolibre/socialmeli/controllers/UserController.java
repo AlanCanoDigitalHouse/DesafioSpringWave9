@@ -4,6 +4,7 @@ import com.mercadolibre.socialmeli.dtos.User.UserCountDTO;
 import com.mercadolibre.socialmeli.dtos.User.UserFollowedDTO;
 import com.mercadolibre.socialmeli.dtos.User.UserFollowersDTO;
 import com.mercadolibre.socialmeli.dtos.UserResponseDTO;
+import com.mercadolibre.socialmeli.exceptions.ExcepcionEqualsUserId;
 import com.mercadolibre.socialmeli.exceptions.ExceptionFollower;
 import com.mercadolibre.socialmeli.exceptions.ExceptionOrder;
 import com.mercadolibre.socialmeli.exceptions.ExceptionUserNotFound;
@@ -51,9 +52,10 @@ public class UserController {
      * @return UserResponseDTO
      * @throws ExceptionUserNotFound
      * @throws ExceptionFollower
+     * @throws ExcepcionEqualsUserId
      */
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public UserResponseDTO follow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws ExceptionUserNotFound {
+    public UserResponseDTO follow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws ExceptionUserNotFound, ExcepcionEqualsUserId {
         return userService.follow(userId, userIdToFollow);
     }
 

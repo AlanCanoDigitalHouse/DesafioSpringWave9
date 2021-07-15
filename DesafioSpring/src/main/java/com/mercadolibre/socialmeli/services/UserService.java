@@ -4,6 +4,7 @@ import com.mercadolibre.socialmeli.dtos.User.UserCountDTO;
 import com.mercadolibre.socialmeli.dtos.User.UserFollowedDTO;
 import com.mercadolibre.socialmeli.dtos.User.UserFollowersDTO;
 import com.mercadolibre.socialmeli.dtos.UserResponseDTO;
+import com.mercadolibre.socialmeli.exceptions.ExcepcionEqualsUserId;
 import com.mercadolibre.socialmeli.exceptions.ExceptionFollower;
 import com.mercadolibre.socialmeli.exceptions.ExceptionOrder;
 import com.mercadolibre.socialmeli.exceptions.ExceptionUserNotFound;
@@ -12,7 +13,7 @@ import com.mercadolibre.socialmeli.models.User;
 import java.util.List;
 
 public interface UserService {
-    UserResponseDTO follow(Integer userId, Integer userIdToFollow) throws ExceptionUserNotFound;
+    UserResponseDTO follow(Integer userId, Integer userIdToFollow) throws ExceptionUserNotFound, ExcepcionEqualsUserId;
 
     List<User> getAll();
 

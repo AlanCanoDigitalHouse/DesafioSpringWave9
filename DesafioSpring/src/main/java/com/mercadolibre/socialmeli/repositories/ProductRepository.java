@@ -13,4 +13,8 @@ public interface ProductRepository {
     List<Post> getAllPost();
 
     List<PostUserDTO> getLatestPost(Integer userId);
+
+    Integer getCountPost(Integer userId);
+
+    List<Post> getAllPromoPost(Integer userId);
 }

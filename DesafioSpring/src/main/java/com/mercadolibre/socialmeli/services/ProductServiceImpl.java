@@ -1,14 +1,20 @@
 package com.mercadolibre.socialmeli.services;
 
 import com.mercadolibre.socialmeli.dtos.Product.request.PostDTO;
+import com.mercadolibre.socialmeli.dtos.Product.request.PromoPostDTO;
+import com.mercadolibre.socialmeli.dtos.Product.response.CountPromoDTO;
 import com.mercadolibre.socialmeli.dtos.Product.response.PostUserDTO;
 import com.mercadolibre.socialmeli.dtos.Product.response.UserPostsDTO;
+import com.mercadolibre.socialmeli.dtos.Product.response.UserPromoPostDTO;
+import com.mercadolibre.socialmeli.dtos.User.UserCountDTO;
 import com.mercadolibre.socialmeli.dtos.User.UserDTO;
 import com.mercadolibre.socialmeli.dtos.UserResponseDTO;
 import com.mercadolibre.socialmeli.exceptions.ExceptionOrder;
 import com.mercadolibre.socialmeli.exceptions.ExceptionUserNotFound;
 import com.mercadolibre.socialmeli.models.Post;
+import com.mercadolibre.socialmeli.models.User;
 import com.mercadolibre.socialmeli.repositories.ProductRepository;
+import com.mercadolibre.socialmeli.utils.DateFormatter;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +61,32 @@ public class ProductServiceImpl implements ProductService {
         orderList(order, posts);
         userPostsDTO = new UserPostsDTO(userId, posts);
         return userPostsDTO;
+    }
+
+    @Override
+    public UserResponseDTO createPromoPost(PromoPostDTO post) throws ExceptionUserNotFound {
+        UserResponseDTO userResponseDTO = null;
+        if (userService.findById(post.getUserId()) != null) {
+            Integer newId = productRepository.createId();
+            Post p = new Post(newId, post);
+            productRepository.addPost(p);
+            userResponseDTO = new UserResponseDTO(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), "Nuevo post de promoción creado", post);
+        }
+        return userResponseDTO;
+    }
+
+    @Override
+    public CountPromoDTO countPromoPosts(Integer userId) throws ExceptionUserNotFound {
+        User user = userService.findById(userId);
+        CountPromoDTO countPromoDTO = new CountPromoDTO(user.getUserId(), user.getUserName(), productRepository.getCountPost(user.getUserId()));
+        return countPromoDTO;
+    }
+
+    @Override
+    public UserPromoPostDTO getPromoPost(Integer userId) throws ExceptionUserNotFound {
+        User user = userService.findById(userId);
+        UserPromoPostDTO userPromoPostDTO = new UserPromoPostDTO(user.getUserId(), user.getUserName(), productRepository.getAllPromoPost(user.getUserId()));
+        return userPromoPostDTO;
     }
 
     private void orderList(String order, List<PostUserDTO> posts) throws ExceptionOrder {

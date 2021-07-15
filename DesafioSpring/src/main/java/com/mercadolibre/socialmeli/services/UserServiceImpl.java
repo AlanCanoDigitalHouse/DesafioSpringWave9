@@ -5,6 +5,7 @@ import com.mercadolibre.socialmeli.dtos.User.UserDTO;
 import com.mercadolibre.socialmeli.dtos.User.UserFollowedDTO;
 import com.mercadolibre.socialmeli.dtos.User.UserFollowersDTO;
 import com.mercadolibre.socialmeli.dtos.UserResponseDTO;
+import com.mercadolibre.socialmeli.exceptions.ExcepcionEqualsUserId;
 import com.mercadolibre.socialmeli.exceptions.ExceptionFollower;
 import com.mercadolibre.socialmeli.exceptions.ExceptionOrder;
 import com.mercadolibre.socialmeli.exceptions.ExceptionUserNotFound;
@@ -98,10 +99,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDTO follow(Integer userId, Integer userIdToFollow) throws ExceptionUserNotFound {
+    public UserResponseDTO follow(Integer userId, Integer userIdToFollow) throws ExceptionUserNotFound, ExcepcionEqualsUserId {
         User follower = userRepository.findUserById(userId);
         User followed = userRepository.findUserById(userIdToFollow);
         UserResponseDTO userResponseDTO = null;
+        if(userId == userIdToFollow){
+            throw new ExcepcionEqualsUserId("No puedes auto-seguirte");
+        }
         try {
             Optional<UserDTO> item = followed.getFollowers().stream().filter(user -> user.getUserId().equals(follower.getUserId())).findFirst();
             //si no lo sigue, es vacío entonces lo agrega
