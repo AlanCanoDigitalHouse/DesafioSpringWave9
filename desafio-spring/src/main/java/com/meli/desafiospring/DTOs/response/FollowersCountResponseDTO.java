@@ -1,7 +1,11 @@
 package com.meli.desafiospring.DTOs.response;
 
 import com.meli.desafiospring.models.User;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+@Data
+@AllArgsConstructor
 public class FollowersCountResponseDTO {
 
     Integer userId;

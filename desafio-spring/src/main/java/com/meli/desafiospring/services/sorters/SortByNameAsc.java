@@ -1,10 +1,10 @@
-package com.meli.desafiospring.models.sorters;
+package com.meli.desafiospring.services.sorters;
 
 import com.meli.desafiospring.models.User;
 
 import java.util.Comparator;
 
-public class SortByNameDesc implements Comparator<User> {
+public class SortByNameAsc implements Comparator<User> {
 
     @Override
     public int compare(User o1, User o2) {

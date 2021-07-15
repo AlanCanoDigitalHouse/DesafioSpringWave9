@@ -2,16 +2,13 @@ package com.meli.desafiospring.DTOs.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class PostsListResponseDTO {
+public class PromoPostCountResponseDTO {
 
     Integer userId;
-    List<PostResponseDTO> posts;
+    String userName;
+    Integer promoproducts_count;
 
 }
