@@ -1,0 +1,47 @@
+[
+  {
+    "userId": 1,
+    "userName": "AgustinaCoronado",
+    "isSeller": true
+  },
+  {
+    "userId": 2,
+    "userName": "AgustinGonzalez",
+    "isSeller": false
+  },
+  {
+    "userId": 3,
+    "userName": "CristobalZepeda",
+    "isSeller": true
+  },
+  {
+    "userId": 4,
+    "userName": "EstebanGuruceaga",
+    "isSeller": true
+  },
+  {
+    "userId": 5,
+    "userName": "GuadalupeTaborda",
+    "isSeller": false
+  },
+  {
+    "userId": 6,
+    "userName": "DiegoAranguiz",
+    "isSeller": false
+  },
+  {
+    "userId": 7,
+    "userName": "Nombre1",
+    "isSeller": true
+  },
+  {
+    "userId": 8,
+    "userName": "Nombre2",
+    "isSeller": true
+  },
+  {
+    "userId": 9,
+    "userName": "Nombre3",
+    "isSeller": true
+  }
+]

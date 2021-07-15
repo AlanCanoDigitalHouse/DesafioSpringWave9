@@ -1,0 +1,43 @@
+[
+  {
+    "productId": 1,
+    "productName" : "Silla Gamer",
+    "type" : "Gamer",
+    "brand" : "Racer",
+    "color" : "Red & Black",
+    "notes" : "Special Edition"
+
+  },
+  {
+    "productId" : 2,
+    "productName" : "Headset RGB Inalámbrico",
+    "type" : "Gamer",
+    "brand" : "Razer",
+    "color" : "Green with RGB",
+    "notes" : "Sin Batería"
+  },
+  {
+    "productId" : 3,
+    "productName" : "Monitor",
+    "type" : "Gamer",
+    "brand" : "Razer",
+    "color" : "Black",
+    "notes" : "32 pulgadas"
+  },
+  {
+    "productId" : 4,
+    "productName" : "Parlante",
+    "type" : "Inalámbrico",
+    "brand" : "Razer",
+    "color" : "White",
+    "notes" : "Con batería"
+  },
+  {
+    "productId" : 5,
+    "productName" : "Cargador de Mac",
+    "type" : "No type specified",
+    "brand" : "Apple",
+    "color" : "White",
+    "notes" : "Original"
+  }
+]
