@@ -15,5 +15,5 @@ public interface IProduct {
 
     PromoPostCountDTO getCountPromoPosts(int userId) throws UserException;
 
-    PromoPostsDTO getPromoPosts(int userId) throws UserException;
+    PromoPostsDTO getPromoPosts(int userId, String order) throws UserException;
 }

@@ -89,17 +89,33 @@ public class ProductService implements IProduct {
     }
 
     @Override
-    public PromoPostsDTO getPromoPosts(int userId) throws UserException {
+    public PromoPostsDTO getPromoPosts(int userId, String order) throws UserException {
         Seller seller = ValidationHandler.validateSeller(userId, sellerRepository);
         List<Post> promoUserPosts = promoUserPosts(userId);
-        return new PromoPostsDTO(seller.getUserId(), seller.getUserName(), promoUserPosts);
+
+        List<Post> sortedList = promoUserPosts.stream().sorted((o1, o2) -> productComparator(order, o1, o2)).collect(Collectors.toList());
+
+        return new PromoPostsDTO(seller.getUserId(), seller.getUserName(), sortedList);
     }
 
-
     private List<Post> promoUserPosts(int sellerId) {
-//        TODO: agregar ordenamiento
         return this.productRepository.getAll().stream()
                 .filter(post -> post.getHasPromo() && post.getUserId() == sellerId).collect(Collectors.toList());
+    }
+
+    private int productComparator(String order, Post p1, Post p2){
+        String name1 = p1.getDetail().getProductName();
+        String name2 = p2.getDetail().getProductName();
+        int result = 0;
+        switch (order) {
+            case "name_asc":
+                result = name1.compareTo(name2);
+                break;
+            case "name_desc":
+                result = name2.compareTo(name1);
+                break;
+        }
+        return result;
     }
 
     protected Comparator<Post> postComparator(String order) {

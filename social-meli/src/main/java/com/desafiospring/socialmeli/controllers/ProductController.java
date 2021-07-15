@@ -49,8 +49,9 @@ public class ProductController {
     }
 
     @GetMapping("/{userId}/list")
-    public ResponseEntity<PromoPostsDTO> getPromoPosts(@PathVariable Integer userId) throws UserException{
-        PromoPostsDTO promoPostsDTO = productService.getPromoPosts(userId);
+    public ResponseEntity<PromoPostsDTO> getPromoPosts(@PathVariable Integer userId,
+                                                       @RequestParam(defaultValue = "") String order) throws UserException{
+        PromoPostsDTO promoPostsDTO = productService.getPromoPosts(userId, order);
         return new ResponseEntity<>(promoPostsDTO, HttpStatus.OK);
     }
 
