@@ -1,6 +1,7 @@
 package com.example.desafiospring.dtos;
 
 import com.example.desafiospring.enums.ConstantEnum;
+import com.example.desafiospring.enums.ErrorMessageEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,29 +15,29 @@ import javax.validation.constraints.*;
 @Validated
 public class PostPromoCreateDto {
 
-    @Min(message = "El user id no puede ser negativo", value = 0)
-    @NotNull(message = "El user id es obligatorio")
+    @Min(message = ErrorMessageEnum.POST_USERID_MIN, value = 0)
+    @NotNull(message = ErrorMessageEnum.POST_USERID_NOT_NULL)
     private Long userId;
 
-    @NotNull(message = "La fecha es obligatoria")
-    @NotBlank(message = "La fecha no puede ser vacia")
+    @NotNull(message = ErrorMessageEnum.POST_DATE_NOT_NULL)
+    @NotBlank(message = ErrorMessageEnum.POST_DATE_NOT_BLANK)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ConstantEnum.DATE_FORMAT)
     private String date;
 
     @Valid
-    @NotNull(message = "El detalle de la publicacion es obligatorio")
+    @NotNull(message = ErrorMessageEnum.POST_DETAIL_NOT_NULL)
     private ProductCreateDto detail;
 
-    @Min(message = "El user id no puede ser negativo", value = 0)
-    @Max(message = "No existe una categoria mayor a 100", value = 100)
-    @NotNull(message = "La categoria es obligatoria")
+    @Min(message = ErrorMessageEnum.POST_CATEGORY_MIN, value = 0)
+    @Max(message = ErrorMessageEnum.POST_CATEGORY_MAX, value = 100)
+    @NotNull(message = ErrorMessageEnum.POST_CATEGORY_NOT_NULL)
     private Long category;
 
-    @DecimalMin(message = "El precio no puede ser negativo", value = "0.0")
-    @NotNull(message = "El precio de la publicacion es obligatorio")
+    @DecimalMin(message = ErrorMessageEnum.POST_PRICE_MIN, value = "0.0")
+    @NotNull(message = ErrorMessageEnum.POST_PRICE_NOT_NULL)
     private Double price;
 
-    @NotNull(message = "Es necesario indicar si la publicacion es una promocion o no")
+    @NotNull(message = ErrorMessageEnum.POST_PROMO_HASPROMO_NOT_NULL)
     private Boolean hasPromo;
 
     private Double discount;

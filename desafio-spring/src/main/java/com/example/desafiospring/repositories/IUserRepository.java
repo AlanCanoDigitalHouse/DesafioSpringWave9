@@ -14,8 +14,21 @@ public interface IUserRepository {
      */
     List<User> getAllUsers() throws IOException;
 
+    /**
+     * Consulta un usuario por su id y tipo
+     * @param userId Id del usuario
+     * @param isSeller Tipo del usuario (true - Vendedor, false - Comprador)
+     * @return Una entidad de tipo User
+     * @throws IOException Excepcion en caso de problemas de lectura de la base de datos
+     */
     User findByIdAndType(Long userId, boolean isSeller) throws IOException;
 
+    /**
+     * Consulta un usuario por su id
+     * @param userId Id del usuario
+     * @return Una entidad de tipo User
+     * @throws IOException Excepcion en caso de problemas de lectura de la base de datos
+     */
     User findById(Long userId) throws IOException;
 
 }

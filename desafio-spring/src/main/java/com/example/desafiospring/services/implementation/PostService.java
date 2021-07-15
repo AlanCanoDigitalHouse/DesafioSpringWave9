@@ -3,6 +3,7 @@ package com.example.desafiospring.services.implementation;
 import com.example.desafiospring.dtos.*;
 import com.example.desafiospring.entities.Post;
 import com.example.desafiospring.enums.ConstantEnum;
+import com.example.desafiospring.enums.ErrorMessageEnum;
 import com.example.desafiospring.exceptions.DateInvalidException;
 import com.example.desafiospring.exceptions.DiscountInvalidException;
 import com.example.desafiospring.exceptions.PromoPostInvalidException;
@@ -30,7 +31,8 @@ public class PostService implements IPostService {
     private final IUserService userService;
     private final IFollowerService followerService;
 
-    public PostService(PostRepository postRepository, IProductService productService, ObjectMapper objectMapper, IUserService userService, IFollowerService followerService) {
+    public PostService(PostRepository postRepository, IProductService productService, ObjectMapper objectMapper,
+                       IUserService userService, IFollowerService followerService) {
         this.postRepository = postRepository;
         this.productService = productService;
         this.objectMapper = objectMapper;
@@ -39,7 +41,8 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public PostDto createPost(PostCreateDto postToCreate) throws DateInvalidException, UserNotExistException, IOException {
+    public PostDto createPost(PostCreateDto postToCreate) throws DateInvalidException,
+            UserNotExistException, IOException {
         return this.createBasicPost(
                 this.objectMapper.convertValue(postToCreate, Post.class),
                 this.objectMapper.convertValue(postToCreate.getDetail(), ProductDto.class),
@@ -47,13 +50,16 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public PostDto createPromoPost(PostPromoCreateDto postToCreate) throws DateInvalidException, UserNotExistException, PromoPostInvalidException, IOException, DiscountInvalidException {
-        if (postToCreate.getHasPromo() && Objects.isNull(postToCreate.getDiscount()))
-            throw new PromoPostInvalidException("La publicacion en promocion debe tener un valor de descuento");
-        if (postToCreate.getDiscount() < 0 )
-            throw new DiscountInvalidException("El valor del descuento no puede ser negativo");
-        if (postToCreate.getDiscount() > 1 )
-            throw new DiscountInvalidException("El valor del descuento no puede superar el 100% (valor > 1)");
+    public PostDto createPromoPost(PostPromoCreateDto postToCreate) throws DateInvalidException,
+            UserNotExistException, PromoPostInvalidException, IOException, DiscountInvalidException {
+        if (postToCreate.getHasPromo()) {
+            if (Objects.isNull(postToCreate.getDiscount()))
+                throw new PromoPostInvalidException(ErrorMessageEnum.PROMO_POST_INVALID_EXCEPTION);
+            if (postToCreate.getDiscount() < 0 )
+                throw new DiscountInvalidException(ErrorMessageEnum.DISCOUNT_INVALID_EXCEPTION_NEGATIVE);
+            if (postToCreate.getDiscount() > 1 )
+                throw new DiscountInvalidException(ErrorMessageEnum.DISCOUNT_INVALID_EXCEPTION_MAX);
+        }
         return this.createBasicPost(
                 this.objectMapper.convertValue(postToCreate, Post.class),
                 this.objectMapper.convertValue(postToCreate.getDetail(), ProductDto.class),

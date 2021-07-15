@@ -1,7 +1,9 @@
 package com.example.desafiospring.controllers;
 
 import com.example.desafiospring.dtos.ErrorMessageDto;
+import com.example.desafiospring.enums.ErrorMessageEnum;
 import com.example.desafiospring.exceptions.*;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,7 +71,7 @@ public class ExceptionControllerAdvice {
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorMessageDto> handlerException(MethodArgumentTypeMismatchException exception) {
-        String message = String.format("'%s' deberia ser un '%s' valido, y '%s' no lo es",
+        String message = String.format(ErrorMessageEnum.METHOD_ARGUMENT_TYPE_MISMATCH,
                 exception.getName(), Objects.requireNonNull(exception.getRequiredType()).getSimpleName(),
                 exception.getValue());
         return new ResponseEntity<>(
@@ -81,7 +83,7 @@ public class ExceptionControllerAdvice {
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorMessageDto> handlerException(InvalidFormatException exception) {
-        String message = String.format("'%s' deberia ser de tipo '%s' valido",
+        String message = String.format(ErrorMessageEnum.INVALID_FORMAT,
                 exception.getValue(),exception.getTargetType().getSimpleName());
         return new ResponseEntity<>(
                 new ErrorMessageDto(HttpStatus.BAD_REQUEST.value(), message, null),
@@ -112,6 +114,21 @@ public class ExceptionControllerAdvice {
                 new ErrorMessageDto(HttpStatus.BAD_REQUEST.value(),e.getMessage(), null));
     }
 
+    @ExceptionHandler(JsonParseException.class)
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessageDto handleException(JsonParseException e){
+        ErrorMessageDto response;
+        try {
+            response = new ErrorMessageDto(HttpStatus.BAD_REQUEST.value(),
+                    ErrorMessageEnum.JSON_PARSER + e.getProcessor().getCurrentName(), null);
+        } catch (IOException ex) {
+            response = new ErrorMessageDto(HttpStatus.BAD_REQUEST.value(),
+                    ErrorMessageEnum.JSON_PARSER_IO, null);
+        }
+        return response;
+    }
+
     @ExceptionHandler(PromoPostInvalidException.class)
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
@@ -126,7 +143,7 @@ public class ExceptionControllerAdvice {
     public ResponseEntity<ErrorMessageDto> handleException(IOException e){
         e.printStackTrace();
         return ResponseEntity.badRequest().body(
-                new ErrorMessageDto(HttpStatus.BAD_REQUEST.value(),"Hubo un problema leyendo la base de datos", null));
+                new ErrorMessageDto(HttpStatus.BAD_REQUEST.value(),ErrorMessageEnum.IO_EXCEPTION, null));
     }
 
     private ErrorMessageDto processField(List<FieldError> fieldErrors) {
@@ -134,7 +151,7 @@ public class ExceptionControllerAdvice {
         for(FieldError fieldError: fieldErrors) {
             fields.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
-        return new ErrorMessageDto(HttpStatus.BAD_REQUEST.value(), "Validations error", fields);
+        return new ErrorMessageDto(HttpStatus.BAD_REQUEST.value(), ErrorMessageEnum.VALIDATION_ERROR, fields);
     }
 
 }

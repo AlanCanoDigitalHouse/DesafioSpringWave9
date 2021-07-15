@@ -1,8 +1,11 @@
 package com.example.desafiospring.utils;
 
 import com.example.desafiospring.enums.ConstantEnum;
+import com.example.desafiospring.enums.ErrorMessageEnum;
 import com.example.desafiospring.exceptions.DateInvalidException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -11,15 +14,18 @@ import java.time.format.ResolverStyle;
 public class Utils {
 
     public static void validateDate(String date) throws DateInvalidException {
+        SimpleDateFormat sdf = new SimpleDateFormat(ConstantEnum.DATE_FORMAT);
+        sdf.setLenient(false);
         DateTimeFormatter dt = DateTimeFormatter.ofPattern(ConstantEnum.DATE_FORMAT)
                 .withResolverStyle(ResolverStyle.SMART);
         try {
+            sdf.parse(date);
             LocalDate parse = LocalDate.parse(date, dt);
             LocalDate now = LocalDate.now();
             if (parse.isAfter(now))
-                throw new DateInvalidException("La fecha " + date + " no puede ser mayor a la fecha actual");
-        } catch (DateTimeParseException e) {
-            throw new DateInvalidException("La fecha " + date + " no es valida");
+                throw new DateInvalidException(String.format(ErrorMessageEnum.DATE_INVALID_EXCEPTION_FUTURE, date));
+        } catch (DateTimeParseException | ParseException e) {
+            throw new DateInvalidException(String.format(ErrorMessageEnum.DATE_INVALID_EXCEPTION_VALUE, date));
         }
     }
 

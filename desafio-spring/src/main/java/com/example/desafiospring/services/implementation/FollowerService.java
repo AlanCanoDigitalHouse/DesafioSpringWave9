@@ -4,6 +4,7 @@ import com.example.desafiospring.dtos.UserBasicDto;
 import com.example.desafiospring.dtos.UserDto;
 import com.example.desafiospring.dtos.UserFollowersDto;
 import com.example.desafiospring.enums.ConstantEnum;
+import com.example.desafiospring.enums.ErrorMessageEnum;
 import com.example.desafiospring.exceptions.AlreadyFollowedException;
 import com.example.desafiospring.exceptions.SameUserException;
 import com.example.desafiospring.exceptions.UserNotExistException;
@@ -35,13 +36,15 @@ public class FollowerService implements IFollowerService {
     }
 
     @Override
-    public void followUserById(Long userId, Long userIdToFollow) throws AlreadyFollowedException, UserNotExistException, SameUserException, IOException {
+    public void followUserById(Long userId, Long userIdToFollow) throws AlreadyFollowedException,
+            UserNotExistException, SameUserException, IOException {
         this.validateUsersFollow(userId, userIdToFollow);
         this.followerRepository.followUserById(userId, userIdToFollow);
     }
 
     @Override
-    public void unfollowUserById(Long userId, Long userIdToUnfollow) throws UserNotExistException, SameUserException, UserNotFollowedException, IOException {
+    public void unfollowUserById(Long userId, Long userIdToUnfollow) throws UserNotExistException, SameUserException,
+            UserNotFollowedException, IOException {
         this.validateUsersUnfollow(userId, userIdToUnfollow);
         this.followerRepository.unfollowUserById(userId, userIdToUnfollow);
     }
@@ -59,7 +62,8 @@ public class FollowerService implements IFollowerService {
         List<Long> followersId = this.followerRepository.getListFollowersById(userId);
         List<UserBasicDto> followers = this.getListUsers(followersId);
         Comparator<UserBasicDto> c = (o1, o2) ->
-                Utils.compareNames(o1.getUserName(), o2.getUserName(), order.equalsIgnoreCase(ConstantEnum.ORDER_NAME_ASC));
+                Utils.compareNames(o1.getUserName(), o2.getUserName(),
+                        order.equalsIgnoreCase(ConstantEnum.ORDER_NAME_ASC));
         followers.sort(c);
         return new UserFollowersDto(userDto.getUserId(), userDto.getUserName(), followers, null);
     }
@@ -71,7 +75,8 @@ public class FollowerService implements IFollowerService {
         List<Long> followedId = this.followerRepository.getListFollowedById(userId);
         List<UserBasicDto> followed = this.getListUsers(followedId);
         Comparator<UserBasicDto> c = (o1, o2) ->
-                Utils.compareNames(o1.getUserName(), o2.getUserName(), order.equalsIgnoreCase(ConstantEnum.ORDER_NAME_ASC));
+                Utils.compareNames(o1.getUserName(), o2.getUserName(),
+                        order.equalsIgnoreCase(ConstantEnum.ORDER_NAME_ASC));
         followed.sort(c);
         return new UserFollowersDto(userDto.getUserId(), userDto.getUserName(), null, followed);
     }
@@ -88,24 +93,25 @@ public class FollowerService implements IFollowerService {
         return users;
     }
 
-    private void validateUsersFollow(Long userId, Long userIdToFollow) throws AlreadyFollowedException, UserNotExistException, SameUserException, IOException {
+    private void validateUsersFollow(Long userId, Long userIdToFollow) throws AlreadyFollowedException,
+            UserNotExistException, SameUserException, IOException {
         if (this.followerRepository.isFollowedByUserId(userId, userIdToFollow))
-            throw new AlreadyFollowedException("El usuario " + userId
-                    + " ya esta siguiendo al usuario " + userIdToFollow);
+            throw new AlreadyFollowedException(String.format(ErrorMessageEnum.ALREADY_FOLLOWED_EXCEPTION,
+                userId, userIdToFollow));
         this.userService.findByUserId(userId);
         this.userService.findByUserIdAndType(userIdToFollow, true);
         if (userId.equals(userIdToFollow))
-            throw new SameUserException("Un usuario no puede seguirse a si mismo");
+            throw new SameUserException(ErrorMessageEnum.SAME_USER_EXCEPTION);
     }
 
     private void validateUsersUnfollow(Long userId, Long userIdToUnfollow) throws UserNotFollowedException, UserNotExistException, SameUserException, IOException {
         if (!this.followerRepository.isFollowedByUserId(userId, userIdToUnfollow))
-            throw new UserNotFollowedException("El usuario " + userId
-                    + " no esta siguiendo al usuario " + userIdToUnfollow);
+            throw new UserNotFollowedException(String.format(ErrorMessageEnum.USER_NOT_FOLLOWED_EXCEPTION,
+                    userId, userIdToUnfollow));
         this.userService.findByUserId(userId);
         this.userService.findByUserIdAndType(userIdToUnfollow, true);
         if (userId.equals(userIdToUnfollow))
-            throw new SameUserException("Un usuario no puede dejar de seguirse a si mismo");
+            throw new SameUserException(ErrorMessageEnum.SAME_USER_EXCEPTION);
     }
 
 

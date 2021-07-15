@@ -2,6 +2,7 @@ package com.example.desafiospring.controllers;
 
 import com.example.desafiospring.dtos.*;
 import com.example.desafiospring.enums.ConstantEnum;
+import com.example.desafiospring.enums.ErrorMessageEnum;
 import com.example.desafiospring.exceptions.DateInvalidException;
 import com.example.desafiospring.exceptions.DiscountInvalidException;
 import com.example.desafiospring.exceptions.PromoPostInvalidException;
@@ -35,13 +36,14 @@ public class ProductController {
 
     @PostMapping("/newpromopost")
     public ResponseEntity<PostDto> createPromoPost(@Valid @RequestBody PostPromoCreateDto postDto)
-            throws DateInvalidException, UserNotExistException, PromoPostInvalidException, IOException, DiscountInvalidException {
+            throws DateInvalidException, UserNotExistException, PromoPostInvalidException,
+            IOException, DiscountInvalidException {
         return ResponseEntity.ok(this.postService.createPromoPost(postDto));
     }
 
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<PostFollowedDto> getRecentPosts(
-            @Valid @PathVariable @Min(message = "El id no puede ser negativo", value = 0) Long userId,
+            @Valid @PathVariable @Min(message = ErrorMessageEnum.CONTROLLER_USERID_MIN, value = 0) Long userId,
             @Valid @RequestParam(required = false, defaultValue = ConstantEnum.ORDER_DATE_DESC) @NotBlank String order)
             throws UserNotExistException, IOException {
         return ResponseEntity.ok(this.postService.getRecentPosts(userId, order));
@@ -49,14 +51,14 @@ public class ProductController {
 
     @GetMapping("/{userId}/countPromo/")
     public ResponseEntity<UserPostDto> countPostsByUserId(
-            @Valid @PathVariable @Min(message = "El id no puede ser negativo", value = 0) Long userId)
+            @Valid @PathVariable @Min(message = ErrorMessageEnum.CONTROLLER_USERID_MIN, value = 0) Long userId)
             throws UserNotExistException, IOException {
         return ResponseEntity.ok(this.postService.countPostsByUserId(userId));
     }
 
     @GetMapping("/{userId}/list/")
     public ResponseEntity<UserPostDto> getPostsByUserId(
-            @Valid @PathVariable @Min(message = "El id no puede ser negativo", value = 0) Long userId,
+            @Valid @PathVariable @Min(message = ErrorMessageEnum.CONTROLLER_USERID_MIN, value = 0) Long userId,
             @Valid @RequestParam(required = false, defaultValue = ConstantEnum.ORDER_DATE_DESC) @NotBlank String order)
             throws UserNotExistException, IOException {
         return ResponseEntity.ok(this.postService.getPostsByUserId(userId, order));

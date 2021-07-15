@@ -2,6 +2,7 @@ package com.example.desafiospring.services.implementation;
 
 import com.example.desafiospring.dtos.UserDto;
 import com.example.desafiospring.entities.User;
+import com.example.desafiospring.enums.ErrorMessageEnum;
 import com.example.desafiospring.exceptions.UserNotExistException;
 import com.example.desafiospring.repositories.IUserRepository;
 import com.example.desafiospring.services.IUserService;
@@ -28,7 +29,7 @@ public class UserService implements IUserService {
     public UserDto findByUserIdAndType(Long userId, boolean isSeller) throws IOException, UserNotExistException {
         User user = this.userRepository.findByIdAndType(userId, isSeller);
         if (Objects.isNull(user))
-            throw new UserNotExistException("No existe un vendedor con el id " + userId);
+            throw new UserNotExistException(String.format(ErrorMessageEnum.USER_NOT_EXIST_EXCEPTION, userId));
         return this.objectMapper.convertValue(user, UserDto.class);
     }
 
@@ -36,7 +37,7 @@ public class UserService implements IUserService {
     public UserDto findByUserId(Long userId) throws IOException, UserNotExistException {
         User user = this.userRepository.findById(userId);
         if (Objects.isNull(user))
-            throw new UserNotExistException("No existe un usuario con el id " + userId);
+            throw new UserNotExistException(String.format(ErrorMessageEnum.USER_NOT_EXIST_EXCEPTION, userId));
         return this.objectMapper.convertValue(user, UserDto.class);
     }
 

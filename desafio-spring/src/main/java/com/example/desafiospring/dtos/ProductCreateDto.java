@@ -1,5 +1,6 @@
 package com.example.desafiospring.dtos;
 
+import com.example.desafiospring.enums.ErrorMessageEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
@@ -12,24 +13,24 @@ import javax.validation.constraints.NotNull;
 @Validated
 public class ProductCreateDto {
 
-    @NotNull(message = "El nombre del producto es obligatorio")
-    @NotBlank(message = "El nombre del producto no puede ser vacio")
+    @NotNull(message = ErrorMessageEnum.PRODUCT_NAME_NOT_NULL)
+    @NotBlank(message = ErrorMessageEnum.PRODUCT_NAME_NOT_BLANK)
     private String productName;
 
-    @NotNull(message = "El tipo del producto es obligatorio")
-    @NotBlank(message = "El tipo del producto no puede ser vacio")
+    @NotNull(message = ErrorMessageEnum.PRODUCT_TYPE_NOT_NULL)
+    @NotBlank(message = ErrorMessageEnum.PRODUCT_TYPE_NOT_BLANK)
     private String type;
 
-    @NotNull(message = "La marca del producto es obligatoria")
-    @NotBlank(message = "La marca del producto no puede ser vacia")
+    @NotNull(message = ErrorMessageEnum.PRODUCT_BRAND_NOT_NULL)
+    @NotBlank(message = ErrorMessageEnum.PRODUCT_BRAND_NOT_BLANK)
     private String brand;
 
-    @NotNull(message = "El color del producto es obligatorio")
-    @NotBlank(message = "El color del producto no puede ser vacio")
+    @NotNull(message = ErrorMessageEnum.PRODUCT_COLOR_NOT_NULL)
+    @NotBlank(message = ErrorMessageEnum.PRODUCT_COLOR_NOT_BLANK)
     private String color;
 
-    @NotNull(message = "El producto debe tener alguna nota")
-    @NotBlank(message = "El nota del producto no puede ser vacia")
+    @NotNull(message = ErrorMessageEnum.PRODUCT_NOTES_NOT_NULL)
+    @NotBlank(message = ErrorMessageEnum.PRODUCT_NOTES_NOT_BLANK)
     private String notes;
 
 }
