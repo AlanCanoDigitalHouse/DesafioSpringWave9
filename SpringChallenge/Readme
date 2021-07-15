@@ -1,0 +1,55 @@
+En esta Api Rest se encontraran los siguientes metodos:
+
+###
+GET http://localhost:8080/users/{{userId}}/followers/list
+Permite obtener una lista de seguidores para un vendedor
+Por defecto el listado viene sin ordenar, enviando el parametro order (name_asc, name_desc), el listado debera
+mostrarse ordenado alfabeticamente por nombre del seguidor.
+
+###
+GET http://localhost:8080/users/{{userId}}/follow/{{userIdToFollow}}
+Permite registrar un seguidor del tipo comprador a un vendedor.
+
+###
+GET http://localhost:8080/users/{{userId}}/followers/count
+Permite ver los datos de un vendedor junto con la cantidad de seguidores que tiene.
+
+###
+GET http://localhost:8080/users/{{userId}}/unfollow/{{userIdToUnfollow}}
+Permite quitar un seguidor de la lista de seguidores del vendedos
+
+###
+GET http://localhost:8080/users/{userId}/followed/list
+PErmite ver una lista de los vendedores a los que sigue un comprador.
+
+###
+POST http://localhost:8080/products/newpost
+Permite ingresar un nuevo post
+
+###
+GET http://localhost:8080/products/followed/{{userId}}/list
+PErmite ver una lista de productos de los vendedores a los que sigue un comprador.
+
+
+############# DATOS##################
+Para facilitar las pruebas se agregaron variables estaticas con listas de datos a nivel de repositorio que contienen los siguientes datos:
+Vendedores:
+Id, Name
+1,"Alfredo Rodriguez"
+2,"Marta Gimenez"
+3,"Laura Paz"
+4,"Lorenzo Martinez"
+
+Compradores
+5,"Veronica Rodriguez"
+6,"Martin Costa"
+7,"Luciana Vigna"
+8,"Pedro Dimarco"
+
+PRODUCTOS
+POSTID, userId, DATE
+ 1,1, 29-12-19
+ 2,1,30-9-2020
+ 3,2, 15-5-2020
+ 4,3,18-10-2019
+ 5,3, 5-2-2021
