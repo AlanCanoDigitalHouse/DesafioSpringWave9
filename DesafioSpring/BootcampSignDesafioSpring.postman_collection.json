@@ -23,16 +23,16 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/users/{userId}/follow/{userIdToFollow}",
+							"raw": "localhost:8080/users/2236/follow/1569",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"users",
-								"{userId}",
+								"2236",
 								"follow",
-								"{userIdToFollow}"
+								"1569"
 							]
 						},
 						"description": "Poder realizar la acción de “Follow” (seguir) a un determinado vendedor"
@@ -45,14 +45,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/users/{userId}/followers/count/",
+							"raw": "localhost:8080/users/1569/followers/count/",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"users",
-								"{userId}",
+								"1569",
 								"followers",
 								"count",
 								""
@@ -113,7 +113,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userId\": 1569,\n    \"date\" : \"10-07-2021\",\n    \t\"detail\" :\n        \t{ \n                \"productName\" : \"Silla Gamer\",\n          \t    \"type\" : \"Gamer\",\n                \"brand\" : \"Racer\",\n                \"color\" : \"Red & Black\",\n                \"notes\" : \"Special Edition\"\n        \t},\n    \"category\" : 100,\n    \"price\" : 1500.50\n}",
+							"raw": "{\n    \"userId\": 1569,\n    \"date\" : \"10-07-2021\",\n    \t\"detail\" :\n        \t{ \n                \"productName\" : \"Silla Gamer\",\n          \t    \"type\" : \"Gamer\",\n                \"brand\" : \"Racer\",\n                \"color\" : \"Red & Black\",\n                \"notes\" : \"Special Edition\"\n        \t},\n    \"category\" : 100,\n    \"price\" : 0.50\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -304,7 +304,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/products/1569/list/",
+							"raw": "localhost:8080/products/1569/list",
 							"host": [
 								"localhost"
 							],
@@ -312,8 +312,7 @@
 							"path": [
 								"products",
 								"1569",
-								"list",
-								""
+								"list"
 							]
 						}
 					},
@@ -325,7 +324,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/products/1569/list/",
+							"raw": "localhost:8080/products/1569/list?order=name_asc",
 							"host": [
 								"localhost"
 							],
@@ -333,8 +332,13 @@
 							"path": [
 								"products",
 								"1569",
-								"list",
-								""
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "name_asc"
+								}
 							]
 						}
 					},
@@ -350,7 +354,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:8080/information/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"information",
+								"users"
+							]
+						}
 					},
 					"response": []
 				},
@@ -359,7 +373,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:8080/information/sellers",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"information",
+								"sellers"
+							]
+						}
 					},
 					"response": []
 				}
