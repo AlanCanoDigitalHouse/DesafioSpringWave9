@@ -43,12 +43,21 @@ public class PostRepository {
         return mapObject(file);
     }
 
-
     public List<Post> listPostPublishedByUser(List<Integer> userIDs) {
         try {
             return loadFromJSON()
                     .stream()
                     .filter(p -> userIDs.contains(p.getUserId())).collect(Collectors.toList());
+        } catch (IOException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    public List<Post> listPostPublishedByUser(int userId) {
+        try {
+            return loadFromJSON()
+                    .stream()
+                    .filter(p -> p.getUserId() == userId).collect(Collectors.toList());
         } catch (IOException e) {
             return new ArrayList<>();
         }

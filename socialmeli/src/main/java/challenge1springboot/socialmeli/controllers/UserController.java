@@ -3,7 +3,7 @@ package challenge1springboot.socialmeli.controllers;
 import challenge1springboot.socialmeli.DTO.response.UserCountFollowersResponseDTO;
 import challenge1springboot.socialmeli.DTO.response.UserListFollowedResponseDTO;
 import challenge1springboot.socialmeli.DTO.response.UserListFollowersResponseDTO;
-import challenge1springboot.socialmeli.globalconstants.Reference;
+import challenge1springboot.socialmeli.entities.User;
 import challenge1springboot.socialmeli.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,5 +44,10 @@ public class UserController {
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<HttpStatus> unfollowUser(@PathVariable String userId, @PathVariable String userIdToUnfollow) {
         return userService.unfollowUser(userId, userIdToUnfollow);
+    }
+
+    @PostMapping("/new/{userName}")
+    public ResponseEntity<User> newFollow(@PathVariable String userName) {
+        return new ResponseEntity<>(userService.newUser(userName), HttpStatus.OK);
     }
 }

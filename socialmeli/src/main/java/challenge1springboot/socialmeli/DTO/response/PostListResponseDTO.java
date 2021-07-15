@@ -31,37 +31,3 @@ public class PostListResponseDTO {
         );
     }
 }
-/*
-{
-        "userId": 4698,
-        "posts": [
-        {
-        "id_post" : 32,
-        "date" : "01-05-2021”,
-        "detail" :
-        { “product_id” : 62,
-        "productName" : "Headset RGB Inalámbrico",
-        "type" : "Gamer",,
-        "brand" : "Razer"
-        "color" : "Green with RGB",
-        "notes" : "Sin Batería"
-        },
-        "category" : "120",
-        "price" : 2800.69,
-        },
-        {
-        "id_post" : 18,
-        "date" : "29-04-2021”,
-        "detail" :
-        { “product_id” : 1,
-        "productName" : "Silla Gamer",
-        "type" : "Gamer",,
-        "brand" : "Racer"
-        "color" : "Red & Black",
-        "notes" : "Special Edition"
-        },
-        "category" : "100",
-        "price" : 15000.50,
-        }
-        ]
-        }*/

@@ -80,6 +80,13 @@ public class UserService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    public User newUser(String userName) {
+        User user = userRepository.save(userName);
+        if (Objects.isNull(user))
+            throw new InvalidUserException(Message.NEW_USER_FAIL);
+        return user;
+    }
+
     private User userGetter(String userId) {
         User user = null;
         try {

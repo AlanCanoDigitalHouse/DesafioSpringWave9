@@ -12,8 +12,6 @@ import challenge1springboot.socialmeli.repositories.UserRepository;
 import challenge1springboot.socialmeli.utils.DateValidator;
 import challenge1springboot.socialmeli.globalconstants.Message;
 import challenge1springboot.socialmeli.utils.SorterUtil;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -28,14 +26,15 @@ public class PostService {
     private final PostRepository postRepository = new PostRepository();
     private final UserRepository userRepository = new UserRepository();
 
-    public ResponseEntity<HttpStatus> newPost(NewPostRequestDTO newPostRequestDTO) {
+    public Post newPost(NewPostRequestDTO newPostRequestDTO) {
         if (!DateValidator.validDate(newPostRequestDTO.getDate()))
             throw new InvalidPostException(Message.NO_VALID_DATE);
         if (Objects.isNull(userRepository.findById(newPostRequestDTO.getUserId())))
             throw new InvalidUserException(Message.USER_NOT_EXIST);
-        if (Objects.isNull(postRepository.save(newPostRequestDTO)))
+        Post post = postRepository.save(newPostRequestDTO);
+        if (Objects.isNull(post))
             throw new InvalidPostException(Message.NEW_POST_NOT_REACHABLE);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return post;
     }
 
     public PostListResponseDTO listPosts(String userId, String order) {

@@ -1,16 +1,1 @@
-[
-  {"userId":1,"userName":"MELI SRL","followers":[13,14,15,16,17]},
-  {"userId":2,"userName":"Microsoft","followers":[8,9,10]},
-  {"userId":3,"userName":"Megatone","followers":[11,12,13,14]},
-  {"userId":4,"userName":"Dell","followers":[8,9]},
-  {"userId":5,"userName":"HP Store","followers":[8,9,10]},
-  {"userId":6,"userName":"Fravega","followers":[13,14,15]},
-  {"userId":7,"userName":"Xerox","followers":[8,12,14]},
-  {"userId":8,"userName":"Carl Friedrich Gauss","followers":[]},
-  {"userId":9,"userName":"Nikola Tesla","followers":[]},
-  {"userId":10,"userName":"Kim Dotcom","followers":[]},
-  {"userId":11,"userName":"Isaac Newton","followers":[]},
-  {"userId":12,"userName":"Steve Wozniak","followers":[]},
-  {"userId":13,"userName":"Ada Lovelace","followers":[]},
-  {"userId":14,"userName":"Sofya Kovalevskaya","followers":[]}
-]
+[{"userId":1,"userName":"MELI SRL","followers":[13,14,15,16,17]},{"userId":2,"userName":"Microsoft","followers":[8,9,10]},{"userId":3,"userName":"Megatone","followers":[11,12,13,14]},{"userId":4,"userName":"Dell","followers":[8,9]},{"userId":5,"userName":"HP Store","followers":[8,9,10]},{"userId":6,"userName":"Fravega","followers":[13,14,15]},{"userId":7,"userName":"Xerox","followers":[8,12,14]},{"userId":8,"userName":"Carl Friedrich Gauss","followers":[]},{"userId":9,"userName":"Nikola Tesla","followers":[]},{"userId":10,"userName":"Kim Dotcom","followers":[]},{"userId":11,"userName":"Isaac Newton","followers":[]},{"userId":12,"userName":"Steve Wozniak","followers":[]},{"userId":13,"userName":"Ada Lovelace","followers":[]},{"userId":14,"userName":"Sofya Kovalevskaya","followers":[]},{"userId":16,"userName":"aliexpress","followers":[]}]

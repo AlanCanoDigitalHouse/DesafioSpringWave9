@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Validated
 public class ProductDetailDTO {
 
