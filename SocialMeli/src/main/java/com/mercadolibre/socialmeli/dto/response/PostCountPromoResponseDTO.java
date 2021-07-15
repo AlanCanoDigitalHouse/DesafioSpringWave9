@@ -1,11 +1,9 @@
 package com.mercadolibre.socialmeli.dto.response;
 
 import com.mercadolibre.socialmeli.entity.UserBase;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
