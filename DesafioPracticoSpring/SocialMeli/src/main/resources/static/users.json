@@ -1,0 +1,62 @@
+[
+  {
+    "userId": 1,
+    "userName": "usuario_1",
+    "followedList": [],
+    "followerList": []
+  },
+  {
+    "userId": 2,
+    "userName": "usuario_2",
+    "followedList": [],
+    "followerList": []
+  },
+  {
+    "userId": 3,
+    "userName": "usuario_3",
+    "followedList": [],
+    "followerList": []
+  },
+  {
+    "userId": 4,
+    "userName": "usuario_4",
+    "followedList": [],
+    "followerList": []
+  },
+  {
+    "userId": 5,
+    "userName": "usuario_5",
+    "followedList": [],
+    "followerList": []
+  },
+  {
+    "userId": 6,
+    "userName": "usuario_6",
+    "followedList": [],
+    "followerList": []
+  },
+  {
+    "userId": 7,
+    "userName": "usuario_7",
+    "followedList": [],
+    "followerList": []
+  },
+  {
+    "userId": 8,
+    "userName": "usuario_8",
+    "followedList": [],
+    "followerList": []
+  },
+  {
+    "userId": 9,
+    "userName": "usuario_9",
+    "followedList": [],
+    "followerList": []
+  },
+  {
+    "userId": 10,
+    "userName": "usuario_10",
+    "followedList": [],
+    "followerList": []
+  }
+]

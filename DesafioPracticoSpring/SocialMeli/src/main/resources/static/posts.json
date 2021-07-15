@@ -1,0 +1,290 @@
+[
+  {
+    "userId": 1,
+    "id_post": 1,
+    "date": "20-06-2021",
+    "detail":
+    {
+      "product_id": 1,
+      "productName": "producto_1",
+      "type": "type_1",
+      "brand": "brand_1",
+      "color": "color_1",
+      "notes": "notes_1"
+    },
+    "category": 1,
+    "price": 1.0
+  },
+  {
+    "userId": 2,
+    "id_post": 2,
+    "date": "10-07-2021",
+    "detail":
+    {
+      "product_id": 2,
+      "productName": "producto_2",
+      "type": "type_2",
+      "brand": "brand_2",
+      "color": "color_2",
+      "notes": "notes_2"
+    },
+    "category": 2,
+    "price": 2.0
+  },
+  {
+    "userId": 3,
+    "id_post": 3,
+    "date": "01-07-2021",
+    "detail":
+    {
+      "product_id": 3,
+      "productName": "producto_3",
+      "type": "type_3",
+      "brand": "brand_3",
+      "color": "color_3",
+      "notes": "notes_3"
+    },
+    "category": 3,
+    "price": 3.0
+  },
+  {
+    "userId": 4,
+    "id_post": 4,
+    "date": "25-06-2021",
+    "detail":
+    {
+      "product_id": 4,
+      "productName": "producto_4",
+      "type": "type_4",
+      "brand": "brand_4",
+      "color": "color_4",
+      "notes": "notes_4"
+    },
+    "category": 4,
+    "price": 4.0
+  },
+  {
+    "userId": 5,
+    "id_post": 5,
+    "date": "18-06-2021",
+    "detail":
+    {
+      "product_id": 5,
+      "productName": "producto_5",
+      "type": "type_5",
+      "brand": "brand_5",
+      "color": "color_5",
+      "notes": "notes_5"
+    },
+    "category": 5,
+    "price": 5.0
+  },
+  {
+    "userId": 6,
+    "id_post": 6,
+    "date": "15-06-2021",
+    "detail":
+    {
+      "product_id": 6,
+      "productName": "producto_6",
+      "type": "type_6",
+      "brand": "brand_6",
+      "color": "color_6",
+      "notes": "notes_6"
+    },
+    "category": 6,
+    "price": 6.0
+  },
+  {
+    "userId": 7,
+    "id_post": 7,
+    "date": "27-06-2021",
+    "detail":
+    {
+      "product_id": 7,
+      "productName": "producto_7",
+      "type": "type_7",
+      "brand": "brand_7",
+      "color": "color_7",
+      "notes": "notes_7"
+    },
+    "category": 7,
+    "price": 7.0
+  },
+  {
+    "userId": 1,
+    "id_post": 8,
+    "date": "29-06-2021",
+    "detail":
+    {
+      "product_id": 8,
+      "productName": "producto_8",
+      "type": "type_8",
+      "brand": "brand_8",
+      "color": "color_8",
+      "notes": "notes_8"
+    },
+    "category": 8,
+    "price": 8.0
+  },
+  {
+    "userId": 2,
+    "id_post": 9,
+    "date": "21-06-2021",
+    "detail":
+    {
+      "product_id": 9,
+      "productName": "producto_9",
+      "type": "type_9",
+      "brand": "brand_9",
+      "color": "color_9",
+      "notes": "notes_9"
+    },
+    "category": 9,
+    "price": 9.0
+  },
+  {
+    "userId": 2,
+    "id_post": 10,
+    "date": "05-06-2021",
+    "detail":
+    {
+      "product_id": 10,
+      "productName": "producto_10",
+      "type": "type_10",
+      "brand": "brand_10",
+      "color": "color_10",
+      "notes": "notes_10"
+    },
+    "category": 10,
+    "price": 10.0
+  },
+  {
+    "userId": 2,
+    "id_post": 11,
+    "date": "07-06-2021",
+    "detail":
+    {
+      "product_id": 11,
+      "productName": "producto_11",
+      "type": "type_11",
+      "brand": "brand_11",
+      "color": "color_11",
+      "notes": "notes_11"
+    },
+    "category": 11,
+    "price": 11.0
+  },
+  {
+    "userId": 3,
+    "id_post": 12,
+    "date": "12-06-2021",
+    "detail":
+    {
+      "product_id": 12,
+      "productName": "producto_12",
+      "type": "type_12",
+      "brand": "brand_12",
+      "color": "color_12",
+      "notes": "notes_12"
+    },
+    "category": 12,
+    "price": 12.0
+  },
+  {
+    "userId": 3,
+    "id_post": 13,
+    "date": "24-06-2021",
+    "detail":
+    {
+      "product_id": 13,
+      "productName": "producto_13",
+      "type": "type_13",
+      "brand": "brand_13",
+      "color": "color_13",
+      "notes": "notes_13"
+    },
+    "category": 13,
+    "price": 13.0
+  },
+  {
+    "userId": 1,
+    "id_post": 14,
+    "date": "09-06-2021",
+    "detail":
+    {
+      "product_id": 14,
+      "productName": "producto_14",
+      "type": "type_14",
+      "brand": "brand_14",
+      "color": "color_14",
+      "notes": "notes_14"
+    },
+    "category": 14,
+    "price": 14.0
+  },
+  {
+    "userId": 2,
+    "id_post": 15,
+    "date": "01-07-2021",
+    "detail":
+    {
+      "product_id": 15,
+      "productName": "producto_15",
+      "type": "type_15",
+      "brand": "brand_15",
+      "color": "color_15",
+      "notes": "notes_15"
+    },
+    "category": 15,
+    "price": 1.0
+  },
+  {
+    "userId": 3,
+    "id_post": 16,
+    "date": "02-07-2021",
+    "detail":
+    {
+      "product_id": 16,
+      "productName": "producto_16",
+      "type": "type_16",
+      "brand": "brand_16",
+      "color": "color_16",
+      "notes": "notes_16"
+    },
+    "category": 16,
+    "price": 16.0
+  },
+  {
+    "userId": 1,
+    "id_post": 17,
+    "date": "10-07-2021",
+    "detail":
+    {
+      "product_id": 17,
+      "productName": "producto_17",
+      "type": "type_17",
+      "brand": "brand_17",
+      "color": "color_17",
+      "notes": "notes_17"
+    },
+    "category": 17,
+    "price": 17.0
+  },
+  {
+    "userId": 2,
+    "id_post": 18,
+    "date": "05-07-2021",
+    "detail":
+    {
+      "product_id": 18,
+      "productName": "producto_18",
+      "type": "type_18",
+      "brand": "brand_18",
+      "color": "color_18",
+      "notes": "notes_18"
+    },
+    "category": 18,
+    "price": 18.0
+  }
+]
