@@ -3,6 +3,7 @@ package com.mercadolibre.socialmedia.services;
 import com.mercadolibre.socialmedia.dtos.PostDto;
 import com.mercadolibre.socialmedia.dtos.User;
 import com.mercadolibre.socialmedia.dtos.UserDto;
+import com.mercadolibre.socialmedia.dtos.request.PostPromoQuantityResponse;
 import com.mercadolibre.socialmedia.dtos.request.PostPromoRequest;
 import com.mercadolibre.socialmedia.dtos.request.PostRequestDto;
 import com.mercadolibre.socialmedia.dtos.response.FollowedUsersResponse;
@@ -156,6 +157,14 @@ public class SocialMediaServiceImpl implements ISocialMediaService{
         this.deleteFollowed(userId, userToUnfollow);
         this.deleteFollower(userId, userToUnfollow);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @Override
+    public PostPromoQuantityResponse countPosts(Integer userId) {
+        UserDto user = iSocialMediaRepository.findUserById(userId);
+        List<PostDto> posts = user.getPosts();
+        Integer countPromo = posts.stream().filter(post -> Objects.nonNull(post.getHasPromo())).toArray().length;
+        return new PostPromoQuantityResponse(user.getUserId(), user.getUserName(), countPromo);
     }
 
     private void deleteFollower(Integer userId, Integer userToUnfollow){

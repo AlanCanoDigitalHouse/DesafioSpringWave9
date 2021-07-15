@@ -1,6 +1,7 @@
 package com.mercadolibre.socialmedia.controllers;
 
 import com.mercadolibre.socialmedia.dtos.PostDto;
+import com.mercadolibre.socialmedia.dtos.request.PostPromoQuantityResponse;
 import com.mercadolibre.socialmedia.dtos.request.PostPromoRequest;
 import com.mercadolibre.socialmedia.dtos.request.PostRequestDto;
 import com.mercadolibre.socialmedia.dtos.response.FollowedUsersResponse;
@@ -74,5 +75,10 @@ public class SocialMediaController {
     @PostMapping("/products/newpromopost")
     public ResponseEntity addNewPostPromo(@Valid @RequestBody PostPromoRequest postPromoRequest){
         return iSocialMediaService.addNewPost(postPromoRequest);
+    }
+
+    @GetMapping("/products/{userId}/countPromo/")
+    public PostPromoQuantityResponse countPostPromo(@Valid @PathVariable @Min(0) Integer userId){
+        return iSocialMediaService.countPosts(userId);
     }
 }

@@ -128,3 +128,32 @@ GET:
 
     /products/followed/0/list?order=date_asc 
     /products/followed/0/list?order=date_desc
+
+### US 0010
+POST:  /products/newpromopost
+
+Ejemplo:
+
+    {
+        "userId": 1,
+        "date" : "30-07-2021",
+        "detail" :
+            { 
+                "productName" : "Producto en Promo", 
+                "type" : "Gamer",
+                "brand" : "Racer",
+                "color" : "Red & Black", 
+                "notes" : "Special Edition"
+            },
+        "category" : "100", 
+        "price" : 1500.50, 
+        "hasPromo": true, 
+        "discount": 0.25
+    }
+
+### US 0011
+GET: /products/{userId}/countPromo/
+
+Ejemplo:
+
+    /products/1/countPromo/
