@@ -2,7 +2,7 @@ package com.mercadolibre.social_meli.repository;
 
 import com.mercadolibre.social_meli.dto.request.ProductRequestDTO;
 import com.mercadolibre.social_meli.entity.Post;
-import com.mercadolibre.social_meli.exception.InvalidQueryParamException;
+import com.mercadolibre.social_meli.exception.InvalidValueException;
 import com.mercadolibre.social_meli.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Repository;
 
@@ -96,7 +96,7 @@ public class ProductRepository extends JSONRepository<Post> implements IProductR
                 Collections.reverse(posts);
                 break;
             default:
-                throw new InvalidQueryParamException("Order param must be date_asc or date_desc");
+                throw new InvalidValueException("Order param must be date_asc or date_desc");
         }
     }
 }

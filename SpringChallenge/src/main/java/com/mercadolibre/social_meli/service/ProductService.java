@@ -4,6 +4,8 @@ import com.mercadolibre.social_meli.dto.request.ProductRequestDTO;
 import com.mercadolibre.social_meli.dto.response.FollowedPostsResponseDTO;
 import com.mercadolibre.social_meli.dto.response.ProductResponseDTO;
 import com.mercadolibre.social_meli.dto.response.UserResponseDTO;
+import com.mercadolibre.social_meli.exception.InvalidValueException;
+import com.mercadolibre.social_meli.helper.DateValidator;
 import com.mercadolibre.social_meli.repository.IProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +32,11 @@ public class ProductService implements IProductService {
     public void postNewProduct(ProductRequestDTO productData) {
         // this is used as a check for user existence. Throws a runtime exception when no user is found.
         this.userService.getUserById(productData.getUserId());
-        this.productRepository.saveProduct(productData);
+        if (DateValidator.isValid(productData.getDate())) {
+            this.productRepository.saveProduct(productData);
+        } else {
+            throw new InvalidValueException("Date must be in dd-MM-yyyy format");
+        }
     }
 
     @Override
@@ -56,7 +62,7 @@ public class ProductService implements IProductService {
 
     private List<ProductResponseDTO> filterRecentPosts(List<ProductResponseDTO> posts) {
         var today = LocalDate.now();
-        var dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        var dateFormatter = DateValidator.getDateTimeFormatter();
         return posts.stream().filter(
                 p -> ChronoUnit.DAYS.between(LocalDate.parse(p.getDate(), dateFormatter), today) <= RECENT_DAYS
         ).collect(Collectors.toList());

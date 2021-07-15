@@ -5,7 +5,7 @@ import com.mercadolibre.social_meli.dto.response.FollowerCountResponseDTO;
 import com.mercadolibre.social_meli.dto.response.FollowersResponseDTO;
 import com.mercadolibre.social_meli.dto.response.UserResponseDTO;
 import com.mercadolibre.social_meli.entity.User;
-import com.mercadolibre.social_meli.exception.InvalidQueryParamException;
+import com.mercadolibre.social_meli.exception.InvalidValueException;
 import com.mercadolibre.social_meli.exception.NoEffectRequest;
 import com.mercadolibre.social_meli.repository.IUserRepository;
 import org.springframework.stereotype.Service;
@@ -68,10 +68,9 @@ public class UserService implements IUserService {
                             .findFirst().orElse(null)
             );
             this.userRepository.updateAllUsers(users);
-            return;
+        } else {
+            throw new NoEffectRequest("User does not follow the target");
         }
-
-        throw new NoEffectRequest("User does not follow the target");
     }
 
     @Override
@@ -119,7 +118,7 @@ public class UserService implements IUserService {
                 users.sort(Comparator.comparing(UserResponseDTO::getUserName).reversed());
                 break;
             default:
-                throw new InvalidQueryParamException("Order param must be name_asc or name_desc");
+                throw new InvalidValueException("Order param must be name_asc or name_desc");
         }
     }
 }
