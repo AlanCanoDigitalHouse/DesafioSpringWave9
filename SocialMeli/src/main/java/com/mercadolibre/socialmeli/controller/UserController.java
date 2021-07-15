@@ -24,6 +24,12 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     *
+     * @param userId
+     * @param userIdToFollow
+     * @return
+     */
     @PostMapping("/users/{userId}/follow/{userIdToFollow}")
     @ResponseStatus(HttpStatus.OK)
     public String follow(
@@ -33,6 +39,11 @@ public class UserController {
         return "user successfully followed";
     }
 
+    /**
+     *
+     * @param userId
+     * @return
+     */
     @GetMapping("/users/{userId}/followers/count/")
     @ResponseStatus(HttpStatus.OK)
     public UserWithFollowersCountDTO getUserWithFollowersCount(
@@ -40,7 +51,13 @@ public class UserController {
     ){
         return userService.getUserWithFollowersCountDTO(userId);
     }
-   
+
+    /**
+     *
+     * @param UserID
+     * @param order
+     * @return
+     */
     @GetMapping("/users/{UserID}/followers/list")
     @ResponseStatus(HttpStatus.OK)
     public UserWithFollowersDTO getUserWithFollowersDTO(
@@ -52,6 +69,11 @@ public class UserController {
         return userService.getUserWithFollowers(UserID, order.orElse("name_asc"));
     }
 
+    /**
+     *
+     * @param UserID
+     * @return
+     */
     @GetMapping("/users/{UserID}/followed/list")
     @ResponseStatus(HttpStatus.OK)
     public UserWithFollowedDTO getUserWithFollowed(
@@ -60,6 +82,12 @@ public class UserController {
         return userService.getUSerWithFollowed(UserID);
     }
 
+    /**
+     *
+     * @param userId
+     * @param userIdToUnfollow
+     * @return
+     */
     @PostMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
     @ResponseStatus(HttpStatus.OK)
     public String unFollow(

@@ -28,6 +28,11 @@ public class PostController {
         this.userService = userService;
     }
 
+    /**
+     *
+     * @param postRequestDTO
+     * @return
+     */
     @PostMapping("/products/newpost")
     @ResponseStatus(HttpStatus.OK)
     public String newPost(
@@ -38,6 +43,11 @@ public class PostController {
         return "post successfully created";
     }
 
+    /**
+     *
+     * @param postPromoRequestDTO
+     * @return
+     */
     @PostMapping("/products/newpromopost")
     @ResponseStatus(HttpStatus.OK)
     public String newPostPromo(
@@ -48,6 +58,11 @@ public class PostController {
         return "post successfully created";
     }
 
+    /**
+     * @param userId
+     * @param order
+     * @return
+     */
     @GetMapping("/products/followed/{userId}/list")
     @ResponseStatus(HttpStatus.OK)
     public PostResponseDTO getPostsFollowed(
@@ -58,6 +73,11 @@ public class PostController {
         return postService.getPostsFollowed(userId, order.orElse("date_asc"));
     }
 
+    /**
+     *
+     * @param userId
+     * @return
+     */
     @GetMapping("/products/{userId}/list/")
     @ResponseStatus(HttpStatus.OK)
     public PostResponseDTO getPostsWithPromoByUser(
@@ -65,6 +85,11 @@ public class PostController {
         return postService.getPostsWithPromoByUser(userId);
     }
 
+    /**
+     * 
+     * @param userId
+     * @return
+     */
     @GetMapping("/products/{userId}/countPromo/")
     @ResponseStatus(HttpStatus.OK)
     public PostCountPromoResponseDTO getPostsPromoCount(
