@@ -34,8 +34,8 @@ public class SocialMeliController {
 
     //003
     @GetMapping(value = Router.GET_FOLLOWERS_LIST)
-    public FollowersListResponse getFollowersList(@Valid @PathVariable @Min(0) Integer userID){
-        return socialMeliService.followersList(userID);
+    public FollowersListResponse getFollowersList(@Valid @PathVariable @Min(0) Integer UserID){
+        return socialMeliService.followersList(UserID);
     }
 
     //004
@@ -46,7 +46,7 @@ public class SocialMeliController {
 
     //005
     @PostMapping(value = Router.NEW_POST)
-    public HttpStatus newPost(@Valid @RequestBody NewPostRequest newPostRequest){
+    public HttpStatus newPost(@RequestBody NewPostRequest newPostRequest){
         return socialMeliService.newPost(newPostRequest);
     }
 

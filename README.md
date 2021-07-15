@@ -2,13 +2,16 @@
 
 Bootcamp Backend Java Desafío Spring
 
+
+
 ## Content
 
 - [Architecture used](#Architecture)
 - [Technologies and tools](#Technologies)
 - [Installation](#Installation)
-- [Build&Run](#) 
+- [Build&Run](#Build&Run) 
 - [API](#API)
+- [UsersForTestAPI](#UsersForTestAPI)
 - [Contributors](#Contributors)
 - [License](#License)
 ----
@@ -77,9 +80,24 @@ $ docker-compose down
 | 011 | GET | /products/{userId}/countPromo/ | {userId}(int) identification user | promo post count by user |
 | 012 | GET | /products/{userId}/list | {userId}(int) identification user | promo post list by user |
 
+----- 
+
+# Users For Test API 
+
+| User Id | User Name | Followers(Id) | Following(Id) | 
+| ------- | --------- | --------- | --------- |
+| 1001 | aaabbb | Empty | 1002, 1003, 1004 |
+| 1002 | zzzzz | 1001, 1003, 1004, 1005 | Empty |
+| 1003 | xxxxx | Empty | 1002 |  
+| 1004 | ccccc | Empty | 1002 |
+| 1005 | ppppp | Empty | 1002 |
+
+-----
 
 # Contributors
 - [Manuel Alejandro García](https://github.com/ManuGarciaMeli)
+
+-----
 
 # License
 This project is property of Mercado Libre.

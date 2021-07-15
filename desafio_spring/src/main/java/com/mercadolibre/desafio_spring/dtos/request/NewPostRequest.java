@@ -17,12 +17,10 @@ import java.util.Date;
 @Validated
 public class NewPostRequest {
     @Min(message = "Id errado",value = 1)
-    @NotNull(message = "Id nulo")
-    int userId;
+    Integer userId;
 
     @Min(message = "Id errado",value = 1)
-    @NotNull(message = "Id nulo")
-    int id_post;
+    Integer id_post;
 
     @NotNull(message = "Id nulo")
     @JsonFormat(pattern="dd-MM-yyyy")
@@ -32,10 +30,8 @@ public class NewPostRequest {
     Product detail;
 
     @Min(message = "No se reconoce la categoria",value = 1)
-    @NotNull(message = "Id nulo")
-    int category;
+    Integer category;
 
     @Min(message = "Valor errado",value = 0)
-    @NotNull(message = "El producto debe tener un precio, puede ser 0")
-    double price;
+    Double price;
 }

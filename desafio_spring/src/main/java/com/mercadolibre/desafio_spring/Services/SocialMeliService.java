@@ -163,15 +163,22 @@ public class SocialMeliService implements ISocialMeliService {
     @Override
     public void sortedFollowersUser(int userId, String sortedMet) {
         Optional<User> user = repository.findUserById(userId);
+        System.out.println(sortedMet);
         if (user.isPresent()) {
             if(sortedMet.equals("name_asc")){
-                List<User> tempUsers = user.get().getFollowers().stream().sorted(Comparator.comparing(User::getUserName)).collect(Collectors.toList());
-                user.get().setFollowing((ArrayList<User>) tempUsers);
+                List<User> tempUsers = user.get()
+                        .getFollowers()
+                        .stream()
+                        .sorted(Comparator.comparing(User::getUserName)).collect(Collectors.toList());
+                user.get().setFollowers((ArrayList<User>) tempUsers);
             }
             else if(sortedMet.equals("name_desc"))
             {
-                List<User> tempUsers = user.get().getFollowers().stream().sorted(Comparator.comparing(User::getUserName).reversed()).collect(Collectors.toList());
-                user.get().setFollowing((ArrayList<User>) tempUsers);
+                List<User> tempUsers = user.get()
+                        .getFollowers()
+                        .stream()
+                        .sorted(Comparator.comparing(User::getUserName).reversed()).collect(Collectors.toList());
+                user.get().setFollowers((ArrayList<User>) tempUsers);
             }
             repository.putUser(user.get());
         }

@@ -3,7 +3,7 @@ package com.mercadolibre.desafio_spring.Router;
 public class Router {
     public static final String FOLLOW="/users/{userId}/follow/{userIdToFollow}";
     public static final String GET_FOLLOWERS_COUNT = "/users/{userID}/followers/count";
-    public static final String GET_FOLLOWERS_LIST = "/users/{userID}/followers/list";
+    public static final String GET_FOLLOWERS_LIST = "/users/{UserID}/followers/list";
     public static final String GET_FOLLOWED_LIST = "/users/{UserID}/followed/list";
     public static final String NEW_POST = "/products/newpost";
     public static final String PRODUCTS_FOLLOWED = "/products/followed/{userId}/list";
