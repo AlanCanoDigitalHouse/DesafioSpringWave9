@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 public class ValidationHandler {
 
-    private static final String pattern = "dd-mm-yyyy";
+    private static final String DATE_PATTERN = "dd-MM-yyyy";
 
     public static Seller validateSeller(int userIdToFollow, IRepository repository) throws UserException {
         Seller seller = (Seller) repository.get(userIdToFollow);
@@ -31,8 +31,8 @@ public class ValidationHandler {
     }
 
     public static LocalDate validateDate(String dateString) throws UserException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate date = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+        LocalDate date;
         try {
             date = LocalDate.parse(dateString, formatter);
         } catch (Exception e) {

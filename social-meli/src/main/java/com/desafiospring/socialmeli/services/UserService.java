@@ -33,6 +33,16 @@ public class UserService implements IUser {
     }
 
     @Override
+    public Seller getSeller(int userId) throws UserException {
+        return ValidationHandler.validateSeller(userId, sellerRepository);
+    }
+
+    @Override
+    public Buyer getBuyer(int userId) throws UserException {
+        return ValidationHandler.validateUser(userId, buyerRepository);
+    }
+
+    @Override
     public void addFollower(int userId, int userIdToFollow) throws UserException {
         Buyer buyer = ValidationHandler.validateUser(userId, buyerRepository);
         Seller seller = ValidationHandler.validateSeller(userIdToFollow, sellerRepository);

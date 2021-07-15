@@ -5,12 +5,9 @@ import com.desafiospring.socialmeli.dtos.responses.SellerFollowersCountDTO;
 import com.desafiospring.socialmeli.dtos.responses.SellerFollowersDTO;
 import com.desafiospring.socialmeli.exceptions.UserException;
 import com.desafiospring.socialmeli.services.IUser;
-import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/users")

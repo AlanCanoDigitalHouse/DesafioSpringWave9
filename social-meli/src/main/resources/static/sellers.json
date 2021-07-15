@@ -5,11 +5,11 @@
     "followers": [
       {
         "userId": 4002,
-        "userName": "usuario1"
+        "userName": "usuario2"
       },
       {
         "userId": 4001,
-        "userName": "usuario2"
+        "userName": "usuario1"
       },
       {
         "userId": 4003,

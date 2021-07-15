@@ -28,19 +28,19 @@ public class ProductService implements IProduct {
 
     private final String[] orderOptions = {"date_asc", "date_desc"};
 
-    BuyerRepository buyerRepository;
-    SellerRepository sellerRepository;
     ProductRepository productRepository;
+    UserService userService;
 
-    public ProductService(BuyerRepository buyerRepository, SellerRepository sellerRepository, ProductRepository productRepository) {
-        this.buyerRepository = buyerRepository;
-        this.sellerRepository = sellerRepository;
+    public ProductService(UserService userService, ProductRepository productRepository) {
+        this.userService = userService;
         this.productRepository = productRepository;
     }
 
     @Override
     public Post addPost(PostRequestDTO postDTO) throws UserException {
-        ValidationHandler.validateSeller(postDTO.getUserId(), sellerRepository);
+        /** Validar vendedor */
+        userService.getSeller(postDTO.getUserId());
+
         LocalDate date = ValidationHandler.validateDate(postDTO.getDate());
         Boolean hasPromo = postDTO.isHasPromo();
         Double discount = 0.0;
@@ -56,7 +56,7 @@ public class ProductService implements IProduct {
     @Override
     public PostListDto getFollowedSellersPost(int userId, String order) throws UserException {
         /** Validar usuario */
-        Buyer buyer = ValidationHandler.validateUser(userId, buyerRepository);
+        Buyer buyer = userService.getBuyer(userId);
 
         /** Validar orden*/
         if(Arrays.stream(orderOptions).noneMatch(order::equals)){
@@ -83,14 +83,14 @@ public class ProductService implements IProduct {
 
     @Override
     public PromoPostCountDTO getCountPromoPosts(int userId) throws UserException {
-        Seller seller = ValidationHandler.validateSeller(userId, sellerRepository);
+        Seller seller = userService.getSeller(userId);
         List<Post> promoUserPosts = promoUserPosts(userId);
         return new PromoPostCountDTO(seller.getUserId(), seller.getUserName(), promoUserPosts.size());
     }
 
     @Override
     public PromoPostsDTO getPromoPosts(int userId, String order) throws UserException {
-        Seller seller = ValidationHandler.validateSeller(userId, sellerRepository);
+        Seller seller = userService.getSeller(userId);
         List<Post> promoUserPosts = promoUserPosts(userId);
 
         List<Post> sortedList = promoUserPosts.stream().sorted((o1, o2) -> productComparator(order, o1, o2)).collect(Collectors.toList());
