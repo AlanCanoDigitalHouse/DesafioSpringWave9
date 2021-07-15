@@ -62,7 +62,7 @@ public class PostServiceImpl implements IPostService{
 
     private List<PostDTO> filterDates(List<PostDTO> posts){
         LocalDate presentDate = LocalDate.now();
-        LocalDate pastDate = presentDate.minusWeeks(2);
+        LocalDate pastDate = presentDate.minusWeeks(2).minusDays(1);
 
         return posts.stream().filter(postDTO -> postDTO.getPublicationDate().isBefore(presentDate)
                 && postDTO.getPublicationDate().isAfter(pastDate))
