@@ -42,11 +42,11 @@ los siguientes endpoints:
 <ol>
     <li>
         <h4>/users/{userId}/follow/{userIdToFollow}</h4>
-        El usuario con id "userId" seguira al usuario con id "userIdToFollow"
+        El usuario con id "userId" seguira al usuario con id "userIdToFollow".
     </li>
     <li>
         <h4>/users/{userId}/followers/count/</h4>
-        Retorna el numero de seguidores que tiene el usuario con id "userId"
+        Retorna el numero de seguidores que tiene el usuario con id "userId".
     </li>
     <li>
         <h4>/users/{userId}/followers/list</h4>
@@ -66,20 +66,20 @@ los siguientes endpoints:
             “detail" :
                 {
                     "productName" : "Silla Gamer",
-                    "type" : "Gamer",,
-                    "brand" : "Racer"
+                    "type" : "Gamer",
+                    "brand" : "Racer",
                     "color" : "Red & Black",
                     "notes" : "Special Edition"
                 },
             "category" : 100,
-            "price" : 1500.50,
+            "price" : 1500.50
             }
         </code>
     </li>
     <li>
         <h4>/products/followed/{userId}/list</h4>
         Retorna las publicaciones de las ultimas dos semanas de todos los usuarios 
-        a los que sigue el usuario con id "userId"
+        a los que sigue el usuario con id "userId".
     </li>
     <li>
         <h4>/users/{userId}/unfollow/{userIdToUnfollow}</h4>
