@@ -395,8 +395,7 @@ Llevar a cabo la publicación de un nuevo producto en promoción.
     }
 
 ### US 0011:
-Obtener la cantidad de productos en promoción de un determinado vendedor.
-
+Obtener la cantidad de productos en promoción de un determinado vendedor.US
 #### Method : GET
 
 #### SIGN: /products/{userId}/countPromo/

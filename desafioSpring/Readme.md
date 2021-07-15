@@ -70,4 +70,6 @@ Se diseñó una anotación personalizada definido como @ValidDate, donde el mism
         1) /users/{userId}/unfollow/{userIdToUnfollow}
         2) /users/{UserID}/followers/list?order=name_desc
         3) /users/{UserID}/followed/list?order=name_asc
-    - 
+    - localhost:8080/users/{userId}/unfollow/{userIdToUnfollow} al dejar de seguir un usuario, siempre devolvera un 200 salvo que no exista el usuario.
+    - Se definio una validacion personalizada para validar las fechas "@ValidDate"
+    - IMPORTANTE!! En el BONUS - Solo se muestran las promos que tienen el campo en TRUE, si son FALSE no se muestran! abria que desarrollar.
