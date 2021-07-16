@@ -10,7 +10,8 @@
         "nombre": "Camila Gomez"
       }],
     "seguidos": 0,
-    "listaSeguidos":[]
+    "listaSeguidos":[],
+    "listaPublicaciones": []
   },
   {
     "id": 2,
@@ -24,6 +25,7 @@
         "id": 1,
         "nombre": "Pepita Perez"
       }
-    ]
+    ],
+    "listaPublicaciones": []
   }
 ]

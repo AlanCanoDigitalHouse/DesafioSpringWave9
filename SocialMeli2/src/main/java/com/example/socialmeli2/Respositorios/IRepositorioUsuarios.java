@@ -1,13 +1,24 @@
 package com.example.socialmeli2.Respositorios;
 
 import com.example.socialmeli2.Excepciones.Type.IdNoEncontrado;
-import com.example.socialmeli2.ModelosDto.UsuarioDto;
+import com.example.socialmeli2.Modelos.DatosUsuarios;
+import com.example.socialmeli2.Modelos.Usuario;
+
+import java.util.List;
 
 public interface IRepositorioUsuarios {
-    UsuarioDto encontrarUsuarioPorId(Integer id);
+    Usuario encontrarUsuarioPorId(Integer id);
 
-    String buscarUsuarioDB (Integer idUsuarioSeguidor , Integer idUsuarioASeguir) throws IdNoEncontrado;
+    String seguirUsuario(Integer idUsuarioSeguidor , Integer idUsuarioASeguir) throws IdNoEncontrado;
+
+    void dejarDeSeguirUsuario(Usuario usuario, Usuario unfollowUsuario);
 
 
+
+//    Integer cantidadDeSeguidoresPorUsuario(Integer id);
+//
+//    List<DatosUsuarios> listaDeSeguidoresPorUsuario (Integer id);
+//
+//    List<DatosUsuarios> listaDeSeguidosPorUsuario(Integer id);
 }
 
