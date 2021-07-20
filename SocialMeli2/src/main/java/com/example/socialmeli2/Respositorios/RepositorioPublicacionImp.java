@@ -5,11 +5,13 @@ import com.example.socialmeli2.Modelos.Publicacion;
 import com.example.socialmeli2.Modelos.Usuario;
 import com.example.socialmeli2.Servicios.IServicioPublicacion;
 import com.example.socialmeli2.dtos.requests.ProductoRequestDTO;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-public abstract class RepositorioPublicacionImp implements IRepositoriosPublicacion {
+@Repository
+public  class RepositorioPublicacionImp implements IRepositoriosPublicacion {
     private List<Producto> productos;
     private Integer id = 0;
 

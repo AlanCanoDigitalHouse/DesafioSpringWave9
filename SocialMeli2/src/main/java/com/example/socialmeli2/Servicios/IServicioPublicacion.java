@@ -6,7 +6,7 @@ import com.example.socialmeli2.dtos.responses.ListadoPublicacionesResponseDTO;
 import java.util.List;
 
 public interface IServicioPublicacion {
-    List<Usuario> getDataBase();
+   // List<Usuario> getDataBase();
 
     ListadoPublicacionesResponseDTO listadoPublicacionePorVendedor (Integer idUsuario );
 }

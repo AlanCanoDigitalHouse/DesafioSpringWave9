@@ -7,13 +7,19 @@ import com.example.socialmeli2.Respositorios.IRepositorioUsuarios;
 import com.example.socialmeli2.Respositorios.IRepositoriosPublicacion;
 import com.example.socialmeli2.dtos.requests.PublicacionRequestDTO;
 import com.example.socialmeli2.dtos.responses.ListadoPublicacionesResponseDTO;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServicioPublicacionImp {
+@Service
+public class ServicioPublicacionImp implements IServicioPublicacion{
 
+    @Autowired
     IServicioUsuario servicioUsuario;
+    @Autowired
     IRepositoriosPublicacion repositoriosPublicacion;
     private Integer id = 0;
 
@@ -46,8 +52,8 @@ public class ServicioPublicacionImp {
 
     @Override
     public ListadoPublicacionesResponseDTO listadoPublicacionePorVendedor(Integer idUsuario) {
-        IRepositorioUsuarios repositorioUsuarios;
-        Usuario usuario = repositorioUsuarios.encontrarUsuarioPorId(idUsuario);
+        //IRepositorioUsuarios repositorioUsuarios;
+        Usuario usuario = servicioUsuario.traerUsuario(idUsuario);
         List<DatosUsuarios> seguidos = usuario.getListaSeguidos();
         // [{"1","pepito "},{"2","Sofia"}]
         List <Usuario> usuariosVendedores =  new ArrayList();
@@ -59,7 +65,7 @@ public class ServicioPublicacionImp {
         //y añadirlos a la lista de usuariosVendedores
         for (DatosUsuarios usarioIterador: seguidos) { //Me voy a mover por la lista de seguidos
             //Iterador, el iterador es usarioIterador, que se va a ir moviendo por la lista de Seguidos
-            usuarioTemporal = repositorioUsuarios.encontrarUsuarioPorId(usarioIterador.getId());
+            usuarioTemporal = servicioUsuario.traerUsuario(usarioIterador.getId());
             publicacionesDeSeguidos.addAll(usuarioTemporal.getListaPublicaciones());
             // Por cada id de Usuario en la lista de seguidos, voy a ir a buscar a ese usuario
         }

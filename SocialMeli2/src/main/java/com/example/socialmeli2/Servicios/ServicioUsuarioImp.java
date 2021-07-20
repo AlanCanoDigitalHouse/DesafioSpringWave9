@@ -8,6 +8,8 @@ import com.example.socialmeli2.dtos.responses.PublicacionResponseDTO;
 import com.example.socialmeli2.dtos.responses.UsuarioCantidadResponseDTO;
 import com.example.socialmeli2.Modelos.DatosUsuarios;
 import com.example.socialmeli2.dtos.responses.UsuarioListaResponseDTO;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,11 +21,9 @@ import java.util.List;
 @Service
 public class ServicioUsuarioImp implements IServicioUsuario {
 
+    @Autowired
      IRepositorioUsuarios repositorioUsuarios;
 
-     public ServicioUsuarioImp (IRepositorioUsuarios repositorioUsuarios){
-         this.repositorioUsuarios = repositorioUsuarios;
-     }
 
     @Override
     public String seguirUsuario(Integer idUsuarioSeguidor, Integer idUsuarioASeguir) throws IdNoEncontrado {
