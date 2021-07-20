@@ -10,7 +10,7 @@ import java.util.Date;
 public class Publicacion {
 
     private Integer publicacion_id;
-//    private Usuario id;
+    //private Integer userId;
     private Date fecha;
     private Integer product_id;
     private Integer category;

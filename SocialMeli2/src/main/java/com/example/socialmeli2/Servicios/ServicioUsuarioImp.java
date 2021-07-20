@@ -1,11 +1,18 @@
 package com.example.socialmeli2.Servicios;
 import com.example.socialmeli2.Excepciones.Type.IdNoEncontrado;
+import com.example.socialmeli2.Modelos.Publicacion;
 import com.example.socialmeli2.Modelos.Usuario;
 import com.example.socialmeli2.Respositorios.IRepositorioUsuarios;
+import com.example.socialmeli2.dtos.responses.ListadoPublicacionesResponseDTO;
+import com.example.socialmeli2.dtos.responses.PublicacionResponseDTO;
 import com.example.socialmeli2.dtos.responses.UsuarioCantidadResponseDTO;
+import com.example.socialmeli2.Modelos.DatosUsuarios;
 import com.example.socialmeli2.dtos.responses.UsuarioListaResponseDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -66,6 +73,7 @@ public class ServicioUsuarioImp implements IServicioUsuario {
          return "unfollow complete";
     }
 
+
     @Override
     public Usuario traerUsuario(Integer id){
          return repositorioUsuarios.encontrarUsuarioPorId(id);
@@ -76,14 +84,11 @@ public class ServicioUsuarioImp implements IServicioUsuario {
 
 
 
-
-
-
-
-
-
-
-
+//// recibimos el userID
+//// userId -> traemos una lista de seguidos del userID que ingresa por parametro
+//// guardamos la lista de seguidos en algun array temporal para luego iterarlo
+//// Array de seguidos - iteramos, y traemos cada usuario vendedor (array de uusarios vendedores)
+//// iteramos sobre ese array de vendedores - de cada vendedor .getListaDePublicaciones(), e irlos cargando en el array temporal
 
 
 

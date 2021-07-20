@@ -43,5 +43,7 @@ public class ControladorUsuario{
     public ResponseEntity<String> dejarDeSeguirUsuario(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow){
         return  new ResponseEntity<String>(servicioUsuario.dejarDeSeguir(userId, userIdToUnfollow), HttpStatus.OK);
     }
+
+
 }
 

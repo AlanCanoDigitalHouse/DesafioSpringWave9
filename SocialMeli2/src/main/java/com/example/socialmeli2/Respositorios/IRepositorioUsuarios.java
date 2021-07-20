@@ -13,12 +13,5 @@ public interface IRepositorioUsuarios {
 
     void dejarDeSeguirUsuario(Usuario usuario, Usuario unfollowUsuario);
 
-
-
-//    Integer cantidadDeSeguidoresPorUsuario(Integer id);
-//
-//    List<DatosUsuarios> listaDeSeguidoresPorUsuario (Integer id);
-//
-//    List<DatosUsuarios> listaDeSeguidosPorUsuario(Integer id);
 }
 

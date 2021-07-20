@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
@@ -20,6 +21,7 @@ public class PublicacionRequestDTO {
 
     @NotNull(message = "date no puede ser nulo")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     @NotNull(message = "detail no puede ser nulo")
@@ -30,5 +32,5 @@ public class PublicacionRequestDTO {
     private Integer category;
 
     @NotNull(message = "Precio no puede ser nulo")
-    private Double precio;
+    private Double price;
 }
