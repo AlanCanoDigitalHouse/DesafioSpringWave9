@@ -62,7 +62,7 @@ Make the requests to localhost:8080
 
 Body Explamples
 
-**Important the format date if yyyy-MM-dd**
+**Important: the format date is yyyy-MM-dd**
 
 ### Post body
 
