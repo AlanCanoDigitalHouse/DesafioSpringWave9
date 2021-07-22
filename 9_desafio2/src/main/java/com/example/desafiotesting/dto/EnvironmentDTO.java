@@ -1,7 +1,10 @@
 package com.example.desafiotesting.dto;
 
+import lombok.Getter;
+
 import javax.validation.constraints.*;
 
+@Getter
 public class EnvironmentDTO {
 
     @NotBlank
@@ -17,4 +20,9 @@ public class EnvironmentDTO {
     @NotNull
     @DecimalMax(value = "33")
     Double environment_length;
+
+
+    public Double calculateSize() {
+        return this.getEnvironment_width() * this.getEnvironment_length();
+    }
 }

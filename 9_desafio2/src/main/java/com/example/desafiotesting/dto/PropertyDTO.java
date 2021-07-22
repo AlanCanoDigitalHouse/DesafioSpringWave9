@@ -1,11 +1,11 @@
 package com.example.desafiotesting.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import lombok.Getter;
+
+import javax.validation.constraints.*;
 import java.util.List;
 
+@Getter
 public class PropertyDTO {
 
     @NotNull
@@ -13,7 +13,9 @@ public class PropertyDTO {
     @Size(max = 30)
     String prop_name;
 
+    @NotNull
     DistrictDTO district;
 
+    @NotEmpty
     List<EnvironmentDTO> environments;
 }
