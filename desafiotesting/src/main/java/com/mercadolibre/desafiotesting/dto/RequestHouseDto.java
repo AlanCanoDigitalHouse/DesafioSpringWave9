@@ -1,5 +1,6 @@
 package com.mercadolibre.desafiotesting.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
@@ -7,6 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 
 @Data
+@AllArgsConstructor
 @Validated
 public class RequestHouseDto {
 

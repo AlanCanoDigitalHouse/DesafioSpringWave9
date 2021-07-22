@@ -1,9 +1,8 @@
 package com.mercadolibre.desafiotesting.controllers;
 
-import com.mercadolibre.desafiotesting.dto.HouseDto;
 import com.mercadolibre.desafiotesting.dto.HouseResponseDto;
 import com.mercadolibre.desafiotesting.dto.RequestHouseDto;
-import com.mercadolibre.desafiotesting.exceptions.HouseException;
+import com.mercadolibre.desafiotesting.exceptions.DistrictException;
 import com.mercadolibre.desafiotesting.services.HouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-public class CalculateRestController {
+public class HouseController {
 
     @Autowired
     HouseService houseService;
 
     @PostMapping("/calculate")
-    public ResponseEntity<HouseResponseDto> calculate(@RequestBody @Valid RequestHouseDto house) throws HouseException {
+    public ResponseEntity<HouseResponseDto> calculate(@RequestBody @Valid RequestHouseDto house) throws DistrictException {
         return new ResponseEntity<>(houseService.calculate(house), HttpStatus.OK);
     }
 }

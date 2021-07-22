@@ -1,13 +1,16 @@
 package com.mercadolibre.desafiotesting.dto;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Validated
 public class HouseDto {
 

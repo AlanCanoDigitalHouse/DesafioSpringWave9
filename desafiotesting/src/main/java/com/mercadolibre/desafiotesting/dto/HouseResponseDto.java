@@ -1,5 +1,6 @@
 package com.mercadolibre.desafiotesting.dto;
 
+
 import lombok.Data;
 
 @Data

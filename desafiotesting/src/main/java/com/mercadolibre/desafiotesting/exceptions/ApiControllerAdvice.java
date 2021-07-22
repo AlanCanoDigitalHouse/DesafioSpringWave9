@@ -32,8 +32,10 @@ public class ApiControllerAdvice {
 
     @ExceptionHandler
     @ResponseBody
-    public ResponseEntity<?> handlerUserException(HouseException ex) {
+    public ResponseEntity<?> handlerUserException(DistrictException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+
 
 }
