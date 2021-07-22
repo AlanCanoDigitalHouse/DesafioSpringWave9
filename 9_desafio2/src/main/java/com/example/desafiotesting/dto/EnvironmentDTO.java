@@ -14,11 +14,11 @@ public class EnvironmentDTO {
     String environment_name;
 
     @NotNull
-    @DecimalMax(value = "25")
+    @DecimalMax(value = "25.0")
     Double environment_width;
 
     @NotNull
-    @DecimalMax(value = "33")
+    @DecimalMax(value = "33.0", message = "El máximo largo permitido por propiedad es de 33 mts.")
     Double environment_length;
 
 

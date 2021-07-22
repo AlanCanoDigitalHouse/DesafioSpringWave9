@@ -3,11 +3,15 @@ package com.example.desafiotesting.controller;
 import com.example.desafiotesting.dto.PropertyDTO;
 import com.example.desafiotesting.dto.response.ResponseDTO;
 import com.example.desafiotesting.service.PropertyService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
-@RestController(value = "/properties")
+import javax.validation.Valid;
+
+@RestController()
+@RequestMapping("/properties")
+@Validated
 public class PropertyController {
 
     PropertyService propertyService;
@@ -17,7 +21,8 @@ public class PropertyController {
     }
 
     @PostMapping("/calculate")
-    public ResponseDTO calculate(@RequestBody PropertyDTO property){
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseDTO calculate(@Valid  @RequestBody PropertyDTO property){
         return propertyService.calculateAll(property);
     }
 }

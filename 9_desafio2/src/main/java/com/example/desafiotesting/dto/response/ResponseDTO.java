@@ -1,11 +1,12 @@
 package com.example.desafiotesting.dto.response;
 
-import com.example.desafiotesting.dto.EnvironmentDTO;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.List;
 
 @AllArgsConstructor
+@Getter
 public class ResponseDTO {
     Double propertySize;
 
