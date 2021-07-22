@@ -97,7 +97,7 @@ $ docker-compose down
 -----
 # Proposal
 
-Mi propuesta es el crowdfounding a traves de SocialMeli, los usuarios podran crear campañas para su ideas de productos, Meli podria apadrinar los proyectos mas viables, otros usuarios podran aportar voluntariamente dinero a estos proyectos a fin de optener descuentos en la producción de dichos proyectos. 
+Mi propuesta es el crowdfounding a traves de SocialMeli, los usuarios podran crear campañas para su ideas de productos, Meli podria apadrinar los proyectos mas viables, otros usuarios podran aportar voluntariamente dinero a estos proyectos a fin de obtener descuentos en la producción de dichos proyectos. 
 
 # API Proposal
 
