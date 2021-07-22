@@ -12,7 +12,7 @@ Bootcamp Backend Java Desafío Spring
 - [Build&Run](#Build&Run) 
 - [API](#API)
 - [UsersForTestAPI](#UsersForTestAPI)
-- [Proposa](#Proposal)
+- [Proposal](#Proposal)
 - [Contributors](#Contributors)
 - [License](#License)
 
