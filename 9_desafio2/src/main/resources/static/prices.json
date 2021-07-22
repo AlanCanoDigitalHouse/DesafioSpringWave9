@@ -11,5 +11,8 @@
   }, {
     "location": "Puerto Madero",
     "price": 2000
+  }, {
+    "location": "Plants vs Zombies",
+    "price": 123.45
   }
 ]

@@ -3,9 +3,9 @@ package com.bootcamp.desafio2.entities;
 import lombok.Data;
 
 @Data
-public class Neighborhood {
+public class District {
 
     private String location;
-    private Integer price;
+    private Double price;
 
 }

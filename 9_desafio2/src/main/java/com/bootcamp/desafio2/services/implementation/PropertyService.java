@@ -1,37 +1,57 @@
 package com.bootcamp.desafio2.services.implementation;
 
-import com.bootcamp.desafio2.dtos.request.CasaDto;
-import com.bootcamp.desafio2.dtos.request.HabitacionDto;
-import com.bootcamp.desafio2.dtos.response.CasaResponseDto;
+import com.bootcamp.desafio2.dtos.request.DistrictDto;
+import com.bootcamp.desafio2.dtos.request.PropertyDto;
+import com.bootcamp.desafio2.dtos.request.EnvironmentDto;
+import com.bootcamp.desafio2.dtos.response.ResponseDto;
+import com.bootcamp.desafio2.exceptions.DistrictNotFoundException;
 import com.bootcamp.desafio2.exceptions.ErrorMessage;
+import com.bootcamp.desafio2.services.IDistrictService;
 import com.bootcamp.desafio2.services.IPropertyService;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 @Service
 public class PropertyService implements IPropertyService {
 
-    private final Double VALOR_METRO_CUADRADO = 800D;
+    IDistrictService districtService;
 
+    public PropertyService(IDistrictService districtService) {
+        this.districtService = districtService;
+    }
+
+    private static final String MESSAGE_DISTRICT_NOT_FOUND = "No existe un barrio que corresponda a los datos enviados";
+    private static final String CALCULATE_ERROR = "No se logro calcular el precio de la propiedad";
 
     @Override
-    public CasaResponseDto calcularArea(CasaDto casa) throws ErrorMessage {
-        Double areaTotal = 0D;
-        Double areaMax = 0D;
-        HabitacionDto aux = new HabitacionDto();
+    public ResponseDto calculatePrice(PropertyDto property) throws ErrorMessage, IOException, DistrictNotFoundException {
+        Double totalArea = 0D;
+        double maxArea = 0D;
+        String aux = "";
+        this.validateDistrict(property.getDistrict());
         try {
-            for (HabitacionDto habitacion: casa.getHabitaciones()) {
-                Double area = habitacion.getAncho() * habitacion.getLargo();
-                habitacion.setMetrosCuadrados(area);
-                areaTotal = areaTotal + area;
-                if (area > areaMax) {
-                    aux = habitacion;
-                    areaMax = area;
+            for (EnvironmentDto Environment: property.getEnvironments()) {
+                Double area = Environment.getEnvironment_width() * Environment.getEnvironment_length();
+                Environment.setSquareMeters(area);
+                totalArea = totalArea + area;
+                if (area > maxArea) {
+                    aux = Environment.getEnvironment_name();
+                    maxArea = area;
                 }
             }
-            return new CasaResponseDto(areaTotal, areaTotal * VALOR_METRO_CUADRADO, aux, casa.getHabitaciones());
+            return new ResponseDto(totalArea, totalArea *property.getDistrict().getDistrict_price(),
+                    aux, property.getEnvironments());
         } catch (Exception e) {
-            throw new ErrorMessage("Error en la capa de servicio");
+            throw new ErrorMessage(CALCULATE_ERROR);
         }
+    }
+
+    private void validateDistrict(DistrictDto district) throws DistrictNotFoundException, IOException {
+        if (!districtService.neighborhoodExist(
+                district.getDistrict_name(),
+                district.getDistrict_price()))
+            throw new DistrictNotFoundException(MESSAGE_DISTRICT_NOT_FOUND);
     }
 
 }
