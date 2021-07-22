@@ -1,34 +1,53 @@
 package com.mercadolibre.tucasitatasaciones.service;
 
 import com.mercadolibre.tucasitatasaciones.dto.request.PropertyRequestDTO;
-import com.mercadolibre.tucasitatasaciones.dto.response.EnvironmentAreaDTO;
-import com.mercadolibre.tucasitatasaciones.dto.response.LargestEnvironmentDTO;
-import com.mercadolibre.tucasitatasaciones.dto.response.PropertyTotalAreaDTO;
-import com.mercadolibre.tucasitatasaciones.dto.response.PropertyValuationDTO;
+import com.mercadolibre.tucasitatasaciones.dto.response.*;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 @Service
 public class PropertyService implements IPropertyService {
 
     @Override
     public PropertyTotalAreaDTO calculatePropertyTotalArea(PropertyRequestDTO propData) {
-        return null;
+        var totalArea = this.calculateEnvironmentsArea(propData)
+                .getEnvironments()
+                .stream().reduce(0D, (acc, curr) -> acc + curr.getArea(), Double::sum);
+
+        return new PropertyTotalAreaDTO(propData.getName(), totalArea);
     }
 
     @Override
     public PropertyValuationDTO valuateProperty(PropertyRequestDTO propData) {
-        return null;
+        var totalArea = this.calculatePropertyTotalArea(propData).getArea();
+        var price = totalArea * propData.getDistrict().getPrice();
+
+        return new PropertyValuationDTO(propData.getName(), price);
     }
 
     @Override
     public LargestEnvironmentDTO determineLargestEnvironment(PropertyRequestDTO propData) {
-        return null;
+        var maxArea = this.calculateEnvironmentsArea(propData)
+                .getEnvironments()
+                .stream().max(Comparator.comparing(EnvironmentAreaDTO::getArea))
+                .orElse(null);
+
+        return new LargestEnvironmentDTO(propData.getName(), maxArea);
     }
 
     @Override
-    public List<EnvironmentAreaDTO> calculateEnvironmentsArea(PropertyRequestDTO propData) {
-        return null;
+    public PropertyEnvironmentsAreaDTO calculateEnvironmentsArea(PropertyRequestDTO propData) {
+        var environmentsWithArea = propData.getEnvironments()
+                .stream().map(e -> new EnvironmentAreaDTO(e.getName(), this.calculateArea(e.getWidth(), e.getLength())))
+                .collect(Collectors.toList());
+
+        return new PropertyEnvironmentsAreaDTO(propData.getName(), environmentsWithArea);
     }
+
+    private Double calculateArea(Double width, Double length) {
+        return width * length;
+    }
+
 }
