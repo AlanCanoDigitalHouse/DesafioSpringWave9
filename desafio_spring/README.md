@@ -1,8 +1,9 @@
+-----
 # DesafioSpringWave9
 
 Bootcamp Backend Java Desafío Spring
 
-
+-----
 
 ## Content
 
@@ -23,6 +24,7 @@ Bootcamp Backend Java Desafío Spring
 - A microservice is proposed that uses lightweight protocols such as HTTP or REST API.
 - A service-oriented code architecture is proposed with routes, controllers, validators, entities and repository pattern (Clean code).
 - This REST service uses a caching strategy for balanced performance of external APIs
+
 ----
 
 # Technologies
@@ -97,8 +99,8 @@ $ docker-compose down
 -----
 # Proposal
 
-Mi propuesta es el crowdfounding a traves de SocialMeli, los usuarios podran crear campañas para su ideas de productos, Meli podria apadrinar los proyectos mas viables, otros usuarios podran aportar voluntariamente dinero a estos proyectos a fin de obtener descuentos en la producción de dichos proyectos. 
-
+Mi propuesta es el crowdfounding a través de SocialMeli, los usuarios podrán crear campañas para su ideas de productos, Meli podría apadrinar los proyectos más viables, otros usuarios podrán aportar voluntariamente dinero a estos proyectos a fin de obtener descuentos en la producción de dichos proyectos.
+-----
 # API Proposal
 
 | US 000 | Method | URL | VARIABLES | DESCRIPTION | 
@@ -114,3 +116,4 @@ Mi propuesta es el crowdfounding a traves de SocialMeli, los usuarios podran cre
 
 # License
 This project is property of Mercado Libre.
+-----
