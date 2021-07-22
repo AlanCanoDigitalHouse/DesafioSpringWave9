@@ -1,0 +1,10 @@
+
+4
+java:S1165	"Make this "error" field final.(Â™íÙ
+5
+java:S1165
+"Make this "status" field final.(šŞÇ²
+@
+java:S1068
+"*Remove this unused "status" private field.(šŞÇ²
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(»Ö¦ïıÿÿÿÿ
