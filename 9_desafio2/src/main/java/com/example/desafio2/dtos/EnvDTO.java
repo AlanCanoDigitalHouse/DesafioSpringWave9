@@ -1,5 +1,6 @@
 package com.example.desafio2.dtos;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 
 @Validated
 @Data
+@AllArgsConstructor
 public class EnvDTO {
     @NotNull(message = "El nombre del ambiente no puede estar vacío")
     @Pattern(regexp = "([A-Z]).+",message = "El nombre del ambiente debe comenzar en mayuscula")
