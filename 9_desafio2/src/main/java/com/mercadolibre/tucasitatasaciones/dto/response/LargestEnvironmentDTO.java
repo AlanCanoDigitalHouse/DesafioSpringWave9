@@ -17,7 +17,7 @@ public class LargestEnvironmentDTO {
     private String name;
 
     @JsonProperty(value = "prop_largest_environment")
-    private EnvironmentDTO largestEnvironment;
+    private EnvironmentAreaDTO largestEnvironment;
 
 }
 
