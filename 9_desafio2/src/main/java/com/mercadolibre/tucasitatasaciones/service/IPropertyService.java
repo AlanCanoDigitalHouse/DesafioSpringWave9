@@ -1,12 +1,7 @@
 package com.mercadolibre.tucasitatasaciones.service;
 
 import com.mercadolibre.tucasitatasaciones.dto.request.PropertyRequestDTO;
-import com.mercadolibre.tucasitatasaciones.dto.response.EnvironmentAreaDTO;
-import com.mercadolibre.tucasitatasaciones.dto.response.LargestEnvironmentDTO;
-import com.mercadolibre.tucasitatasaciones.dto.response.PropertyTotalAreaDTO;
-import com.mercadolibre.tucasitatasaciones.dto.response.PropertyValuationDTO;
-
-import java.util.List;
+import com.mercadolibre.tucasitatasaciones.dto.response.*;
 
 public interface IPropertyService {
 
@@ -16,6 +11,6 @@ public interface IPropertyService {
 
     LargestEnvironmentDTO determineLargestEnvironment(PropertyRequestDTO propData);
 
-    List<EnvironmentAreaDTO> calculateEnvironmentsArea(PropertyRequestDTO propData);
+    PropertyEnvironmentsAreaDTO calculateEnvironmentsArea(PropertyRequestDTO propData);
 
 }
