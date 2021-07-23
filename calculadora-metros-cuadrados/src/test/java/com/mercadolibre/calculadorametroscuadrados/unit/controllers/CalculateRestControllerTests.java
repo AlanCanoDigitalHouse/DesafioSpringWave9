@@ -4,11 +4,14 @@ import com.mercadolibre.calculadorametroscuadrados.controller.CalculateRestContr
 import com.mercadolibre.calculadorametroscuadrados.dtos.HouseRequestDTO;
 import com.mercadolibre.calculadorametroscuadrados.service.CalculateService;
 import com.mercadolibre.calculadorametroscuadrados.utils.HouseRequestInitializer;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import javax.validation.Valid;
 
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
@@ -23,7 +26,7 @@ public class CalculateRestControllerTests {
     CalculateRestController controller;
 
     @Test
-    public void obtenerDiploma() {
+    public void passingCorrectlyFormattedPayload() {
         // arrange
         HouseRequestDTO house = HouseRequestInitializer.house();
 
@@ -33,4 +36,7 @@ public class CalculateRestControllerTests {
         // assert
         verify(service, atLeastOnce()).allInOneCalculator(house);
     }
+
 }
+
+
