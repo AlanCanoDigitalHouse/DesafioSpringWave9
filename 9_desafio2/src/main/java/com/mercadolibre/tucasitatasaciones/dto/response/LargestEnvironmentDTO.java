@@ -2,13 +2,9 @@ package com.mercadolibre.tucasitatasaciones.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mercadolibre.tucasitatasaciones.dto.EnvironmentDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class LargestEnvironmentDTO {
