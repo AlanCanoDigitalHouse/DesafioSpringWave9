@@ -7,10 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
@@ -25,6 +22,7 @@ public class DistrictDTO {
 
     @NotNull(message = "El precio de un barrio no uede estar vacío.")
     @Max(value = 4000, message = "El precio máximo permitido por metro cuadrado no puede superar los 4000 U$S.")
+    @Min(value = 1, message = "El precio mínimo permitido por metro cuadrado no puede ser inferior a 1 U$S.")
     private Double districtPrice;
 
 }

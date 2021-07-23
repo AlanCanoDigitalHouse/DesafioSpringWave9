@@ -1,6 +1,7 @@
 package com.mercadolibre.tucasitatasaciones.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.Map;
@@ -19,6 +20,12 @@ public class ErrorMessage {
         this.error = error;
         this.message = message;
         this.details = details;
+    }
+
+    public ErrorMessage(Integer status, Exception ex) {
+        this.status = status;
+        this.error = ex.getClass().getSimpleName();
+        this.message = ex.getMessage();
     }
 
 }

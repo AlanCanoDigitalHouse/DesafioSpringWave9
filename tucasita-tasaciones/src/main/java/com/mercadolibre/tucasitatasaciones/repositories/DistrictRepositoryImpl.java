@@ -29,7 +29,7 @@ public class DistrictRepositoryImpl implements DistrictRepository {
             InputStream in = this.getClass().getResourceAsStream("/static/districts.json");
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonNode = mapper.readValue(in, JsonNode.class);
-            districts = mapper.convertValue(jsonNode, new TypeReference<List<DistrictDTO>>() {});
+            districts = mapper.convertValue(jsonNode, new TypeReference<>() {});
         } catch (Exception ex) {
             System.err.println("Cannot load DISTRICTS db: " + ex.getMessage());
         }

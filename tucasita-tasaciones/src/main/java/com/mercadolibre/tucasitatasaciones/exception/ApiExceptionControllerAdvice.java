@@ -9,7 +9,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 
 @ControllerAdvice(annotations = RestController.class)
 public class ApiExceptionControllerAdvice {
@@ -22,21 +21,21 @@ public class ApiExceptionControllerAdvice {
         for (FieldError fieldError : result.getFieldErrors()) {
             errors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
-        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), "ValidationException", null, errors);
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), "ValidationException", "the request has validation errors", errors);
     }
 
     @ExceptionHandler(value = {HttpMessageNotReadableException.class})
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage handleException(HttpMessageNotReadableException ex) {
-        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.getClass().getSimpleName(), "the json object is not well formed", null);
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.getClass().getSimpleName(), "the json payload is not well formed", null);
     }
 
     @ExceptionHandler(value = {DistrictNotFoundException.class})
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage handleException(DistrictNotFoundException ex) {
-        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.getClass().getSimpleName(), ex.getMessage(), null);
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex);
     }
 
 }
