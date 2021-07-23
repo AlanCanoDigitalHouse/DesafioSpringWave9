@@ -20,5 +20,6 @@ public class PropertyDTO {
     private String prop_name;
     @Valid
     private DistrictDTO district;
+    @Valid
     private List<EnviromentDTO> enviroments;
 }
