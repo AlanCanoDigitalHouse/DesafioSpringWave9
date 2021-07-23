@@ -6,13 +6,11 @@ import java.util.Map;
 
 @Getter
 public class MetrosCuadradosErrorMessage {
-  private Integer status;
-  private String error;
-  private Map<String, String> message;
+  private final String errorMessage;
+  private final Map<String, String> errors;
 
-  public MetrosCuadradosErrorMessage(Integer status, String error, Map<String, String> message) {
-    this.status = status;
-    this.error = error;
-    this.message = message;
+  public MetrosCuadradosErrorMessage(String errorMessage, Map<String, String> errors) {
+    this.errorMessage = errorMessage;
+    this.errors = errors;
   }
 }

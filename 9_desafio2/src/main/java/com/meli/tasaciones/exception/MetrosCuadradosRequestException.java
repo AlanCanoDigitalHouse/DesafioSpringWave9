@@ -1,7 +1,7 @@
 package com.meli.tasaciones.exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindingResult;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +16,11 @@ public class MetrosCuadradosRequestException {
   @ExceptionHandler
   @ResponseBody
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-  public MetrosCuadradosErrorMessage errorMessage(MethodArgumentNotValidException exception) {
-    BindingResult result = exception.getBindingResult();
-    List<FieldError> fieldErrors = result.getFieldErrors();
-    return proccessField(fieldErrors);
+  public ResponseEntity<MetrosCuadradosErrorMessage> errorMessage(MethodArgumentNotValidException exception) {
+    List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
+    Map<String, String> fieldErrorsMap = fieldErrors.stream().collect(Collectors.toMap(error -> error.getField(), error -> error.getDefaultMessage()));
+    MetrosCuadradosErrorMessage errorMessage = new MetrosCuadradosErrorMessage("Datos invalidos", fieldErrorsMap);
+    return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
   }
 
-  public MetrosCuadradosErrorMessage proccessField(List<FieldError> fieldErrors) {
-    Map<String, String> fields = fieldErrors.stream().collect(Collectors.toMap(error -> error.getField(), error -> error.getDefaultMessage()));
-    return new MetrosCuadradosErrorMessage(HttpStatus.BAD_REQUEST.value(), "Validations Failed", fields);
-  }
 }

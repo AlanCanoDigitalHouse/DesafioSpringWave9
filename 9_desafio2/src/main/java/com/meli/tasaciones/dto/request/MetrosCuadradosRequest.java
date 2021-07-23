@@ -1,4 +1,4 @@
-package com.meli.tasaciones.dto;
+package com.meli.tasaciones.dto.request;
 
 public class MetrosCuadradosRequest {
 }

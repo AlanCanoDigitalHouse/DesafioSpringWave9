@@ -1,7 +1,6 @@
 package com.meli.tasaciones.dto;
 
 import lombok.Data;
-import org.springframework.validation.annotation.Validated;
 
 @Data
 public class PriceDTO {
