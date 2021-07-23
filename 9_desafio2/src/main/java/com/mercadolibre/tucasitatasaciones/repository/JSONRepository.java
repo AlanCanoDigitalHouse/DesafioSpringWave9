@@ -44,18 +44,6 @@ public class JSONRepository<T> {
         }
     }
 
-    protected void writeDatabase(List<T> data) {
-        try {
-            var file = ResourceUtils.getFile(DATA_DIR);
-            var mapper = new ObjectMapper();
-            mapper.writeValue(file, new ArrayList<>(data));
-            setData();
-        } catch (IOException exception) {
-            exception.printStackTrace();
-            throw new DatabaseException("There was an error while writing on the database");
-        }
-    }
-
     public List<T> getData() {
         if (Objects.isNull(data)) {
             setData();
