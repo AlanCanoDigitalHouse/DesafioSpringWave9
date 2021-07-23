@@ -1,32 +1,32 @@
 package com.mercadolibre.calculadorametroscuadrados.dto;
 
 public class HouseResponseDTO extends HouseDTO {
-  private Integer squareFeet;
-  private Integer price;
+  private Double squareFeet;
+  private Double price;
   private RoomDTO biggest;
 
   public HouseResponseDTO() {
   }
 
   public HouseResponseDTO(HouseDTO house) {
-    this.setName(house.getName());
-    this.setAddress(house.getAddress());
-    this.setRooms(house.getRooms());
+    this.setProp_name(house.getProp_name());
+    this.setDistrict_name(house.getDistrict_name());
+    this.setEnvironments(house.getEnvironments());
   }
 
-  public Integer getSquareFeet() {
+  public Double getSquareFeet() {
     return squareFeet;
   }
 
-  public void setSquareFeet(Integer squareFeet) {
+  public void setSquareFeet(Double squareFeet) {
     this.squareFeet = squareFeet;
   }
 
-  public Integer getPrice() {
+  public Double getPrice() {
     return price;
   }
 
-  public void setPrice(Integer price) {
+  public void setPrice(Double price) {
     this.price = price;
   }
 
