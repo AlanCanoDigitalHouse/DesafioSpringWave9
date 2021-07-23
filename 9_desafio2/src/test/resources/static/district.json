@@ -1,0 +1,18 @@
+[
+  {
+    "district_name": "Norte",
+    "district_price": 400
+  },
+  {
+    "district_name": "Sur",
+    "district_price": 300
+  },
+  {
+    "district_name": "Este",
+    "district_price": 300
+  },
+  {
+    "district_name": "Oeste",
+    "district_price": 100
+  }
+]

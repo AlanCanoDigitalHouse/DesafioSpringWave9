@@ -1,64 +1,114 @@
 package com.example.desafio2.services;
 
 
-import com.example.desafio2.dtos.EnvDTO;
-import com.example.desafio2.dtos.EnvResponseDto;
-import com.example.desafio2.dtos.HouseDTO;
-import com.example.desafio2.dtos.HouseResponseDTO;
+import com.example.desafio2.dtos.*;
+import com.example.desafio2.exceptions.BadRequestException;
+import com.example.desafio2.repositories.DistrictRepository;
 import com.example.desafio2.utils.TestGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@ExtendWith(MockitoExtension.class)
 class HouseServiceTest {
 
 
+   @Mock
+   DistrictRepository districtRepository;
+    @InjectMocks
+    HouseService houseService;
+
     @Test
     void getPrice() {
-        var house = TestGenerator.generateHouse();
-        HouseService houseService = new HouseService();
+        //arrange
+        HouseDTO house = TestGenerator.generateHouse();
 
-        var houseResponse = houseService.getPrice(house);
-        //(2*4 + 10*6 + 3*4)*60
-        Assertions.assertEquals(houseResponse.getPrice(), 4800);
-        Assertions.assertEquals(houseResponse.getName(), house.getProp_name());
-        Assertions.assertEquals(houseResponse.getDistrict_name(), house.getDistrict_name());
-        Assertions.assertEquals(houseResponse.getDistrict_price(), house.getDistrict_price());
-        Assertions.assertEquals(houseResponse.getEnvironment().size(), house.getEnvironments().size());
+        //mock
+        Mockito.when(districtRepository.getByName(house.getDistrict_name()))
+                .thenReturn(new DistrictDTO(house.getDistrict_name(),house.getDistrict_price()));
+
+        //act
+        HouseDetailResponseDto houseResponse = houseService.getPrice(house);
+
+        //assert
+        assertEquals(4800,houseResponse.getPrice());
+        assertEquals(house.getProp_name(),houseResponse.getName() );
+        assertEquals(house.getDistrict_name(),houseResponse.getDistrict_name() );
+        assertEquals(house.getDistrict_price(),houseResponse.getDistrict_price());
+        assertEquals(house.getEnvironments().size(),houseResponse.getEnvironment().size());
+    }
+    @Test
+    void validateDistrict(){
+        //arrange
+        HouseDTO house = TestGenerator.generateHouse();
+        house.setDistrict_name("asd");
+        //mock
+        Mockito.when(districtRepository.getByName(house.getDistrict_name()))
+                .thenThrow(new BadRequestException("District not found"));
+
+        //assert-act
+        assertThrows(BadRequestException.class,()->houseService.getPrice(house));
+    }
+    @Test
+    void validateDistrictPrice() {
+        //arrange
+        HouseDTO house = TestGenerator.generateHouse();
+        //mock
+        Mockito.when(districtRepository.getByName(house.getDistrict_name()))
+                .thenReturn(new DistrictDTO("Sur",300));
+        //assert - act
+       assertThrows(BadRequestException.class,()->houseService.getPrice(house));
     }
 
     @Test
     void getSquareMeters() {
-        var house = TestGenerator.generateHouse();
-        HouseService houseService = new HouseService();
-        //2*4+10*6+3*4 <- current square meters
-        var houseResponse = new HouseResponseDTO(house.getProp_name(), 80.0);
-
-        Assertions.assertEquals(houseService.getSquareMeters(house), houseResponse);
+        //arrange
+        HouseDTO house = TestGenerator.generateHouse();
+        //(act)    2*4+10*6+3*4 <- current square meters
+        HouseResponseDTO houseResponse = new HouseResponseDTO(house.getProp_name(), 80.0);
+        //assert
+        Assertions.assertEquals(houseResponse,houseService.getSquareMeters(house));
     }
 
     @Test
     void getBiggerEnv() {
-        var house = TestGenerator.generateHouse();
-        HouseService houseService = new HouseService();
-
-        var envResponse = houseService.getBiggerEnv(house);
-        var env = new EnvDTO("Habitacion Matrimonial", 10, 6);
-
-        assertEquals(envResponse, env);
+        //arrange
+        HouseDTO house = TestGenerator.generateHouse();
+        EnvDTO env = new EnvDTO("Habitacion Matrimonial",
+                10, 6);
+        //act
+        EnvDTO envResponse = houseService.getBiggerEnv(house);
+        //assert
+        assertEquals(env,envResponse);
+    }
+    @Test
+    void getBiggerEnvWithoutEnvs(){
+        //arrange
+        HouseDTO house = TestGenerator.generateHouse();
+        house.setEnvironments(new ArrayList<>());
+        //act-assert
+        assertThrows(BadRequestException.class, ()->houseService.getBiggerEnv(house));
     }
 
     @Test
     void getListEnv() {
+        //arrange
         HouseDTO house = TestGenerator.generateHouse();
-        HouseService houseService = new HouseService();
-
+        //act
         List<EnvResponseDto> list = houseService.getListEnv(house);
+        //assert
         for (int i = 0; i < list.size(); i++) {
             EnvDTO env = house.getEnvironments().get(i);
+            assertEquals(list.get(i).getName(),env.getEnvironment_name());
             assertEquals(list.get(i).getPrice(),
                     env.getEnvironment_length() *
                             env.getEnvironment_width() *

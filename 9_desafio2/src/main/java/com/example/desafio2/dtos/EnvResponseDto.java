@@ -1,9 +1,9 @@
 package com.example.desafio2.dtos;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @AllArgsConstructor
 public class EnvResponseDto {
     private String name;

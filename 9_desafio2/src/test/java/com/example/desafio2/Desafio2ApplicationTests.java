@@ -8,6 +8,7 @@ class Desafio2ApplicationTests {
 
     @Test
     void contextLoads() {
+        Desafio2Application.main(new String[] {});
     }
 
 }
