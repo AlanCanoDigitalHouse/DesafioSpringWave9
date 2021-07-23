@@ -1,14 +1,21 @@
 # Desafio Testing
 
-## Infomacion General
     * Proyecto: TuCasita Tasaciones
 
     * Autor: Regis Emiliano
 
-## Other Info
+## Info
     * El repo DistrictRepositoryImpl levanta un listado de districtos de un archivo.
 
     * El path del archivo es el siguiente: 'resources/static/districts.json'
+
+    * Para realizar los tests se creo la clase `com.mercadolibre.tucasitatasaciones.unit.utils.TestUtils`
+      Dicha clase posee los varios metodos: (ver comentarios en cada metodo)
+        - createProperty(): devuelve una instancia de una propriedad con determinadas carateristicas.
+        - createBiggestRoom(): devuelve una instacia de la habitacion mas grande conteniada en la propiedad que devuelve el metodo anterior.
+        - createValidationErrorForNullPropName(): delvelve un objeto que simula el response de la excepcion lanzada cuando el attributo prop_name es nulo en el payload.
+        - createValidationErrorMalformedPayload(): devuelve un objeto que simula el response cuando el request payload esta mal formado.
+
 
 ## Exceptions
     * DistrictNotFoundException   

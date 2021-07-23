@@ -4,10 +4,7 @@ import com.mercadolibre.tucasitatasaciones.dtos.req.DistrictDTO;
 import com.mercadolibre.tucasitatasaciones.exception.DistrictNotFoundException;
 import com.mercadolibre.tucasitatasaciones.repositories.DistrictRepositoryImpl;
 import com.mercadolibre.tucasitatasaciones.services.DistrictServiceImpl;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -32,6 +29,7 @@ class DistrictServiceImplTest {
     }
 
     @Test
+    @DisplayName("district found (service)")
     void testDistrictFound() throws DistrictNotFoundException {
         String expected = "Palermo";
         Mockito.when(districtRepository.findDistrictBy(Mockito.anyString())).thenReturn(new DistrictDTO("Palermo", 1000D));
@@ -42,6 +40,7 @@ class DistrictServiceImplTest {
     }
 
     @Test
+    @DisplayName("district not found (service)")
     void testDistrictNotFound() throws DistrictNotFoundException {
         Mockito.when(districtRepository.findDistrictBy(Mockito.anyString())).thenThrow(DistrictNotFoundException.class);
 

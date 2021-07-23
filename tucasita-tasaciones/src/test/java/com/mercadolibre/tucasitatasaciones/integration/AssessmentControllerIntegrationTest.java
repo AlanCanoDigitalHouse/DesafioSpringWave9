@@ -9,6 +9,7 @@ import com.mercadolibre.tucasitatasaciones.exception.DistrictNotFoundException;
 import com.mercadolibre.tucasitatasaciones.exception.ErrorMessage;
 import com.mercadolibre.tucasitatasaciones.unit.utils.TestUtils;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -36,6 +37,7 @@ public class AssessmentControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("prop dimension response")
     void calcPropDimension() throws Exception {
         PropertyDTO request = TestUtils.createProperty();
         AssessmentDTO expected = AssessmentDTO.builder()
@@ -58,6 +60,7 @@ public class AssessmentControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("validation exception")
     void testThrowValidationException() throws Exception {
         PropertyDTO request = TestUtils.createProperty();
         request.setPropName("");
@@ -77,6 +80,7 @@ public class AssessmentControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("malformed payload exception")
     void testThrowPayloadMalformedException() throws Exception {
         ErrorMessage expected = TestUtils.createValidationErrorMalformedPayload();
 
@@ -94,6 +98,7 @@ public class AssessmentControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("district not found")
     void testThrowDistrictNotFoundException() throws Exception {
         PropertyDTO request = TestUtils.createProperty();
         request.getDistrict().setDistrictName("NON EXISTING DISTRICT");

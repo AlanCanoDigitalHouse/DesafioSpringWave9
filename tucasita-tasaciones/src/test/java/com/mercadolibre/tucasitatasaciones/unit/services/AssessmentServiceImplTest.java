@@ -7,10 +7,7 @@ import com.mercadolibre.tucasitatasaciones.exception.DistrictNotFoundException;
 import com.mercadolibre.tucasitatasaciones.services.DistrictServiceImpl;
 import com.mercadolibre.tucasitatasaciones.services.AssessmentServiceImpl;
 import com.mercadolibre.tucasitatasaciones.unit.utils.TestUtils;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -39,6 +36,7 @@ class AssessmentServiceImplTest {
     }
 
     @Test
+    @DisplayName("calculate property area (service)")
     void testCalcDimensionM2() throws DistrictNotFoundException {
         PropertyDTO property = TestUtils.createProperty();
 
@@ -49,6 +47,7 @@ class AssessmentServiceImplTest {
     }
 
     @Test
+    @DisplayName("find biggest room (service)")
     void testBiggestRoom() throws DistrictNotFoundException {
         PropertyDTO property = TestUtils.createProperty();
 
@@ -59,6 +58,7 @@ class AssessmentServiceImplTest {
     }
 
     @Test
+    @DisplayName("calculate area of each room (service)")
     void testRoomsDimension() throws DistrictNotFoundException {
         PropertyDTO property = TestUtils.createProperty();
 
@@ -70,6 +70,7 @@ class AssessmentServiceImplTest {
     }
 
     @Test
+    @DisplayName("calculate property price (service)")
     void testPropPrice() throws DistrictNotFoundException {
         PropertyDTO property = TestUtils.createProperty();
 
