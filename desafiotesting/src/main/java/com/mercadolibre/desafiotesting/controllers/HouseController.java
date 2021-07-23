@@ -1,7 +1,7 @@
 package com.mercadolibre.desafiotesting.controllers;
 
 import com.mercadolibre.desafiotesting.dto.HouseResponseDto;
-import com.mercadolibre.desafiotesting.dto.RequestHouseDto;
+import com.mercadolibre.desafiotesting.dto.HouseRequestDto;
 import com.mercadolibre.desafiotesting.exceptions.DistrictException;
 import com.mercadolibre.desafiotesting.services.HouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class HouseController {
     HouseService houseService;
 
     @PostMapping("/calculate")
-    public ResponseEntity<HouseResponseDto> calculate(@RequestBody @Valid RequestHouseDto house) throws DistrictException {
+    public ResponseEntity<HouseResponseDto> calculate(@RequestBody @Valid HouseRequestDto house) throws DistrictException {
         return new ResponseEntity<>(houseService.calculate(house), HttpStatus.OK);
     }
 }

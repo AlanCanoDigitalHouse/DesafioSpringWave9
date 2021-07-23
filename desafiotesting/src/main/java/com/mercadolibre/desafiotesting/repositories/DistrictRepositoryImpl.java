@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class DistrictRepositoryImpl implements DistrictRepository{
+public class DistrictRepositoryImpl implements DistrictRepository {
 
     List<String> names = new ArrayList<>();
 
-    public DistrictRepositoryImpl(){
+    public DistrictRepositoryImpl() {
         names.add("Barrio flores");
         names.add("Barrio sol");
         names.add("Barrio luna");
@@ -19,6 +19,6 @@ public class DistrictRepositoryImpl implements DistrictRepository{
 
     @Override
     public String findDistrictByName(String name) throws DistrictException {
-        return names.stream().filter(b->b.equals(name)).findFirst().orElseThrow(()->new DistrictException(DistrictException.DISTRICT_NOT_FOUND));
+        return names.stream().filter(b -> b.equals(name)).findFirst().orElseThrow(() -> new DistrictException(DistrictException.DISTRICT_NOT_FOUND));
     }
 }

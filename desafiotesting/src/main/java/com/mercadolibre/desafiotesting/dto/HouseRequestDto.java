@@ -10,7 +10,7 @@ import javax.validation.constraints.Max;
 @Data
 @AllArgsConstructor
 @Validated
-public class RequestHouseDto {
+public class HouseRequestDto {
 
     @Valid
     private HouseDto houseDto;

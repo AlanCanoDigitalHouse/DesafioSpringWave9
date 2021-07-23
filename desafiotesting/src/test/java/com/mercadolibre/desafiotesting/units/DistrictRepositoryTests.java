@@ -1,42 +1,39 @@
-package com.mercadolibre.desafiotesting.unit;
+package com.mercadolibre.desafiotesting.units;
 
 import com.mercadolibre.desafiotesting.exceptions.DistrictException;
 import com.mercadolibre.desafiotesting.repositories.DistrictRepository;
 import com.mercadolibre.desafiotesting.repositories.DistrictRepositoryImpl;
 import org.junit.jupiter.api.*;
 
-public class RepositoryTests {
+class DistrictRepositoryTests {
 
     DistrictRepository districtRepository;
 
     @BeforeEach
     @AfterEach
     private void setUp() {
-
         this.districtRepository = new DistrictRepositoryImpl();
     }
 
     @Test
-    @DisplayName("Test find district")
-    public void findExistentDistrict() {
+    @DisplayName("Find district test")
+    void findExistentDistrict() {
 
         String found = null;
         try {
-            found= districtRepository.findDistrictByName("Barrio flores");
+            found = districtRepository.findDistrictByName("Barrio flores");
 
         } catch (DistrictException e) {
             e.printStackTrace();
         }
 
-        Assertions.assertEquals( "Barrio flores",found);
+        Assertions.assertEquals("Barrio flores", found);
     }
 
     @Test
-    @DisplayName("Test not find district")
-    public void findNonExistentDistrict() {
+    @DisplayName("Find non existent district test")
+    void findNonExistentDistrict() {
 
-
-        Assertions.assertThrows(DistrictException.class,() -> districtRepository.findDistrictByName("Barrio null"));
-
+        Assertions.assertThrows(DistrictException.class, () -> districtRepository.findDistrictByName("Barrio null"));
     }
 }
