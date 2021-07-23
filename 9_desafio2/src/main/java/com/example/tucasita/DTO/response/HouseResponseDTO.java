@@ -3,7 +3,6 @@ package com.example.tucasita.DTO.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Data

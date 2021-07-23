@@ -15,17 +15,17 @@ import java.util.List;
 @Repository
 public class DistrictRepositoryImpl implements DistrictRepository {
 
-    public static final java.lang.String DISTRICTS_DB_ROUTE = "classpath:static/districts.json";
+    public static final String DISTRICTS_DB_ROUTE = "classpath:static/districts.json";
 
     @Override
     public Double getPriceOrThrowException(String districtName) {
-        return getDBPrices().stream()
+        return getDBDistricts().stream()
                 .filter(d -> d.getName().equals(districtName))
                 .findAny().orElseThrow()
                 .getPrice();
     }
 
-    private List<DistrictEntity> getDBPrices() {
+    private List<DistrictEntity> getDBDistricts() {
         File file;
         try {
             file = ResourceUtils.getFile(DISTRICTS_DB_ROUTE);
@@ -35,7 +35,7 @@ public class DistrictRepositoryImpl implements DistrictRepository {
         return loadDistrictsJSON(file);
     }
 
-    private List<DistrictEntity> loadDistrictsJSON(File file) throws DBNotAvailableException {
+    private List<DistrictEntity> loadDistrictsJSON(File file) {
         ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<List<DistrictEntity>> typeReference = new TypeReference<>() {
         };
