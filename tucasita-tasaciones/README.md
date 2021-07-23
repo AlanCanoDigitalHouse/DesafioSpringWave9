@@ -5,7 +5,7 @@
 
     * Autor: Regis Emiliano
 
-## Info
+## Other Info
     * El repo DistrictRepositoryImpl levanta un listado de districtos de un archivo.
 
     * El path del archivo es el siguiente: 'resources/static/districts.json'
@@ -60,7 +60,7 @@
 ### US-0001: Calcular el total de metros cuadrados de una propiedad.
 * POST `/property/dimension`
 * Payload
-  [go to payload definition for more details](#payload-(definition))
+  [go to payload definition for more details](#payload-definition)
 * Responses
     * `200` success
     * `400` fail [go to exceptions for details](#exceptions)
@@ -68,7 +68,7 @@
 ### US-0002: Indicar el valor de una propiedad a partir de sus ambientes y medidas.
 * POST `/property/price`
 * Payload
-  [go to payload definition for more details](#payload-(definition))
+  [go to payload definition for more details](#payload-definition)
 * Responses
     * `200` success
     * `400` fail [go to exceptions for details](#exceptions)
@@ -76,7 +76,7 @@
 ### US-0003: Determinar cuál es el ambiente más grande.
 * POST `/property/rooms/biggest`
 * Payload
-  [go to payload definition for more details](#payload-(definition))
+  [go to payload definition for more details](#payload-definition)
 * Responses
     * `200` success
     * `400` fail [go to exceptions for details](#exceptions)
@@ -84,7 +84,7 @@
 ### US-0004: Determinar la cantidad de metros cuadrados que tiene cada ambiente de una propiedad.
 * POST `/property/rooms/dimensions`
 * Payload
-  [go to payload definition for more details](#payload-(definition))
+  [go to payload definition for more details](#payload-definition)
 * Responses
     * `200` success
     * `400` fail [go to exceptions for details](#exceptions)
