@@ -1,0 +1,22 @@
+[
+  {
+    "district_name": "Manhattan",
+    "district_price": 400
+  },
+  {
+    "district_name": "Brooklyn",
+    "district_price": 300
+  },
+  {
+    "district_name": "Queens",
+    "district_price": 300
+  },
+  {
+    "district_name": "The Bronx",
+    "district_price": 100
+  },
+  {
+    "district_name": "Staten Island",
+    "district_price": 100
+  }
+]
