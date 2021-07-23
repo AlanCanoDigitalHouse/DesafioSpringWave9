@@ -11,8 +11,9 @@ public class ErrorMessage {
     private String error;
     private Map<String, String> message;
 
-    public ErrorMessage(Integer status, String error, Map<String, String> message){
+    public ErrorMessage(Integer status, String error, Map<String, String> message) {
         this.status = status;
         this.error = error;
         this.message = message;
+    }
 }
