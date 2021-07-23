@@ -1,8 +1,6 @@
 package com.desafio2.spring.tucasita.tucasita.dtos.request;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
@@ -20,7 +18,7 @@ public class HouseDTO {
 
     @NotNull(message = "El barrio no puede estar vacío.")
     @Valid
-    private PriceDTO district;
+    private DistrictDTO district;
 
     @NotEmpty(message = "La lista de cuartos no puede estar vacía.")
     private List<@Valid RoomDTO> rooms;

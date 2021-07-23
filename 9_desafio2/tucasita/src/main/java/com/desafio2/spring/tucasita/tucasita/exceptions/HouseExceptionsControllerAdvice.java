@@ -12,6 +12,14 @@ import java.util.List;
 
 @ControllerAdvice(annotations = RestController.class)
 public class HouseExceptionsControllerAdvice {
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public ErrorMessage handlerException(ServiceExceptions ex){
+        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.ERROR, new HashMap<>());
+    }
+
     @ExceptionHandler
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)

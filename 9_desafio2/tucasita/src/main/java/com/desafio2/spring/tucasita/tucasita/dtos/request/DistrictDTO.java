@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Validated
-public class PriceDTO {
+public class DistrictDTO {
 
     @NotBlank(message = "El barrio no puede estar vacío.")
     @Size(max = 45, message = "La longitud del barrio no puede superar los 45 caracteres.")
