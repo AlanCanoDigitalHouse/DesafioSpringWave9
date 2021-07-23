@@ -10,10 +10,10 @@ public class MetrosCuadradosResponse {
   private double metrosTotales;
   private double valorDeLaCasa;
   private HabitacionDto habitacionMasGrande;
-  private Map<HabitacionDto, Double> metrosCuadradosPorHabitacion;
+  private Map<String, Double> metrosCuadradosPorHabitacion;
 
   public MetrosCuadradosResponse(double metrosTotales, double valorDeLaCasa, HabitacionDto habitacionMasGrande,
-                                 Map<HabitacionDto, Double> metrosCuadradosPorHabitacion) {
+                                 Map<String, Double> metrosCuadradosPorHabitacion) {
     this.metrosTotales = metrosTotales;
     this.valorDeLaCasa = valorDeLaCasa;
     this.habitacionMasGrande = habitacionMasGrande;

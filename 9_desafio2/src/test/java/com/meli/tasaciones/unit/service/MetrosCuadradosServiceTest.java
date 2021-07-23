@@ -118,10 +118,10 @@ class MetrosCuadradosServiceTest {
 
   @Test
   void whenCalcularMetrosCaudradosPorHabitacionThenValid() throws CalcularValorException {
-    Map<HabitacionDto, Double> expected =
-            casaDto.getHabitaciones().stream().collect(Collectors.toMap(habitacionDto -> habitacionDto,
+    Map<String, Double> expected =
+            casaDto.getHabitaciones().stream().collect(Collectors.toMap(habitacionDto -> habitacionDto.getNombre(),
                     habitacionDto -> habitacionDto.getLargo() * habitacionDto.getAncho()));
-    Map<HabitacionDto, Double> result = service.calcularMetrosCaudradosPorHabitacion(casaDto);
+    Map<String, Double> result = service.calcularMetrosCaudradosPorHabitacion(casaDto);
     Assertions.assertEquals(expected, result);
   }
 

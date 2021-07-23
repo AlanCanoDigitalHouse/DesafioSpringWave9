@@ -1,8 +1,8 @@
 package com.meli.tasaciones.model;
 
 import lombok.Data;
+import lombok.Getter;
 
-@Data
 public class Location {
 
   private String location;
@@ -11,5 +11,9 @@ public class Location {
   public Location(String location, Double price) {
     this.location = location;
     this.price = price;
+  }
+
+  public Double getPrice() {
+    return price;
   }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 @Validated
 public class CasaDto {
   @NotBlank(message = "El nombre de la propiedad no puede estar vacio")
-  @Pattern(regexp = "[A-Z]\\p{Alpha}+", message = "El nombre de la propiedad debe comenzar con mayuscula")
+  @Pattern(regexp = "[A-Z][\\p{Alnum} ]+", message = "El nombre de la propiedad debe comenzar con mayuscula")
   @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres")
   @JsonProperty("prop_name")
   private String nombre;

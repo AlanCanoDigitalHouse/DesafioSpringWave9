@@ -38,9 +38,9 @@ public class MetrosCuadradosServiceImp implements MetrosCuadradosService {
     return habitacionDto;
   }
 
-  public Map<HabitacionDto, Double> calcularMetrosCaudradosPorHabitacion(CasaDto casaDto) throws CalcularValorException {
+  public Map<String, Double> calcularMetrosCaudradosPorHabitacion(CasaDto casaDto) throws CalcularValorException {
     validarCasa(casaDto);
-    return casaDto.getHabitaciones().stream().collect(Collectors.toMap(entry -> entry,
+    return casaDto.getHabitaciones().stream().collect(Collectors.toMap(entry -> entry.getNombre(),
             entry -> entry.getAncho() * entry.getLargo()));
   }
 

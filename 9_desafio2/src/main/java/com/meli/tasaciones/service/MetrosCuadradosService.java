@@ -15,7 +15,7 @@ public interface MetrosCuadradosService {
 
   HabitacionDto getHabitacionMasGrande(CasaDto casaDto) throws CalcularValorException;
 
-  Map<HabitacionDto, Double> calcularMetrosCaudradosPorHabitacion(CasaDto casaDto) throws CalcularValorException;
+  Map<String, Double> calcularMetrosCaudradosPorHabitacion(CasaDto casaDto) throws CalcularValorException;
 
   Double getValorMetroCuadrado(String location, Double precioPorMetroCuadrado) throws MetrosCuadradosException;
 

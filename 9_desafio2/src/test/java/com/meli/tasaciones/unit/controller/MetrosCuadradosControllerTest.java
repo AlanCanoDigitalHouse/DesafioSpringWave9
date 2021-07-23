@@ -80,13 +80,13 @@ class MetrosCuadradosControllerTest {
     double totalMetrosCuadradosExpected = casaDto.getHabitaciones().stream().mapToDouble(h -> h.getAncho() * h.getLargo()).sum();
 
     double valorDeLaCasaExpected = totalMetrosCuadradosExpected * TEST_PRICE_PER_METER;
-    Map<HabitacionDto, Double> habitacionesConMetrosCuadrados = casaDto.getHabitaciones().stream().collect(Collectors.toMap(entry -> entry,
+    Map<String, Double> habitacionesConMetrosCuadrados =
+            casaDto.getHabitaciones().stream().collect(Collectors.toMap(entry -> entry.getNombre(),
             entry -> entry.getAncho() * entry.getLargo()));
-    HabitacionDto habitacionMasGrande =
-            habitacionesConMetrosCuadrados.entrySet().stream().max(Comparator.comparingDouble(entry -> entry.getValue())).map(entry -> entry.getKey()).get();
+    HabitacionDto habitacionDto = casaDto.getHabitaciones().stream().max(Comparator.comparingDouble(h -> h.getAncho() * h.getLargo())).get();
 
     casaDtoResponse = new MetrosCuadradosResponse(totalMetrosCuadradosExpected, valorDeLaCasaExpected,
-            habitacionMasGrande, habitacionesConMetrosCuadrados);
+            habitacionDto, habitacionesConMetrosCuadrados);
     return new ResponseEntity<>(casaDtoResponse, HttpStatus.OK);
   }
 }
