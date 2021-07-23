@@ -1,0 +1,89 @@
+[
+  {
+    "prop_name": "Mi Casa 1",
+    "district_name": "Belgrano",
+    "district_price": 1100,
+    "environments": [
+      {
+        "environment_name": "Habitacion 1",
+        "environment_width": 4,
+        "environment_length": 4,
+        "environment_area": 16
+      },
+      {
+        "environment_name": "Hall",
+        "environment_width": 5,
+        "environment_length":2,
+        "environment_area": 10
+      },
+      {
+        "environment_name": "Cocina",
+        "environment_width": 3.5,
+        "environment_length": 2,
+        "environment_area": 7
+      }
+    ],
+    "prop_area": 33.0,
+    "prop_price": 36300.0
+  },
+  {
+    "prop_name": "Apartamento 1",
+    "district_name": "Recoleta",
+    "district_price": 900,
+    "environments": [
+      {
+        "environment_name": "Habitacion 1",
+        "environment_width": 3,
+        "environment_length": 3,
+        "environment_area": 9
+      },
+      {
+        "environment_name": "Hall",
+        "environment_width": 3,
+        "environment_length":2,
+        "environment_area": 6
+      },
+      {
+        "environment_name": "Cocina",
+        "environment_width": 2.5,
+        "environment_length": 2,
+        "environment_area": 5
+      }
+    ],
+    "prop_area": 20.0,
+    "prop_price": 18000
+  },
+  {
+    "prop_name":"Pen House" ,
+    "district_name": "Puerto Madero",
+    "district_price": 2000,
+    "environments": [
+      {
+        "environment_name": "Habitacion 1",
+        "environment_width": 5,
+        "environment_length": 3,
+        "environment_area": 15
+      },
+      {
+        "environment_name": "Habitacion 2",
+        "environment_width": 5,
+        "environment_length": 3,
+        "environment_area": 15
+      },
+      {
+        "environment_name": "Hall",
+        "environment_width": 5,
+        "environment_length":6,
+        "environment_area": 30
+      },
+      {
+        "environment_name": "Cocina",
+        "environment_width": 10,
+        "environment_length": 3,
+        "environment_area": 30
+      }
+    ],
+    "prop_area": 90,
+    "prop_price": 180000
+  }
+]
