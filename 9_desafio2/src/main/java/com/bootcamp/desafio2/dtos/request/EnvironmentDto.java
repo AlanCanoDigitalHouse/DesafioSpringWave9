@@ -1,15 +1,21 @@
 package com.bootcamp.desafio2.dtos.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.*;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Validated
 public class EnvironmentDto {
 
     @NotBlank(message = "El nombre del ambiente no puede ser vacío")
     @Size(message = "La longitud del nombre no puede superar los 30 caracteres", max = 30)
-    @Pattern(regexp="([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú]*$",
+    @Pattern(regexp="([A-Z])[\\s|A-Z|a-z|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú]*$",
             message = "El nombre del ambiente debe comenzar con mayúscula.")
     private String environment_name;
 

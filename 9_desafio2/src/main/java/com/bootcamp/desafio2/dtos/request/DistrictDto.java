@@ -2,11 +2,13 @@ package com.bootcamp.desafio2.dtos.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
+@Validated
 public class DistrictDto {
 
     @NotBlank(message = "El barrio no puede estar vacío")

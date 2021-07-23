@@ -2,11 +2,11 @@ package com.bootcamp.desafio2.dtos.response;
 
 import com.bootcamp.desafio2.dtos.request.EnvironmentDto;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
 import java.util.List;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class ResponseDto {
 

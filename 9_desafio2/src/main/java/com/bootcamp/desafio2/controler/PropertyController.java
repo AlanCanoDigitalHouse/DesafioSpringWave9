@@ -1,11 +1,9 @@
-package com.bootcamp.desafio2.controller;
+package com.bootcamp.desafio2.controler;
 
 import com.bootcamp.desafio2.dtos.request.PropertyDto;
 import com.bootcamp.desafio2.dtos.response.ResponseDto;
-import com.bootcamp.desafio2.exceptions.DistrictNotFoundException;
-import com.bootcamp.desafio2.exceptions.ErrorMessage;
+import com.bootcamp.desafio2.exceptions.BusinessException;
 import com.bootcamp.desafio2.services.IPropertyService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +14,15 @@ import java.io.IOException;
 @RequestMapping("/property")
 public class PropertyController {
 
-    @Autowired
     IPropertyService propertyService;
+
+    public PropertyController(IPropertyService propertyService) {
+        this.propertyService = propertyService;
+    }
 
     @PostMapping("/calculate")
     public ResponseEntity<ResponseDto> calculateArea(@Valid @RequestBody PropertyDto property)
-            throws ErrorMessage, IOException, DistrictNotFoundException {
+            throws BusinessException, IOException {
         return ResponseEntity.ok(propertyService.calculatePrice(property));
     }
 }
