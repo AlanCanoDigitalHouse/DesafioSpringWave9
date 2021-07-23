@@ -1,0 +1,15 @@
+[
+  {
+    "toFollowUserId": 1,
+    "followerUserId": 2
+  },{
+    "toFollowUserId": 1,
+    "followerUserId": 3
+  },{
+    "toFollowUserId": 1,
+    "followerUserId": 4
+  },{
+    "toFollowUserId": 1,
+    "followerUserId": 5
+  }
+]

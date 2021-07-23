@@ -1,0 +1,39 @@
+[
+  {
+    "userId": 1,
+    "date": "10-07-2021",
+    "detail": {
+      "productName" : "Silla Gamer",
+      "type" : "Gamer",
+      "brand" : "Racer",
+      "color" : "Red & Black",
+      "notes" : "Special Edition"
+    },
+    "category" : 100,
+    "price" : 15000.50
+  },{
+  "userId": 1,
+  "date": "25-04-2021",
+  "detail": {
+    "productName" : "Headset RGB Inalambrico",
+    "type" : "Gamer",
+    "brand" : "Razer",
+    "color" : "Green with RGB",
+    "notes" : "Sin bateria"
+  },
+  "category" : 120,
+  "price" : 20.50
+  },{
+    "userId": 1,
+    "date": "29-07-2021",
+    "detail": {
+      "productName" : "Portatil ENVY",
+      "type" : "Gamer",
+      "brand" : "HP",
+      "color" : "Gray",
+      "notes" : "Special Edition Star Wars"
+    },
+    "category" : 90,
+    "price" : 33000.50
+  }
+]

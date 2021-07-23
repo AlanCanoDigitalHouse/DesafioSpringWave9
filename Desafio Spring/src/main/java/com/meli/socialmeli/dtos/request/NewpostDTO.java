@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.Calendar;
 
@@ -16,8 +17,9 @@ public class NewpostDTO {
     @Positive(message = "Must be greater than 0.")
     private int userId;
     @FutureOrPresent(message = "Must be a date on the future or present.") //Can schedule a post
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy", timezone = JsonFormat.DEFAULT_TIMEZONE)
     private Calendar date;
+    @Valid
     private Product detail;
     private int category;
     @Positive(message = "Must be greater than 0.")

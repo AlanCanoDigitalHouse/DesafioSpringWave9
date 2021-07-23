@@ -48,7 +48,7 @@ public class UsersRepository implements IUsersRepository{
             throw new UserDoesNotExistException("follower id " + f.getFollowerUserId());
         }
         Optional<Follow> follow = findFollow(f);
-        if(!follow.isPresent()){
+        if(follow.isEmpty()){
             throw new FollowException(f.getFollowerUserId(), f.getToFollowUserId());
         }
         usersFollows.remove(follow.get());
@@ -62,14 +62,9 @@ public class UsersRepository implements IUsersRepository{
             throw new UserDoesNotExistException("follower id " + f.getFollowerUserId());
         }
         Optional<Follow> follow = findFollow(f);
-        if(!follow.isPresent()){
+        if(follow.isEmpty()){
             usersFollows.add(f);
         }
-    }
-
-    public boolean followExist(Follow f){
-        Optional<Follow> follow = findFollow(f);
-        return follow.isPresent();
     }
 
     public Optional<Follow> findFollow(Follow f){
