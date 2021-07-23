@@ -2,7 +2,6 @@ package com.mercadolibre.calculadorametroscuadrados.controller;
 
 import com.mercadolibre.calculadorametroscuadrados.dto.HouseRequestDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.HouseResponseDTO;
-import com.mercadolibre.calculadorametroscuadrados.dto.PriceDTO;
 import com.mercadolibre.calculadorametroscuadrados.service.CalculateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +14,6 @@ public class CalculateRestController {
 
   @Autowired
   CalculateService calculateService;
-
-  @PostMapping("/calculate")
-  public HouseResponseDTO calculate(@RequestBody HouseRequestDTO house){
-    return calculateService.calculate(house);
-  }
-
-  @GetMapping("/{location}")
-  public PriceDTO calculateLocation(@PathVariable String location){
-    return calculateService.probarMapper(location);
-  }
 
   @GetMapping("/calculations")
   public ResponseEntity<HouseResponseDTO> allInOneCalculator(@Valid @RequestBody HouseRequestDTO houseReqDTO) {

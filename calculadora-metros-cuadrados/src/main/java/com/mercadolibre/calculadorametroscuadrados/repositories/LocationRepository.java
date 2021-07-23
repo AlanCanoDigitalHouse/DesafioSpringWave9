@@ -2,7 +2,6 @@ package com.mercadolibre.calculadorametroscuadrados.repositories;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mercadolibre.calculadorametroscuadrados.dto.PriceDTO;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 

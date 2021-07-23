@@ -19,7 +19,7 @@ public class CalculateService {
 
   public ResponseEntity<HouseResponseDTO> allInOneCalculator(HouseRequestDTO houseReqDTO) {
     Double area = houseReqDTO.calculateHouseSquareFeet();
-    if (repo.locationExists(houseReqDTO.getDistrict_name()))
+    if (!repo.locationExists(houseReqDTO.getDistrict_name()))
       throw new RuntimeException("Location does not exist in database");
 
     Double price = area * houseReqDTO.getDistrict_price();

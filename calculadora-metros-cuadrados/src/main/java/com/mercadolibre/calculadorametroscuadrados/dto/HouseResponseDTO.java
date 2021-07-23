@@ -11,7 +11,6 @@ public class HouseResponseDTO {
   private String prop_name;
   private Double house_area;
   private Double price;
-  private String biggest;
+  private String biggest_room;
   private List<RoomAreaDTO> room_areas;
-
 }
