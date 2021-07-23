@@ -12,6 +12,7 @@ public class PropertyDTO {
     @NotNull
     @NotBlank
     @Size(max = 30)
+    @Pattern(regexp = "^\\p{Lu}.*$", message = "El nombre de la propiedad debe comenzar con mayúscula.")
     String prop_name;
 
     @NotNull

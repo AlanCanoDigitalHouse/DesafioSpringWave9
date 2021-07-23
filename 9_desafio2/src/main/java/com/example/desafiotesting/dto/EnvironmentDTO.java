@@ -1,16 +1,18 @@
 package com.example.desafiotesting.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.validation.constraints.*;
 
 @Getter
+@AllArgsConstructor
 public class EnvironmentDTO {
 
     @NotBlank
     @NotNull
     @Size(max = 30)
-    @Pattern(regexp = "^[A-Z][-a-zA-Z]*(?:\\s+[A-Z][-a-zA-Z]*)?/g")
+    @Pattern(regexp = "^\\p{Lu}.*$", message = "El nombre de la propiedad debe comenzar con mayúscula.")
     String environment_name;
 
     @NotNull

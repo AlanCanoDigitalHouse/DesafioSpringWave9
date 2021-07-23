@@ -4,6 +4,8 @@ import com.example.desafiotesting.dto.EnvironmentDTO;
 import com.example.desafiotesting.dto.PropertyDTO;
 import com.example.desafiotesting.dto.response.EnvironmentResponseDTO;
 import com.example.desafiotesting.dto.response.ResponseDTO;
+import com.example.desafiotesting.exception.PropertyNotFoundException;
+import com.example.desafiotesting.repository.PropertyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,7 +14,15 @@ import java.util.List;
 
 @Service
 public class PropertyService {
+
+    PropertyRepository propertyRepository;
+
+    public PropertyService(PropertyRepository propertyRepository) {
+        this.propertyRepository = propertyRepository;
+    }
+
     public ResponseDTO calculateAll(PropertyDTO property){
+        if (!this.propertyRepository.propertyExists(property.getProp_name())) throw new PropertyNotFoundException();
         Double propertySize = this.calculatePropertySize(property.getEnvironments());
         Double propertyPrice = propertySize * property.getDistrict().getDistrict_price();
         EnvironmentResponseDTO biggerEnvironment = this.calculateBiggerEnvironment(property.getEnvironments());
@@ -20,7 +30,7 @@ public class PropertyService {
         return new ResponseDTO(propertySize, propertyPrice, biggerEnvironment, environmentResponseDTO);
     }
 
-    private Double calculatePropertySize(List<EnvironmentDTO> environments){
+    public Double calculatePropertySize(List<EnvironmentDTO> environments){
         Double totalSize = 0.0;
         for (EnvironmentDTO environment:
              environments) {
@@ -29,7 +39,7 @@ public class PropertyService {
         return totalSize;
     }
 
-    private EnvironmentResponseDTO calculateBiggerEnvironment(List<EnvironmentDTO> environments) {
+    public EnvironmentResponseDTO calculateBiggerEnvironment(List<EnvironmentDTO> environments) {
         EnvironmentDTO biggerEnvironment = environments
                 .stream().max(Comparator.comparing(EnvironmentDTO::calculateSize)).get();
         return new EnvironmentResponseDTO(
@@ -38,7 +48,7 @@ public class PropertyService {
         );
     }
 
-    private List<EnvironmentResponseDTO> calculateEachSizeEnvironment(List<EnvironmentDTO> environments) {
+    public List<EnvironmentResponseDTO> calculateEachSizeEnvironment(List<EnvironmentDTO> environments) {
         List<EnvironmentResponseDTO> environmentsSize = new ArrayList<>();
         for (EnvironmentDTO environment:
                 environments) {
