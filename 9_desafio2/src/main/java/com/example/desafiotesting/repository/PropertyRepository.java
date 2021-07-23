@@ -1,5 +1,6 @@
 package com.example.desafiotesting.repository;
 
+import com.example.desafiotesting.exception.PropertyNotFoundException;
 import com.example.desafiotesting.model.PropertyModel;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +18,9 @@ public class PropertyRepository {
     List<PropertyModel> properties = loadDatabase().orElse(new ArrayList<>());
 
     public boolean propertyExists(String propertyName) {
-        return properties.stream().anyMatch((item) -> item.getProp_name().equals(propertyName));
+        boolean exists =  properties.stream().anyMatch((item) -> item.getProp_name().equals(propertyName));
+        if (!exists) throw new PropertyNotFoundException();
+        return true;
     }
 
     public Optional<List<PropertyModel>> loadDatabase(){

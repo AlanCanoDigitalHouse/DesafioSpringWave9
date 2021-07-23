@@ -22,7 +22,6 @@ public class PropertyService {
     }
 
     public ResponseDTO calculateAll(PropertyDTO property){
-        if (!this.propertyRepository.propertyExists(property.getProp_name())) throw new PropertyNotFoundException();
         Double propertySize = this.calculatePropertySize(property.getEnvironments());
         Double propertyPrice = propertySize * property.getDistrict().getDistrict_price();
         EnvironmentResponseDTO biggerEnvironment = this.calculateBiggerEnvironment(property.getEnvironments());
