@@ -8,16 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Repository
 public class LocationRepositoryImp implements LocationRepository {
 
   private final Map<String, Location> locations;
-
-  public LocationRepositoryImp(Map<String, Location> locations) {
-    this.locations = locations;
-  }
 
   public LocationRepositoryImp() {
     this.locations = loadData();
@@ -29,6 +24,8 @@ public class LocationRepositoryImp implements LocationRepository {
     map.put("Belgrano", new Location("Belgrano", 1100.0));
     map.put("Recoleta", new Location("Recoleta", 900.0));
     map.put("Puerto Madero", new Location("Puerto Madero", 2000.0));
+    map.put("Agronomia", new Location("Agronimia", 1530.0));
+    map.put("Balvanera", new Location("Balvanera", 2850.0));
     return map;
   }
 
@@ -42,7 +39,7 @@ public class LocationRepositoryImp implements LocationRepository {
   }
 
   @Override
-  public List<Location> getLocations(String location) {
+  public List<Location> getLocations() {
     return new ArrayList<>(locations.values());
   }
 

@@ -8,5 +8,5 @@ import java.util.List;
 public interface LocationRepository {
   Double getLocationPrice(String location) throws LocationNotFoundException;
 
-  List<Location> getLocations(String location);
+  List<Location> getLocations();
 }

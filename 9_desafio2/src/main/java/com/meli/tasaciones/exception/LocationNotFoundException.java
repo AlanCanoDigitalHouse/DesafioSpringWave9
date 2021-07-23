@@ -1,11 +1,8 @@
 package com.meli.tasaciones.exception;
 
-public class LocationNotFoundException extends Exception {
+public class LocationNotFoundException extends MetrosCuadradosException {
   public LocationNotFoundException(String message) {
     super(message);
   }
 
-  public LocationNotFoundException(String message, Throwable cause) {
-    super(message, cause);
-  }
 }
