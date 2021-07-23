@@ -3,6 +3,7 @@ package com.tucasitatasaciones.repositories;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tucasitatasaciones.DTOs.PriceDTO;
+import com.tucasitatasaciones.globalconstants.Reference;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -33,8 +34,7 @@ public class PriceRepositoryImpl {
     private List<PriceDTO> loadDatabase() {
         File file = null;
         try {
-            file = ResourceUtils.getFile("classpath:static/price.json");
-
+            file = ResourceUtils.getFile(Reference.PATH_DISTRICT_DATA);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

@@ -1,5 +1,7 @@
 package com.tucasitatasaciones.DTOs;
 
+import java.util.Objects;
+
 public class PropertyResponseDTO extends PropertyDTO {
     private double squareFeet;
     private double price;
@@ -11,11 +13,24 @@ public class PropertyResponseDTO extends PropertyDTO {
     public PropertyResponseDTO(PropertyDTO house) {
         this.setProp_name(house.getProp_name());
         this.setEnvironments(house.getEnvironments());
-        this.setDistrict_name(house.getDistrict_name());
+        this.setDistrict(house.getDistrict());
     }
 
     public double getSquareFeet() {
         return squareFeet;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PropertyResponseDTO that = (PropertyResponseDTO) o;
+        return Double.compare(that.squareFeet, squareFeet) == 0 && Double.compare(that.price, price) == 0 && biggest.equals(that.biggest);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(squareFeet, price, biggest);
     }
 
     public void setSquareFeet(double squareFeet) {

@@ -6,6 +6,8 @@ import com.tucasitatasaciones.DTOs.PriceDTO;
 import com.tucasitatasaciones.services.CalculateService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 public class CalculateRestController {
 
@@ -16,12 +18,8 @@ public class CalculateRestController {
     }
 
     @PostMapping("/calculate")
-    public PropertyResponseDTO calculate(@RequestBody PropertyDTO house) {
+    public PropertyResponseDTO calculate(@Valid @RequestBody PropertyDTO house) {
         return calculateService.calculate(house);
     }
 
-    @GetMapping("/{location}")
-    public PriceDTO calculateLocation(@PathVariable String location) {
-        return calculateService.probarMapper(location);
-    }
 }
