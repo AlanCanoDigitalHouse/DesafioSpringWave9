@@ -1,0 +1,14 @@
+[
+  {
+    "district_name": "Barney",
+    "district_price": 100.0
+  },
+  {
+  "district_name": "Galicia",
+  "district_price": 1000.0
+  },
+  {
+  "district_name": "Cano",
+  "district_price": 500.0
+  }
+]
