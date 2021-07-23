@@ -2,17 +2,26 @@ package com.mercadolibre.calculadorametroscuadrados.controller;
 
 import com.mercadolibre.calculadorametroscuadrados.dto.HouseDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.HouseResponseDTO;
-import com.mercadolibre.calculadorametroscuadrados.dto.RoomDTO;
+import com.mercadolibre.calculadorametroscuadrados.exceptions.DistrictNotFound;
+import com.mercadolibre.calculadorametroscuadrados.exceptions.DistrictPriceNotMatch;
 import com.mercadolibre.calculadorametroscuadrados.service.CalculateService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 public class CalculateRestController {
+
+  private final CalculateService service;
+
+  public CalculateRestController(CalculateService service) {
+    this.service = service;
+  }
+
   @PostMapping("/calculate")
-  public HouseResponseDTO calculate(@RequestBody HouseDTO house){
-    CalculateService calculateService = new CalculateService();
-    return calculateService.calculate(house);
+  public HouseResponseDTO calculate(@Valid @RequestBody HouseDTO house) throws DistrictNotFound, DistrictPriceNotMatch {
+    return service.calculate(house);
   }
 }

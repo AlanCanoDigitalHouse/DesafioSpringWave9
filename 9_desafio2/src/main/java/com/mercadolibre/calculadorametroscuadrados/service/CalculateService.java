@@ -3,21 +3,27 @@ package com.mercadolibre.calculadorametroscuadrados.service;
 import com.mercadolibre.calculadorametroscuadrados.dto.HouseDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.HouseResponseDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.RoomDTO;
+import com.mercadolibre.calculadorametroscuadrados.exceptions.DistrictNotFound;
+import com.mercadolibre.calculadorametroscuadrados.exceptions.DistrictPriceNotMatch;
+import com.mercadolibre.calculadorametroscuadrados.repository.DistrictRepositoryImpl;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 
+@Service
 public class CalculateService {
 
-  private HashMap<String, Double> priceByPlace = new HashMap<>();
+  private final DistrictRepositoryImpl repository;
 
-  public CalculateService() {
-    this.priceByPlace.put("Santiago", 2000.0);
+  public CalculateService(DistrictRepositoryImpl repository) {
+    this.repository = repository;
   }
 
-  public HouseResponseDTO calculate(HouseDTO house) {
+  public HouseResponseDTO calculate(HouseDTO house) throws DistrictNotFound, DistrictPriceNotMatch {
     HouseResponseDTO response = new HouseResponseDTO(house);
     calculateRoomSquareFeet(house, response);
-    response.setPrice(calculatePrice(response.getSquareFeet()));
+    response.setPrice(calculatePrice(response.getSquareFeet(), response.getDistrict_price(), response.getDistrict_name()));
     return response;
   }
 
@@ -25,7 +31,7 @@ public class CalculateService {
     Integer totalSquareFeet = 0;
     RoomDTO biggest = null;
     Integer maxRoom = 0;
-    for (RoomDTO room : house.getRooms()) {
+    for (RoomDTO room : house.getEnviroments()) {
       Integer squareFeet = room.getSquareFeet();
       totalSquareFeet += squareFeet;
       if (biggest == null || squareFeet > maxRoom){
@@ -37,7 +43,15 @@ public class CalculateService {
     response.setBiggest(biggest);
   }
 
-  private int calculatePrice(Integer result) {
-    return result * 800;
+  private Double calculatePrice(Integer squareFeet, Double price, String district) throws DistrictNotFound, DistrictPriceNotMatch {
+    Double priceProp = null;
+    Double pricebyDistric = repository.findDistrictPrice(district);
+    if (pricebyDistric.equals(price)){
+      priceProp = squareFeet * price;
+    }else {
+      throw new DistrictPriceNotMatch();
+    }
+    return priceProp;
   }
+
 }
