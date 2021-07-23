@@ -1,4 +1,4 @@
-package com.mercadolibre.calculadorametroscuadrados.dto;
+package com.mercadolibre.calculadorametroscuadrados.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,7 +27,7 @@ El máximo ancho permitido por propiedad es de 25 mts.
   @Max(value = 25, message = "El máximo largo permitido por propiedad es de 33 mts.")
   private Double environment_length;
 
-  public Double getSquareFeet() {
+  public Double getArea() {
     double result = 0;
     if(this.environment_width != null && this.environment_length != null)
       result = this.environment_width * this.environment_length;

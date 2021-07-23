@@ -1,6 +1,6 @@
 package com.mercadolibre.calculadorametroscuadrados.service;
 
-import com.mercadolibre.calculadorametroscuadrados.dto.*;
+import com.mercadolibre.calculadorametroscuadrados.dtos.*;
 import com.mercadolibre.calculadorametroscuadrados.repositories.LocationRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class CalculateService {
   }
 
   public ResponseEntity<HouseResponseDTO> allInOneCalculator(HouseRequestDTO houseReqDTO) {
-    Double area = houseReqDTO.calculateHouseSquareFeet();
+    Double area = houseReqDTO.calculateHouseArea();
     if (!repo.locationExists(houseReqDTO.getDistrict_name()))
       throw new RuntimeException("Location does not exist in database");
 

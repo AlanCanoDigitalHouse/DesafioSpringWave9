@@ -1,7 +1,7 @@
 package com.mercadolibre.calculadorametroscuadrados.controller;
 
-import com.mercadolibre.calculadorametroscuadrados.dto.HouseRequestDTO;
-import com.mercadolibre.calculadorametroscuadrados.dto.HouseResponseDTO;
+import com.mercadolibre.calculadorametroscuadrados.dtos.HouseRequestDTO;
+import com.mercadolibre.calculadorametroscuadrados.dtos.HouseResponseDTO;
 import com.mercadolibre.calculadorametroscuadrados.service.CalculateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

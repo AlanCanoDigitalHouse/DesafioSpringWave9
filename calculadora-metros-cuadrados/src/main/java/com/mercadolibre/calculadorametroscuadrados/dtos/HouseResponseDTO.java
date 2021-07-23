@@ -1,4 +1,4 @@
-package com.mercadolibre.calculadorametroscuadrados.dto;
+package com.mercadolibre.calculadorametroscuadrados.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
