@@ -136,7 +136,6 @@ public class UserManager implements IUserManager{
         Optional<User> user = userRepo.findById(userId);
         if (user.isEmpty())
             throw new UserDoesNotExist(userId);
-
         return new ResponseEntity<>(
                 new PromoPostCountResponseDTO(userId,user.get().getUserName(),user.get().getPostResponseDTOS().size()),
                 HttpStatus.OK);
