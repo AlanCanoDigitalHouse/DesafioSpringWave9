@@ -5,6 +5,7 @@ import com.example.demo.Exceptions.ExistingNameException;
 import com.example.demo.Models.District;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Data;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -13,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+@Data
 @Repository
 public class DistrictRepository implements IDistrictRepository {
 
