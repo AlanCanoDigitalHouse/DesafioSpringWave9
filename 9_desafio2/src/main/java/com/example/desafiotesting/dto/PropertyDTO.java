@@ -2,6 +2,7 @@ package com.example.desafiotesting.dto;
 
 import lombok.Getter;
 
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 
@@ -14,8 +15,10 @@ public class PropertyDTO {
     String prop_name;
 
     @NotNull
+    @Valid
     DistrictDTO district;
 
     @NotEmpty
+    @Valid
     List<EnvironmentDTO> environments;
 }

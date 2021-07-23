@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Validated
 @RestController()
 @RequestMapping("/properties")
-@Validated
 public class PropertyController {
 
     PropertyService propertyService;
