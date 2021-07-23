@@ -1,18 +1,18 @@
 [
   {
-    "location": "Palermo",
-    "price": 1000
+    "district_name": "Palermo",
+    "district_price": 1000
   },
   {
-    "location": "Belgrano",
-    "price": 1100
+    "district_name": "Belgrano",
+    "district_price": 1100
   },
   {
-    "location": "Recoleta",
-    "price": 900
+    "district_name": "Recoleta",
+    "district_price": 900
   },
   {
-    "location": "Puerto Madero",
-    "price": 2000
+    "district_name": "Puerto Madero",
+    "district_price": 2000
   }
 ]

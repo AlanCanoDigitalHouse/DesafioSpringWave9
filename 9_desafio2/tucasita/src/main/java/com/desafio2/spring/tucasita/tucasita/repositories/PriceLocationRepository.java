@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @Repository
 public class PriceLocationRepository {
+
     public DistrictDTO findPriceLocation(String location) {
         List<DistrictDTO> districtDTOS;
         districtDTOS = loadDatabase();
