@@ -1,11 +1,26 @@
 package com.mercadolibre.calculadorametroscuadrados.dto;
 
+import javax.validation.constraints.*;
+
 public class RoomDTO {
+  @NotBlank(message = "El nombre del ambiente no puede estar vacío.")
+  @Pattern(regexp = "[A-Z](\\p{Alpha}||\\s)+", message = "El nombre del ambiente debe comenzar con mayúscula.")
+  @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
   private String name;
+  @NotNull(message = "el ancho del ambiente no puede estar vacio")
+  @DecimalMax(value = "25.0",message = "El máximo ancho permitido por propiedad es de 25 mts.")
   private Integer width;
+  @NotNull(message = "el largo del ambiente no puede estar vacio")
+  @DecimalMax(value = "33.0",message = "El máximo largo permitido por propiedad es de 33 mts.")
   private Integer length;
 
   public RoomDTO() {
+  }
+
+  public RoomDTO(String name, Integer width, Integer length) {
+    this.name = name;
+    this.width = width;
+    this.length = length;
   }
 
   public String getName() {

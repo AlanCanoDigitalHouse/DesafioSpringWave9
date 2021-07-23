@@ -4,8 +4,11 @@ import com.mercadolibre.calculadorametroscuadrados.dto.HouseDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.HouseResponseDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.PriceDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.RoomDTO;
+import com.mercadolibre.calculadorametroscuadrados.exceptions.BadRequestException;
 import com.mercadolibre.calculadorametroscuadrados.repositories.PriceRepositoryImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 public class CalculateService {
@@ -16,10 +19,17 @@ public class CalculateService {
     this.priceRepository = priceRepository;
   }
 
-  public HouseResponseDTO calculate(HouseDTO house) {
+  public HouseResponseDTO calculate(HouseDTO house){
     HouseResponseDTO response = new HouseResponseDTO(house);
     calculateRoomSquareFeet(house, response);
-    response.setPrice(calculatePrice(response.getSquareFeet()));
+    PriceDTO locationDB= probarMapper(house.getLocation());
+    if(Objects.nonNull(locationDB)){
+      if(locationDB.getPrice().equals(house.getPrice()))
+      response.setPrice(calculatePrice(response.getSquareFeet(),locationDB.getPrice()));
+      else
+        throw new BadRequestException("Precio no coincide con el de localidad");
+    }
+    response.setLocation(house.getLocation());
     return response;
   }
 
@@ -39,11 +49,11 @@ public class CalculateService {
     response.setBiggest(biggest);
   }
 
-  private int calculatePrice(Integer result) {
-    return result * 800;
+  private int calculatePrice(Integer result, Integer price) {
+      return result * price;
   }
 
-  public PriceDTO probarMapper(String location){
+  public PriceDTO probarMapper(String location)  {
     return  priceRepository.findPriceLocation(location);
   }
 }

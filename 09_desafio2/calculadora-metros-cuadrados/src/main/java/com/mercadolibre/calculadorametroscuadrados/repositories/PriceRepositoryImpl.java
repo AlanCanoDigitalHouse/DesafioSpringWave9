@@ -3,6 +3,7 @@ package com.mercadolibre.calculadorametroscuadrados.repositories;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mercadolibre.calculadorametroscuadrados.dto.PriceDTO;
+import com.mercadolibre.calculadorametroscuadrados.exceptions.BadRequestException;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -16,13 +17,13 @@ import java.util.Optional;
 @Repository
 public class PriceRepositoryImpl{
 
-    public PriceDTO findPriceLocation(String location){
+    public PriceDTO findPriceLocation(String location) {
         List<PriceDTO> priceDTOS;
         priceDTOS = loadDatabase();
         PriceDTO result = null;
 
         if(Objects.nonNull(priceDTOS)){
-            Optional<PriceDTO> item = priceDTOS.stream().filter(priceDTO -> priceDTO.getLocation().equals(location)).findFirst();
+            Optional<PriceDTO> item = Optional.ofNullable(priceDTOS.stream().filter(priceDTO -> priceDTO.getLocation().equals(location)).findFirst().orElseThrow(BadRequestException::new));
             if (item.isPresent()){
                 result = item.get();
             }
