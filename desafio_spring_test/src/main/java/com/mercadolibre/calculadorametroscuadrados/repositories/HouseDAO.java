@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mercadolibre.calculadorametroscuadrados.dto.HouseDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.LocationDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.repository.HouseRepositoryDTO;
+import com.mercadolibre.calculadorametroscuadrados.exception.DataNotFound;
+import com.mercadolibre.calculadorametroscuadrados.utils.UtilsHome;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
@@ -40,7 +42,7 @@ public class HouseDAO implements IHouseDAO{
         ObjectMapper objectMapper = new ObjectMapper();
         File file;
         try {
-            file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/static/houses.json");
+            file = ResourceUtils.getFile("classpath:static/houses.json");
             loadedData = objectMapper.readValue(file, new TypeReference<Set<HouseRepositoryDTO>>(){});
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -58,7 +60,7 @@ public class HouseDAO implements IHouseDAO{
         ObjectMapper objectMapper = new ObjectMapper();
         File file;
         try {
-            file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/static/price.json");
+            file = ResourceUtils.getFile("classpath:static/price.json");
             loadedData = objectMapper.readValue(file, new TypeReference<Set<LocationDTO>>(){});
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -74,7 +76,7 @@ public class HouseDAO implements IHouseDAO{
     private void saveData(){
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/static/houses.json");
+            File file = ResourceUtils.getFile("classpath:static/houses.json");
             objectMapper.writeValue(file, this.houses);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -124,5 +126,14 @@ public class HouseDAO implements IHouseDAO{
         return strata.stream()
                 .filter(str -> str.getLocation().equals(locationName))
                 .findFirst();
+    }
+
+    @Override
+    public HouseDTO getAnyHouseDTOFromDB() throws DataNotFound {
+        Optional<HouseRepositoryDTO> house = this.houses.stream().findFirst();
+        if(house.isPresent()){
+            return UtilsHome.HouseRepoToHouseDTO(house.get());
+        }else throw new DataNotFound("Database not found","Empty Database");
+
     }
 }

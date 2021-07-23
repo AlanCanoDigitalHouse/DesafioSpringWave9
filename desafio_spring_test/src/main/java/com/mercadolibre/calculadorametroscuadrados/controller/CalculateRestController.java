@@ -9,12 +9,14 @@ import com.mercadolibre.calculadorametroscuadrados.service.ICalculateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 public class CalculateRestController {
   @Autowired
   ICalculateService calculateService;
   @PostMapping("/calculate")
-  public HouseResponseDTO calculate(@RequestBody HouseDTO house) throws DataNotFound {
+  public HouseResponseDTO calculate(@Valid @RequestBody HouseDTO house) throws DataNotFound {
     return calculateService.calculateHome(house);
   }
 }

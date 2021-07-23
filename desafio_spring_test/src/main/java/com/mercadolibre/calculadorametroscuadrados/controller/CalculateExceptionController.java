@@ -30,7 +30,7 @@ public class CalculateExceptionController {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     protected ResponseEntity<ErrorDTO> handleValidationExceptions(HttpMessageNotReadableException e) {
-        ErrorDTO error = new ErrorDTO("HttpMessageNotReadableException", e.getMessage());
+        ErrorDTO error = new ErrorDTO("HttpMessageNotReadableException", "La data ingresada no es la requerida: " + e.getCause());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 

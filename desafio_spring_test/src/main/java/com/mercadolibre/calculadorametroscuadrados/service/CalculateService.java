@@ -27,31 +27,15 @@ public class CalculateService implements ICalculateService{
   public HouseResponseDTO calculateHome(HouseDTO house) throws DataNotFound {
     if(repository.ifDistrictAreaExist(house.getDistrict_name())){
       HouseResponseDTO response = new HouseResponseDTO();
+      response.setProp_name(house.getProp_name());
+      response.setEnvironments(new ArrayList<>());
       for (EnvironmentDTO env : house.getEnvironments()){
         response.getEnvironments().add(new EnvironmentResponseDTO(env.getEnvironment_name(),env.getSquareFeet())); // US-0004
       }
       calculateRoomSquareFeet(house, response);// US-0001 & US-0002
       response.setProp_price(house.getDistrict_price() * response.getProp_area());
-      repositoryHouse(house,response);
+      repository.saveHouse(house,response);
       return response;
     } else throw new DataNotFound("Not Exist","District does not exits");
-  }
-
-  private void repositoryHouse(HouseDTO houseDTO, HouseResponseDTO houseResponseDTO){
-    HouseRepositoryDTO houseRepository = new HouseRepositoryDTO();
-    houseRepository.setProp_name(houseDTO.getProp_name());
-    houseRepository.setDistrict_name(houseDTO.getDistrict_name());
-    houseRepository.setDistrict_price(houseDTO.getDistrict_price());
-    houseRepository.setProp_price(houseResponseDTO.getProp_price());
-    houseRepository.setProp_area(houseResponseDTO.getProp_area());
-    List<EnvironmentRepoDTO> environments = new ArrayList<>();
-    for(EnvironmentDTO env: houseDTO.getEnvironments()){
-      for(EnvironmentResponseDTO envRes: houseResponseDTO.getEnvironments()){
-        if(env.getEnvironment_name().equals(envRes.getEnvironment_name())){
-          environments.add(new EnvironmentRepoDTO(env.getEnvironment_name(), env.getEnvironment_width(),env.getEnvironment_length(),envRes.getEnvironment_area()));
-        }
-      }
-    }
-    houseRepository.setEnvironments(environments);
   }
 }
