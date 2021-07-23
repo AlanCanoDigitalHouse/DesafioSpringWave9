@@ -3,6 +3,9 @@ package com.mercadolibre.calculadorametroscuadrados.repositories;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mercadolibre.calculadorametroscuadrados.dto.PriceDTO;
+import com.mercadolibre.calculadorametroscuadrados.exceptions.NotFoundLocation;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -14,9 +17,10 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Repository
-public class PriceRepositoryImpl{
+public class PriceRepositoryImpl implements PriceRepository{
 
-    public PriceDTO findPriceLocation(String location){
+
+    public PriceDTO findLocation(String location) throws NotFoundLocation {
         List<PriceDTO> priceDTOS;
         priceDTOS = loadDatabase();
         PriceDTO result = null;
@@ -27,6 +31,9 @@ public class PriceRepositoryImpl{
                 result = item.get();
             }
         }
+
+        if(Objects.isNull(result))
+            throw new NotFoundLocation("No existe registro para la locacion: "+location+".", HttpStatus.NOT_FOUND);
         return result;
     }
 

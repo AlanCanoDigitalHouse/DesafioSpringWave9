@@ -1,41 +1,31 @@
 package com.mercadolibre.calculadorametroscuadrados.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class RoomDTO {
+
+  @NotBlank(message = "El nombre del ambiente no puede estar vacío.")
+  @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
+  @Pattern(regexp = "^[A-ZÀ-ÿ\\u00f1\\u00d1]+(\\s*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]*)*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+$", message = "El nombre del ambiente debe comenzar con mayúscula.")
   private String name;
-  private Integer width;
-  private Integer length;
 
-  public RoomDTO() {
-  }
+  @NotNull(message = "El ancho del ambiente no puede estar vacío.")
+  @DecimalMax(value = "25", message = "El máximo ancho permitido por propiedad es de 25 mts.")
+  @DecimalMin(value = "1.5", message = "El mimino ancho permitido por propiedad es de 1.5 mts")
+  private Double width;
 
-  public String getName() {
-    return name;
-  }
+  @NotNull(message = "El largo del ambiente no puede estar vacío.")
+  @DecimalMax(value = "33", message = "El máximo largo permitido por propiedad es de 33 mts.")
+  @DecimalMin(value = "1.5", message = "El mimino largo permitido por propiedad es de 1.5 mts")
+  private Double length;
 
-  public void setName(String name) {
-    this.name = name;
-  }
+  private Double squareFeet;
 
-  public Integer getWidth() {
-    return width;
-  }
-
-  public void setWidth(Integer width) {
-    this.width = width;
-  }
-
-  public Integer getLength() {
-    return length;
-  }
-
-  public void setLength(Integer length) {
-    this.length = length;
-  }
-
-  public Integer getSquareFeet() {
-    Integer result = 0;
-    if(this.width != null && this.length != null)
-      result = this.width * this.length;
-    return result;
-  }
 }

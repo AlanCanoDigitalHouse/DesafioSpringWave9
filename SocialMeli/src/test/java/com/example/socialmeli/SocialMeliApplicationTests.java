@@ -8,6 +8,7 @@ class SocialMeliApplicationTests {
 
     @Test
     void contextLoads() {
+        
     }
 
 }
