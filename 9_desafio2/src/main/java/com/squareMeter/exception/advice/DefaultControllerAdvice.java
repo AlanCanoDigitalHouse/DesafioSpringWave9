@@ -1,7 +1,5 @@
 package com.squareMeter.exception.advice;
 
-import com.squareMeter.dto.request.district.DistrictRequestDTO;
-import com.squareMeter.exception.exception.DistrictAlreadyExistsException;
 import com.squareMeter.exception.exception.DistrictNotExistsException;
 import com.squareMeter.exception.model.ErrorAttributes;
 import com.squareMeter.exception.model.ErrorMessage;

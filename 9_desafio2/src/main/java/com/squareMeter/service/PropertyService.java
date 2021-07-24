@@ -1,13 +1,18 @@
 package com.squareMeter.service;
 
 import com.squareMeter.dto.request.property.PropertyRequestDTO;
+import com.squareMeter.dto.response.EnvironmentResponseDTO;
 import com.squareMeter.dto.response.PropertyValueDTO;
 import com.squareMeter.dto.response.PropertySquareMetersResponseDTO;
 import com.squareMeter.exception.exception.DistrictNotExistsException;
+import com.squareMeter.model.EnvironmentModel;
 import com.squareMeter.model.PropertyModel;
 import com.squareMeter.utils.Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /* Note about dozer mapper
 This library was selected becouse de advantages to make more readable the code
@@ -28,12 +33,18 @@ public class PropertyService implements IPropertyService {
      * @return the quantity of meters
      */
     @Override
-    public PropertySquareMetersResponseDTO getHouseTotalSquareMeters(PropertyRequestDTO propertyRequestDTO) throws DistrictNotExistsException {
+    public PropertySquareMetersResponseDTO getHouseTotalSquareMeters(PropertyRequestDTO propertyRequestDTO){
         PropertyModel propertyModel = mapper.map(propertyRequestDTO, PropertyModel.class);
         double total = propertyModel.getEnvironments().stream().mapToDouble(room -> room.getEnvironment_width() * room.getEnvironment_length()).sum();
         return new PropertySquareMetersResponseDTO(total);
     }
 
+    /**
+     * Obtain the value of a property
+     * @param data property data
+     * @return Value of the property
+     * @throws DistrictNotExistsException in case of the district don't exists
+     */
     @Override
     public PropertyValueDTO getHouseValue(PropertyRequestDTO data) throws DistrictNotExistsException {
         districtService.districtExists(data.getDistrict().getDistrict_name());
@@ -41,33 +52,24 @@ public class PropertyService implements IPropertyService {
         return PropertyValueDTO.builder().value(price).build();
     }
 
-    /*public PropertyValueDTO getHouseValue(PropertyModel propertyModel) {
-        double price;
-        List<EnvironmentModel> rooms = propertyModel.getEnvironmentModelList();
-        price = rooms.stream().mapToDouble(room -> room.getEnvironment_width() * room.getEnvironment_length() * 800).sum();
-
-        PropertyValueDTO houseValueDTO = PropertyValueDTO.builder()
-                .value(price)
-                .build();
-
-        return houseValueDTO;
-    }
-
-
-
-    public EnvironmentModel getBiggerRoom(PropertyModel propertyModel) {
-        EnvironmentModel actualRoom = propertyModel.getEnvironmentModelList().get(0);
-        for (EnvironmentModel room : propertyModel.getEnvironmentModelList()) {
-            double metersActual = actualRoom.getEnvironment_length() * actualRoom.getEnvironment_width();
-            double metersNew = room.getEnvironment_length() * room.getEnvironment_width();
-            if (metersNew > metersActual) {
-                actualRoom = room;
-            }
+    /**
+     * Obtain the biggest environment of a property
+     * @param propertyRequestDTO data property
+     * @return the biggest environment
+     */
+    @Override
+    public EnvironmentResponseDTO getBiggerEnvironment(PropertyRequestDTO propertyRequestDTO) {
+        List<EnvironmentModel> environements = propertyRequestDTO.getEnvironments().stream().map(dto -> mapper.map(dto, EnvironmentModel.class)).collect(Collectors.toList());
+        EnvironmentModel bigger = null;
+        for (EnvironmentModel room : environements) {
+            if(bigger == null) bigger = room;
+            if(room.getEnvironment_length()* room.getEnvironment_width() > bigger.getEnvironment_width()* bigger.getEnvironment_length())
+                bigger = room;
         }
-        return actualRoom;
+        return mapper.map(bigger, EnvironmentResponseDTO.class);
     }
 
-    public List<AmbientMetersDTO> getMetersPerRoom(PropertyModel propertyModel) {
+    /*public List<AmbientMetersDTO> getMetersPerRoom(PropertyModel propertyModel) {
         List<AmbientMetersDTO> out = new ArrayList<>();
         for (EnvironmentModel room : propertyModel.getEnvironmentModelList()) {
             AmbientMetersDTO ambientMetersDTO = AmbientMetersDTO.builder()

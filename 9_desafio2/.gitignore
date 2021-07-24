@@ -27,7 +27,6 @@ hs_err_pid*
 **/.class
 out/
 libraries/
-.idea
 
 HELP.md
 **/target

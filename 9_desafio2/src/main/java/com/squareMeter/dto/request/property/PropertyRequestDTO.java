@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -23,6 +24,7 @@ public class PropertyRequestDTO {
     @Valid
     private DistrictRequestDTO district;
     @NotNull(message = "Ambient of the property is needed")
+    @NotEmpty(message = "Property must have at least one environment")
     @Valid
     private List<PropertyEnvironmentRequestDTO> environments;
 }
