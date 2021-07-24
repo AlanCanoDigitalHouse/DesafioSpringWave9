@@ -10,7 +10,7 @@ import java.util.Map;
 public class HouseResponseDTO {
 
     private Map<String, Double> roomSizes;
-    String maxSizeRoomName;
+    private String maxSizeRoomName;
     private Double houseValue;
     private Double totalSquareM;
 }
