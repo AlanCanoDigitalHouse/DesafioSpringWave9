@@ -2,7 +2,6 @@ package com.desafio.tucasitatasaciones.controller;
 
 import com.desafio.tucasitatasaciones.dto.PropertyRequestDTO;
 import com.desafio.tucasitatasaciones.dto.PropertyResponseDTO;
-import com.desafio.tucasitatasaciones.exception.DistrictNotFoundException;
 import com.desafio.tucasitatasaciones.service.DistrictService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ public class CalculatePriceController {
     }
 
     @PostMapping
-    public ResponseEntity<PropertyResponseDTO> getInfo(@Valid @RequestBody PropertyRequestDTO propertyRequestDTO) throws Exception {
+    public ResponseEntity<PropertyResponseDTO> getInfo(@Valid @RequestBody PropertyRequestDTO propertyRequestDTO) {
         return new ResponseEntity<>(districtService.propertyInfo(propertyRequestDTO), HttpStatus.OK);
     }
 

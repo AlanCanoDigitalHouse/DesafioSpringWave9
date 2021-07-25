@@ -1,6 +1,6 @@
 package com.desafio.tucasitatasaciones.exception;
 
-public class DistrictNotFoundException extends Exception{
+public class DistrictNotFoundException extends RuntimeException{
     public String ERROR;
 
     public DistrictNotFoundException(String name){

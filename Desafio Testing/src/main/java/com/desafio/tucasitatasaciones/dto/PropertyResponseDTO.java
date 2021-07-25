@@ -1,5 +1,6 @@
 package com.desafio.tucasitatasaciones.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class PropertyResponseDTO extends PropertyRequestDTO{
     private String biggest_environment;
     private double prop_area;

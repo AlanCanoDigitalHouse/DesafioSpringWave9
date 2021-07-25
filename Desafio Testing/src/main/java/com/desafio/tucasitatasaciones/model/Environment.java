@@ -16,9 +16,11 @@ public class Environment {
     @Pattern(regexp = "(([A-Z][a-z-áéíóúñ]+)+ ?)+", message = "El nombre del ambiente debe comenzar con mayúscula.")
     @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
     private String environment_name;
+
     @Positive(message = "El ancho del ambiente no puede estar vacío.")
     @Max(value = 25, message = "El máximo ancho permitido por propiedad es de 25 mts.")
     private double environment_width;
+
     @Positive(message = "El largo del ambiente no puede estar vacío.")
     @Max(value = 33, message = "El máximo largo permitido por propiedad es de 33 mts.")
     private double environment_length;

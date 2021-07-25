@@ -147,6 +147,6 @@ public class UsersRepositoryTests {
     @DisplayName("13) Follow does not exists exception")
     void deleteFollowException() throws FollowException{
         Follow f = new Follow(1,1);
-        Assertions.assertThrows(FollowException.class, ()-> usersRepository.deleteFollow(f));
+        Assertions.assertThrows(FollowException.class, () -> usersRepository.deleteFollow(f));
     }
 }

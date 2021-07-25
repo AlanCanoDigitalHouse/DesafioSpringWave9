@@ -21,6 +21,9 @@ public class DistrictService implements IDistrictService{
 
     @Override
     public PropertyResponseDTO propertyInfo(PropertyRequestDTO property) throws DistrictNotFoundException{
+        if(property.getEnvironments().isEmpty()){
+            return new PropertyResponseDTO(property, 0, 0, null);
+        }
         double totalArea = calculatePropertyArea(property.getEnvironments());
         double totalPrice = calculatePropertyPrice(property);
         String biggestEnv = findBiggestEnvironment(property.getEnvironments());

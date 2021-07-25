@@ -23,7 +23,6 @@ public class DistrictRepositoryTest {
                 () -> Assertions.assertTrue(response.isPresent()),
                 () -> Assertions.assertEquals(district, response.get().getDistrict_name())
         );
-
     }
 
     @Test

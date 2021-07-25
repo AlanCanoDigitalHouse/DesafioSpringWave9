@@ -15,6 +15,11 @@ import java.util.List;
 @RestControllerAdvice(annotations = RestController.class)
 public class RestRensponseEntityExceptionHandler {
 
+    @ExceptionHandler(DistrictNotFoundException.class)
+    public ResponseEntity<ErrorMessage> handlerCustomException(DistrictNotFoundException e){
+        return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.ERROR), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorMessage> handlerValidations(MethodArgumentNotValidException e){
         BindingResult result = e.getBindingResult();
