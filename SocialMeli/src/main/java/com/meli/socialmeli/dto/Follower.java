@@ -10,6 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Follower {
-        private Integer userId;
-        private String userName;
+    private Integer userId;
+    private String userName;
 }

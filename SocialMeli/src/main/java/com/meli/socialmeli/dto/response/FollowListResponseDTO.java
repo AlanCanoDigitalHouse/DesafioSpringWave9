@@ -12,12 +12,12 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FollowListResponseDTO extends UserResponseDTO{
+public class FollowListResponseDTO extends UserResponseDTO {
     private List<Follower> follower;
 
     public FollowListResponseDTO(Integer userId, String userName, List<Follower> follower) {
         super(userId, userName);
-        this.follower= follower;
+        this.follower = follower;
     }
 
 }

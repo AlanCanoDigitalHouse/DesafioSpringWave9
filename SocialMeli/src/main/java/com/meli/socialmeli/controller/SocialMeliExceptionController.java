@@ -15,31 +15,31 @@ public class SocialMeliExceptionController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SocialMeliExceptionController.class);
 
     @ExceptionHandler(UserNullException.class)
-    public ResponseEntity<ResponseErrorDTO> UserNotFoundExceptionHandler(UserNullException ex){
+    public ResponseEntity<ResponseErrorDTO> UserNotFoundExceptionHandler(UserNullException ex) {
         LOGGER.info("No se encontro al usuario solicitado.");
         return new ResponseEntity<>(ex.getErrorDTO(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(DataBaseException.class)
-    public ResponseEntity<ResponseErrorDTO> DataBaseExceptionHandler(DataBaseException ex){
+    public ResponseEntity<ResponseErrorDTO> DataBaseExceptionHandler(DataBaseException ex) {
         LOGGER.info("No se pudo cargar la base de datos.");
         return new ResponseEntity<>(ex.getErrorDTO(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(RepeatedPostException.class)
-    public ResponseEntity<ResponseErrorDTO> RepeatedPostExceptionHandller(RepeatedPostException ex){
+    public ResponseEntity<ResponseErrorDTO> RepeatedPostExceptionHandller(RepeatedPostException ex) {
         LOGGER.info("Ya existe una publicacion con ese id.");
         return new ResponseEntity<>(ex.getErrorDTO(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ProductNullException.class)
-    public ResponseEntity<ResponseErrorDTO> ProductNullExceptionHandller(ProductNullException ex){
+    public ResponseEntity<ResponseErrorDTO> ProductNullExceptionHandller(ProductNullException ex) {
         LOGGER.info("Ya existe un producto con ese id.");
         return new ResponseEntity<>(ex.getErrorDTO(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(DateNotValidException.class)
-    public ResponseEntity<ResponseErrorDTO> DateNotValidException(DateNotValidException ex){
+    public ResponseEntity<ResponseErrorDTO> DateNotValidException(DateNotValidException ex) {
         LOGGER.info("La fecha ingresada deber ser mayor a la actual.");
         return new ResponseEntity<>(ex.getErrorDTO(), HttpStatus.BAD_REQUEST);
     }

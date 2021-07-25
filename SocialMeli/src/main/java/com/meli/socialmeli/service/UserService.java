@@ -25,7 +25,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class UserService implements UserServiceInterface{
+public class UserService implements UserServiceInterface {
 
     @Autowired
     private UserRespository userRespository;
@@ -35,26 +35,26 @@ public class UserService implements UserServiceInterface{
 
     /**
      * Metodo para que un usuario pueda seguir a otro
-     * @author Garduño Perez Josue Daniel
-     * @param userId {Integer} id del usuario.
+     *
+     * @param userId       {Integer} id del usuario.
      * @param userIdFollow {Integer} id del usuario que seguira.
      * @return {UserDTO} user fount.
-     * */
+     * @author Garduño Perez Josue Daniel
+     */
     @Override
     public ResponseEntity<?> followUser(Integer userId, Integer userIdFollow) throws UserNullException, DataBaseException {
         UserDTO newFollower = userRespository.obtenerUsuario(userId);
         UserDTO usuarioDTO = userRespository.obtenerUsuario(userIdFollow);
 
-        if(newFollower.getUserId().equals(usuarioDTO.getUserId())){
+        if (newFollower.getUserId().equals(usuarioDTO.getUserId())) {
             return new ResponseEntity<>(Constant.AUTOFOLLOW, HttpStatus.BAD_REQUEST);
-        }
-        else{
-            Optional<Follower> item = usuarioDTO.getFollowers().stream().filter(l->l.getUserId().equals(userId)).findFirst();
-            if (item.isPresent()){
+        } else {
+            Optional<Follower> item = usuarioDTO.getFollowers().stream().filter(l -> l.getUserId().equals(userId)).findFirst();
+            if (item.isPresent()) {
                 return new ResponseEntity<>(Constant.USUARIO_SEGUIDO.concat(userIdFollow.toString()), HttpStatus.BAD_REQUEST);
-            }else{
-                userRespository.modificarFollowersUsuario(newFollower,usuarioDTO);
-                userRespository.modificarFollowedUsuario(newFollower,usuarioDTO);
+            } else {
+                userRespository.modificarFollowersUsuario(newFollower, usuarioDTO);
+                userRespository.modificarFollowedUsuario(newFollower, usuarioDTO);
                 return new ResponseEntity<>(Constant.OPERACION_EXITOSA, HttpStatus.OK);
             }
         }
@@ -62,70 +62,74 @@ public class UserService implements UserServiceInterface{
 
     /**
      * Metodo para conocer el numero de seguidores
-     * @author Garduño Perez Josue Daniel
+     *
      * @param userId {int} id del usuario.
      * @return {ResponseEntity<FollowResponseDTO>} lista de seguidores.
+     * @author Garduño Perez Josue Daniel
      **/
     @Override
-    public ResponseEntity<FollowCountResponseDTO> countFollow(Integer userId) throws UserNullException, DataBaseException{
+    public ResponseEntity<FollowCountResponseDTO> countFollow(Integer userId) throws UserNullException, DataBaseException {
         UserDTO usuarioDTO = userRespository.obtenerUsuario(userId);
         return new ResponseEntity<>(new FollowCountResponseDTO(usuarioDTO.getUserId(),
-                usuarioDTO.getUserName(),usuarioDTO.getFollowers().size()), HttpStatus.OK);
+                usuarioDTO.getUserName(), usuarioDTO.getFollowers().size()), HttpStatus.OK);
     }
 
     /**
      * Metodo para obtener la lista de seguidores
-     * @author Garduño Perez Josue Daniel
+     *
      * @param userId {Integer} id of the user.
      * @return {UserDTO} user fount.
+     * @author Garduño Perez Josue Daniel
      **/
     @Override
-    public ResponseEntity<FollowListResponseDTO> obtainFollowList(Integer userId, String order) throws UserNullException, DataBaseException{
+    public ResponseEntity<FollowListResponseDTO> obtainFollowList(Integer userId, String order) throws UserNullException, DataBaseException {
         UserDTO usuarioDTO = userRespository.obtenerUsuario(userId);
         return new ResponseEntity<>(new FollowListResponseDTO(usuarioDTO.getUserId(),
-                usuarioDTO.getUserName(),Utils.sorter(usuarioDTO.getFollowers(),order)), HttpStatus.OK);
+                usuarioDTO.getUserName(), Utils.sorter(usuarioDTO.getFollowers(), order)), HttpStatus.OK);
     }
 
     /**
      * Metodo para obtener la lista de a quienes siguen
-     * @author Garduño Perez Josue Daniel
+     *
      * @param userId {Integer} id of the user.
      * @return {UserDTO} user fount.
+     * @author Garduño Perez Josue Daniel
      **/
     @Override
-    public ResponseEntity<FollowedListResponseDTO> obtainFollowedList(Integer userId, String order) throws UserNullException, DataBaseException{
+    public ResponseEntity<FollowedListResponseDTO> obtainFollowedList(Integer userId, String order) throws UserNullException, DataBaseException {
         UserDTO usuarioDTO = userRespository.obtenerUsuario(userId);
         return new ResponseEntity<>(new FollowedListResponseDTO(usuarioDTO.getUserId(),
-                usuarioDTO.getUserName(),Utils.sorter(usuarioDTO.getFollowed(),order)), HttpStatus.OK);
+                usuarioDTO.getUserName(), Utils.sorter(usuarioDTO.getFollowed(), order)), HttpStatus.OK);
     }
 
     /**
      * Metodo para crear nueva publicacion
-     * @author Garduño Perez Josue Daniel
+     *
      * @param request {PostRequestDTO} id of the user.
      * @return {UserDTO} user fount.
+     * @author Garduño Perez Josue Daniel
      **/
     @Override
     public ResponseEntity<?> newPost(PostRequestDTO request) throws UserNullException, DataBaseException,
             RepeatedPostException, DateNotValidException {
         Date datePost = request.getDate();
 
-        if(Objects.isNull(productRespository.obtenerPublicacion(request.getId_post()))){
-            if(Objects.isNull(productRespository.obtenerProducto(request.getDetail().getProduct_id()))){
+        if (Objects.isNull(productRespository.obtenerPublicacion(request.getId_post()))) {
+            if (Objects.isNull(productRespository.obtenerProducto(request.getDetail().getProduct_id()))) {
                 productRespository.anadirProducto(crearProducto(request));
             }
             if (validateDate(datePost)) {
                 productRespository.anadirPublicacion(request);
-                userRespository.modificarPostUsuario(userRespository.obtenerUsuario(request.getUserId()),request.getId_post());
-            }else
+                userRespository.modificarPostUsuario(userRespository.obtenerUsuario(request.getUserId()), request.getId_post());
+            } else
                 throw new DateNotValidException(Constant.DATE_NOT_VALID, HttpStatus.BAD_REQUEST);
-        }else
-        throw new RepeatedPostException(Constant.POST_EXISTENTE, HttpStatus.BAD_REQUEST);
+        } else
+            throw new RepeatedPostException(Constant.POST_EXISTENTE, HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity<>(Constant.OPERACION_EXITOSA, HttpStatus.OK);
     }
 
-    public Producto crearProducto(PostRequestDTO request){
+    public Producto crearProducto(PostRequestDTO request) {
         Producto b = new Producto();
         b.setProduct_id(request.getDetail().getProduct_id());
         b.setProductName(request.getDetail().getProductName());
@@ -143,35 +147,37 @@ public class UserService implements UserServiceInterface{
 
     /**
      * Metodo para obtener la lista de publicaciones de los que el usuario sigue
-     * @author Garduño Perez Josue Daniel
+     *
      * @param userId {Integer} id of the user.
      * @return {UserDTO} user fount.
+     * @author Garduño Perez Josue Daniel
      **/
     @Override
-    public ResponseEntity<PostListResponse> obtainPostList(Integer userId, String order) throws UserNullException, DataBaseException{
+    public ResponseEntity<PostListResponse> obtainPostList(Integer userId, String order) throws UserNullException, DataBaseException {
         List<PostDTO> postsFollowed = productRespository.searchUsersRecentPosts(userRespository.obtenerUsuario(userId));
-        postsFollowed = Utils.postsSorter(postsFollowed,order);
+        postsFollowed = Utils.postsSorter(postsFollowed, order);
         return new ResponseEntity<>(new PostListResponse(userId, postsFollowed), HttpStatus.OK);
     }
 
     /**
      * Metodo para que un usuario pueda dejar seguir a otro
-     * @author Garduño Perez Josue Daniel
-     * @param userId {Integer} id del usuario.
+     *
+     * @param userId           {Integer} id del usuario.
      * @param userIdToUnfollow {Integer} id del usuario que seguira.
      * @return {UserDTO} user fount.
-     * */
+     * @author Garduño Perez Josue Daniel
+     */
     @Override
     public ResponseEntity<?> unFollowUser(Integer userId, Integer userIdToUnfollow) throws UserNullException, DataBaseException {
         UserDTO unFollower = userRespository.obtenerUsuario(userId);
         UserDTO userToUnfollow = userRespository.obtenerUsuario(userIdToUnfollow);
 
-        Optional<Follower> item = userToUnfollow.getFollowers().stream().filter(l->l.getUserId().equals(userId)).findFirst();
-        if (item.isPresent()){
-            userRespository.eliminarFollowerUsuario(unFollower,userToUnfollow);
-            userRespository.eliminarFollowedUsuario(unFollower,userToUnfollow);
+        Optional<Follower> item = userToUnfollow.getFollowers().stream().filter(l -> l.getUserId().equals(userId)).findFirst();
+        if (item.isPresent()) {
+            userRespository.eliminarFollowerUsuario(unFollower, userToUnfollow);
+            userRespository.eliminarFollowedUsuario(unFollower, userToUnfollow);
             return new ResponseEntity<>(Constant.OPERACION_EXITOSA, HttpStatus.OK);
-        }else
+        } else
             return new ResponseEntity<>(Constant.USUARIO_NO_SEGUIDOR.concat(userIdToUnfollow.toString()), HttpStatus.BAD_REQUEST);
     }
 

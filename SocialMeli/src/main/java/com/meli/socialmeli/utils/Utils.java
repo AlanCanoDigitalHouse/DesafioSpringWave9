@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 public class Utils {
     private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
 
-    public static List<PostDTO> postsSorter(List<PostDTO> list, String order){
-        if(order.equals(Constant.ORDERNAMIENTO_DATE_ASC)){
-            LOGGER.info("Ordenamiento de fecha ascendente.");
+    public static List<PostDTO> postsSorter(List<PostDTO> list, String order) {
+        if (order.equals(Constant.ORDERNAMIENTO_DATE_ASC)) {
+            LOGGER.info("Ordenamiento de fecha ascendente:{}", order);
             list = list.stream().sorted(Comparator.comparing(PostDTO::getDate)).collect(Collectors.toList());
-        }else{
+        } else {
             LOGGER.info("Ordenamiento de fecha descendente.");
             list = list.stream().sorted(Comparator.comparing(PostDTO::getDate).reversed()).collect(Collectors.toList());
         }
@@ -31,7 +31,6 @@ public class Utils {
             bandera = list.stream()
                     .sorted(Comparator.comparing(Follower::getUserName))
                     .collect(Collectors.toList());
-            //Collections.sort(listb);
 
         } else {
             LOGGER.info("Ordenamiento descendente.");

@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value= Constant.URIPRODUCT)
+@RequestMapping(value = Constant.URIPRODUCT)
 public class ProductController {
 
     @Autowired
@@ -18,9 +18,10 @@ public class ProductController {
 
     /**
      * Metodo para dar de alta una nueva publicacion
-     * @author Garduño Perez Josue Daniel
+     *
      * @param request {PostRequestDTO} id of the user.
      * @return {UserDTO} user fount.
+     * @author Garduño Perez Josue Daniel
      **/
     @PostMapping(value = Constant.URINEWPOST)
     public ResponseEntity<?> newPost(@RequestBody PostRequestDTO request) throws UserNullException, DataBaseException,
@@ -30,12 +31,13 @@ public class ProductController {
 
     /**
      * Metodo para conocer las publicaciones realizadas por los que sigue el usuario
-     * @author Garduño Perez Josue Daniel
+     *
      * @param userId {Integer} id of the user.
      * @return {UserDTO} user fount.
+     * @author Garduño Perez Josue Daniel
      **/
-    @RequestMapping(value = Constant.URIPRODUCTLIST, method= RequestMethod.GET)
-    public ResponseEntity<PostListResponse> obtainPostList(@PathVariable(value = "userId")Integer userId,@RequestParam(defaultValue = Constant.ORDERNAMIENTO_ASC)
+    @RequestMapping(value = Constant.URIPRODUCTLIST, method = RequestMethod.GET)
+    public ResponseEntity<PostListResponse> obtainPostList(@PathVariable(value = "userId") Integer userId, @RequestParam(defaultValue = Constant.ORDERNAMIENTO_ASC)
             String order) throws UserNullException, DataBaseException {
         return userService.obtainPostList(userId, order);
     }

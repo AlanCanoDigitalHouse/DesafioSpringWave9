@@ -4,7 +4,8 @@ public class ResponseErrorDTO {
     private String nombre;
     private String descripcion;
 
-    public ResponseErrorDTO() { }
+    public ResponseErrorDTO() {
+    }
 
     public ResponseErrorDTO(String nombre, String descripcion) {
         this.nombre = nombre;

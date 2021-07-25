@@ -12,11 +12,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FollowedListResponseDTO extends UserResponseDTO{
+public class FollowedListResponseDTO extends UserResponseDTO {
     private List<Follower> followed;
 
     public FollowedListResponseDTO(Integer userId, String userName, List<Follower> followed) {
         super(userId, userName);
-        this.followed= followed;
+        this.followed = followed;
     }
 }

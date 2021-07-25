@@ -28,10 +28,11 @@ public class ProductRespository implements ProductRepositoryInterface {
 
     /**
      * Metodo para realizar la busqueda de una publicacion mediante su Id
-     * @author Garduño Perez Josue Daniel
+     *
      * @param post_id {Integer} id of the user.
      * @return {UserDTO} user fount.
-     * */
+     * @author Garduño Perez Josue Daniel
+     */
     @Override
     public PostDTO obtenerPublicacion(Integer post_id) throws DataBaseException {
         PostDTO postDTO = null;
@@ -44,18 +45,19 @@ public class ProductRespository implements ProductRepositoryInterface {
                 postDTO = item.get();
                 return postDTO;
             }
-        }else
+        } else
             throw new DataBaseException();
         return postDTO;
     }
 
     /**
      * Metodo para realizar la busqueda de un producto mediante su Id de producto
-     * @author Garduño Perez Josue Daniel
+     *
      * @param product_id {Integer} id del producto
      * @return {Producto} producto obtenido
-     * */
-    public Producto obtenerProducto(Integer product_id) throws DataBaseException{
+     * @author Garduño Perez Josue Daniel
+     */
+    public Producto obtenerProducto(Integer product_id) throws DataBaseException {
         Producto producto = null;
         List<Producto> lista = loadProductoDatabase();
 
@@ -66,19 +68,20 @@ public class ProductRespository implements ProductRepositoryInterface {
                 producto = item.get();
                 return producto;
             }
-        }else
+        } else
             throw new DataBaseException();
         return producto;
     }
 
     /**
      * Metodo para registrar una nueva publicacion
-     * @author Garduño Perez Josue Daniel
+     *
      * @param request {PostRequestDTO} peticion realizada por el usuario
-     * */
-    public void anadirPublicacion(PostRequestDTO request){
+     * @author Garduño Perez Josue Daniel
+     */
+    public void anadirPublicacion(PostRequestDTO request) {
         List<PostDTO> lista = loadDatabase();
-        lista.add(new PostDTO(request.getUserId(), request.getId_post(),request.getDate(),
+        lista.add(new PostDTO(request.getUserId(), request.getId_post(), request.getDate(),
                 request.getDetail(), request.getCategory(), request.getPrice()));
         LOGGER.info("La publicacion {} se registro correctamente.", request.getId_post());
         updateDatabasePublicacion(lista);
@@ -86,10 +89,11 @@ public class ProductRespository implements ProductRepositoryInterface {
 
     /**
      * Metodo para registrar un nuevo producto
-     * @author Garduño Perez Josue Daniel
+     *
      * @param producto {Producto} producto a registrar.
-     * */
-    public void anadirProducto(Producto producto){
+     * @author Garduño Perez Josue Daniel
+     */
+    public void anadirProducto(Producto producto) {
         List<Producto> lista = loadProductoDatabase();
         lista.add(producto);
         LOGGER.info("El producto {} se registro correctamente.", producto.getProduct_id());
@@ -98,10 +102,11 @@ public class ProductRespository implements ProductRepositoryInterface {
 
     /**
      * Metodo para realizar una busqueda de las publicaciones recientes
-     * @author Garduño Perez Josue Daniel
+     *
      * @param user {UserDTO} usuario del que se obtendra informacion
      * @return {List<PostDTO>} lista de las publicaciones.
-     * */
+     * @author Garduño Perez Josue Daniel
+     */
     public List<PostDTO> searchUsersRecentPosts(UserDTO user) {
         Date actualDate = new Date();
 
@@ -114,94 +119,98 @@ public class ProductRespository implements ProductRepositoryInterface {
 
         List<PostDTO> lista = loadDatabase();
 
-        Predicate<PostDTO> isPostOfFollowed = p -> user.getFollowed().stream().map(Follower::getUserId).collect(Collectors.toList()).contains(p.getUserId());
+        Predicate<PostDTO> isPostOfFollowed = p -> user.getFollowed().stream().map(Follower::getUserId).
+                collect(Collectors.toList()).contains(p.getUserId());
         Predicate<PostDTO> dateIsRecent = p -> p.getDate().after(lessDate) && p.getDate().before(actualDate);
         return lista.stream().filter(isPostOfFollowed.and(dateIsRecent))
                 .collect(Collectors.toList());
     }
 
-    private void updateDatabaseProduct(List<Producto> lista){
+    private void updateDatabaseProduct(List<Producto> lista) {
         File file = null;
-        try{
+        try {
             file = ResourceUtils.getFile("classpath:static/productmeli.json");
 
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        mapObjectProductWrite(file,lista);
+        mapObjectProductWrite(file, lista);
     }
-    private void updateDatabasePublicacion(List<PostDTO> lista){
+
+    private void updateDatabasePublicacion(List<PostDTO> lista) {
         File file = null;
-        try{
+        try {
             file = ResourceUtils.getFile("classpath:static/post.json");
 
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        mapObjectPostWrite(file,lista);
+        mapObjectPostWrite(file, lista);
     }
 
-    private void mapObjectProductWrite(File file,List<Producto> lista){
+    private void mapObjectProductWrite(File file, List<Producto> lista) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             LOGGER.info("Actualizando archivo");
-            objectMapper.writeValue(file,lista);
-        }catch (IOException e){
+            objectMapper.writeValue(file, lista);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void mapObjectPostWrite(File file,List<PostDTO> lista){
+    private void mapObjectPostWrite(File file, List<PostDTO> lista) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             LOGGER.info("Actualizando archivo");
-            objectMapper.writeValue(file,lista);
-        }catch (IOException e){
+            objectMapper.writeValue(file, lista);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private List<PostDTO> loadDatabase(){
-            LOGGER.info("Cargando base de datos");
-            File file = null;
-            try{
-                file = ResourceUtils.getFile("classpath:static/post.json");
-            }catch (FileNotFoundException e){
-                e.printStackTrace();
-        }
-      return mapObject(file);
-    }
-
-    private List<Producto> loadProductoDatabase(){
+    private List<PostDTO> loadDatabase() {
         LOGGER.info("Cargando base de datos");
         File file = null;
-        try{
+        try {
+            file = ResourceUtils.getFile("classpath:static/post.json");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return mapObject(file);
+    }
+
+    private List<Producto> loadProductoDatabase() {
+        LOGGER.info("Cargando base de datos");
+        File file = null;
+        try {
             file = ResourceUtils.getFile("classpath:static/productmeli.json");
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         return mapProductoObject(file);
     }
 
-    private List<PostDTO> mapObject(File file){
+    private List<PostDTO> mapObject(File file) {
         ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<PostDTO>> typeReference = new TypeReference<>(){};
+        TypeReference<List<PostDTO>> typeReference = new TypeReference<>() {
+        };
         List<PostDTO> postDto = null;
         try {
             postDto = objectMapper.readValue(file, typeReference);
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return postDto;
     }
 
-    private List<Producto> mapProductoObject(File file){
+    private List<Producto> mapProductoObject(File file) {
         ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<Producto>> typeReference = new TypeReference<>(){};
+        TypeReference<List<Producto>> typeReference = new TypeReference<>() {
+        };
         List<Producto> postDto = null;
         try {
             postDto = objectMapper.readValue(file, typeReference);
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return postDto;

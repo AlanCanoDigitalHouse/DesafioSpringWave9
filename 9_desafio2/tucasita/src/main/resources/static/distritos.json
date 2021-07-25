@@ -1,0 +1,23 @@
+[
+  {
+    "districtName": "Trece",
+    "pricePerMeter": 2500.0
+  },
+  {
+    "districtName": "Polanco",
+    "pricePerMeter": 1000.0
+  },
+  {
+    "districtName": "Iztapalapa",
+    "pricePerMeter": 100.0
+  },
+  {
+    "districtName": "Santa Fe",
+    "pricePerMeter": 3500.0
+  },
+  {
+    "districtName": "Universidad",
+    "pricePerMeter": 3900.0
+  }
+
+]

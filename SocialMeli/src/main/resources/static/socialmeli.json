@@ -1,88 +1,88 @@
 [
   {
-    "userId":1,
-    "userName":"Josudangp",
-    "followers":[
+    "userId": 1,
+    "userName": "Josudangp",
+    "followers": [
       {
-        "userId":3,
-        "userName":"sol32"
+        "userId": 3,
+        "userName": "sol32"
       },
       {
-        "userId":2,
-        "userName":"lunita10"
+        "userId": 2,
+        "userName": "lunita10"
       }
     ],
-    "followed":[],
-    "posts":[],
-    "specialPosts":[]
+    "followed": [],
+    "posts": [],
+    "specialPosts": []
   },
   {
-    "userId":2,
-    "userName":"lunita10",
-    "followers":[
+    "userId": 2,
+    "userName": "lunita10",
+    "followers": [
       {
-        "userId":4,
-        "userName":"sol15"
+        "userId": 4,
+        "userName": "sol15"
       }
     ],
-    "followed":[
+    "followed": [
       {
-        "userId":3,
-        "userName":"sol32"
+        "userId": 3,
+        "userName": "sol32"
       },
       {
-        "userId":1,
-        "userName":"Josudangp"
+        "userId": 1,
+        "userName": "Josudangp"
       }
     ],
-    "posts":[],
-    "specialPosts":[]
+    "posts": [],
+    "specialPosts": []
   },
   {
-    "userId":3,
-    "userName":"sol32",
-    "followers":[
+    "userId": 3,
+    "userName": "sol32",
+    "followers": [
       {
-        "userId":2,
-        "userName":"lunita10"
+        "userId": 2,
+        "userName": "lunita10"
       }
     ],
-    "followed":[
+    "followed": [
       {
-        "userId":1,
-        "userName":"Josudangp"
+        "userId": 1,
+        "userName": "Josudangp"
       }
     ],
-    "posts":[],
-    "specialPosts":[]
+    "posts": [],
+    "specialPosts": []
   },
   {
-    "userId":4,
-    "userName":"sol15",
-    "followers":[],
-    "followed":[
+    "userId": 4,
+    "userName": "sol15",
+    "followers": [],
+    "followed": [
       {
-        "userId":2,
-        "userName":"lunita10"
+        "userId": 2,
+        "userName": "lunita10"
       }
     ],
-    "posts":[],
-    "specialPosts":[]
+    "posts": [],
+    "specialPosts": []
   },
   {
-    "userId":5,
-    "userName":"Armando13",
-    "followers":[],
-    "followed":[],
-    "posts":[],
-    "specialPosts":[]
+    "userId": 5,
+    "userName": "Armando13",
+    "followers": [],
+    "followed": [],
+    "posts": [],
+    "specialPosts": []
   },
   {
-    "userId":6,
-    "userName":"Armando13",
-    "followers":[],
-    "followed":[],
-    "posts":[],
-    "specialPosts":[]
+    "userId": 6,
+    "userName": "Armando13",
+    "followers": [],
+    "followed": [],
+    "posts": [],
+    "specialPosts": []
   }
 ]

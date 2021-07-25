@@ -5,5 +5,5 @@ import com.meli.socialmeli.exceptions.DataBaseException;
 
 
 public interface ProductRepositoryInterface {
-   PostDTO obtenerPublicacion(Integer product_id) throws DataBaseException;
+    PostDTO obtenerPublicacion(Integer product_id) throws DataBaseException;
 }

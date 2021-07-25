@@ -15,7 +15,7 @@ public class PostListResponse {
     private List<PostDTO> posts;
 
     public PostListResponse(Integer userId, List<PostDTO> posts) {
-        this.userId=userId;
-        this.posts=posts;
+        this.userId = userId;
+        this.posts = posts;
     }
 }

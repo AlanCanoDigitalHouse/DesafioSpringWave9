@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FollowCountResponseDTO extends UserResponseDTO{
+public class FollowCountResponseDTO extends UserResponseDTO {
     private Integer followCount;
 
     public FollowCountResponseDTO(Integer userId, String userName, Integer followCount) {
