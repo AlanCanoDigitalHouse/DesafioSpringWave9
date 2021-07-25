@@ -1,0 +1,10 @@
+{
+  "prop_name": "casa1",
+  "district_name": "Barrio1",
+  "environments": [ {
+    "environment_name": "ambiente1",
+    "environment_width": "100",
+    "environment_length": "200"
+  }
+  ]
+}
