@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "0f6a7200-bfb0-4ea3-84ef-c0bd454f701b",
+		"name": "Modulo 11 - Desafio Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Square Meters House",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"Casa en palermo\",\n    \"district\": {\n        \"district_name\": \"Palermo\",\n        \"district_price\": 1000.0\n    },\n    \"environments\": [\n        {\n            \"environment_name\": \"Banio\",\n            \"environment_width\": \"3.0\",\n            \"environment_length\": \"3.0\"\n        },\n        {\n            \"environment_name\": \"Living\",\n            \"environment_width\": \"6.0\",\n            \"environment_length\": \"10.0\"\n        },\n        {\n            \"environment_name\": \"Cocina\",\n            \"environment_width\": \"7.0\",\n            \"environment_length\": \"6.0\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/house/square-meters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"house",
+						"square-meters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Price house",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"Casa en palermo\",\n    \"district\": {\n        \"district_name\": \"Palermo\",\n        \"district_price\": 1000.0\n    },\n    \"environments\": [\n        {\n            \"environment_name\": \"Banio\",\n            \"environment_width\": \"3.0\",\n            \"environment_length\": \"3.0\"\n        },\n        {\n            \"environment_name\": \"Living\",\n            \"environment_width\": \"6.0\",\n            \"environment_length\": \"10.0\"\n        },\n        {\n            \"environment_name\": \"Cocina\",\n            \"environment_width\": \"7.0\",\n            \"environment_length\": \"6.0\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/house/house-price",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"house",
+						"house-price"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Biggest room",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"Casa en palermo\",\n    \"district\": {\n        \"district_name\": \"Palermo\",\n        \"district_price\": 1000.0\n    },\n    \"environments\": [\n        {\n            \"environment_name\": \"Banio\",\n            \"environment_width\": \"3.0\",\n            \"environment_length\": \"3.0\"\n        },\n        {\n            \"environment_name\": \"Living\",\n            \"environment_width\": \"6.0\",\n            \"environment_length\": \"10.0\"\n        },\n        {\n            \"environment_name\": \"Cocina\",\n            \"environment_width\": \"7.0\",\n            \"environment_length\": \"6.0\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/house/house-biggest-room",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"house",
+						"house-biggest-room"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rooms with square meters calculated",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"Casa en palermo\",\n    \"district\": {\n        \"district_name\": \"Palermo\",\n        \"district_price\": 1000.0\n    },\n    \"environments\": [\n        {\n            \"environment_name\": \"Banio\",\n            \"environment_width\": \"3.0\",\n            \"environment_length\": \"3.0\"\n        },\n        {\n            \"environment_name\": \"Living\",\n            \"environment_width\": \"6.0\",\n            \"environment_length\": \"10.0\"\n        },\n        {\n            \"environment_name\": \"Cocina\",\n            \"environment_width\": \"7.0\",\n            \"environment_length\": \"6.0\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/house/square-meters-rooms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"house",
+						"square-meters-rooms"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

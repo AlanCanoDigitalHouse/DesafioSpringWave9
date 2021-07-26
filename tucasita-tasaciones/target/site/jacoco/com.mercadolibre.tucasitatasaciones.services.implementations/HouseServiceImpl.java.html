@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HouseServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tucasita-tasaciones</a> &gt; <a href="index.source.html" class="el_package">com.mercadolibre.tucasitatasaciones.services.implementations</a> &gt; <span class="el_source">HouseServiceImpl.java</span></div><h1>HouseServiceImpl.java</h1><pre class="source lang-java linenums">package com.mercadolibre.tucasitatasaciones.services.implementations;
+
+import com.mercadolibre.tucasitatasaciones.dtos.request.DistrictDTO;
+import com.mercadolibre.tucasitatasaciones.dtos.request.EnvironmentDTO;
+import com.mercadolibre.tucasitatasaciones.dtos.request.HouseDTO;
+import com.mercadolibre.tucasitatasaciones.dtos.response.AssessmentDTO;
+import com.mercadolibre.tucasitatasaciones.exceptions.DistrictNotFoundException;
+import com.mercadolibre.tucasitatasaciones.services.IDistrictService;
+import com.mercadolibre.tucasitatasaciones.services.IHouseService;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service(&quot;houseService&quot;)
+public class HouseServiceImpl implements IHouseService {
+
+    private final IDistrictService iDistrictService;
+
+<span class="fc" id="L22">    public HouseServiceImpl(@Qualifier(&quot;districtService&quot;) IDistrictService iDistrictService) {</span>
+<span class="fc" id="L23">        this.iDistrictService = iDistrictService;</span>
+<span class="fc" id="L24">    }</span>
+
+    @Override
+    public AssessmentDTO assessmentSquareMeters(HouseDTO house) throws DistrictNotFoundException {
+<span class="fc" id="L28">        checkIfExists(house.getDistrict());</span>
+<span class="fc" id="L29">        return AssessmentDTO.builder()</span>
+<span class="fc" id="L30">                .prop_name(house.getProp_name())</span>
+<span class="fc" id="L31">                .squareMeters(this.calculateAllRoomsSquareMeters(house.getEnvironments()))</span>
+<span class="fc" id="L32">                .build();</span>
+    }
+
+    @Override
+    public AssessmentDTO assessmentSquareMetersEachRoom(HouseDTO house) throws DistrictNotFoundException {
+<span class="fc" id="L37">        checkIfExists(house.getDistrict());</span>
+
+<span class="fc" id="L39">        List&lt;EnvironmentDTO&gt; roomsWithSquare = house.getEnvironments().stream()</span>
+<span class="fc" id="L40">                .peek(room -&gt; room.setSquareMeters(calculateRoom(room)))</span>
+<span class="fc" id="L41">                .collect(Collectors.toList());</span>
+
+<span class="fc" id="L43">        return AssessmentDTO.builder()</span>
+<span class="fc" id="L44">                .prop_name(house.getProp_name())</span>
+<span class="fc" id="L45">                .environments(roomsWithSquare)</span>
+<span class="fc" id="L46">                .build();</span>
+    }
+
+    @Override
+    public AssessmentDTO assessmentBiggestRoom(HouseDTO house) throws DistrictNotFoundException {
+<span class="fc" id="L51">        checkIfExists(house.getDistrict());</span>
+
+<span class="fc" id="L53">        EnvironmentDTO biggestRoom = house.getEnvironments().stream()</span>
+<span class="fc" id="L54">                .peek(room -&gt; room.setSquareMeters(calculateRoom(room)))</span>
+<span class="fc" id="L55">                .max(Comparator.comparing(EnvironmentDTO::getSquareMeters))</span>
+<span class="fc" id="L56">                .orElse(null);</span>
+
+<span class="fc" id="L58">        return AssessmentDTO.builder()</span>
+<span class="fc" id="L59">                .prop_name(house.getProp_name())</span>
+<span class="fc" id="L60">                .biggestRoom(biggestRoom)</span>
+<span class="fc" id="L61">                .build();</span>
+    }
+
+    @Override
+    public AssessmentDTO assessmentPrice(HouseDTO house) throws DistrictNotFoundException {
+<span class="fc" id="L66">        checkIfExists(house.getDistrict());</span>
+
+<span class="fc" id="L68">        Double assessmentSquareMeters = calculateAllRoomsSquareMeters(house.getEnvironments());</span>
+<span class="fc" id="L69">        Double totalPrice = assessmentSquareMeters * house.getDistrict().getDistrict_price();</span>
+
+<span class="fc" id="L71">        return AssessmentDTO.builder()</span>
+<span class="fc" id="L72">                .prop_name(house.getProp_name())</span>
+<span class="fc" id="L73">                .propertyPrice(totalPrice)</span>
+<span class="fc" id="L74">                .build();</span>
+    }
+
+    private void checkIfExists(DistrictDTO district) throws DistrictNotFoundException {
+<span class="fc" id="L78">        this.iDistrictService.findByName(district.getDistrict_name());</span>
+<span class="fc" id="L79">    }</span>
+
+    private Double calculateAllRoomsSquareMeters(List&lt;EnvironmentDTO&gt; listRooms){
+<span class="fc" id="L82">        return listRooms.stream()</span>
+<span class="fc" id="L83">                .peek(e -&gt; e.setSquareMeters(calculateRoom(e)))</span>
+<span class="fc" id="L84">                .reduce(0D, (accu,r) -&gt; accu + r.getSquareMeters(), Double::sum);</span>
+    }
+
+    private Double calculateRoom(EnvironmentDTO room){
+<span class="fc" id="L88">        return room.getEnvironment_length() * room.getEnvironment_width();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -1,0 +1,7 @@
+com/mercadolibre/tucasitatasaciones/unit/controllers/HouseControllerTest.class
+com/mercadolibre/tucasitatasaciones/TucasitaTasacionesApplicationTests.class
+com/mercadolibre/tucasitatasaciones/unit/repositories/DistrictRepositoryTest.class
+com/mercadolibre/tucasitatasaciones/unit/services/HouseServiceTest.class
+com/mercadolibre/tucasitatasaciones/utils/TestUtilsGenerator.class
+com/mercadolibre/tucasitatasaciones/unit/services/DistrictServiceTest.class
+com/mercadolibre/tucasitatasaciones/integration/HouseApplicationTest.class
