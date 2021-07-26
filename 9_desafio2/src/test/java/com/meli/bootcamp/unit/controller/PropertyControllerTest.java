@@ -31,7 +31,7 @@ public class PropertyControllerTest {
 
     @Test
     @DisplayName("Property Area - Controller")
-    public void AreaPropertyTest() throws DistrictException {
+    public void areaPropertyTest() throws DistrictException {
         Double expectedArea = 815.0;
         PropertyDTO property = TestGenerator.PropertyDTOTest();
 
@@ -45,7 +45,7 @@ public class PropertyControllerTest {
 
     @Test
     @DisplayName("Area for each environment - Controller")
-    public void AreaEnvironmentTest() throws DistrictException {
+    public void areaEnvironmentTest() throws DistrictException {
         List<EnvironmentDetailsDTO> expected = TestGenerator.valuationDTO().getEnvironmentDetails();
         PropertyDTO property = TestGenerator.PropertyDTOTest();
         when(propertyServices.valuation(property)).thenReturn(TestGenerator.valuationDTO());
@@ -56,7 +56,7 @@ public class PropertyControllerTest {
 
     @Test
     @DisplayName("Biggest Environment - Controller")
-    public void BiggestEnvironmentTest() throws DistrictException {
+    public void biggestEnvironmentTest() throws DistrictException {
         PropertyDTO property = TestGenerator.PropertyDTOTest();
         Property property1 = new Property(property);
         when(propertyServices.valuation(property)).thenReturn(TestGenerator.valuationDTO());
@@ -67,7 +67,7 @@ public class PropertyControllerTest {
 
     @Test
     @DisplayName("Property value - Controller")
-    public void ValuationPropertyTest() throws DistrictException {
+    public void valuationPropertyTest() throws DistrictException {
         Double expectedArea = 1267325.0;
         PropertyDTO property = TestGenerator.PropertyDTOTest();
         when(propertyServices.valuation(property)).thenReturn(TestGenerator.valuationDTO());

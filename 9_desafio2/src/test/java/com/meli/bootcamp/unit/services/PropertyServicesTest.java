@@ -27,7 +27,7 @@ public class PropertyServicesTest {
 
     @Test
     @DisplayName("Biggest Environment - Services")
-    public void BiggestEnvironmentTest() throws DistrictException {
+    public void biggestEnvironmentTest() throws DistrictException {
         EnvironmentDetailsDTO expected = new EnvironmentDetailsDTO("Habitacion_biggest", 20.0 * 30.0);
         PropertyDTO propertyDTO = TestGenerator.PropertyDTOTest();
         when(districtRepository.validateDistrict(propertyDTO.getDistrict().getDistrict_name())).thenReturn(true);
@@ -38,7 +38,7 @@ public class PropertyServicesTest {
 
     @Test
     @DisplayName("Property Area - Services")
-    public void CalculatedAreaTest() throws DistrictException {
+    public void calculatedAreaTest() throws DistrictException {
         Double expectedArea = 815.0;
         PropertyDTO propertyDTO = TestGenerator.PropertyDTOTest();
         when(districtRepository.validateDistrict(propertyDTO.getDistrict().getDistrict_name())).thenReturn(true);
@@ -50,7 +50,7 @@ public class PropertyServicesTest {
 
     @Test
     @DisplayName("Invalid District (Exception) - Services")
-    public void DistrictInvalidTest() throws DistrictException {
+    public void districtInvalidTest() throws DistrictException {
         PropertyDTO propertyDTO = TestGenerator.PropertyDTODistrictVoidTest();
         when(districtRepository.validateDistrict(propertyDTO.getDistrict().getDistrict_name())).thenThrow(DistrictException.class);
         Assertions.assertThrows(DistrictException.class, () -> propertyServices.valuation(propertyDTO));
@@ -58,7 +58,7 @@ public class PropertyServicesTest {
 
     @Test
     @DisplayName("Valid District - Services")
-    public void DistrictTest() throws DistrictException {
+    public void districtTest() throws DistrictException {
         PropertyDTO propertyDTO = TestGenerator.PropertyDTOTest();
         propertyServices.valuation(propertyDTO);
         verify(districtRepository, atLeastOnce()).validateDistrict(propertyDTO.getDistrict().getDistrict_name());

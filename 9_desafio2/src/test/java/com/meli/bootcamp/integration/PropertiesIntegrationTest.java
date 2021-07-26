@@ -43,7 +43,7 @@ public class PropertiesIntegrationTest {
 
     @Test
     @DisplayName("Valuation Property - Integration")
-    public void PropertyValueTest() throws Exception {
+    public void propertyValueTest() throws Exception {
 
         PropertyDTO requestProperty = TestGenerator.PropertyDTOTest();
         ValuationDTO expectedValuation = TestGenerator.valuationDTO();
@@ -63,7 +63,7 @@ public class PropertiesIntegrationTest {
 
     @Test
     @DisplayName("Invalid District (Exception) - Integration")
-    public void InvalidDistrictTest() throws Exception {
+    public void invalidDistrictTest() throws Exception {
         PropertyDTO requestProperty = TestGenerator.PropertyDTOTest();
         requestProperty.getDistrict().setDistrict_name("Devoto");
         ExceptionDTO expectedValuation =
