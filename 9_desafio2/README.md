@@ -2,10 +2,26 @@
 
 En este desafío se realizaron los test al proyecto de "TuCasita Tasaciones" tanto unitarios, como de integración, en este documento vamos a pasar por cada uno de los requerimientos solicitados, sus respectivos payloads para ser ejecutados y los test que se realizaron para entender como esta distribuido el proyecto.
 
+## Pre-requisitos
+* [Maven](https://maven.apache.org/) - Dependency Management
+* [Java 11](https://www.oracle.com/co/java/technologies/javase-jdk11-downloads.html) -  Development Environment
+* [Git](https://git-scm.com/) - Version Control System
+* [Spring](https://spring.io/) - Framework for creating web applications in Java
+
+## Instalación
+1. Clonar repo
+~~~bash
+$ git clone ...
+~~~
+2. Cambiar de branch
+~~~bash
+$ git checkout Fuentes_Alvaro
+~~~
+
 ## Requerimientos
 
 ### Base de datos
-Antes de comenzar a ahondar en los requerimientos cabe mencionar que existen 4 distritos dentro de la base de datos, que la aplicación espera validar cuando se hacen las peticiones, estos distritos son:
+Antes de comenzar a profundizar en los requerimientos cabe mencionar que existen 4 distritos dentro de la base de datos, que la aplicación espera validar cuando se hacen las peticiones, estos distritos son:
 ~~~json
 [
   {
