@@ -12,23 +12,23 @@ public class TestDataUtil {
     public static PropertyRequestDTO getPropertyFromDistrict(String districtName) {
         var district = getDistrict(districtName);
         List<EnvironmentDTO> environments = new ArrayList<>(){{
-            add(getEnvironment("testEnv", 10D, 10D));
-            add(getEnvironment("testEnv2", 10D, 10D));
-            add(getEnvironment("testEnv3", 10D, 10D));
+            add(getEnvironment("TestEnv", 10D, 10D));
+            add(getEnvironment("TestEnv2", 10D, 10D));
+            add(getEnvironment("TestEnv3", 10D, 10D));
         }};
 
-        return new PropertyRequestDTO("testProp", district, environments);
+        return new PropertyRequestDTO("TestProp", district, environments);
     }
 
     public static PropertyRequestDTO getPropertyWithDifferentEnvironments(String districtName) {
         var district = getDistrict(districtName);
         List<EnvironmentDTO> environments = new ArrayList<>(){{
-            add(getEnvironment("testEnv", 10D, 10D));
-            add(getEnvironment("testEnv2", 10D, 15D));
-            add(getEnvironment("testEnv3", 10D, 20D));
+            add(getEnvironment("TestEnv", 10D, 10D));
+            add(getEnvironment("TestEnv2", 10D, 15D));
+            add(getEnvironment("TestEnv3", 10D, 20D));
         }};
 
-        return new PropertyRequestDTO("testProp", district, environments);
+        return new PropertyRequestDTO("TestProp", district, environments);
     }
 
     public static DistrictDTO getDistrict(String name) {

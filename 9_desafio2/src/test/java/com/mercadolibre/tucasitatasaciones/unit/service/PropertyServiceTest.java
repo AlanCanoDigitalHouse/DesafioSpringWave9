@@ -65,7 +65,7 @@ public class PropertyServiceTest {
     void testDetermineLargestEnvironment() {
         var testProp = TestDataUtil.getPropertyWithDifferentEnvironments("testDistrict");
         var expectedReturn = new LargestEnvironmentDTO(testProp.getName(),
-                new EnvironmentAreaDTO("testEnv3", 200D));
+                new EnvironmentAreaDTO("TestEnv3", 200D));
 
         var result = this.propertyService.determineLargestEnvironment(testProp);
 
