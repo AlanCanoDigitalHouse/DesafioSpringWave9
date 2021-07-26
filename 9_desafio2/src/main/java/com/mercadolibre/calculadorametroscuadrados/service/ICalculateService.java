@@ -1,0 +1,15 @@
+package com.mercadolibre.calculadorametroscuadrados.service;
+
+import com.mercadolibre.calculadorametroscuadrados.dto.PropertyDTO;
+import com.mercadolibre.calculadorametroscuadrados.dto.Response.PropertyEnvironmentBiggerResponse;
+import com.mercadolibre.calculadorametroscuadrados.dto.Response.PropertyEnvironmentSquareMetersResponse;
+import com.mercadolibre.calculadorametroscuadrados.dto.Response.PropertyTotalSquareMetersResponse;
+import com.mercadolibre.calculadorametroscuadrados.dto.Response.PropertyValueResponse;
+import com.mercadolibre.calculadorametroscuadrados.exception.apiValidationException.DistrictNotFoundException;
+
+public interface ICalculateService {
+    public PropertyTotalSquareMetersResponse calculateTotalSquareMeters(PropertyDTO house) throws DistrictNotFoundException;
+    public PropertyValueResponse calculatePropertyValue(PropertyDTO house) throws DistrictNotFoundException;
+    public PropertyEnvironmentBiggerResponse calculateBiggerEnvironment(PropertyDTO house) throws DistrictNotFoundException;
+    public PropertyEnvironmentSquareMetersResponse calculateTotalSquareMetersEnviroment(PropertyDTO house) throws DistrictNotFoundException;
+}
