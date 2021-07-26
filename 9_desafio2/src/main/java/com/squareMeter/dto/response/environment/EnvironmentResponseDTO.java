@@ -1,4 +1,4 @@
-package com.squareMeter.dto.response;
+package com.squareMeter.dto.response.environment;
 
 import lombok.*;
 

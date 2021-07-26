@@ -23,7 +23,7 @@ public class DistrictRepository {
     public DistrictModel findDistrictByName(String name) throws DistrictNotExistsException {
         List<DistrictModel> all = this.loadDatabase();
         Optional<DistrictModel> district = all.stream().filter(model -> model.getDistrict_name().equals(name)).findFirst();
-        if(district.isEmpty()) throw new DistrictNotExistsException(name);
+        if (district.isEmpty()) throw new DistrictNotExistsException(name);
         return district.get();
     }
 
@@ -33,11 +33,12 @@ public class DistrictRepository {
             file = new File(FILE_NAME);
             if (file.createNewFile()) logger.info("File created: " + file.getName());
         } catch (IOException e) {
-            logger.error("Cant load info  of database: "+e.getMessage());
+            logger.error("Cant load info  of database: " + e.getMessage());
         }
 
         return mapObject(file);
     }
+
     private List<DistrictModel> mapObject(File file) {
         ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<List<DistrictModel>> typeReference = new TypeReference<>() {

@@ -1,13 +1,15 @@
-package com.squareMeter.integration.requeriment;
+package com.squareMeter.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareMeter.dto.request.property.PropertyRequestDTO;
-import com.squareMeter.dto.response.PropertyValueDTO;
+import com.squareMeter.dto.response.property.PropertyValueDTO;
 import com.squareMeter.exception.model.ErrorAttributes;
 import com.squareMeter.exception.model.ErrorMessage;
 import com.squareMeter.service.PropertyService;
-import com.squareMeter.testUtils.creators.Property;
+import com.squareMeter.utils.Property;
+import com.squareMeter.utils.RunAtStart;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /*
-Integration test of the endpoint to get the value of a property
+0002: Integration test of the endpoint to get the value of a property
 
 What is tested?
 - Data validation input, output
@@ -33,7 +35,7 @@ What is tested?
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CalculateValueOfPropertyIntegrationTest {
+public class Calculate0002ValueOfPropertyIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -43,6 +45,10 @@ public class CalculateValueOfPropertyIntegrationTest {
 
 
     /*****   Data validation and http codes ***********/
+    @BeforeEach
+    public void resetDB() {
+        RunAtStart.refresh();
+    }
 
     @Test
     @DisplayName("A Input 1: Correct value of price US-0002")
@@ -83,7 +89,7 @@ public class CalculateValueOfPropertyIntegrationTest {
         expected.addFieldError("environments[0].environment_width", "El mÃ¡ximo ancho permitido por propiedad es de 25 mts");
 
         //Test data
-        PropertyRequestDTO dataTest = Property.getNullNames();
+        PropertyRequestDTO dataTest = Property.getPropertyWithEnvironmentsNullNames();
         String result = mockMvc.perform(post("/calculator/value", "Name of environment is needed")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(Property.getInvalidProperty())))
@@ -137,7 +143,7 @@ public class CalculateValueOfPropertyIntegrationTest {
         //Bad json
         String result = mockMvc.perform(post("/calculator/value", "Name of environment is needed")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(Property.getBadSizes())))
+                .content(objectMapper.writeValueAsString(Property.getPropertyWithBadSizes())))
                 .andReturn().getResponse().getContentAsString();
 
         Assertions.assertThat(result).isEqualTo(objectMapper.writeValueAsString(expected));

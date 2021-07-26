@@ -9,14 +9,15 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.List;
 
 @ControllerAdvice
 public class DefaultControllerAdvice {
     @ExceptionHandler(DistrictNotExistsException.class)
-    public ResponseEntity<ErrorMessage> defaultError(DistrictNotExistsException e) {
+    public ResponseEntity<ErrorMessage> districtNotExists(DistrictNotExistsException e) {
         return new ResponseEntity<>(new ErrorMessage("District not exists", e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
@@ -28,9 +29,10 @@ public class DefaultControllerAdvice {
         fieldErrors.forEach(fieldError -> errorAttributes.addFieldError(fieldError.getField(), fieldError.getDefaultMessage()));
         return new ResponseEntity<>(errorAttributes, HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErrorMessage> badBodyException(HttpMessageNotReadableException ex){
-        return new ResponseEntity<>(new ErrorMessage("Error in the body","Probably the body have a unexpected symbol"), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ErrorMessage> badBodyException(HttpMessageNotReadableException ex) {
+        return new ResponseEntity<>(new ErrorMessage("Error in the body", "Probably the body have a unexpected symbol"), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)

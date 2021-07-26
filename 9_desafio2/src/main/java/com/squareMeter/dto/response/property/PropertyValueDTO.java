@@ -1,4 +1,4 @@
-package com.squareMeter.dto.response;
+package com.squareMeter.dto.response.property;
 
 import lombok.Builder;
 import lombok.Getter;

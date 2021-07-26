@@ -17,8 +17,9 @@ import java.util.List;
 @Builder
 public class PropertyRequestDTO {
     @NotNull(message = "El nombre de la propiedad no puede estar vacío.")
+    @NotEmpty
     @Pattern(regexp = "^[A-Z].*$", message = "El nombre de la propiedad debe comenzar con mayúscula.")
-    @Size(min = 1, max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
+    @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
     private String prop_name;
     @NotNull(message = "El distrito es requerido")
     @Valid

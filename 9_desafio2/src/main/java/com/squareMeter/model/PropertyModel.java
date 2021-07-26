@@ -1,7 +1,9 @@
 package com.squareMeter.model;
 
 import com.squareMeter.dto.request.district.DistrictRequestDTO;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 

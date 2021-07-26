@@ -3,14 +3,16 @@ package com.squareMeter.unit.service;
 import com.squareMeter.dto.request.district.DistrictRequestDTO;
 import com.squareMeter.dto.request.property.PropertyEnvironmentRequestDTO;
 import com.squareMeter.dto.request.property.PropertyRequestDTO;
-import com.squareMeter.dto.response.EnvironmentResponseDTO;
-import com.squareMeter.dto.response.PropertySquareMetersResponseDTO;
-import com.squareMeter.dto.response.PropertyValueDTO;
+import com.squareMeter.dto.response.environment.EnvironmentMetersResponseDTO;
+import com.squareMeter.dto.response.environment.EnvironmentResponseDTO;
+import com.squareMeter.dto.response.property.PropertySquareMetersResponseDTO;
+import com.squareMeter.dto.response.property.PropertyValueDTO;
 import com.squareMeter.exception.exception.DistrictNotExistsException;
 import com.squareMeter.service.DistrictService;
 import com.squareMeter.service.PropertyService;
-import com.squareMeter.testUtils.creators.Property;
 import com.squareMeter.utils.Mapper;
+import com.squareMeter.utils.Property;
+import com.squareMeter.utils.RunAtStart;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -41,11 +43,12 @@ public class PropertyServiceUnitTest {
     @BeforeEach
     void initUseCase() {
         propertyService = new PropertyService(new Mapper(), districtService);
+        RunAtStart.refresh();
     }
 
     @Test
     @DisplayName("A Result 1: Validate logic to calculate square meters of a property")
-    public void getHouseTotalSquareMeters() throws DistrictNotExistsException {
+    public void getHouseTotalSquareMeters() {
         PropertyRequestDTO data = Property.getValidProperty();
         List<PropertyEnvironmentRequestDTO> environments = new ArrayList<>();
         //Total = squareBathroom + squareRoom1 + squareRoom2 = (10*10)+(10*10)+(10*10) = 300
@@ -77,6 +80,15 @@ public class PropertyServiceUnitTest {
         PropertyRequestDTO data = Property.getValidProperty();
         data.setEnvironments(Property.getEnvironmentsBiggerIsBathroom());
         EnvironmentResponseDTO out = propertyService.getBiggerEnvironment(data);
-        Assertions.assertThat(out.getEnvironment_name()).isEqualTo("Bathroom");
+        Assertions.assertThat(out).extracting(EnvironmentResponseDTO::getEnvironment_name).isEqualTo("Bathroom");
+    }
+
+    @Test
+    @DisplayName("A Result 4: Get square meters per environment")
+    public void getMetersPerEnvironment() {
+        PropertyRequestDTO data = Property.getValidProperty();
+        data.setEnvironments(Property.getThreeEnvironmentsOf100SqueareMeters());
+        List<EnvironmentMetersResponseDTO> out = propertyService.getMetersPerEnvironment(data);
+        Assertions.assertThat(out).extracting(EnvironmentMetersResponseDTO::getSquare_meters).contains("100.0", "100.0", "100.0");
     }
 }

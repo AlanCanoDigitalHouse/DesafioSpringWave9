@@ -1,13 +1,15 @@
-package com.squareMeter.integration.requeriment;
+package com.squareMeter.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareMeter.dto.request.property.PropertyRequestDTO;
-import com.squareMeter.dto.response.EnvironmentResponseDTO;
+import com.squareMeter.dto.response.environment.EnvironmentResponseDTO;
 import com.squareMeter.exception.model.ErrorAttributes;
 import com.squareMeter.exception.model.ErrorMessage;
 import com.squareMeter.service.PropertyService;
-import com.squareMeter.testUtils.creators.Property;
+import com.squareMeter.utils.Property;
+import com.squareMeter.utils.RunAtStart;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,7 +38,7 @@ _ Correct values returned by the service
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CalculateBiggestEnvironmentIntegrationTest {
+public class Calculate0003BiggestEnvironmentIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -44,6 +46,10 @@ public class CalculateBiggestEnvironmentIntegrationTest {
     @Autowired
     private PropertyService propertyService;
 
+    @BeforeEach
+    public void resetDB() {
+        RunAtStart.refresh();
+    }
 
     /*****   Data input validation and http codes ***********/
 
@@ -84,7 +90,7 @@ public class CalculateBiggestEnvironmentIntegrationTest {
         expected.addFieldError("environments[0].environment_width", "El mÃ¡ximo ancho permitido por propiedad es de 25 mts");
 
         //Test data
-        PropertyRequestDTO dataTest = Property.getNullNames();
+        PropertyRequestDTO dataTest = Property.getPropertyWithEnvironmentsNullNames();
         String result = mockMvc.perform(post("/calculator/biggerEnvironment", "Name of environment is needed")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(Property.getInvalidProperty())))
@@ -138,7 +144,7 @@ public class CalculateBiggestEnvironmentIntegrationTest {
         //Bad json
         String result = mockMvc.perform(post("/calculator/biggerEnvironment", "Name of environment is needed")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(Property.getBadSizes())))
+                .content(objectMapper.writeValueAsString(Property.getPropertyWithBadSizes())))
                 .andReturn().getResponse().getContentAsString();
 
         Assertions.assertThat(result).isEqualTo(objectMapper.writeValueAsString(expected));

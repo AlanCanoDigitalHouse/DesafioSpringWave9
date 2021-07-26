@@ -49,6 +49,7 @@ HELP.md
 *.iws
 *.iml
 *.ipr
+**/.DS_Store
 
 ### NetBeans ###
 /nbproject/private/
