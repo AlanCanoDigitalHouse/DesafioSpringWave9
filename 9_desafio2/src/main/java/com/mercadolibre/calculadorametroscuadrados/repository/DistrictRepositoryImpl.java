@@ -1,5 +1,6 @@
 package com.mercadolibre.calculadorametroscuadrados.repository;
 
+import com.mercadolibre.calculadorametroscuadrados.dto.RoomDTO;
 import com.mercadolibre.calculadorametroscuadrados.exception.repository.AlreadyExistException;
 import com.mercadolibre.calculadorametroscuadrados.exception.repository.NotFoundException;
 import com.mercadolibre.calculadorametroscuadrados.model.DistrictDAO;
@@ -18,6 +19,13 @@ public class DistrictRepositoryImpl implements DistrictRepository{
 
     private void loadDatabase(){
         districtDAOMap.put("Test", new DistrictDAO("Test", 220D ));
+        districtDAOMap.put("Cheap", new DistrictDAO("Cheap", 100D ));
+        districtDAOMap.put("Medium", new DistrictDAO("Medium", 2000D ));
+        districtDAOMap.put("Expensive", new DistrictDAO("Expensive", 4000D ));
+        districtDAOMap.put("North", new DistrictDAO("North", 230D ));
+        districtDAOMap.put("South", new DistrictDAO("South", 320D ));
+        districtDAOMap.put("East", new DistrictDAO("East", 4000D ));
+        districtDAOMap.put("West", new DistrictDAO("West", 2100D ));
     }
 
     @Override
@@ -40,13 +48,13 @@ public class DistrictRepositoryImpl implements DistrictRepository{
     public boolean delete(String name) throws NotFoundException{
         if (districtDAOMap.containsKey(name)){
             districtDAOMap.remove(name);
-            return Boolean.valueOf(Boolean.TRUE);
+            return true;
         }
         throw new NotFoundException();
     }
 
     @Override
-    public DistrictDAO update(DistrictDAO district) {
+    public DistrictDAO update(DistrictDAO district) throws NotFoundException {
         if (districtDAOMap.containsKey(district.getDistrict_name())) {
             districtDAOMap.put(district.getDistrict_name(), district);
             return district;

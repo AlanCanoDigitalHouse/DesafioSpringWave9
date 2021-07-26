@@ -1,12 +1,17 @@
 package com.mercadolibre.calculadorametroscuadrados.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.*;
 
 @Data
 @Validated
+@AllArgsConstructor
+@NoArgsConstructor
 public class RoomDTO {
   @NotNull(message = "El nombre del ambiente no puede estar vacío.")
   @NotBlank(message = "El nombre del ambiente no puede estar vacío.")
@@ -21,11 +26,4 @@ public class RoomDTO {
   @Min(value = 0, message = "El largo del ambiente no puede estar vacío.")
   @Max(value = 25, message = "El máximo largo permitido por propiedad es de 33 mts.")
   private Double environment_length;
-
-  public double getSquareFeet() {
-    double result = 0;
-    if(this.environment_width != null && this.environment_length != null)
-      result = this.environment_width * this.environment_length;
-    return result;
-  }
 }

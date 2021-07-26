@@ -1,6 +1,8 @@
 package com.mercadolibre.calculadorametroscuadrados.exception;
 
+import com.mercadolibre.calculadorametroscuadrados.exception.service.ServiceException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,6 +23,22 @@ public class APIExceptionHandler {
         List<FieldError> fieldErrors = result.getFieldErrors();
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setMessage(fieldErrors.get(0).getDefaultMessage());
+        return errorDTO;
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDTO handleException(HttpMessageNotReadableException exception){
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setMessage(exception.getHttpInputMessage().toString());
+        return errorDTO;
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDTO handleException(ServiceException exception){
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setMessage(exception.getMessage());
         return errorDTO;
     }
 }

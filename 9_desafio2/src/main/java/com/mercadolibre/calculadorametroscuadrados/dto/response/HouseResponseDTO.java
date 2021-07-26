@@ -1,17 +1,14 @@
-package com.mercadolibre.calculadorametroscuadrados.dto;
+package com.mercadolibre.calculadorametroscuadrados.dto.response;
 
-public class HouseResponseDTO extends HouseDTO {
+import com.mercadolibre.calculadorametroscuadrados.dto.HouseDTO;
+import com.mercadolibre.calculadorametroscuadrados.dto.RoomDTO;
+
+public class HouseResponseDTO{
   private Double squareFeet;
   private Double price;
   private RoomDTO biggest;
 
   public HouseResponseDTO() {
-  }
-
-  public HouseResponseDTO(HouseDTO house) {
-    this.setProp_name(house.getProp_name());
-    this.setDistrict_name(house.getDistrict_name());
-    this.setEnvironments(house.getEnvironments());
   }
 
   public Double getSquareFeet() {

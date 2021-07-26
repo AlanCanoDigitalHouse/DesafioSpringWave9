@@ -1,4 +1,4 @@
 package com.mercadolibre.calculadorametroscuadrados.exception.repository;
 
-public class NotFoundException extends RuntimeException {
+public class NotFoundException extends Exception {
 }

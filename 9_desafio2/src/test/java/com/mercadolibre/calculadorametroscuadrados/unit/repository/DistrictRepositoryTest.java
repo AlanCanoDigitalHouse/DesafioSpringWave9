@@ -23,7 +23,7 @@ public class DistrictRepositoryTest {
     }
 
     @Test
-    void shouldFindADistrictByTheirName() {
+    void shouldFindADistrictByTheirName() throws NotFoundException {
         DistrictDAO expectedDistrict = new DistrictDAO("Test", 220D);
 
         DistrictDAO actualDistrict = districtRepository.findByName("Test");
@@ -37,7 +37,7 @@ public class DistrictRepositoryTest {
     }
 
     @Test
-    void shouldCreateANonExistentDistrict() {
+    void shouldCreateANonExistentDistrict() throws NotFoundException {
         DistrictDAO district = new DistrictDAO("Test1", 2400D);
 
         districtRepository.save(district);
@@ -53,7 +53,7 @@ public class DistrictRepositoryTest {
     }
 
     @Test
-    void shouldDeleteAnExistentDistrict() {
+    void shouldDeleteAnExistentDistrict() throws NotFoundException {
         DistrictDAO district = new DistrictDAO("Test", 2400D);
 
         Boolean result = districtRepository.delete(district.getDistrict_name());
@@ -69,7 +69,7 @@ public class DistrictRepositoryTest {
     }
 
     @Test
-    void shouldUpdateAnExistentDistrict() {
+    void shouldUpdateAnExistentDistrict() throws NotFoundException {
         DistrictDAO newDistrict = new DistrictDAO("Test", 4000D);
 
         DistrictDAO updated = districtRepository.update(newDistrict);
