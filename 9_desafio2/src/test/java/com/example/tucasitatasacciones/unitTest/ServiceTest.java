@@ -3,11 +3,13 @@ package com.example.tucasitatasacciones.unitTest;
 import com.example.tucasitatasacciones.Utils.GenerateProperty;
 import com.example.tucasitatasacciones.dto.request.property.PropertyEnvironmentRequestDTO;
 import com.example.tucasitatasacciones.dto.request.property.PropertyRequestDTO;
+import com.example.tucasitatasacciones.dto.response.environment.EnvironmentResponseDTO;
 import com.example.tucasitatasacciones.dto.response.property.PropertySquareMetersResponseDTO;
 import com.example.tucasitatasacciones.service.DistrictService;
 import com.example.tucasitatasacciones.service.PropertyService;
 import com.example.tucasitatasacciones.utils.Mapper;
 import com.example.tucasitatasacciones.utils.RunAtStart;
+import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -59,6 +61,21 @@ public class ServiceTest {
         //assert
         PropertySquareMetersResponseDTO totalMetersCalculated = propertyService.getHouseTotalSquareMeters(property);
         Assert.assertEquals(675.0, totalMetersCalculated.getSquareMeters(),0.1);
+    }
+
+
+//    3) Verificar que efectivamente se devuelva el ambiente con mayor tamaño.
+
+    @Test
+    @DisplayName("Devuelve el ambiente con mayor tamaño. No existe ninguno que lo supere. ")
+    public void getBiggerEnvironment() {
+        //arrange
+        PropertyRequestDTO property = GenerateProperty.getValidProperty();
+        property.setEnvironments(GenerateProperty.getKitchenIsBiggerRoom());
+        // act
+        EnvironmentResponseDTO kitchenHouse = propertyService.getBiggerEnvironment(property);
+        // assert
+        Assertions.assertThat(kitchenHouse).extracting(EnvironmentResponseDTO::getEnvironment_name).isEqualTo("Kitchen");
     }
 
 

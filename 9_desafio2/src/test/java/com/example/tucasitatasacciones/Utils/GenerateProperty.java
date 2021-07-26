@@ -10,56 +10,27 @@ import java.util.List;
 public class GenerateProperty {
     public static PropertyRequestDTO getValidProperty() {
         List<PropertyEnvironmentRequestDTO> environments = new ArrayList<>();
-        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Bathroom").environment_width(20.0).environment_length(30.).build());
-        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Sleep room").environment_width(15.0).environment_length(20.0).build());
-        DistrictRequestDTO districtRequestDTO = DistrictRequestDTO.builder().district_name("Galicia").district_price(800.0).build();
-        return PropertyRequestDTO.builder().prop_name("A big house name").district(districtRequestDTO).environments(environments).build();
+        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Kitchen").environment_width(15.0).environment_length(20.0).build());
+        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Bedroom").environment_width(15.0).environment_length(20.0).build());
+        DistrictRequestDTO districtRequestDTO = DistrictRequestDTO.builder().district_name("Soacha").district_price(200.0).build();
+        return PropertyRequestDTO.builder().prop_name("Soacha house").district(districtRequestDTO).environments(environments).build();
     }
 
-    public static PropertyRequestDTO getInvalidProperty() {
-        List<PropertyEnvironmentRequestDTO> environments = new ArrayList<>();
-        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name(null).environment_width(30.0).environment_length(30.).build());
-        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Sleep room").environment_width(50.0).environment_length(20.0).build());
-        DistrictRequestDTO districtRequestDTO = DistrictRequestDTO.builder().district_name("Galicia").district_price(800.0).build();
-        return PropertyRequestDTO.builder().prop_name("A big house name").district(districtRequestDTO).environments(environments).build();
-    }
 
-    public static PropertyRequestDTO getPropertyWithEnvironmentsNullNames() {
-        List<PropertyEnvironmentRequestDTO> environments = new ArrayList<>();
-        environments.add(PropertyEnvironmentRequestDTO.builder().environment_width(20.0).environment_length(30.).build());
-        DistrictRequestDTO districtRequestDTO = DistrictRequestDTO.builder().district_price(800.0).build();
-        return PropertyRequestDTO.builder().district(districtRequestDTO).environments(environments).build();
-    }
+    public static List<PropertyEnvironmentRequestDTO> getKitchenIsBiggerRoom() {
 
-    public static PropertyRequestDTO getPropertyWithBadSizes() {
+        // caso en el que la cocina es el cuarto mas grande
         List<PropertyEnvironmentRequestDTO> environments = new ArrayList<>();
-        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Bathroom").environment_width(100.0).environment_length(100.0).build());
-        DistrictRequestDTO districtRequestDTO = DistrictRequestDTO.builder().district_name("Galicia").district_price(800.0).build();
-        return PropertyRequestDTO.builder().prop_name("A big house name").district(districtRequestDTO).environments(environments).build();
-    }
-
-    public static List<PropertyEnvironmentRequestDTO> getEnvironmentsSum300SquareMeters() {
-        List<PropertyEnvironmentRequestDTO> environments = new ArrayList<>();
-        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Bathroom").environment_width(10.0).environment_length(10.0).build());
-        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Room 1").environment_width(10.0).environment_length(10.0).build());
-        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Room 2").environment_width(10.0).environment_length(10.0).build());
+        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Kitchen").environment_width(25.0).environment_length(25.0).build());
+        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Bedroom").environment_width(20.0).environment_length(20.0).build());
+        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Living").environment_width(9.0).environment_length(9.0).build());
         return environments;
     }
 
-    public static List<PropertyEnvironmentRequestDTO> getEnvironmentsBiggerIsBathroom() {
-        List<PropertyEnvironmentRequestDTO> environments = new ArrayList<>();
-        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Room 1").environment_width(10.0).environment_length(10.0).build());
-        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Bathroom").environment_width(20.0).environment_length(20.0).build());
-        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Room 2").environment_width(10.0).environment_length(10.0).build());
-        return environments;
-    }
 
-    public static List<PropertyEnvironmentRequestDTO> getThreeEnvironmentsOf100SqueareMeters() {
-        List<PropertyEnvironmentRequestDTO> environments = new ArrayList<>();
-        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Room 1").environment_width(10.0).environment_length(10.0).build());
-        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Bathroom").environment_width(10.0).environment_length(10.0).build());
-        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Room 2").environment_width(10.0).environment_length(10.0).build());
-        return environments;
-    }
+
+
+
+
 }
 
