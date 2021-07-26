@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "5ed70b10-f581-44b1-a808-916665b8c0f9",
+		"name": "Bootcamp - Desafío test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/home/meters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Oficinaa\",\n    \"rooms\": [\n        {\n            \"name\":\"Living\",\n            \"width\": 5.0,\n            \"length\": 5.0\n        },\n        {\n            \"name\": \"Cocina\",\n            \"width\": 3.0,\n            \"length\": 3.0\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 2.0,\n            \"length\": 1.0\n        }\n    ],\n    \"district\": {\n        \"name\": \"Palermo\",\n        \"price\": 1000.0\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/home/meters",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"home",
+						"meters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/home/price",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Oficinaa\",\n    \"rooms\": [\n        {\n            \"name\":\"Living\",\n            \"width\": 5.0,\n            \"length\": 5.0\n        },\n        {\n            \"name\": \"Cocina\",\n            \"width\": 3.0,\n            \"length\": 3.0\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 2.0,\n            \"length\": 1.0\n        }\n    ],\n    \"district\": {\n        \"name\": \"Palermo\",\n        \"price\": 1000.0\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/home/price",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"home",
+						"price"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/home/biggest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Oficinaa\",\n    \"rooms\": [\n        {\n            \"name\":\"Living\",\n            \"width\": 5.0,\n            \"length\": 5.0\n        },\n        {\n            \"name\": \"Cocina\",\n            \"width\": 3.0,\n            \"length\": 3.0\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 2.0,\n            \"length\": 1.0\n        }\n    ],\n    \"district\": {\n        \"name\": \"Palermo\",\n        \"price\": 1000.0\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/home/biggest",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"home",
+						"biggest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/home/roommeters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Oficinaa\",\n    \"rooms\": [\n        {\n            \"name\":\"Living\",\n            \"width\": 5.0,\n            \"length\": 5.0\n        },\n        {\n            \"name\": \"Cocina\",\n            \"width\": 3.0,\n            \"length\": 3.0\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 2.0,\n            \"length\": 1.0\n        }\n    ],\n    \"district\": {\n        \"name\": \"Palermo\",\n        \"price\": 1000.0\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/home/roommeters",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"home",
+						"roommeters"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
