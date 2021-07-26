@@ -33,8 +33,8 @@ In the json file ```price.jsons``` are the preloaded districts.
 
 All available endpoints are in postman's collection ```Bootcamp - Desafío test.postman_collection```
 
-```/home/meters```: Calculate total meters
-```/home/price```: Calculate price
-```/home/biggest```: Get biggest room
-```/home/roommeters```: meters per room
+```/home/meters```: Calculate total meters \
+```/home/price```: Calculate price \
+```/home/biggest```: Get biggest room \
+```/home/roommeters```: Calculate meters per room
 
