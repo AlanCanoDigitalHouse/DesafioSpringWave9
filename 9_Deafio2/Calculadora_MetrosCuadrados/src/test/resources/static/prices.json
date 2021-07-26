@@ -1,0 +1,19 @@
+[
+  {
+    "location": "Palermo",
+    "price": 1000
+  }, {
+    "location": "Belgrano",
+    "price": 1100
+  }, {
+    "location": "Recoleta",
+    "price": 900
+  }, {
+    "location": "Puerto Madero",
+    "price": 4000
+  },
+  {
+    "location": "Test nombre distrito test nombre distrito abc",
+    "price": 1100
+  }
+]
