@@ -46,7 +46,7 @@ public class NeighborhoodRepository implements NeighborhoodRepositoryI {
             loadedData = new ArrayList<>();
         }
 
-        neighborhoodList = loadedData;
+        neighborhoodList.addAll(loadedData);
 
     }
 
@@ -68,5 +68,10 @@ public class NeighborhoodRepository implements NeighborhoodRepositoryI {
         if(neighborhoodList.contains(neighborhood))
             throw new UnableToAddDuplicatedNeighborhoodException("No se puede agregar un districto repetido");
         neighborhoodList.add(neighborhood);
+    }
+
+    @Override
+    public int sizeOfNeighborhood(){
+        return neighborhoodList.size();
     }
 }

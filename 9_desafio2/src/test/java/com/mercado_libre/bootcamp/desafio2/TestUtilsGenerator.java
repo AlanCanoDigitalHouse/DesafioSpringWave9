@@ -25,6 +25,10 @@ public class TestUtilsGenerator {
     private static String SCOPE;
     private static ObjectWriter mapper;
 
+    public static void deleteFile() throws FileNotFoundException {
+        ResourceUtils.getFile("./src/" + SCOPE + "/resources/districts.json").delete();
+    }
+
     public static void emptyDistrictsFile() {
         Properties properties = new Properties();
 

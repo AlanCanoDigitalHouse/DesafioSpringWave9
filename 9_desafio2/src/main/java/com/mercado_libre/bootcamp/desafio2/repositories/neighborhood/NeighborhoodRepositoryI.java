@@ -9,4 +9,6 @@ public interface NeighborhoodRepositoryI {
     Neighborhood findNeighborhoodByName(String name);
 
     void addNewNeighborhood(Neighborhood neighborhood);
+
+    int sizeOfNeighborhood();
 }
