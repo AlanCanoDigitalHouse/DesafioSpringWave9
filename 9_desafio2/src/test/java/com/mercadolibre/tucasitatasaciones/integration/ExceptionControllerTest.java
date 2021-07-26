@@ -17,7 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,15 +36,7 @@ public class ExceptionControllerTest {
     @BeforeEach
     void initData() {
         JSONDataUtil.cleanData(DATA_DIR);
-
-        var districtList = new ArrayList<>() {{
-            add(TestDataUtil.getDistrict("DistrictA"));
-            add(TestDataUtil.getDistrict("DistrictB"));
-            add(TestDataUtil.getDistrict("DistrictC"));
-            add(TestDataUtil.getDistrict("DistrictD"));
-        }};
-
-        JSONDataUtil.addTestData(DATA_DIR, districtList);
+        TestDataUtil.initDummyData(DATA_DIR);
     }
 
     private ObjectWriter getObjectWriter() {

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 
 public class DistrictRepositoryTest {
 
@@ -22,20 +21,9 @@ public class DistrictRepositoryTest {
         JSONDataUtil.cleanData(DATA_DIR);
     }
 
-    private void addDummyDistricts() {
-        var districtList = new ArrayList<>(){{
-            add(TestDataUtil.getDistrict("DistrictA"));
-            add(TestDataUtil.getDistrict("DistrictB"));
-            add(TestDataUtil.getDistrict("DistrictC"));
-            add(TestDataUtil.getDistrict("DistrictD"));
-        }};
-
-        JSONDataUtil.addTestData(DATA_DIR, districtList);
-    }
-
     @Test
     void testGetDistrictByName() {
-        this.addDummyDistricts();
+        TestDataUtil.initDummyData(DATA_DIR);
         var expectedDistrict = TestDataUtil.getDistrict("DistrictC");
 
         var result = districtRepository.getDistrictByName(expectedDistrict.getName());
@@ -45,7 +33,7 @@ public class DistrictRepositoryTest {
 
     @Test
     void testGetAllDistricts() {
-        this.addDummyDistricts();
+        TestDataUtil.initDummyData(DATA_DIR);
         var expectedCollectionSize = 4;
 
         var result = districtRepository.getAllDistricts();

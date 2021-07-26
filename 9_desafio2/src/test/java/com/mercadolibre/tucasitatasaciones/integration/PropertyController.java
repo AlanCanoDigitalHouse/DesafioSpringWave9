@@ -34,15 +34,7 @@ public class PropertyController {
     @BeforeEach
     void initData() {
         JSONDataUtil.cleanData(DATA_DIR);
-
-        var districtList = new ArrayList<>() {{
-            add(TestDataUtil.getDistrict("DistrictA"));
-            add(TestDataUtil.getDistrict("DistrictB"));
-            add(TestDataUtil.getDistrict("DistrictC"));
-            add(TestDataUtil.getDistrict("DistrictD"));
-        }};
-
-        JSONDataUtil.addTestData(DATA_DIR, districtList);
+        TestDataUtil.initDummyData(DATA_DIR);
     }
 
     private ObjectWriter getObjectWriter() {
