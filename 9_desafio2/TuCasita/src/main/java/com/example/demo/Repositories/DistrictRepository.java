@@ -1,7 +1,5 @@
 package com.example.demo.Repositories;
 
-import com.example.demo.Exceptions.CustomExceptionHandler;
-import com.example.demo.Exceptions.ExistingNameException;
 import com.example.demo.Models.District;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,18 +28,6 @@ public class DistrictRepository implements IDistrictRepository {
                 .filter(d->d.getDistrict_name().equals(name))
                 .findFirst()
                 .orElse(null);
-    }
-
-    @Override
-    public void addDistrict(District district) throws CustomExceptionHandler {
-
-        District existent = findDistrictByName(district.getDistrict_name());
-
-        if (existent == null){
-            districts.add(district);
-        } else {
-            throw new ExistingNameException(district.getDistrict_name());
-        }
     }
 
     private List<District> loadDistrictsDB() {

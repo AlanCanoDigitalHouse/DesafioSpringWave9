@@ -1,6 +1,5 @@
 package com.example.demo.Controllers;
 
-import com.example.demo.DTOs.DistrictDTO;
 import com.example.demo.DTOs.PropertyDTO;
 import com.example.demo.DTOs.PropertyDetailsDTO;
 import com.example.demo.Exceptions.CustomExceptionHandler;
@@ -26,12 +25,6 @@ public class PropertyController {
     @PostMapping("/details")
     public ResponseEntity<PropertyDetailsDTO> getAssessment(@Valid @RequestBody PropertyDTO property) throws CustomExceptionHandler {
         return new ResponseEntity<>(propertyService.getDetails(property), HttpStatus.OK);
-    }
-
-    // Creates new district
-    @PostMapping("/district")
-    public ResponseEntity<String> addDistrict(@Valid @RequestBody DistrictDTO district) throws CustomExceptionHandler {
-        return new ResponseEntity<>(propertyService.addDistrict(district), HttpStatus.OK);
     }
 
 }

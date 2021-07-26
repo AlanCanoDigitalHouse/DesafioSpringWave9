@@ -81,21 +81,4 @@ public class PropertyControllerTest {
 
     }
 
-    @Test
-    public void shouldCallServiceAndReturnRightResponse() throws CustomExceptionHandler {
-
-        // Arrange
-        String expected = "District was added Successfully";
-        when(service.addDistrict(districtDto)).thenReturn(expected);
-
-        // Act
-        ResponseEntity<String> received = controller.addDistrict(districtDto);
-
-        // Assert
-        verify(service, times(1)).addDistrict(districtDto);
-        Assert.assertEquals(HttpStatus.OK, received.getStatusCode());
-        Assert.assertEquals(expected, received.getBody());
-
-    }
-
 }

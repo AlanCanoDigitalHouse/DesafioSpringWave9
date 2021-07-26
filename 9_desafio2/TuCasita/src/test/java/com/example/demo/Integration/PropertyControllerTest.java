@@ -1,8 +1,6 @@
 package com.example.demo.Integration;
 
 import com.example.demo.DTOs.*;
-import com.example.demo.Exceptions.CustomExceptionHandler;
-import com.example.demo.Exceptions.ExistingNameException;
 import com.example.demo.Models.District;
 import com.example.demo.Repositories.IDistrictRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -87,7 +85,6 @@ public class PropertyControllerTest {
 
         when(repository.findDistrictByName(districtName)).thenReturn(district);
 
-        // Act & Assert
         this.mockMvc.perform(MockMvcRequestBuilders.post("/property/details")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJson))
@@ -113,7 +110,6 @@ public class PropertyControllerTest {
 
         when(repository.findDistrictByName(districtName)).thenReturn(null);
 
-        // Act & Assert
         this.mockMvc.perform(MockMvcRequestBuilders.post("/property/details")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJson))
@@ -134,7 +130,6 @@ public class PropertyControllerTest {
 
         when(repository.findDistrictByName(districtName)).thenReturn(null);
 
-        // Act & Assert
         this.mockMvc.perform(MockMvcRequestBuilders.post("/property/details")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJson))
@@ -144,44 +139,4 @@ public class PropertyControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("environments").value("Each property must have at least 1 environment."));
     }
 
-
-    @Test
-    public void shouldAddNewDistrict() throws Exception {
-
-        ObjectWriter writer =
-                new ObjectMapper()
-                        .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
-                        .writer()
-                        .withDefaultPrettyPrinter();
-        String payloadJson = writer.writeValueAsString(districtDTO);
-
-        doNothing().when(repository).addDistrict(district);
-
-        // Act & Assert
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/property/district")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(payloadJson))
-                .andDo(print()).andExpect(status().isOk());
-    }
-
-    @Test
-    public void shouldReturnExceptionWhenDistrictAlreadyExists() throws Exception {
-
-        ObjectWriter writer =
-                new ObjectMapper()
-                        .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
-                        .writer()
-                        .withDefaultPrettyPrinter();
-        String payloadJson = writer.writeValueAsString(districtDTO);
-
-        doThrow(new ExistingNameException(districtName))
-                .when(repository)
-                .addDistrict(district);
-
-        // Act & Assert
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/property/district")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(payloadJson))
-                .andDo(print()).andExpect(MockMvcResultMatchers.jsonPath("status").value(400));
-    }
 }

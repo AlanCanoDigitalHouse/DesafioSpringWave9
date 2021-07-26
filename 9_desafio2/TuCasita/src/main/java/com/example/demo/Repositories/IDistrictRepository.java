@@ -6,6 +6,5 @@ import com.example.demo.Models.District;
 public interface IDistrictRepository {
 
     District findDistrictByName(String name) throws CustomExceptionHandler;
-    void addDistrict(District district) throws CustomExceptionHandler;
 
 }

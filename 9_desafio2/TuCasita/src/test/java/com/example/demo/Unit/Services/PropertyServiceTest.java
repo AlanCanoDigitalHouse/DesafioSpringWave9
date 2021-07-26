@@ -15,13 +15,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -100,23 +98,6 @@ public class PropertyServiceTest {
         when(modelMapper.map(estateDto, Property.class)).thenReturn(localMapper.map(estateDto, Property.class));
         // Act
         assertThrows(NotFoundException.class, () -> service.getDetails(estateDto));
-    }
-
-    @Test
-    public void shouldCallRepositoryWithModelAndReturnMessage() throws CustomExceptionHandler {
-
-        // Arrange
-        District district = localMapper.map(districtDto, District.class);
-        when(modelMapper.map(districtDto, District.class)).thenReturn(district);
-        doNothing().when(repository).addDistrict(district);
-        String expected =  "District was added successfully";
-
-        // Act
-        String received = service.addDistrict(districtDto);
-
-        // Assert
-        verify(repository, times(1)).addDistrict(district);
-        Assertions.assertEquals(expected, received);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.example.demo.Services;
 
-import com.example.demo.DTOs.DistrictDTO;
 import com.example.demo.DTOs.EnvironmentResponseDTO;
 import com.example.demo.DTOs.PropertyDTO;
 import com.example.demo.DTOs.PropertyDetailsDTO;
@@ -40,13 +39,6 @@ public class PropertyService implements IPropertyService {
                 calculatePrice(prop, district.getDistrict_price()),
                 findBiggestEnvironment(prop.getEnvironments()),
                 generateEnvironmentsCalculations(prop.getEnvironments()));
-    }
-
-    @Override
-    public String addDistrict(DistrictDTO districtDto) throws CustomExceptionHandler {
-        District district = mapper.map(districtDto, District.class);
-        repository.addDistrict(district);
-        return "District was added successfully";
     }
 
     private double calculateEnvironmentSurface(Environment environment) {
