@@ -5,10 +5,12 @@ import com.mercadolibre.calculadorametroscuadrados.dto.PriceDTO;
 import com.mercadolibre.calculadorametroscuadrados.exceptions.NotFoundLocation;
 import com.mercadolibre.calculadorametroscuadrados.repositories.PriceRepository;
 import com.mercadolibre.calculadorametroscuadrados.repositories.PriceRepositoryImpl;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Repository - Unit Test")
 public class PriceRepositoryTest {
 
     PriceRepository priceRepository;
@@ -18,6 +20,7 @@ public class PriceRepositoryTest {
     }
 
     @Test
+    @DisplayName("Test: Buscar un districto existente")
     void findPriceDtoByLocation() throws NotFoundLocation {
         //Arrange
         String expected = "Palermo";
@@ -29,7 +32,8 @@ public class PriceRepositoryTest {
     }
 
     @Test
-    void findPriceDtoByLocationAndThrowException() throws NotFoundLocation {
+    @DisplayName("Test: Buscar un districto inexistente y arrojar la exception correspondiente")
+    void findPriceDtoByLocationAndThrowException()  {
         //Arrange
         String expected = "San Antonio de Areco";
         //Act && assert
@@ -37,7 +41,8 @@ public class PriceRepositoryTest {
     }
 
     @Test
-    void findPriceDtoByNullLocationAndThrowException() throws NotFoundLocation {
+    @DisplayName("Test: Buscar un districto nulo y arrojar la exception correspondiente")
+    void findPriceDtoByNullLocationAndThrowException()  {
         //Act && assert
         assertThrows(NotFoundLocation.class, ()-> priceRepository.findLocation(null));
     }

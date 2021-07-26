@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.mercadolibre.calculadorametroscuadrados.dto.HouseDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.HouseResponseDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.RoomDTO;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -26,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@DisplayName("Integration Test")
 public class CalculateRestControllerIntegrationTest {
 
     @Autowired
@@ -33,6 +35,7 @@ public class CalculateRestControllerIntegrationTest {
 
 
     @Test
+    @DisplayName("Test: Verificar integracion con exito")
     void calculateInfoHouseSuccessfully() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 20d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -56,6 +59,7 @@ public class CalculateRestControllerIntegrationTest {
     //Validaciones de Mensajes de error:
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Ancho mayor al valido")
     void messageErrorWidthBigger() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 25.001d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -78,6 +82,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Ancho menor al valido")
     void messageErrorWidthSmaller() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 0.1d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -100,6 +105,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Ancho nulo")
     void messageErrorWidthNull() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", null, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -122,6 +128,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Largo mayor al valido")
     void messageErrorLengthBigger() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 25d, 33.1d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -144,6 +151,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Largo menor al valido")
     void messageErrorLengthSmaller() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 10d, 0.1d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -166,6 +174,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Largo nulo")
     void messageErrorLengthNull() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 10d, null, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -188,6 +197,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Nombre de la habitacion en minuscula")
     void messageErrorNameRoomUpperCase() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("comedor", 10d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -210,6 +220,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Nombre de la habitacion nula")
     void messageErrorNameRoomNull() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO(null, 10d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -232,6 +243,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Nombre de la habitacion mayor a 30 caracteres")
     void messageErrorNameRoomLength() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("En este campo mayor 30 caracteres", 10d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -254,6 +266,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Sin habitaciones")
     void messageErrorNotRoom() throws Exception {
         List<RoomDTO> environments = new ArrayList<>();
         HouseDTO houseDTO = new HouseDTO("House", "Palermo", 400d, environments);
@@ -275,6 +288,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Con habitaciones nula")
     void messageErrorNullRoom() throws Exception {
         HouseDTO houseDTO = new HouseDTO("House", "Palermo", 400d, null);
 
@@ -295,6 +309,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Precio del districto nulo")
     void messageErrorDistrictPriceNull() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 10d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -317,6 +332,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Precio del districto menor a uno valido")
     void messageErrorDistrictPriceSmaller() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 10d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -339,6 +355,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Precio del districto mayor a uno valido")
     void messageErrorDistrictPriceBigger() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 10d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -361,6 +378,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Nombre del districto nulo")
     void messageErrorDistrictNameNull() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 10d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -383,6 +401,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Nombre del districto vacio")
     void messageErrorDistrictNameBlank() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 10d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -405,6 +424,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Nombre del districto mayor a 45 caracteres")
     void messageErrorDistrictNameBigger() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 10d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -428,6 +448,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Nombre de la propiedad nulo")
     void messageErrorNameNull() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 10d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -450,10 +471,11 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Nombre de la propiedad mayor a 30 caracteres")
     void messageErrorNameBigger() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 10d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
-        HouseDTO houseDTO = new HouseDTO("Este campo posee 31 caracteres.", "Palermo",
+        HouseDTO houseDTO = new HouseDTO("Este Campo Posee Mas De Treinta Caracteres.", "Palermo",
                 40d, environments);
 
         ObjectWriter objectWriter = new ObjectMapper()
@@ -473,6 +495,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> Nombre de la propiedad en minuscula")
     void messageErrorNameUpperCase() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 10d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -496,6 +519,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Verificar exception-> Districto no encontrado en BD")
     void calculateInfoHouseDistrictDontFound() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 10d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));
@@ -519,6 +543,7 @@ public class CalculateRestControllerIntegrationTest {
 
 
     @Test
+    @DisplayName("Test: Verificar mensaje de errror-> JSON invalido")
     void calculateBadRequest() throws Exception {
         String badPayLoad = "hola1";
 
@@ -532,6 +557,7 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Test: Respuesta exitosa")
     void calculateInfoHouseSuccessfullyAndEvaluateAnswer() throws Exception {
         List<RoomDTO> environments = Arrays.asList(new RoomDTO("Comedor", 20d, 10d, null),
                 new RoomDTO("Living", 20d, 30d, null));

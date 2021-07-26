@@ -19,7 +19,13 @@ import java.util.Optional;
 @Repository
 public class PriceRepositoryImpl implements PriceRepository{
 
-
+    /**
+     * Metodo que retorna el districto en caso que exista en el archivo
+     * @param location Nombre del districto a buscar
+     * @return Objeto con la informacion del districto
+     * @throws NotFoundLocation Si el districto no existe en el archivo
+     */
+    @Override
     public PriceDTO findLocation(String location) throws NotFoundLocation {
         List<PriceDTO> priceDTOS;
         priceDTOS = loadDatabase();
@@ -37,6 +43,10 @@ public class PriceRepositoryImpl implements PriceRepository{
         return result;
     }
 
+    /**
+     * Metodo para cargar el archivo en memoria
+     * @return Informacion del archivo en una lista
+     */
     private List<PriceDTO> loadDatabase(){
         File file = null;
         try{
@@ -49,6 +59,12 @@ public class PriceRepositoryImpl implements PriceRepository{
         return mapObject(file);
     }
 
+
+    /**
+     * Metodo para tranformar el archivo en una Lista
+     * @param file Archivo con la informacion de los districtos
+     * @return Informacion del archivo en una lista
+     */
     private List<PriceDTO> mapObject(File file){
         ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<List<PriceDTO>> typeReference = new TypeReference<>(){};

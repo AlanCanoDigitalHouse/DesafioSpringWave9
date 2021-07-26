@@ -17,6 +17,12 @@ public class CalculateRestController {
     this.calculateService = calculateService;
   }
 
+  /**
+   * US-0001,US-0002,US-0003,US-0004: Metodo para realizar calculos de la propiedad.
+   * @param house post para realizar calculos de la propiedad.
+   * @return El resultado de los calculos sobre la propiedad
+   * @throws NotFoundLocation Si el districto ingresado no existe
+   */
   @PostMapping("/calculate")
   public HouseResponseDTO calculate(@RequestBody @Valid HouseDTO house) throws NotFoundLocation {
     return calculateService.calculate(house);
