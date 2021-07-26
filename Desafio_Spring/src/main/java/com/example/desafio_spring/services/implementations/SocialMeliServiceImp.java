@@ -2,6 +2,7 @@ package com.example.desafio_spring.services.implementations;
 
 import com.example.desafio_spring.dtos.request.PostPromoRequestDTO;
 import com.example.desafio_spring.dtos.request.PostRequestDTO;
+import com.example.desafio_spring.dtos.request.ProductRequestDTO;
 import com.example.desafio_spring.dtos.request.UserRequestDTO;
 import com.example.desafio_spring.dtos.response.PostResponseByUserDTO;
 import com.example.desafio_spring.dtos.response.PostResponsePromoByUserDTO;
@@ -332,6 +333,7 @@ public class SocialMeliServiceImp implements ISocialMeliService {
     public PostResponsePromoByUserDTO getPostByUserId(Integer userId) {
         ArrayList<Post> posts = iSocialMeliRepository.getPostList();
         ArrayList<Post> filteredPost;
+        ArrayList<ProductRequestDTO> products;
         User user = iSocialMeliRepository.getUserById(userId);
         filteredPost = posts.stream().filter(x -> x.getUserId().equals(userId) && x.isHasPromo()).collect(Collectors.toCollection(ArrayList::new));
         return new PostResponsePromoByUserDTO(userId,user.getUserName(),filteredPost);

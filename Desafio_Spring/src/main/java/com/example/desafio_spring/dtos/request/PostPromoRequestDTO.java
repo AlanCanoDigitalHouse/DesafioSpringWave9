@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,6 +21,7 @@ public class PostPromoRequestDTO {
     @Min(message = "El valor debe ser mayor a 0", value = 1)
     private Double price;
     @AssertTrue(message = "El valor debe ser true")
+    @NotBlank(message = "El atributo no puede ser nulo")
     private boolean hasPromo;
     private Double discount;
 
