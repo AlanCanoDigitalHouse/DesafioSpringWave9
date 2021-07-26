@@ -54,7 +54,7 @@ public class CalculateService implements ICalculateService {
 
     response.setSquareFeet(totalSquareFeet);
 
-    response.setBiggest(biggest);
+    response.setBiggest(EnvironmentResponseDTO.builder().environment_name(biggest.getEnvironment_name()).environment_width(biggest.getEnvironment_width()).environment_length(biggest.getEnvironment_length()).squareFeet(biggest.getSquareFeet()).build());
   }
 
   @Override

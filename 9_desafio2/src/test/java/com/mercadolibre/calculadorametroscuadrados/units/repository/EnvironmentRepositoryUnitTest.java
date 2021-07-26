@@ -30,7 +30,7 @@ public class EnvironmentRepositoryUnitTest {
     }
 
     @Test
-    @DisplayName("Unit Test - method: findEnvironment - 1")
+    @DisplayName("UT 8 - method: findEnvironment - 1")
     void findEnvironment_1() {
         // arrange
         Optional<EnvironmentModel> expected = Optional.of(new EnvironmentModel(environment_name));
@@ -43,20 +43,7 @@ public class EnvironmentRepositoryUnitTest {
     }
 
     @Test
-    @DisplayName("Unit Test - method: findEnvironment - 2")
-    void findEnvironment_2() {
-        // arrange
-        Optional<EnvironmentModel> expected = Optional.empty();
-
-        // act
-        Optional<EnvironmentModel> current = environmentRepository.findEnvironment("NotFound");
-
-        // assert
-        assertEquals(expected, current);
-    }
-
-    @Test
-    @DisplayName("Unit Test - method: findEnvironment - 3")
+    @DisplayName("UT 9 - method: findEnvironment - 2")
     void findEnvironment_3() {
         // arrange
         Optional<EnvironmentModel> expected = Optional.of(new EnvironmentModel(environment_name_2));
@@ -69,7 +56,7 @@ public class EnvironmentRepositoryUnitTest {
     }
 
     @Test
-    @DisplayName("Unit Test - method: findEnvironment - 4")
+    @DisplayName("UT 10 - method: findEnvironment - 3")
     void findEnvironment_4() {
         // arrange
         Optional<EnvironmentModel> expected = Optional.of(new EnvironmentModel(environment_name_3));
@@ -82,7 +69,20 @@ public class EnvironmentRepositoryUnitTest {
     }
 
     @Test
-    @DisplayName("Unit Test - method: mapDataBase - 1")
+    @DisplayName("UT 11 - method: findEnvironment empty - 1")
+    void findEnvironment_2() {
+        // arrange
+        Optional<EnvironmentModel> expected = Optional.empty();
+
+        // act
+        Optional<EnvironmentModel> current = environmentRepository.findEnvironment("NotFound");
+
+        // assert
+        assertEquals(expected, current);
+    }
+
+    @Test
+    @DisplayName("UT 12 - method: mapDataBase - 1")
     void mapDataBase_1() throws IOException, DataBaseNotFoundException {
         // arrange
         List<EnvironmentModel> expected = UtilTest.getData();
@@ -95,7 +95,7 @@ public class EnvironmentRepositoryUnitTest {
     }
 
     @Test
-    @DisplayName("Unit Test - method: mapDataBase - 1")
+    @DisplayName("UT 13 - method: mapDataBase DataBaseNotFoundException - 1")
     void mapDataBase_2() throws IOException {
         // arrange
         String path = "src/test/java/resources/environment.json";

@@ -41,8 +41,8 @@ public class UtilTest {
         return listEnvironmentsResponses;
     }
 
-    public static EnvironmentDTO getBiggest(){
-        return EnvironmentDTO.builder().environment_name("Hab1").environment_width(12.0).environment_length(12.0).build();
+    public static EnvironmentResponseDTO getBiggest(){
+        return EnvironmentResponseDTO.builder().environment_name("Hab1").environment_width(12.0).environment_length(12.0).squareFeet(144.0).build();
     }
 
     public static HouseDTO loadHouseDTO(String prop_name,String district_name){
@@ -66,6 +66,38 @@ public class UtilTest {
 
         return writer.writeValueAsString(dto);
     }
+
+    public static String writeValueAsStringWhitoutPretty(Object dto) throws JsonProcessingException {
+        ObjectWriter writer = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer();
+
+        return writer.writeValueAsString(dto);
+    }
+    // response incomplete for validations
+    public static HouseDTO loadBadHouseDTO(String prop_name, DistrictDTO districtDTO, List<EnvironmentDTO> list){
+        return HouseDTO.builder().prop_name(prop_name).district(districtDTO).environments(list).build();
+    }
+
+    public static EnvironmentDTO loadBadEnvironmentDTO(String environment_name, Double environment_width, Double environment_length) {
+        return EnvironmentDTO.builder().environment_name(environment_name).environment_width(environment_width).environment_length(environment_length).build();
+    }
+
+    public static DistrictDTO loadBadDistrictDTO(String district_name, Double district_price) {
+        return DistrictDTO.builder().district_name(district_name).district_price(district_price).build();
+    }
+
+
+    public static String getValidation(String parameter, String menssage){
+        return "\""+parameter+"\":\""+menssage+"\"";
+
+    }
+
+
+
+
+
+
 
 
 

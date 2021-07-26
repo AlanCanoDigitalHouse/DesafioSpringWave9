@@ -47,7 +47,7 @@ public class CalculateServiceUnitTest {
     }
 
     @Test
-    @DisplayName("Unit Test - method: validatePropertyName - 1")
+    @DisplayName("UT 1 - method: validatePropertyName - 1")
     void validatePropertyName_1(){
         // arrange
         Optional<EnvironmentModel> expected = Optional.of(new EnvironmentModel("Belgrano"));
@@ -60,7 +60,7 @@ public class CalculateServiceUnitTest {
     }
 
     @Test
-    @DisplayName("Unit Test - method: validatePropertyName - 1")
+    @DisplayName("UT 2 - method: validatePropertyName - 1")
     void validatePropertyName_2(){
         // arrange
         Optional<EnvironmentModel> expected = Optional.of(new EnvironmentModel("Belgrano"));
@@ -74,7 +74,7 @@ public class CalculateServiceUnitTest {
 
 
     @Test
-    @DisplayName("Unit Test - method: calculate - 1")
+    @DisplayName("UT 3 - method: calculate - 1")
     void calculate(){
         // arrange
         // dato de entrada
@@ -84,17 +84,14 @@ public class CalculateServiceUnitTest {
         // act
         when(environmentRepository.findEnvironment("Belgrano")).thenReturn(Optional.of(new EnvironmentModel("Belgrano")));
         HouseResponseDTO current = calculateService.calculate(houseDTO);
-
         // assert
         verify(environmentRepository, atMostOnce()).findEnvironment(Mockito.anyString());
         assertEquals(expected,current);
-
     }
 
 
-
     @Test
-    @DisplayName("Unit Test - method: calculate - 2")
+    @DisplayName("UT 4 - method: calculate - 2")
     void calculate_2(){
         // arrange
         HouseDTO houseDTO = UtilTest.loadHouseDTO("Belgrano","NotFound");
@@ -107,7 +104,7 @@ public class CalculateServiceUnitTest {
 
 
     @Test
-    @DisplayName("Unit Test - method: calculatePrice - 1")
+    @DisplayName("UT 5 - method: calculatePrice - 1")
     void calculatePrice_1(){
         // arrange
         Double expected = 1124000.0;
@@ -122,7 +119,7 @@ public class CalculateServiceUnitTest {
     }
 
     @Test
-    @DisplayName("Unit Test - method: calculatePrice - 2")
+    @DisplayName("UT 6 - method: calculatePrice - 2")
     void calculatePrice_2(){
         // arrange
         Double expected = 464800.0;
@@ -137,7 +134,7 @@ public class CalculateServiceUnitTest {
     }
 
     @Test
-    @DisplayName("Unit Test - method: calculatePrice - 3")
+    @DisplayName("UT 7 - method: calculatePrice - 3")
     void calculatePrice_3(){
         // arrange
         Double expected = 1104010.0;

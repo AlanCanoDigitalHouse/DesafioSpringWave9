@@ -1,19 +1,20 @@
 package com.mercadolibre.calculadorametroscuadrados.units.dtos;
 
+import com.mercadolibre.calculadorametroscuadrados.dto.DistrictDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.EnvironmentDTO;
+import com.mercadolibre.calculadorametroscuadrados.dto.HouseDTO;
+import com.mercadolibre.calculadorametroscuadrados.dto.HouseResponseDTO;
 import com.mercadolibre.calculadorametroscuadrados.models.EnvironmentModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Unit Test - EnvironmentDTO")
-public class EnvironmentDTOUnitTest {
+public class DTOUnitTest {
 
     @Test
-    @DisplayName("Unit Test - method: getSquareFeet - 1")
+    @DisplayName("UT 14 - method: getSquareFeet - 1")
     void getSquareFeet_1() {
         // arrange
         Double expected = 132.0;
@@ -25,7 +26,7 @@ public class EnvironmentDTOUnitTest {
     }
 
     @Test
-    @DisplayName("Unit Test - method: getSquareFeet - 2")
+    @DisplayName("UT 15 - method: getSquareFeet not equals - 1")
     void getSquareFeet_2() {
         // arrange
         Double expected = 1.0;
@@ -35,4 +36,5 @@ public class EnvironmentDTOUnitTest {
         // assert
         assertNotEquals(expected, current);
     }
+
 }

@@ -24,10 +24,9 @@ public class HouseDTO {
 
   @NotNull(message = "El parámetro 'district' no puede estar estar vacío.")
   @Valid
-
   private DistrictDTO district;
+
   @NotNull(message = "El parámetro 'environments' no puede estar vacío.")
   @Valid
   private List<EnvironmentDTO> environments;
-
 }
