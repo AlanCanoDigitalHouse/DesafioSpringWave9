@@ -40,7 +40,7 @@ class HouseServiceTest {
         HouseDetailResponseDto houseResponse = houseService.getPrice(house);
 
         //assert
-        assertEquals(4800,houseResponse.getPrice());
+        assertEquals(24000,houseResponse.getPrice());
         assertEquals(house.getProp_name(),houseResponse.getName() );
         assertEquals(house.getDistrict_name(),houseResponse.getDistrict_name() );
         assertEquals(house.getDistrict_price(),houseResponse.getDistrict_price());
@@ -57,16 +57,6 @@ class HouseServiceTest {
 
         //assert-act
         assertThrows(BadRequestException.class,()->houseService.getPrice(house));
-    }
-    @Test
-    void validateDistrictPrice() {
-        //arrange
-        HouseDTO house = TestGenerator.generateHouse();
-        //mock
-        Mockito.when(districtRepository.getByName(house.getDistrict_name()))
-                .thenReturn(new DistrictDTO("Sur",300));
-        //assert - act
-       assertThrows(BadRequestException.class,()->houseService.getPrice(house));
     }
 
     @Test
@@ -103,6 +93,9 @@ class HouseServiceTest {
     void getListEnv() {
         //arrange
         HouseDTO house = TestGenerator.generateHouse();
+        //mock
+        Mockito.when(districtRepository.getByName(house.getDistrict_name()))
+                .thenReturn(new DistrictDTO("Sur",300));
         //act
         List<EnvResponseDto> list = houseService.getListEnv(house);
         //assert

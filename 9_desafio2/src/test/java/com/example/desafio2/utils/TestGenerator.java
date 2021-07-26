@@ -9,8 +9,8 @@ import java.util.List;
 public class TestGenerator {
     public static HouseDTO generateHouse(){
         HouseDTO house = new HouseDTO();
-        house.setDistrict_price(60);
-        house.setDistrict_name("LA FLORIDA");
+        house.setDistrict_price(300);
+        house.setDistrict_name("Sur");
         house.setProp_name("La Casita");
         List<EnvDTO> envs = new ArrayList<>();
         var env1 = new EnvDTO("Baño",2,4);

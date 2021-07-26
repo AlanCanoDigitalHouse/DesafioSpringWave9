@@ -19,7 +19,8 @@ public class HouseDTO {
     @Max(value = 4000,message = "El precio maximo permitido por metro cuadrado no puede superar los 4000 U$S")
     @Min(value = 1,message = "Un metro cuadrado no debe valer menos de 1 U$S")
     private double district_price;
-    @NotEmpty(message = "The list of environments need at least 1 element")
+    @NotEmpty(message = "La lista de ambientes debe tener al menos 1 ambiente")
+    @NotNull(message = "La lista de ambientes no puede ser null")
     @Valid
     private List<EnvDTO> environments;
 }

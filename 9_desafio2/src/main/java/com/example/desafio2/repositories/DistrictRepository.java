@@ -13,7 +13,7 @@ public class DistrictRepository implements  IDistrict{
     private List<DistrictDTO> districtDTOS;
 
     public DistrictRepository() {
-        this.districtDTOS = DistrictGenerator.getAllDistrict();
+        this.districtDTOS = DistrictGenerator.getDistrictFile("district");
     }
 
     @Override

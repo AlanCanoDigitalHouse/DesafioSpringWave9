@@ -22,16 +22,12 @@ public class HouseService {
     public HouseDetailResponseDto getPrice(HouseDTO house) {
         var squareMeters = sumEveryEnvMeters(house.getEnvironments());
         var price = calculatePrice(squareMeters, house.getDistrict_price());
-        if (validateDistrict(house.getDistrict_name(), house.getDistrict_price())) {
-            List<EnvResponseDto> listEnvs = getPriceForEnvs(house.getEnvironments(), house.getDistrict_price());
-            HouseDetailResponseDto HouseResponse = new HouseDetailResponseDto(house.getProp_name(),
-                    price, house.getDistrict_name(),
-                    house.getDistrict_price(), listEnvs);
-            return HouseResponse;
-        } else {
-            throw new BadRequestException("Bad Request: The given price for this district is not valid," +
-                    "  check the documentation");
-        }
+        validateDistrict(house.getDistrict_name(), house.getDistrict_price());
+        List<EnvResponseDto> listEnvs = getPriceForEnvs(house.getEnvironments(), house.getDistrict_price());
+        HouseDetailResponseDto HouseResponse = new HouseDetailResponseDto(house.getProp_name(),
+                price, house.getDistrict_name(),
+                house.getDistrict_price(), listEnvs);
+        return HouseResponse;
     }
 
     public HouseResponseDTO getSquareMeters(HouseDTO house) {
@@ -44,6 +40,7 @@ public class HouseService {
     }
 
     public List<EnvResponseDto> getListEnv(HouseDTO house) {
+        validateDistrict(house.getDistrict_name(), house.getDistrict_price());
         return getPriceForEnvs(house.getEnvironments(), house.getDistrict_price());
     }
 

@@ -2,6 +2,7 @@ package com.example.desafio2.controllers;
 
 import com.example.desafio2.dtos.*;
 import com.example.desafio2.services.HouseService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,7 @@ public class HouseController {
 
     @PostMapping("/getSquareMetersEnv")
     public ResponseEntity<List<EnvResponseDto>> getSquareMetersEnv(@Valid @RequestBody HouseDTO house){
+
         return new ResponseEntity<>(houseService.getListEnv(house),HttpStatus.OK);
     }
 }
