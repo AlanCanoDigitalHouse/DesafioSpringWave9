@@ -26,8 +26,7 @@ import java.util.HashMap;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @SpringBootTest
@@ -154,6 +153,39 @@ public class CalculateRestControllerIntegrationTest {
         Assertions.assertEquals(responseJson, mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8));
 
     }
+
+    @Test
+    @DisplayName("District Name Lower Case")
+    void invalidRequestDistrictNameLowerCase() throws Exception {
+
+        ObjectWriter writer = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer();
+
+        //TODO: responseExceptionDTO contains the response thrown for MethodArgumentNotValidException
+        HashMap<String, String> fields = new HashMap<>();
+        fields.put("prop_name", "El nombre de la propiedad debe comenzar con mayuscula");
+        ErrorMessage responseExceptionDTO = new ErrorMessage(HttpStatus.BAD_REQUEST.value(), "Errores de Validacion", fields);
+
+        //TODO: setting the requirement to throw the exception
+        requestDTO.setProp_name("minuscula");
+
+        String payloadJson = writer.writeValueAsString(requestDTO);
+        String responseJson = writer.writeValueAsString(responseExceptionDTO);
+
+        MvcResult mvcResult =
+                this.mockMvc.perform(post("/calculate")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(payloadJson))
+                        .andDo(print())
+                        .andExpect(status().isBadRequest())
+                        .andExpect(content().contentType("application/json"))
+                        .andReturn();
+
+        Assertions.assertEquals(responseJson, mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8));
+
+    }
+
 
 }
 
