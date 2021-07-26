@@ -1,18 +1,14 @@
 package com.mercadolibre.calculadorametroscuadrados.unit.service;
 
-import com.mercadolibre.calculadorametroscuadrados.dto.HouseDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.Request.DistrictDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.Request.HouseRequestDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.Response.EnvironmentResponseDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.Response.HouseResponseDTO;
-import com.mercadolibre.calculadorametroscuadrados.exception.Found.DistrictNotFoundException;
-import com.mercadolibre.calculadorametroscuadrados.handlers.CalculatorHandler;
-import com.mercadolibre.calculadorametroscuadrados.repositories.DistrictRepository;
 import com.mercadolibre.calculadorametroscuadrados.repositories.IDistrictRepository;
 import com.mercadolibre.calculadorametroscuadrados.service.CalculateService;
-import com.mercadolibre.calculadorametroscuadrados.service.ICalculateService;
 import com.mercadolibre.calculadorametroscuadrados.unit.util.TestUtilsGenerator;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -34,6 +30,7 @@ public class CalculateServiceTest {
     private CalculateService calculateService;
 
     @Test
+    @DisplayName("Total Value House Calculated")
     public void totalValueWellCalculated() {
         // arrange
         HouseRequestDTO house = TestUtilsGenerator.getHouseWith3Environments("Casa 1", "Carabelas");
@@ -49,6 +46,7 @@ public class CalculateServiceTest {
     }
 
     @Test
+    @DisplayName("Total Value House Calculated With Non Environment")
     public void totalValueNotEnvironmentCalculated() {
         // arrange
         HouseRequestDTO house = TestUtilsGenerator.getHouseWithoutEnvironments("Casa 1", "Carabelas");
@@ -65,6 +63,7 @@ public class CalculateServiceTest {
     }
 
     @Test
+    @DisplayName("Find Biggest House and Calculated Square Meters")
     public void biggestEnvironmentFind() {
         // arrange
         HouseRequestDTO house = TestUtilsGenerator.getHouseWith3Environments("Casa 1", "Carabelas");
@@ -75,17 +74,19 @@ public class CalculateServiceTest {
     }
 
     @Test
+    @DisplayName("Find Biggest House With Non Environments")
     public void biggestNotEnvironmentsFind() {
         // arrange
         HouseRequestDTO house = TestUtilsGenerator.getHouseWithoutEnvironments("Casa 1", "Carabelas");
 
         // act &assert
-        Assertions.assertThrows(NoSuchElementException.class,() ->
+        Assertions.assertThrows(NoSuchElementException.class, () ->
                 calculateService.biggestEnvironment(house)
         );
     }
 
     @Test
+    @DisplayName("Calculated All House")
     public void HouseWellCalculated() {
         // arrange
         HouseRequestDTO house = TestUtilsGenerator.getHouseWith5Environments("Casa 3", "Chapinero");
@@ -104,6 +105,7 @@ public class CalculateServiceTest {
     }
 
     @Test
+    @DisplayName("Calculated All House With Non Environments")
     public void HouseWellCalculatedNotEnvironment() {
         // arrange
         HouseRequestDTO house = TestUtilsGenerator.getHouseWithoutEnvironments("Casa 7", "Bogota");

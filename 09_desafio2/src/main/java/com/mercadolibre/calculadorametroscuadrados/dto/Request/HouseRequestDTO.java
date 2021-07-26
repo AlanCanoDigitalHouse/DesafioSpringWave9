@@ -1,7 +1,9 @@
 package com.mercadolibre.calculadorametroscuadrados.dto.Request;
 
 import com.mercadolibre.calculadorametroscuadrados.dto.HouseDTO;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
@@ -9,7 +11,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 @Validated
 public class HouseRequestDTO extends HouseDTO {

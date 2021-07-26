@@ -7,17 +7,16 @@ import com.mercadolibre.calculadorametroscuadrados.dto.Request.DistrictDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.Request.HouseRequestDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.Response.EnvironmentResponseDTO;
 import com.mercadolibre.calculadorametroscuadrados.unit.util.TestUtilsGenerator;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -28,10 +27,11 @@ public class CalculatorIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
+    @DisplayName("Calculate House With Multiple Rooms")
     void calculateHouseWithMultipleRoom() throws Exception {
         /* TODO: Object Request Payload*/
         HouseRequestDTO payloadDTO = TestUtilsGenerator.getHouseWith3Environments("House 1", "Palermo");
-        payloadDTO.setDistrict( new DistrictDTO("Palermo", 1000D));
+        payloadDTO.setDistrict(new DistrictDTO("Palermo", 1000D));
 
         /* TODO: Object Response Compare*/
         EnvironmentResponseDTO responseDTO = new EnvironmentResponseDTO(
@@ -57,10 +57,11 @@ public class CalculatorIntegrationTest {
     }
 
     @Test
+    @DisplayName("Calculate House Without Rooms")
     void calculateHouseWithoutRooms() throws Exception {
         /* TODO: Object Request Payload*/
         HouseRequestDTO payloadDTO = TestUtilsGenerator.getHouseWithoutEnvironments("House 2", "Palermo");
-        payloadDTO.setDistrict( new DistrictDTO("Palermo", 1000D));
+        payloadDTO.setDistrict(new DistrictDTO("Palermo", 1000D));
 
         ObjectWriter writer = new ObjectMapper()
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
@@ -78,10 +79,11 @@ public class CalculatorIntegrationTest {
     }
 
     @Test
+    @DisplayName("Calculate House With One Rooms")
     void calculateHouseWithOneRooms() throws Exception {
         /* TODO: Object Request Payload*/
         HouseRequestDTO payloadDTO = TestUtilsGenerator.getHouseWithOneEnvironments("House 3", "Recoleta");
-        payloadDTO.setDistrict( new DistrictDTO("Recoleta", 900D));
+        payloadDTO.setDistrict(new DistrictDTO("Recoleta", 900D));
 
         ObjectWriter writer = new ObjectMapper()
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
@@ -99,9 +101,10 @@ public class CalculatorIntegrationTest {
     }
 
     @Test
+    @DisplayName("Calculate House Price With Multiple Rooms")
     void calculateHousePrice() throws Exception {
         HouseRequestDTO payloadDTO = TestUtilsGenerator.getHouseWith5Environments("House 5", "Puerto Madero");
-        payloadDTO.setDistrict( new DistrictDTO("Puerto Madero", 2000D));
+        payloadDTO.setDistrict(new DistrictDTO("Puerto Madero", 2000D));
 
         ObjectWriter writer = new ObjectMapper()
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
@@ -118,9 +121,10 @@ public class CalculatorIntegrationTest {
     }
 
     @Test
+    @DisplayName("Calculate Biggest Room in House")
     void calculateBiggestRoom() throws Exception {
         HouseRequestDTO payloadDTO = TestUtilsGenerator.getHouseWith3Environments("House 6", "Palermo");
-        payloadDTO.setDistrict( new DistrictDTO("Palermo", 1000D));
+        payloadDTO.setDistrict(new DistrictDTO("Palermo", 1000D));
 
         ObjectWriter writer = new ObjectMapper()
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
@@ -137,9 +141,10 @@ public class CalculatorIntegrationTest {
     }
 
     @Test
+    @DisplayName("Calculate Square Meters House")
     void calculateRoomsSquareFeet() throws Exception {
         HouseRequestDTO payloadDTO = TestUtilsGenerator.getHouseWithOneEnvironments("House 7", "Palermo");
-        payloadDTO.setDistrict( new DistrictDTO("Palermo", 1000D));
+        payloadDTO.setDistrict(new DistrictDTO("Palermo", 1000D));
 
         ObjectWriter writer = new ObjectMapper()
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)

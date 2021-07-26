@@ -7,22 +7,21 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.mercadolibre.calculadorametroscuadrados.dto.Request.DistrictDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.Request.EnvironmentRequestDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.Request.HouseRequestDTO;
-import com.mercadolibre.calculadorametroscuadrados.dto.Response.EnvironmentResponseDTO;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 public class TestUtilsGenerator {
 
     private static String SCOPE;
-    private static ObjectWriter mapper;
 
     public static void emptyDistrictsFile() {
         Properties properties = new Properties();
@@ -43,10 +42,12 @@ public class TestUtilsGenerator {
             e.printStackTrace();
         }
 
+        assert writer != null;
         writer.print("[]");
         writer.close();
     }
 
+    /* Get One District With Name */
     public static DistrictDTO getDistrictWithName(String name) {
 
         DistrictDTO district = new DistrictDTO();
@@ -56,6 +57,7 @@ public class TestUtilsGenerator {
         return district;
     }
 
+    /* Get One District With Name and Price */
     public static DistrictDTO getDistrictWithPrice(String name, Double price) {
 
         DistrictDTO district = new DistrictDTO();
@@ -65,6 +67,7 @@ public class TestUtilsGenerator {
         return district;
     }
 
+    /* Get House With Three Environments */
     public static HouseRequestDTO getHouseWith3Environments(String name, String districtName) {
 
         EnvironmentRequestDTO environment1 = new EnvironmentRequestDTO("Room 1", 8.0, 5.0);
@@ -78,11 +81,10 @@ public class TestUtilsGenerator {
 
         DistrictDTO district = getDistrictWithName(districtName);
 
-        HouseRequestDTO house = new HouseRequestDTO(name, district, environments);
-
-        return house;
+        return new HouseRequestDTO(name, district, environments);
     }
 
+    /* Get House With Five Environments */
     public static HouseRequestDTO getHouseWith5Environments(String name, String districtName) {
 
         EnvironmentRequestDTO environment1 = new EnvironmentRequestDTO("Room 1", 8.0, 5.0);
@@ -100,22 +102,20 @@ public class TestUtilsGenerator {
 
         DistrictDTO district = getDistrictWithPrice(districtName, 1200.0);
 
-        HouseRequestDTO house = new HouseRequestDTO(name, district, environments);
-
-        return house;
+        return new HouseRequestDTO(name, district, environments);
     }
 
+    /* Get House With Zero Environments */
     public static HouseRequestDTO getHouseWithoutEnvironments(String name, String districtName) {
 
         List<EnvironmentRequestDTO> environments = new ArrayList<>();
 
         DistrictDTO district = getDistrictWithName(districtName);
 
-        HouseRequestDTO house = new HouseRequestDTO(name, district, environments);
-
-        return house;
+        return new HouseRequestDTO(name, district, environments);
     }
 
+    /* Get House With One Environments */
     public static HouseRequestDTO getHouseWithOneEnvironments(String name, String districtName) {
 
         List<EnvironmentRequestDTO> environments = new ArrayList<>();
@@ -123,20 +123,18 @@ public class TestUtilsGenerator {
 
         DistrictDTO district = getDistrictWithName(districtName);
 
-        HouseRequestDTO house = new HouseRequestDTO(name, district, environments);
-
-        return house;
+        return new HouseRequestDTO(name, district, environments);
     }
 
+    /* Get Environment With Name */
     public static EnvironmentRequestDTO getEnvironmentWithName(String name) {
 
-        EnvironmentRequestDTO environment = new EnvironmentRequestDTO(name, 7D, 18D);
-
-        return environment;
+        return new EnvironmentRequestDTO(name, 7D, 18D);
     }
 
+    /* Append New District in Database */
     public static void appendNewDistrict(DistrictDTO district) {
-        mapper = new ObjectMapper()
+        ObjectWriter mapper = new ObjectMapper()
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
                 .writer().withDefaultPrettyPrinter();
 
@@ -148,20 +146,18 @@ public class TestUtilsGenerator {
 
             try {
                 String studentAsString = mapper.writeValueAsString(district);
-                writer.print(content.substring(0, content.length()-1));
-                if (content.length()>2) writer.print(", ");
+                writer.print(content.substring(0, content.length() - 1));
+                if (content.length() > 2) writer.print(", ");
                 writer.print(studentAsString);
                 writer.print("]");
             } catch (JsonProcessingException jsonProcessingException) {
                 jsonProcessingException.printStackTrace();
             }
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        assert writer != null;
         writer.close();
     }
 

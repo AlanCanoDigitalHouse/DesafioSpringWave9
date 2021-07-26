@@ -5,10 +5,7 @@ import com.mercadolibre.calculadorametroscuadrados.exception.Found.DistrictNotFo
 import com.mercadolibre.calculadorametroscuadrados.repositories.DistrictRepository;
 import com.mercadolibre.calculadorametroscuadrados.repositories.IDistrictRepository;
 import com.mercadolibre.calculadorametroscuadrados.unit.util.TestUtilsGenerator;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 public class DistrictRepositoryTest {
 
@@ -22,6 +19,7 @@ public class DistrictRepositoryTest {
     }
 
     @Test
+    @DisplayName("Create District Non Existent")
     public void createNonExistentDistrict() {
         // arrange
         DistrictDTO district = TestUtilsGenerator.getDistrictWithPrice("Carabelas", 500.0);
@@ -36,6 +34,7 @@ public class DistrictRepositoryTest {
     }
 
     @Test
+    @DisplayName("Create District Existent")
     public void createExistentDistrict() {
         // arrange
         DistrictDTO district = TestUtilsGenerator.getDistrictWithPrice("Carabelas", 800.0);
@@ -49,6 +48,7 @@ public class DistrictRepositoryTest {
     }
 
     @Test
+    @DisplayName("Modify District Non Existent")
     public void modifyNonExistentDistrict() {
         // arrange
         DistrictDTO districtFirst = TestUtilsGenerator.getDistrictWithName("Chapinero");
@@ -72,6 +72,7 @@ public class DistrictRepositoryTest {
     }
 
     @Test
+    @DisplayName("Modify Existent District")
     public void modifyExistentDistrict() {
         // arrange
         DistrictDTO district = TestUtilsGenerator.getDistrictWithPrice("Bogota", 20000D);
@@ -87,6 +88,7 @@ public class DistrictRepositoryTest {
     }
 
     @Test
+    @DisplayName("Find Existent District")
     public void findExistentDistrict() {
         // arrange
         DistrictDTO district = TestUtilsGenerator.getDistrictWithName("Cali");
@@ -100,18 +102,20 @@ public class DistrictRepositoryTest {
     }
 
     @Test
-    public void findNonExistentStudent() {
+    @DisplayName("Find Non Existent District")
+    public void findNonExistentDistrict() {
         // arrange
         DistrictDTO district = TestUtilsGenerator.getDistrictWithName("Medellin");
 
         // act & assert
-        Assertions.assertThrows(DistrictNotFoundException.class,() ->
+        Assertions.assertThrows(DistrictNotFoundException.class, () ->
                 districtRepository.findByName(district.getName())
         );
     }
 
     @Test
-    public void deleteExistentStudent() {
+    @DisplayName("Delete Existent District")
+    public void deleteExistentDistrict() {
         // arrange
         DistrictDTO district = TestUtilsGenerator.getDistrictWithName("Madrid");
         districtRepository.save(district);
@@ -121,13 +125,14 @@ public class DistrictRepositoryTest {
 
         // assert
         Assertions.assertFalse(districtRepository.exists(district));
-        Assertions.assertThrows(DistrictNotFoundException.class,() ->
+        Assertions.assertThrows(DistrictNotFoundException.class, () ->
                 districtRepository.findByName(district.getName())
         );
     }
 
     @Test
-    public void deleteNonExistentStudent() {
+    @DisplayName("Delete Non Existent District")
+    public void deleteNonExistentDistrict() {
         // arrange
         DistrictDTO district = TestUtilsGenerator.getDistrictWithName("Madrid");
 
@@ -136,7 +141,7 @@ public class DistrictRepositoryTest {
 
         // assert
         Assertions.assertFalse(districtRepository.exists(district));
-        Assertions.assertThrows(DistrictNotFoundException.class,() ->
+        Assertions.assertThrows(DistrictNotFoundException.class, () ->
                 districtRepository.findByName(district.getName())
         );
     }

@@ -55,7 +55,7 @@ public class DistrictRepository implements IDistrictRepository {
             ret = true;
             this.saveData();
 
-        } catch (DistrictNotFoundException e) {
+        } catch (DistrictNotFoundException ignored) {
         }
 
         return ret;
@@ -66,7 +66,7 @@ public class DistrictRepository implements IDistrictRepository {
 
         try {
             ret = this.findByName(district.getName()) != null;
-        } catch (DistrictNotFoundException e) {
+        } catch (DistrictNotFoundException ignored) {
         }
 
         return ret;
@@ -87,7 +87,7 @@ public class DistrictRepository implements IDistrictRepository {
         File file;
         try {
             file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/districts.json");
-            loadedData = objectMapper.readValue(file, new TypeReference<Set<DistrictDTO>>() {
+            loadedData = objectMapper.readValue(file, new TypeReference<>() {
             });
         } catch (FileNotFoundException e) {
             e.printStackTrace();

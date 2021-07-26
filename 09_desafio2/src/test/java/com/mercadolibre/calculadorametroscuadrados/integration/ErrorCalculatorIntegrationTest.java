@@ -3,12 +3,11 @@ package com.mercadolibre.calculadorametroscuadrados.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.mercadolibre.calculadorametroscuadrados.dto.Request.DistrictDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.Request.HouseRequestDTO;
-import com.mercadolibre.calculadorametroscuadrados.dto.Response.EnvironmentResponseDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.Response.ErrorDTO;
 import com.mercadolibre.calculadorametroscuadrados.unit.util.TestUtilsGenerator;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.nio.charset.StandardCharsets;
 
@@ -32,6 +30,7 @@ public class ErrorCalculatorIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
+    @DisplayName("Calculate House With Name Error")
     void calculateHouseNameError() throws Exception {
         /* TODO: Object Request Payload */
         HouseRequestDTO payloadDTO = TestUtilsGenerator.getHouseWithOneEnvironments("house 1", "Palermo");
@@ -50,19 +49,20 @@ public class ErrorCalculatorIntegrationTest {
         String responseJSON = writer.writeValueAsString(responseDTO);
 
         MvcResult mvcResult =
-            this.mockMvc.perform(post("/calculator/house")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(payloadJSON))
-                    .andDo(print())
-                    .andExpect(status().isBadRequest())
-                    .andExpect(content().contentType("application/json"))
-                    .andExpect(jsonPath("$.name").value("MethodArgumentNotValidException"))
-                    .andReturn();
+                this.mockMvc.perform(post("/calculator/house")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(payloadJSON))
+                        .andDo(print())
+                        .andExpect(status().isBadRequest())
+                        .andExpect(content().contentType("application/json"))
+                        .andExpect(jsonPath("$.name").value("MethodArgumentNotValidException"))
+                        .andReturn();
 
         Assertions.assertEquals(responseJSON, mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8));
     }
 
     @Test
+    @DisplayName("Calculate House With Price District Error")
     void calculateDistrictPriceHighError() throws Exception {
         /* TODO: Object Request Payload */
         HouseRequestDTO payloadDTO = TestUtilsGenerator.getHouseWithOneEnvironments("House 2", "Palermo");
@@ -94,6 +94,7 @@ public class ErrorCalculatorIntegrationTest {
     }
 
     @Test
+    @DisplayName("Calculate House With Length District Error")
     void calculateEnvironmentLengthHighError() throws Exception {
         /* TODO: Object Request Payload */
         HouseRequestDTO payloadDTO = TestUtilsGenerator.getHouseWithOneEnvironments("House 3", "Palermo");
@@ -125,6 +126,7 @@ public class ErrorCalculatorIntegrationTest {
     }
 
     @Test
+    @DisplayName("Calculate House With District Not Found Error")
     void calculateDistrictNotFoundError() throws Exception {
         /* TODO: Object Request Payload */
         HouseRequestDTO payloadDTO = TestUtilsGenerator.getHouseWithOneEnvironments("House 3", "Error");
@@ -156,19 +158,18 @@ public class ErrorCalculatorIntegrationTest {
     }
 
     @Test
+    @DisplayName("Calculate House With Htto Error Message")
     void calculateHttpMessageError() throws Exception {
         /* TODO: Object Request Payload */
         String request = "{\"name\": \"Oficina\", \"district\": {\"name\": \"Palermo\", \"price\": \"precio\"}, " +
-                         "\"environments\": [ ]}";
+                "\"environments\": [ ]}";
 
-        MvcResult mvcResult =
-                this.mockMvc.perform(post("/calculator/house")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(request))
-                        .andDo(print())
-                        .andExpect(status().isBadRequest())
-                        .andExpect(content().contentType("application/json"))
-                        .andExpect(jsonPath("$.name").value("HttpMessageNotReadableException"))
-                        .andReturn();
+        this.mockMvc.perform(post("/calculator/house")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(request))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.name").value("HttpMessageNotReadableException"));
     }
 }
