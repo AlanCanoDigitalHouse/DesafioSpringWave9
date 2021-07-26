@@ -1,0 +1,132 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > PropertyDTO</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example._9desafio2.dtos.request</a>
+</div>
+
+<h1>Coverage Summary for Class: PropertyDTO (com.example._9desafio2.dtos.request)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PropertyDTO</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.example._9desafio2.dtos.request;
+<i class="no-highlight">2</i>&nbsp;import lombok.Data;
+<i class="no-highlight">3</i>&nbsp;import org.springframework.validation.annotation.Validated;
+<i class="no-highlight">4</i>&nbsp;import javax.validation.Valid;
+<i class="no-highlight">5</i>&nbsp;import javax.validation.constraints.*;
+<i class="no-highlight">6</i>&nbsp;import java.util.List;
+<i class="no-highlight">7</i>&nbsp;
+<b class="fc"><i class="no-highlight">8</i>&nbsp;@Data</b>
+<i class="no-highlight">9</i>&nbsp;@Validated
+<i class="no-highlight">10</i>&nbsp;public class PropertyDTO {
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;    @NotBlank(message = &quot;El nombre de la propiedad no puede estar vacío.&quot;)
+<i class="no-highlight">13</i>&nbsp;    @Pattern(regexp = &quot;([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú]*$&quot;,message = &quot;El nombre de la propiedad debe comenzar con mayúscula.&quot;)
+<i class="no-highlight">14</i>&nbsp;    @Size(min = 1,max = 30,message =&quot;La longitud del nombre no puede superar los 30 caracteres.&quot; )
+<b class="fc"><i class="no-highlight">15</i>&nbsp;    private String prop_name;</b>
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;    @Valid
+<b class="fc"><i class="no-highlight">18</i>&nbsp;    private DistrictDTO district;</b>
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;    @Valid
+<i class="no-highlight">21</i>&nbsp;    @NotEmpty(message = &quot;La lista de ambientes no puede estar vacia&quot;)
+<b class="fc"><i class="no-highlight">22</i>&nbsp;    private List&lt;EnviromentDTO&gt; environments;</b>
+<i class="no-highlight">23</i>&nbsp;
+<i class="no-highlight">24</i>&nbsp;
+<i class="no-highlight">25</i>&nbsp;
+<i class="no-highlight">26</i>&nbsp;
+<i class="no-highlight">27</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-07-26 10:21</div>
+</div>
+</body>
+</html>
