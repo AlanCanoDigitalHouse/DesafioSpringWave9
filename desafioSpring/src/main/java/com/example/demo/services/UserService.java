@@ -57,6 +57,7 @@ public class UserService {
     }
 
     //Remove followed user by userId
+    @Deprecated
     public void unfollow(Integer id, Integer idToUnfollow) throws UserRemoved, UserNotFound {
         List<User> users = userImpl.loadDatabase();
         if(Objects.nonNull(users)){
