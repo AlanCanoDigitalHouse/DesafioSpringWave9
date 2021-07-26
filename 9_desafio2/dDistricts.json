@@ -1,0 +1,18 @@
+[
+  {
+    "district_name": "Suba",
+    "district_price": 1500.0
+  },
+  {
+  "district_name": "Kennedy",
+  "district_price": 200.0
+  },
+  {
+  "district_name": "Soacha",
+  "district_price": 50.0
+  },
+  {
+  "district_name": "Venecia",
+  "district_price": 300.0
+  }
+]
