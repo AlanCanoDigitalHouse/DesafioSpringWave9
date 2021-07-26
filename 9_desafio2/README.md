@@ -191,3 +191,19 @@
         - la validacion del nombre del barrio se hace contra la lista descripta en el punto anterior.
         - para llegar al 100 % de coverage hay que descomentar la linea 30 el test "App main" en el archivo 
         CalculadoraMetrosCuadradosApplicationTests 
+
+## Barrios para pruebas
+
+        [
+            {
+            "environment_name": "Balvanera"
+            },{
+            "environment_name": "Barracas"
+            },{
+            "environment_name": "Belgrano"
+            },{
+            "environment_name": "Boedo"
+            },{
+            "environment_name": "Caballito"
+            }
+        ]
