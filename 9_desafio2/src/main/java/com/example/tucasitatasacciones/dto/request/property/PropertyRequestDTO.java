@@ -1,8 +1,15 @@
-package com.example.tucasitatasacciones.dto.request;
-import lombok.*;
+package com.example.tucasitatasacciones.dto.request.property;
+
+import com.example.tucasitatasacciones.dto.request.district.DistrictRequestDTO;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
@@ -21,7 +28,7 @@ public class PropertyRequestDTO {
     private DistrictRequestDTO district;
 
     @NotNull(message = "El ambiente no puede estar vacio")
-    @NotEmpty()
+    @NotEmpty(message = "El ambiente no puede estar vacio")
     @Valid
     private List<PropertyEnvironmentRequestDTO> environments;
 }
