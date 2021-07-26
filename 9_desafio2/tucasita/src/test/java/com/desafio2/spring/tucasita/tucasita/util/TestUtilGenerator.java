@@ -9,31 +9,50 @@ import java.util.List;
 
 public class TestUtilGenerator {
 
+    public static HouseDTO invalidHouseName() {
+        List<RoomDTO> rooms = createRooms();
+        DistrictDTO districtDTO = new DistrictDTO("Invalid name",23);
+        HouseDTO houseDTO = new HouseDTO("nombre con minuscula", districtDTO, rooms);
+        return houseDTO;
+    }
+
+    public static HouseDTO invalidHouseLongName() {
+        List<RoomDTO> rooms = createRooms();
+        DistrictDTO districtDTO = new DistrictDTO("Invalid name",23);
+        HouseDTO houseDTO = new HouseDTO(
+                "Este es un nombre muy muy muy muy muy muy muy muy muy muy muy muy muy muy laaaargoo",
+                districtDTO, rooms);
+        return houseDTO;
+    }
+
     public static HouseDTO invalidDistrictNameHouse() {
         List<RoomDTO> rooms = createRooms();
         DistrictDTO districtDTO = new DistrictDTO("Invalid name",23);
-        HouseDTO houseDTO = new HouseDTO("Tu casita", districtDTO, rooms);
+        HouseDTO houseDTO = new HouseDTO("Tucasita", districtDTO, rooms);
         return houseDTO;
     }
 
     public static HouseDTO invalidDistrictPriceHouse() {
         List<RoomDTO> rooms = createRooms();
-        DistrictDTO districtDTO = new DistrictDTO("Palermo",23);
-        HouseDTO houseDTO = new HouseDTO("Tu casita", districtDTO, rooms);
+        DistrictDTO districtDTO = new DistrictDTO("Palermo",4001);
+        HouseDTO houseDTO = new HouseDTO("Tucasita", districtDTO, rooms);
         return houseDTO;
     }
+
+
 
     public static HouseDTO simpleHouseForTestSize33() {
         List<RoomDTO> rooms = createRooms();
         DistrictDTO districtDTO = new DistrictDTO("Palermo", 1000);
-        return new HouseDTO("Tu casita", districtDTO, rooms);
+        return new HouseDTO("Tucasita", districtDTO, rooms);
     }
 
     public static HouseDTO simpleHouseForTestSizeRecoleta() {
         List<RoomDTO> rooms = createRooms();
         DistrictDTO districtDTO = new DistrictDTO("Recoleta", 900);
-        return new HouseDTO("Tu casita", districtDTO, rooms);
+        return new HouseDTO("Tucasita", districtDTO, rooms);
     }
+
 
     private static List<RoomDTO> createRooms(){
         ArrayList<RoomDTO> rooms = new ArrayList<>();
@@ -47,5 +66,12 @@ public class TestUtilGenerator {
         rooms.add(room3);
 
         return rooms;
+    }
+
+    public static HouseDTO emptyRoomsList() {
+        ArrayList<RoomDTO> emptyRooms = new ArrayList<>();
+        DistrictDTO districtDTO = new DistrictDTO("Palermo", 1000);
+        HouseDTO house = new HouseDTO("Empty rooms", districtDTO, emptyRooms);
+        return house;
     }
 }

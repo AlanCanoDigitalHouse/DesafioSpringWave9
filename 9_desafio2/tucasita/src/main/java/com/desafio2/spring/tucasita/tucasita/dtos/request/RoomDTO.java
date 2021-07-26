@@ -13,7 +13,7 @@ public class RoomDTO {
 
     @NotBlank(message = "El nombre del ambiente no puede estar vacío.")
     @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
-    @Pattern(regexp = "^[A-Z][a-z]+", message = "El nombre del ambiente debe comenzar con mayúscula.")
+    @Pattern(regexp = "^[A-Z][a-z ]+", message = "El nombre del ambiente debe comenzar con mayúscula.")
     private String environment_name;
 
     @NotNull(message = "El ancho del ambiente no puede estar vacío.")

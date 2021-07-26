@@ -71,7 +71,7 @@ public class HouseService implements IHouseService {
         if (districtDAO == null) {
             throw new DistrictDoesNotExistException(districtDTO.getDistrict_name());
         }
-        if (districtDAO.getDistrict_price() != districtDTO.getDistrict_price()) {
+        if (!districtDAO.getDistrict_price().equals(districtDTO.getDistrict_price())) {
             throw new WrongPriceException();
         }
     }
