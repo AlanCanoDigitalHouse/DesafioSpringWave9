@@ -44,7 +44,9 @@ There are only a few valid districts available:
 ]
 ```
 
-API Endpoints available:
+### API Endpoints available:
+
+([Postman collection](https://github.com/AlanCanoDigitalHouse/DesafioSpringWave9/blob/Chareun_Alonso/9_desafio2/TuCasita-Tasaciones.postman_collection.json))
 
 All endpoints expect the same payload in the request body:
 
@@ -70,7 +72,7 @@ All endpoints expect the same payload in the request body:
 }
 ```
 
-### Calculate property total area:
+#### Calculate property total area:
 ```
 POST localhost:8080/property/totalArea
 ```
@@ -83,7 +85,7 @@ Response example:
 }
 ```
 
-### Valuate property:
+#### Valuate property:
 ```
 POST localhost:8080/property/valuation
 ```
@@ -96,7 +98,7 @@ Response example:
 }
 ```
 
-### Determine property largest environment:
+#### Determine property largest environment:
 ```
 POST localhost:8080/property/environment/largest
 ```
@@ -112,7 +114,7 @@ Response example:
 }
 ```
 
-### Calculate property's environment's areas:
+#### Calculate property's environment's areas:
 ```
 POST localhost:8080/property/environment/area
 ```
