@@ -29,11 +29,6 @@ public class ApiExceptionControllerAdvice {
             fields.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
         return new ErrorDto(HttpStatus.BAD_REQUEST.value(), message + fields);
-        /*
-        for (FieldError fieldError : fieldErrors) {
-            message += "Field: " + fieldError.getField() + "Error: " + fieldError.getDefaultMessage() + "\n";
-        }
-        return new ErrorDto(HttpStatus.BAD_REQUEST.value(), message);*/
     }
 
     @ExceptionHandler
