@@ -47,8 +47,4 @@ public class TestGenerator {
     public static PropertyDTO getRequestNotExistPropertyDTO() {
         return new PropertyDTO("Name Of Property", getThreeEnvironments(), new PriceDTO("N/A", 900.0));
     }
-
-    public static PropertyDTO getRequestWrongPricePropertyDTO() {
-        return new PropertyDTO("This Is A Property", getThreeEnvironments(), new PriceDTO("Palermo", 10));
-    }
 }

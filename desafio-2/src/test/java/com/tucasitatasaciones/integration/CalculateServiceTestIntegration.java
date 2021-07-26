@@ -100,6 +100,4 @@ public class CalculateServiceTestIntegration {
                 .andExpect(jsonPath("$.message.DistrictBadRequestException")
                         .value(Message.DISTRICT_WRONG_PRICE));
     }
-
-
 }

@@ -2,7 +2,6 @@ package com.tucasitatasaciones.controllers;
 
 import com.tucasitatasaciones.DTOs.PropertyDTO;
 import com.tucasitatasaciones.DTOs.PropertyResponseDTO;
-import com.tucasitatasaciones.DTOs.PriceDTO;
 import com.tucasitatasaciones.services.CalculateService;
 import org.springframework.web.bind.annotation.*;
 

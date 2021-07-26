@@ -71,7 +71,7 @@ public class CalculateServiceTest {
     }
 
     // target: Verificar que efectivamente el distrito con el que se quiere calcular no existe
-    // output: Exceptcion de no encuentra el distrito
+    // output: Excepcion de no encuentra el distrito
     @Test
     public void tryCalculateSquareWrongDistinct1() {
         PropertyDTO requestProperty = TestGenerator.getRequestNotExistPropertyDTO();
@@ -84,5 +84,23 @@ public class CalculateServiceTest {
         }
         assertThat(currentException.getMessage()).isEqualTo(expectedException.getMessage());
     }
+
+    // target: Verificar que efectivamente el distrito con el que se quiere calcular no existe con esos datos
+    // output: Excepcion distrito con precio por metro erroneo
+    @Test
+    public void tryCalculateSquareWrongDistinct2() {
+        PropertyDTO requestProperty = TestGenerator.getRequestPropertyDTO();
+        DistrictBadRequestException currentException = new DistrictBadRequestException("");
+        PriceDTO expectedDistrict = new PriceDTO("Recoleta", -1);
+        when(priceRepository.findPriceLocation("Recoleta")).thenReturn(expectedDistrict);
+        try {
+            PropertyResponseDTO currentPropertyResponse = service.calculate(requestProperty);
+            verify(priceRepository, atLeast(1)).findPriceLocation("Recoleta");
+        } catch (DistrictBadRequestException e) {
+            currentException = e;
+        }
+        assertThat(currentException.getMessage()).isEqualTo(Message.DISTRICT_WRONG_PRICE);
+    }
+
 }
 
