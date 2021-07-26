@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Norte",
+    "price": 500
+  },
+  {
+    "name": "Sur",
+    "price": 400
+  },
+  {
+    "name": "Este",
+    "price": 300
+  },
+  {
+    "name": "Oeste",
+    "price": 200
+  },
+  {
+    "name": "Centro",
+    "price": 100
+  }
+]
