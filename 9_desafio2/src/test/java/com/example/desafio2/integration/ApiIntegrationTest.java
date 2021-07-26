@@ -104,7 +104,7 @@ public class ApiIntegrationTest {
                 .writer();
 
         String jsonPayload = writer.writeValueAsString(houseDTO);
-
+        System.out.println(jsonPayload);
         this.mockMvc.perform(post("/house/getSquareMetersEnv")
                 .contentType(MediaType.APPLICATION_JSON).content(jsonPayload))
                 .andExpect(status().isOk())
