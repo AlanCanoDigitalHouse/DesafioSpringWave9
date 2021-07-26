@@ -46,7 +46,7 @@ public class APIExceptionController {
     @ResponseBody
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorDTO handleInternalError(DatabaseException exception) {
-        return new ErrorDTO(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+        return new ErrorDTO(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
     }
 
     @ExceptionHandler
