@@ -1,0 +1,18 @@
+[
+  {
+    "district_name": "DF",
+    "district_price": 1700
+  },
+  {
+    "district_name": "New York",
+    "district_price": 2000
+  },
+  {
+    "district_name": "Recoleta",
+    "district_price": 900
+  },
+  {
+    "district_name": "Puerto Madero",
+    "district_price": 2000
+  }
+]
