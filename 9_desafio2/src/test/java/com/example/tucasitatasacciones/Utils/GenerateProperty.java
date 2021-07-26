@@ -27,6 +27,13 @@ public class GenerateProperty {
         return environments;
     }
 
+    public static List<PropertyEnvironmentRequestDTO> getSquareMeterPerEnvironment() {
+        List<PropertyEnvironmentRequestDTO> environments = new ArrayList<>();
+        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Kitchen").environment_width(20.0).environment_length(20.0).build());
+        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Bedroom").environment_width(20.0).environment_length(20.0).build());
+        environments.add(PropertyEnvironmentRequestDTO.builder().environment_name("Living").environment_width(20.0).environment_length(20.0).build());
+        return environments;
+    }
 
 
 

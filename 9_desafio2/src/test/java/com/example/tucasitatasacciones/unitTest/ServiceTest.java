@@ -3,6 +3,7 @@ package com.example.tucasitatasacciones.unitTest;
 import com.example.tucasitatasacciones.Utils.GenerateProperty;
 import com.example.tucasitatasacciones.dto.request.property.PropertyEnvironmentRequestDTO;
 import com.example.tucasitatasacciones.dto.request.property.PropertyRequestDTO;
+import com.example.tucasitatasacciones.dto.response.environment.EnvironmentMetersResponseDTO;
 import com.example.tucasitatasacciones.dto.response.environment.EnvironmentResponseDTO;
 import com.example.tucasitatasacciones.dto.response.property.PropertySquareMetersResponseDTO;
 import com.example.tucasitatasacciones.service.DistrictService;
@@ -78,19 +79,28 @@ public class ServiceTest {
         Assertions.assertThat(kitchenHouse).extracting(EnvironmentResponseDTO::getEnvironment_name).isEqualTo("Kitchen");
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // Verificar que efectivamente el total de metros cuadrados por ambiente sea el correcto.
+    @Test
+    @DisplayName("Devuelve el cálculo correcto del total de metros cuadrados de un ambiente. ")
+    public void getMetersPerEnvironment() {
+        PropertyRequestDTO property = GenerateProperty.getValidProperty();
+        property.setEnvironments(GenerateProperty.getSquareMeterPerEnvironment());
+        List<EnvironmentMetersResponseDTO> environmentMeters = propertyService.getMetersPerEnvironment(property);
+        Assertions.assertThat(environmentMeters).extracting(EnvironmentMetersResponseDTO::getSquare_meters).contains("400.0", "400.0", "400.0");
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
