@@ -4,10 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Data
@@ -28,6 +25,7 @@ public class HouseDTO {
   private double district_price;
 
   @Valid
-  @NotNull(message = "La lista de ambientes no puede estar vacía")
+  @NotNull(message = "La lista de ambientes no puede ser nula")
+  @NotEmpty(message = "La lista de ambientes no puede estar vacía")
   private List<RoomDTO> rooms;
 }
