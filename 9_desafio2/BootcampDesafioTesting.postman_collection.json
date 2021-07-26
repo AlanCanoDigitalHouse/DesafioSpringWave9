@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "e1179bc9-1384-4288-8951-68c1157c35b3",
+		"name": "Bootcamp - Desafio Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "REQ SOLICITADOS",
+			"item": [
+				{
+					"name": "calculate/house",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"prop_name\": \"Mr. Burns Mansion\",\n    \"district\": {\n        \"district_name\": \"Recoleta\",\n        \"district_price\": 2120.00\n    },\n    \"environments\": [\n        {\n            \"environment_name\": \"Living room\",\n            \"environment_width\": \"5\",\n            \"environment_length\": \"5\"\n        },\n        {\n            \"environment_name\": \"Bedroom\",\n            \"environment_width\": \"4\",\n            \"environment_length\": \"4\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/calculate/house",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"calculate",
+								"house"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EXTRA",
+			"item": [
+				{
+					"name": "US 0005",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/information/neighborhoods",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"information",
+								"neighborhoods"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
