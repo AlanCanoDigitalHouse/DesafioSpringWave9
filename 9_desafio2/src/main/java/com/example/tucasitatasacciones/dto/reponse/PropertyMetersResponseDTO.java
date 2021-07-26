@@ -4,6 +4,6 @@ import lombok.*;
 
 @AllArgsConstructor
 @Getter
-public class PropertyMetersDTO {
+public class PropertyMetersResponseDTO {
     private double squareMeters;
 }
