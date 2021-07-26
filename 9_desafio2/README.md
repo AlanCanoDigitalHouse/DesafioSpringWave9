@@ -34,7 +34,7 @@ Abra el proyecto en Intellij de *Run* en la clase main *DesafioDosWave9Applicati
   "prop_name": "Casa",
   "district_name": "Palermo",
   "district_price": 1000.0,
-  "habitaciones": [
+  "environments": [
     {
       "environment_name": "Sala",
       "environment_width": 2.0,

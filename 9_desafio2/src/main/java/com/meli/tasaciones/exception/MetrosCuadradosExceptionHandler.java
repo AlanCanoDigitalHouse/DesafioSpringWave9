@@ -2,6 +2,7 @@ package com.meli.tasaciones.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,16 @@ public class MetrosCuadradosExceptionHandler {
   @ResponseBody
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   public ResponseEntity<MetrosCuadradosErrorMessage> errorMessage(MetrosCuadradosException exception) {
+    HashMap<String, String> errorsMap = new HashMap<>();
+    errorsMap.put(exception.getClass().getSimpleName(), exception.getMessage());
+    MetrosCuadradosErrorMessage errorMessage = new MetrosCuadradosErrorMessage(exception.getMessage(), errorsMap);
+    return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler
+  @ResponseBody
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  public ResponseEntity<MetrosCuadradosErrorMessage> errorMessage(HttpMessageNotReadableException exception) {
     HashMap<String, String> errorsMap = new HashMap<>();
     errorsMap.put(exception.getClass().getSimpleName(), exception.getMessage());
     MetrosCuadradosErrorMessage errorMessage = new MetrosCuadradosErrorMessage(exception.getMessage(), errorsMap);

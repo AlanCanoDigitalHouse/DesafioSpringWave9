@@ -73,12 +73,23 @@ public class ControllerIntegrationTest {
             .andExpect(status().isBadRequest());
   }
 
+  @Test
+  void givenInvalidValueTypeWhenCalcularThenExceptionThrown() throws Exception {
+    mockMvc.perform(post("/metroscuadrados")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(invalidValueTypePayload()))
+            .andDo(print())
+            .andExpect(jsonPath("$.errorMessage").exists())
+            .andExpect(jsonPath("$.errors").exists())
+            .andExpect(status().isBadRequest());
+  }
+
   public String validPayload() {
     return "{\n" +
             "  \"prop_name\": \"Casa valida\",\n" +
             "  \"district_name\": \"Palermo\",\n" +
             "  \"district_price\": 1000.0,\n" +
-            "  \"habitaciones\": [\n" +
+            "  \"environments\": [\n" +
             "    {\n" +
             "      \"environment_name\": \"Sala\",\n" +
             "      \"environment_width\": 2.0,\n" +
@@ -103,7 +114,7 @@ public class ControllerIntegrationTest {
             "  \"prop_name\": \"Casa valida\",\n" +
             "  \"district_name\": \"NoExiste\",\n" +
             "  \"district_price\": 1000.0,\n" +
-            "  \"habitaciones\": [\n" +
+            "  \"environments\": [\n" +
             "    {\n" +
             "      \"environment_name\": \"Sala\",\n" +
             "      \"environment_width\": 2.0,\n" +
@@ -128,7 +139,7 @@ public class ControllerIntegrationTest {
             "  \"prop_name\": \"Casa valida\",\n" +
             "  \"district_name\": \"Palermo\",\n" +
             "  \"district_price\": 50.0,\n" +
-            "  \"habitaciones\": [\n" +
+            "  \"environments\": [\n" +
             "    {\n" +
             "      \"environment_name\": \"Sala\",\n" +
             "      \"environment_width\": 2.0,\n" +
@@ -153,7 +164,7 @@ public class ControllerIntegrationTest {
             "  \"prop_name\": \"casa valida                                                           \",\n" +
             "  \"district_name\": \"palermo\",\n" +
             "  \"district_price\": 4000.1,\n" +
-            "  \"habitaciones\": [\n" +
+            "  \"environments\": [\n" +
             "    {\n" +
             "      \"environment_name\": \"sala\",\n" +
             "      \"environment_width\": 0.0,\n" +
@@ -173,12 +184,37 @@ public class ControllerIntegrationTest {
             "}";
   }
 
+  public String invalidValueTypePayload() {
+    return "{\n" +
+            "  \"prop_name\": \"casa valida                                                           \",\n" +
+            "  \"district_name\": \"palermo\",\n" +
+            "  \"district_price\": 4000.1,\n" +
+            "  \"environments\": [\n" +
+            "    {\n" +
+            "      \"environment_name\": \"sala\",\n" +
+            "      \"environment_width\": \"hola\",\n" +
+            "      \"environment_length\": 3.0\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"environment_name\": \"comedor\",\n" +
+            "      \"environment_width\": 3.0,\n" +
+            "      \"environment_length\": 2.0\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"environment_name\": \"recamara\",\n" +
+            "      \"environment_width\": 2.0,\n" +
+            "      \"environment_length\": 3.0\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}";
+  }
+
   private String payloadSinCuartos() {
     return "{\n" +
             "  \"prop_name\": \"Casa valida\",\n" +
             "  \"district_name\": \"Palermo\",\n" +
             "  \"district_price\": 1000.0,\n" +
-            "  \"habitaciones\": []\n" +
+            "  \"environments\": []\n" +
             "}";
   }
 }

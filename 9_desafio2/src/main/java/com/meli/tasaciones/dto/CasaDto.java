@@ -27,6 +27,7 @@ public class CasaDto {
   @JsonProperty("district_price")
   private Double price;
   @NotEmpty(message = "La casa debe tener ambientes")
+  @JsonProperty("environments")
   @Valid
   private List<HabitacionDto> habitaciones;
 
