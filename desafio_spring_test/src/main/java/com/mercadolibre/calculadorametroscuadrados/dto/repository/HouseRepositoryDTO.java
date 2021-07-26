@@ -5,11 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
+
+/* TODO: Para respuesta de peticón, elemento tipo casa,
+ *   toda la información de la casa*/
 
 @Getter
 @Setter

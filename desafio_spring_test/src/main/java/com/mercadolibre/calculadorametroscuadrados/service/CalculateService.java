@@ -1,11 +1,8 @@
 package com.mercadolibre.calculadorametroscuadrados.service;
 
 import com.mercadolibre.calculadorametroscuadrados.dto.HouseDTO;
-import com.mercadolibre.calculadorametroscuadrados.dto.repository.EnvironmentRepoDTO;
-import com.mercadolibre.calculadorametroscuadrados.dto.repository.HouseRepositoryDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.response.EnvironmentResponseDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.response.HouseResponseDTO;
-import com.mercadolibre.calculadorametroscuadrados.dto.LocationDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.EnvironmentDTO;
 import com.mercadolibre.calculadorametroscuadrados.exception.DataNotFound;
 import com.mercadolibre.calculadorametroscuadrados.repositories.ICalculateRepository;
@@ -13,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.mercadolibre.calculadorametroscuadrados.utils.UtilsHome.calculateRoomSquareFeet;
 
@@ -23,6 +19,10 @@ public class CalculateService implements ICalculateService{
   @Autowired
   ICalculateRepository repository;
 
+  /* TODO: calculateHome permite retornar un HouseResponseDTO
+  *   con la informacion requerida por el cliente,
+  *   valida si el barrio existe en la db para poder hacer los calculos
+  *   correspondientes, en caso contrario retorna una excepción */
   @Override
   public HouseResponseDTO calculateHome(HouseDTO house) throws DataNotFound {
     if(repository.ifDistrictAreaExist(house.getDistrict_name())){
@@ -36,6 +36,6 @@ public class CalculateService implements ICalculateService{
       response.setProp_price(house.getDistrict_price() * response.getProp_area());
       repository.saveHouse(house,response);
       return response;
-    } else throw new DataNotFound("Not Exist","District does not exits");
+    } else throw new DataNotFound("NotExist","District does not exits");
   }
 }

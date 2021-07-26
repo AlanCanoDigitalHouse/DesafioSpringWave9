@@ -12,6 +12,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/* TODO: Para castear ingreso de informacion de peticón,
+    elemento tipo ambiente, con sus respectivas validaciones */
+
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +22,7 @@ import javax.validation.constraints.Size;
 public class EnvironmentDTO {
 
   @NotBlank(message = "El nombre del ambiente no puede estar vacío.")
-  @IsUpperCaseConstraint(message = "El nombre del ambiente debe comenzar con mayúscula.")
+  @IsUpperCaseConstraint(message = "El nombre del ambiente debe comenzar con mayuscula.")
   @Size(min = 1, max = 30,message = "La longitud del nombre no puede superar los 30 caracteres.")
   private String environment_name;
 

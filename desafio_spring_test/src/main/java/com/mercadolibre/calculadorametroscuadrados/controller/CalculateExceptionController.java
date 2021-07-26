@@ -17,23 +17,28 @@ import java.util.HashMap;
 
 @ControllerAdvice
 public class CalculateExceptionController {
+
+    /* TODO: Para excepciones con estatus y error*/
     @ExceptionHandler(CalculateException.class)
     ResponseEntity<ErrorDTO> handleGlobalExceptions(CalculateException e){
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
+    /* TODO: Para excepciones peticiones con metodo no valido*/
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<ErrorDTO> handleValidationExceptions(MethodArgumentNotValidException e) {
         ErrorDTO error = new ErrorDTO("MethodArgumentNotValidException", e.getBindingResult().getFieldError().getDefaultMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+    /* TODO: Para excepciones peticiones con data erronea no esperada */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     protected ResponseEntity<ErrorDTO> handleValidationExceptions(HttpMessageNotReadableException e) {
         ErrorDTO error = new ErrorDTO("HttpMessageNotReadableException", "La data ingresada no es la requerida: " + e.getCause());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+    /* TODO: Para excepciones en procesos*/
     @ExceptionHandler
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)

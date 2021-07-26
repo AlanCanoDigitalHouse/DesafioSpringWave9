@@ -1,12 +1,11 @@
 package com.mercadolibre.calculadorametroscuadrados.dto.repository;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotNull;
+/* TODO: Para guardar en repositorio, elemento tipo ambiente,
+ *   toda la información del ambiente*/
 
 @Getter
 @Setter

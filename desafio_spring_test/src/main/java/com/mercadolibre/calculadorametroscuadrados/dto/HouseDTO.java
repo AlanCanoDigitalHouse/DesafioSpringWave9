@@ -17,13 +17,14 @@ import java.util.List;
 @NoArgsConstructor
 @Validated
 public class HouseDTO {
+
+  @IsUpperCaseConstraint(message = "El nombre de la propiedad debe comenzar con mayuscula.")
   @NotBlank(message = "El nombre de la propiedad no puede estar vacío.")
-  @IsUpperCaseConstraint(message = "El nombre de la propiedad debe comenzar con mayúscula.")
   @Size(min = 1, max = 30,message = "La longitud del nombre no puede superar los 30 caracteres.")
   private String prop_name;
 
-  @NotBlank(message = "El barrio no puede estar vacío.")
-  @Size(min = 1, max = 30,message = "La longitud del barrio no puede superar los 45 caracteres.")
+  @NotBlank(message = "El barrio no puede estar vacio.")
+  @Size( max = 30,message = "La longitud del barrio no puede superar los 45 caracteres ni estar vacio.")
   private String district_name;
 
   @NotNull(message = "El precio de un barrio no puede estar vacío")
