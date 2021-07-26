@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "74eda61d-6270-49c9-b9e1-3b43ad6b1283",
+		"name": "TuCasita-Tasaciones",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Calculate TotalArea",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"Casa\",\n    \"prop_district\": {\n        \"district_name\": \"Palermo\",\n        \"district_price\": 100.0\n    },\n    \"prop_environments\": [\n        {\n            \"environment_name\": \"Cocina\",\n            \"environment_width\": 10.0,\n            \"environment_length\": 5.0\n        },\n        {\n            \"environment_name\": \"Baño\",\n            \"environment_width\": 5.0,\n            \"environment_length\": 5.0\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/property/totalArea",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"totalArea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Valuate Property",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"Casa\",\n    \"prop_district\": {\n        \"district_name\": \"Palermo\",\n        \"district_price\": 100.0\n    },\n    \"prop_environments\": [\n        {\n            \"environment_name\": \"Cocina\",\n            \"environment_width\": 10.0,\n            \"environment_length\": 5.0\n        },\n        {\n            \"environment_name\": \"Baño\",\n            \"environment_width\": 5.0,\n            \"environment_length\": 5.0\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/property/valuation",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"valuation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Determine Largest Environment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"Casa\",\n    \"prop_district\": {\n        \"district_name\": \"Palermo\",\n        \"district_price\": 100.0\n    },\n    \"prop_environments\": [\n        {\n            \"environment_name\": \"Cocina\",\n            \"environment_width\": 10.0,\n            \"environment_length\": 5.0\n        },\n        {\n            \"environment_name\": \"Baño\",\n            \"environment_width\": 5.0,\n            \"environment_length\": 5.0\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/property/environment/largest",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"environment",
+						"largest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Calculate property's environment's area",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"Casa\",\n    \"prop_district\": {\n        \"district_name\": \"Palermo\",\n        \"district_price\": 100.0\n    },\n    \"prop_environments\": [\n        {\n            \"environment_name\": \"Cocina\",\n            \"environment_width\": 10.0,\n            \"environment_length\": 5.0\n        },\n        {\n            \"environment_name\": \"Baño\",\n            \"environment_width\": 5.0,\n            \"environment_length\": 5.0\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/property/environment/area",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"environment",
+						"area"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

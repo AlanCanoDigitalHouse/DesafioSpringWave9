@@ -1,0 +1,14 @@
+[
+  {
+    "district_name": "Palermo",
+    "district_price": 100.0
+  },
+  {
+    "district_name": "Avellaneda",
+    "district_price": 70.0
+  },
+  {
+    "district_name": "Belgrano",
+    "district_price": 90.0
+  }
+]
