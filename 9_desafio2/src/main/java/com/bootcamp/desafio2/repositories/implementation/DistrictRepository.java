@@ -33,6 +33,14 @@ public class DistrictRepository implements IDistrictRepository {
         }
     }
 
+    /**
+     * Retorna TRUE si encuentra un barrio (district) en la base de datos con el mismo nombre y precio enviados, FALSE
+     * caso contrario
+     * @param name Nombre del barrio a buscar
+     * @param price Precio por metro cuadrado
+     * @return True o False
+     * @throws IOException excepcion en caso de error de lectura de la BD
+     */
     @Override
     public boolean districtExist(String name, Double price) throws IOException {
         return loadDataBase().stream().anyMatch(x ->

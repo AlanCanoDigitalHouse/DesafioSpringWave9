@@ -5,8 +5,6 @@ import lombok.Getter;
 
 import java.util.Map;
 
-@Getter
-@AllArgsConstructor
 public class BusinessException extends Exception {
 
     public BusinessException(String message) {

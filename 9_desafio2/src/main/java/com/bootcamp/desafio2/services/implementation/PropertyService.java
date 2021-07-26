@@ -31,6 +31,17 @@ public class PropertyService implements IPropertyService {
     private static final String BUSINESS_ENVIRONMENTS_ERROR = "Los ambientes enviados tienen información incompleta o " +
             "presentan valores negativos";
 
+    /**
+     * Permite el calculo del precio de una propiedad por el area de los entornos que la componen, asi como
+     * resaltar el entorno de mayor area e indicar el area de cada entorno
+     * @param property DTO con los datos de la propiedad y barrio
+     * @return DTO con informacion del area total de la propiedad y su precio, asi como el area de cada entorno
+     * resaltando el entorno de mayor tamaño
+     * @throws BusinessException Excepcion en caso de haber errores en el DTO de entrada o en el proceso de calculo
+     * @throws IOException Excepcion en caso de problemas de conexión con la BD
+     * @throws DistrictNotFoundException Excepcion en caso de que el barrio enviado no exista en la BD con el precio
+     * enviado
+     */
     @Override
     public ResponseDto calculatePrice(PropertyDto property) throws BusinessException, IOException {
         Double totalArea = 0D;
