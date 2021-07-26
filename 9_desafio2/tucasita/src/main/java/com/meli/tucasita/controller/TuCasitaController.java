@@ -1,7 +1,7 @@
 package com.meli.tucasita.controller;
 
 import com.meli.tucasita.dto.request.CasaRequestDTO;
-import com.meli.tucasita.dto.response.CasaResponseTO;
+import com.meli.tucasita.dto.response.CasaResponseDTO;
 import com.meli.tucasita.exception.DataBaseException;
 import com.meli.tucasita.exception.DiferentDistrictPriceException;
 import com.meli.tucasita.exception.NoDistrictFoundException;
@@ -22,7 +22,7 @@ public class TuCasitaController {
 
 
     @PostMapping(value = "/calcular")
-    public ResponseEntity<CasaResponseTO> calcularMetroPropiedad(@Valid @RequestBody CasaRequestDTO request) throws NoDistrictFoundException, DataBaseException, DiferentDistrictPriceException {
+    public ResponseEntity<CasaResponseDTO> calcularMetroPropiedad(@Valid @RequestBody CasaRequestDTO request) throws NoDistrictFoundException, DataBaseException, DiferentDistrictPriceException {
         return  casaService.calcularMetroPropiedad(request);
     }
 

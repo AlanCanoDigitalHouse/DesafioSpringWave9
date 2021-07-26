@@ -3,7 +3,7 @@ package com.meli.tucasita.service;
 import com.meli.tucasita.dto.Distrito;
 import com.meli.tucasita.dto.request.CasaRequestDTO;
 import com.meli.tucasita.dto.request.Habitacion;
-import com.meli.tucasita.dto.response.CasaResponseTO;
+import com.meli.tucasita.dto.response.CasaResponseDTO;
 import com.meli.tucasita.exception.DataBaseException;
 import com.meli.tucasita.exception.DiferentDistrictPriceException;
 import com.meli.tucasita.exception.NoDistrictFoundException;
@@ -30,7 +30,7 @@ public class CasaService implements CasaServiceInterface{
     private static final Logger LOGGER = LoggerFactory.getLogger(CasaRepository.class);
 
     @Override
-    public ResponseEntity<CasaResponseTO> calcularMetroPropiedad(CasaRequestDTO casaRequestDTO) throws NoDistrictFoundException, DataBaseException, DiferentDistrictPriceException {
+    public ResponseEntity<CasaResponseDTO> calcularMetroPropiedad(CasaRequestDTO casaRequestDTO) throws NoDistrictFoundException, DataBaseException, DiferentDistrictPriceException {
         LOGGER.info("Procesando informaciòn obtenida");
 
         Map<String, Double> habitaciones = calcularAreaHabitaciones(casaRequestDTO);
@@ -39,7 +39,7 @@ public class CasaService implements CasaServiceInterface{
 
         if(casaRequestDTO.getDistrict_price().equals(distrito.getPricePerMeter())){
             tamanoCasa=obtenerTamanoCasa(casaRequestDTO.getHabitacion(),habitaciones);
-            return new ResponseEntity<>(new CasaResponseTO(tamanoCasa,
+            return new ResponseEntity<>(new CasaResponseDTO(tamanoCasa,
                     tamanoCasa*(distrito.getPricePerMeter()), habitaciones,
                     obtenerHabitacionMasGrande(habitaciones)), HttpStatus.OK);
         }else

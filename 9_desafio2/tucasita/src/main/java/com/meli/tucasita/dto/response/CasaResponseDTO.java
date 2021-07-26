@@ -5,10 +5,10 @@ import lombok.*;
 
 import java.util.Map;
 
-@Getter
+@Data
 @AllArgsConstructor
 @Builder
-public class CasaResponseTO {
+public class CasaResponseDTO {
 
     @JsonProperty("house_size_meters")
     private Double metrosCuadradosCasa;

@@ -4,7 +4,7 @@ import com.meli.tucasita.InfoTestGenerator;
 import com.meli.tucasita.dto.Distrito;
 import com.meli.tucasita.dto.request.CasaRequestDTO;
 import com.meli.tucasita.dto.request.Habitacion;
-import com.meli.tucasita.dto.response.CasaResponseTO;
+import com.meli.tucasita.dto.response.CasaResponseDTO;
 import com.meli.tucasita.exception.DataBaseException;
 import com.meli.tucasita.exception.DiferentDistrictPriceException;
 import com.meli.tucasita.exception.NoDistrictFoundException;
@@ -23,7 +23,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.Map;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.http.HttpStatus.OK;
 
 @ExtendWith(MockitoExtension.class)
@@ -74,13 +74,13 @@ public class TuCasitaServiceTest {
         Distrito treceMock = new Distrito("Trece",2500.0);
         when(casaRepository.obtenerDistrito("Trece")).thenReturn(treceMock);
 
-        ResponseEntity<CasaResponseTO> casaResponseTOResponseEntity = casaService.calcularMetroPropiedad(casaRequestDTO);
+        ResponseEntity<CasaResponseDTO> casaResponseDTOResponseEntity = casaService.calcularMetroPropiedad(casaRequestDTO);
 
-        ResponseEntity<CasaResponseTO> expected = new ResponseEntity<CasaResponseTO>(
-                new CasaResponseTO(115.0, 287500.0, habitaciones, "Kitchen"),OK);
+        ResponseEntity<CasaResponseDTO> expected = new ResponseEntity<CasaResponseDTO>(
+                new CasaResponseDTO(115.0, 287500.0, habitaciones, "Kitchen"),OK);
 
-        Mockito.verify(casaRepository, Mockito.atLeast(1)).obtenerDistrito(Mockito.anyString());
-        Assertions.assertEquals(expected.getBody().getHabitacionMasGrande(),casaResponseTOResponseEntity.getBody().getHabitacionMasGrande());
+        verify(casaRepository, atLeast(1)).obtenerDistrito(anyString());
+        Assertions.assertEquals(expected,casaResponseDTOResponseEntity);
     }
 
     @Test
