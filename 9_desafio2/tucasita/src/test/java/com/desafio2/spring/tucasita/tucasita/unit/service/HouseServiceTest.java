@@ -26,7 +26,7 @@ import java.util.Map;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("Unit Tet - House Service")
+@DisplayName("Unit Test - House Service")
 public class HouseServiceTest {
 
     @Mock
