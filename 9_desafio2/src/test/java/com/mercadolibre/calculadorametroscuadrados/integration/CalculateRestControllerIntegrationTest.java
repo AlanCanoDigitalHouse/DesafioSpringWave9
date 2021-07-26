@@ -155,8 +155,8 @@ public class CalculateRestControllerIntegrationTest {
     }
 
     @Test
-    @DisplayName("District Name Lower Case")
-    void invalidRequestDistrictNameLowerCase() throws Exception {
+    @DisplayName("House Name Lower Case")
+    void invalidRequestHouseNameLowerCase() throws Exception {
 
         ObjectWriter writer = new ObjectMapper()
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
