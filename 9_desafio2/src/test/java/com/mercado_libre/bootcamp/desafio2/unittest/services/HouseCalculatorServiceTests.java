@@ -38,8 +38,8 @@ public class HouseCalculatorServiceTests {
 
     @BeforeEach
     private void setUp() {
-        smallerRoomRequest = new RoomRequestDTO("Habitación", 20, 30);
-        largestRoomRequest = new RoomRequestDTO("Living", 25, 33);
+        smallerRoomRequest = new RoomRequestDTO("Habitación", 20D, 30D);
+        largestRoomRequest = new RoomRequestDTO("Living", 25D, 33D);
         rooms = new ArrayList<>();
         rooms.add(smallerRoomRequest);
         rooms.add(largestRoomRequest);
@@ -55,7 +55,7 @@ public class HouseCalculatorServiceTests {
 
     @Test
     public void ifYouSearchTheLargestRoomItWillReturnIt() {
-        Assertions.assertEquals(largestRoomRequest, response.getLargestRoom());
+        Assertions.assertEquals(largestRoomRequest.getSquareMeters(), response.getLargestRoom().getSquaresMeters());
     }
 
     @Test

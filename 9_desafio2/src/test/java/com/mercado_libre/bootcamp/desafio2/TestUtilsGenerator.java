@@ -79,10 +79,26 @@ public class TestUtilsGenerator {
     }
 
     public static HouseRequestDTO getRequestWithNeighborhood(NeighborhoodRequestDTO neighborhood){
-        RoomRequestDTO room = new RoomRequestDTO("Living", 25, 33);
+        RoomRequestDTO room = new RoomRequestDTO("Living", 25D, 33D);
         List<RoomRequestDTO> rooms = new ArrayList<>();
         rooms.add(room);
         return new HouseRequestDTO("Casa de Karen", neighborhood, rooms);
+    }
+
+    public static HouseRequestDTO getRequestWithValidRooms(String name){
+        NeighborhoodRequestDTO neighborhood = new NeighborhoodRequestDTO("Caseros", 40D);
+        RoomRequestDTO room = new RoomRequestDTO("Living", 25D, 33D);
+        List<RoomRequestDTO> rooms = new ArrayList<>();
+        rooms.add(room);
+        return new HouseRequestDTO(name, neighborhood, rooms);
+    }
+
+    public static HouseRequestDTO getRequestWithInvalidRooms(String name){
+        NeighborhoodRequestDTO neighborhood = new NeighborhoodRequestDTO("Caseros", 40D);
+        RoomRequestDTO room = new RoomRequestDTO("Living", 26D, 33D);
+        List<RoomRequestDTO> rooms = new ArrayList<>();
+        rooms.add(room);
+        return new HouseRequestDTO(name, neighborhood, rooms);
     }
 
 

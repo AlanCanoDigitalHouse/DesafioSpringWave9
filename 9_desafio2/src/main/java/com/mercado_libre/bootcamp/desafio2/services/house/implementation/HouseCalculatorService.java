@@ -21,10 +21,12 @@ public class HouseCalculatorService implements HouseCalculatorServiceI {
     @Override
     public HouseResponseDTO calculate(HouseRequestDTO houseRequest) {
 
+        RoomRequestDTO largestRoom = findLargestRoom(houseRequest.getEnvironments());
+
         return HouseResponseDTO.builder()
                 .squaresMeters(calculateSquareMeters(houseRequest.getEnvironments()))
                 .valuePerSquaresMeters(calculateValuePerMeter(houseRequest.getEnvironments(), houseRequest.getDistrict().getDistrict_name(), houseRequest.getDistrict().getDistrict_price()))
-                .largestRoom(findLargestRoom(houseRequest.getEnvironments()))
+                .largestRoom(new RoomResponseDTO(largestRoom.getEnvironment_name(),largestRoom.getSquareMeters()))
                 .environments(getRooms(houseRequest.getEnvironments()))
                 .build();
     }

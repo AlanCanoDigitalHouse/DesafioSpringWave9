@@ -15,6 +15,6 @@ import java.util.List;
 public class HouseResponseDTO {
     private double squaresMeters;
     private double valuePerSquaresMeters;
-    private RoomRequestDTO largestRoom;
+    private RoomResponseDTO largestRoom;
     private List<RoomResponseDTO> environments;
 }

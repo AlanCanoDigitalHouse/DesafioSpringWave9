@@ -2,6 +2,7 @@ package com.mercado_libre.bootcamp.desafio2.repositories.neighborhood.implementa
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mercado_libre.bootcamp.desafio2.exceptions.UnableToAddDuplicatedNeighborhoodException;
 import com.mercado_libre.bootcamp.desafio2.exceptions.UnexistingNeighborhoodException;
 import com.mercado_libre.bootcamp.desafio2.models.Neighborhood;
 import com.mercado_libre.bootcamp.desafio2.repositories.neighborhood.NeighborhoodRepositoryI;
@@ -34,19 +35,15 @@ public class NeighborhoodRepository implements NeighborhoodRepositoryI {
     }
 
     @PostConstruct
-    public void loadDistricts(){
-        List<Neighborhood> loadedData = new ArrayList<>();
+    public void loadDistricts() throws IOException {
+        List<Neighborhood> loadedData;
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/districts.json");
             loadedData = objectMapper.readValue(file, new TypeReference<List<Neighborhood>>(){});
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("Failed while initializing DB, check your resources files");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed while initializing DB, check your JSON formatting.");
+            loadedData = new ArrayList<>();
         }
 
         neighborhoodList = loadedData;
@@ -68,6 +65,8 @@ public class NeighborhoodRepository implements NeighborhoodRepositoryI {
 
     @Override
     public void addNewNeighborhood(Neighborhood neighborhood) {
+        if(neighborhoodList.contains(neighborhood))
+            throw new UnableToAddDuplicatedNeighborhoodException("No se puede agregar un districto repetido");
         neighborhoodList.add(neighborhood);
     }
 }

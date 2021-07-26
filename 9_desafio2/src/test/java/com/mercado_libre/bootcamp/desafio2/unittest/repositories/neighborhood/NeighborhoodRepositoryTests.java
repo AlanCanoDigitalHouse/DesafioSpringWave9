@@ -1,5 +1,6 @@
 package com.mercado_libre.bootcamp.desafio2.unittest.repositories.neighborhood;
 
+import com.mercado_libre.bootcamp.desafio2.exceptions.UnableToAddDuplicatedNeighborhoodException;
 import com.mercado_libre.bootcamp.desafio2.exceptions.UnexistingNeighborhoodException;
 import com.mercado_libre.bootcamp.desafio2.models.Neighborhood;
 import com.mercado_libre.bootcamp.desafio2.repositories.neighborhood.implementation.NeighborhoodRepository;
@@ -29,10 +30,17 @@ public class NeighborhoodRepositoryTests {
     }
 
     @Test
-    public void createExistentDistrict() {
+    public void createExistingDistrict() {
         Neighborhood neighborhood = new Neighborhood("Haedo",50D);
         repository.addNewNeighborhood(neighborhood);
         Assertions.assertTrue(repository.isNeighborhoodValid(neighborhood,50D));
+    }
+
+    @Test
+    public void createExistingDistrictThrowException() {
+        Neighborhood neighborhood = new Neighborhood("Haedo",50D);
+        repository.addNewNeighborhood(neighborhood);
+        Assertions.assertThrows(UnableToAddDuplicatedNeighborhoodException.class,()-> repository.addNewNeighborhood(neighborhood));
     }
 
 }

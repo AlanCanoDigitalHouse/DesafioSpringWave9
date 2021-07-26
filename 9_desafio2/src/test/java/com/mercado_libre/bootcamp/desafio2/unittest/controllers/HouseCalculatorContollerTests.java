@@ -28,7 +28,7 @@ public class HouseCalculatorContollerTests {
 
     @Test
     public void getsCalculatesFromRequest() {
-        RoomRequestDTO room = new RoomRequestDTO("Living", 25, 33);
+        RoomRequestDTO room = new RoomRequestDTO("Living", 25D, 33D);
         List<RoomRequestDTO> rooms = new ArrayList<>();
         rooms.add(room);
         HouseRequestDTO request = new HouseRequestDTO("Casa de Karen", new NeighborhoodRequestDTO("Caseros", 40D), rooms);
