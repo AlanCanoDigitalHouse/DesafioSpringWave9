@@ -3,7 +3,7 @@ package com.meli.joescaos.desafiotesting.dto;
 public class PriceDTO{
 
     private String location;
-    private Integer price;
+    private double price;
 
     public PriceDTO(String location, Integer price){
         this.location = location;
@@ -21,7 +21,7 @@ public class PriceDTO{
         this.location = location;
     }
 
-    public Integer getPrice(){
+    public double getPrice(){
         return price;
     }
 
