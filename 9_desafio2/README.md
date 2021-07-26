@@ -23,7 +23,7 @@ Repositorio donde guardaremos el código de nuestro desafio de testing de Ignaci
 2.  Botón derecho en el proyecto -> More Run/Debug -> Run 'All Tests' with coverage 
 
 ## ¿Cómo funciona?
-La API expone el servicio necesario para cumplir con requerimientos definidos del ejercicio: [Especif.Téc.DesafíoTesting.docx](Especif.Téc.DesafíoTesting.docx)
+La API expone el servicio necesario para cumplir con requerimientos definidos del ejercicio: [Especif.Téc.DesafíoTesting.docx](Especif.Tec.DesafioTesting.docx)
 
 A su vez, se expuso el servicio GET "/information/neighborhoods" los barrios cargados en la base de datos.
 
