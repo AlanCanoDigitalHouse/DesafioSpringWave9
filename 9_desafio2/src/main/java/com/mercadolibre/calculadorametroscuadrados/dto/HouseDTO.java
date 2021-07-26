@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class HouseDTO {
   @NotEmpty(message = "El nombre de la propiedad no puede estar vacío.")
-  @Pattern(message = "El nombre de la propiedad debe comenzar con mayúscula.", regexp="([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú]*$")
+  @Pattern(message = "El nombre de la propiedad debe comenzar con mayúscula.", regexp="(^$|^[A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú]*$")
   @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
   private String prop_name;
 
@@ -24,5 +24,7 @@ public class HouseDTO {
   @NotNull(message = "El precio de un barrio no puede estar vacío.")
   @DecimalMax(value = "4000.0", message = "El precio máximo permitido por metro cuadrado no puede superar los 4000 USD")
   private Double district_price;
+
+  @Size(min = 1, message = "La propiedad debe tener al menos 1 habitación.")
   private @Valid List<RoomDTO> enviroments;
 }

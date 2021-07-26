@@ -6,6 +6,7 @@ import com.mercadolibre.calculadorametroscuadrados.exceptions.DistrictNotFound;
 import com.mercadolibre.calculadorametroscuadrados.exceptions.DistrictPriceNotMatch;
 
 import com.mercadolibre.calculadorametroscuadrados.service.CalculateService;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,6 +20,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
+@DisplayName("Controller Unit Test")
 public class CalculateRestControllerTest {
 
     @Mock

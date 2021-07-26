@@ -70,11 +70,38 @@ public class UtilGenerator {
         return house;
     }
 
+    //district price validations case
+    public static  HouseDTO genHouseNullDistrictPrice(){
+        HouseDTO house = new HouseDTO("Casa", "Santiago", null, roomList);
+        return house;
+    }
+
+    public static HouseDTO genHouseDistrictPriceGT4000(){
+        HouseDTO house = new HouseDTO("Casa", "Santiago", 4500.0, roomList);
+        return house;
+    }
+
+    public static HouseDTO genHouseDistrictPriceNotMatchDb(){
+        HouseDTO house = new HouseDTO("Casa", "Las Condes", 3000.0, roomList);
+        return house;
+    }
 
     //Validaciones rooms
-    public static HouseDTO genHouseEmptyRooms(String name, String address){
+    public static HouseDTO genHouseEmptyRooms(){
         List<RoomDTO> roomList = new ArrayList<>();
-        HouseDTO house = new HouseDTO(name, address, price, roomList);
+        HouseDTO house = new HouseDTO("Casa", "Santiago", price, roomList);
+        return house;
+    }
+
+    public static HouseDTO genHouseErrorNameRooms(){
+        List<RoomDTO> roomList2 = new ArrayList<>(
+                Arrays.asList(
+                        new RoomDTO("",2,3),
+                        new RoomDTO("dormitorio",2,3),
+                        new RoomDTO("Baño 2 cccccccccccccccccccccccc",2,3)
+                )
+        );
+        HouseDTO house = new HouseDTO("Casa", "Santiago", price, roomList2);
         return house;
     }
 

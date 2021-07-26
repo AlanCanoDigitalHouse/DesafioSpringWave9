@@ -7,6 +7,7 @@ import com.mercadolibre.calculadorametroscuadrados.exceptions.DistrictPriceNotMa
 import com.mercadolibre.calculadorametroscuadrados.repository.DistrictRepositoryImpl;
 import com.mercadolibre.calculadorametroscuadrados.service.CalculateService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import util.UtilGenerator;
 
 @ExtendWith(MockitoExtension.class)
+@DisplayName("Service Unit Test")
 public class CalculateServiceTest {
 
     @Mock

@@ -6,6 +6,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,6 +22,18 @@ public class ApiExcepcionControllerAdvice {
         System.out.println("generando error");
         return processField(fieldErrors);
     }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorMessage districtPriceNotMatchDb(DistrictPriceNotMatch exception) {
+        HashMap<String, String> fields = new HashMap<>();
+        System.out.println(exception.toString());
+        fields.put("district_price",exception.getMessage());
+        return new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error Db",fields);
+    }
+
+
 
     public ErrorMessage processField(List<FieldError> fieldErrors) {
 
