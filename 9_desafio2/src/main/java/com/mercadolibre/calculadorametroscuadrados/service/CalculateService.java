@@ -28,8 +28,7 @@ public class CalculateService implements ICalculateService {
     // validate name found in json
     validatePropertyName(house.getDistrict().getDistrict_name());
 
-    HouseResponseDTO response = new HouseResponseDTO(house);// antes de cambio
-//    HouseResponseDTO response = new HouseResponseDTO();// antes de cambio
+    HouseResponseDTO response = new HouseResponseDTO(house);
     calculateRoomSquareFeet(house, response);
     response.setPrice(calculatePrice(response.getSquareFeet(),house.getDistrict().getDistrict_price()));
     return response;
@@ -46,7 +45,8 @@ public class CalculateService implements ICalculateService {
       if (biggest == null || squareFeet > maxRoom){
         biggest = room;
         maxRoom = squareFeet;
-      }
+    }
+
       environmentResponses.add(EnvironmentResponseDTO.builder().environment_name(room.getEnvironment_name()).environment_width(room.getEnvironment_width()).environment_length(room.getEnvironment_length()).squareFeet(room.getSquareFeet()).build());
     }
 

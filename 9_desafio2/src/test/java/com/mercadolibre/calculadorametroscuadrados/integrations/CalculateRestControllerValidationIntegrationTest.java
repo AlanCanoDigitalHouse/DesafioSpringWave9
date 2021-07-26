@@ -32,7 +32,7 @@ public class CalculateRestControllerValidationIntegrationTest {
     private MockMvc mockMvc;
 
     List<EnvironmentDTO> environmentDTOS;
-    String error = "Validations Error";
+    String error = "Method argument not valid error.";
 
     @BeforeEach @AfterEach
     void restartListEnviroments(){
@@ -43,11 +43,12 @@ public class CalculateRestControllerValidationIntegrationTest {
     @Test
     @DisplayName(" IT 8 - district not found in repository")
     public void calculate_district_not_found() throws Exception{
+        // prepare payload
         environmentDTOS.add(UtilTest.loadBadEnvironmentDTO("Hab1",5.20,6.0));
         DistrictDTO districtDTO = UtilTest.loadBadDistrictDTO("NotFound",500.0);
         HouseDTO payloadDTO = UtilTest.loadBadHouseDTO("Test",districtDTO,environmentDTOS);
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
+        // action
         this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -61,11 +62,12 @@ public class CalculateRestControllerValidationIntegrationTest {
     @Test
     @DisplayName("IT 9 - prop_name not null")
     public void calculate_prop_mame_null() throws Exception{
+        // prepare payload
         environmentDTOS.add(UtilTest.loadBadEnvironmentDTO("Hab1",5.20,6.0));
         DistrictDTO districtDTO = UtilTest.loadBadDistrictDTO("Belgrano",500.0);
         HouseDTO payloadDTO = UtilTest.loadBadHouseDTO(null,districtDTO,environmentDTOS);
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
+        // action
         this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -81,11 +83,12 @@ public class CalculateRestControllerValidationIntegrationTest {
     @Test
     @DisplayName("IT 10 - prop_name capital letter")
     public void calculate_prop_mame_capital_letter() throws Exception{
+        // prepare payload
         environmentDTOS.add(UtilTest.loadBadEnvironmentDTO("Hab1",5.20,6.0));
         DistrictDTO districtDTO = UtilTest.loadBadDistrictDTO("Belgrano",500.0);
         HouseDTO payloadDTO = UtilTest.loadBadHouseDTO("aabcde",districtDTO,environmentDTOS);
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
+        // action
         this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -101,11 +104,12 @@ public class CalculateRestControllerValidationIntegrationTest {
     @Test
     @DisplayName("IT 11 - prop_name longer")
     public void calculate_prop_mame_long() throws Exception{
+        // prepare payload
         environmentDTOS.add(UtilTest.loadBadEnvironmentDTO("Hab1",5.20,6.0));
         DistrictDTO districtDTO = UtilTest.loadBadDistrictDTO("Belgrano",500.0);
         HouseDTO payloadDTO = UtilTest.loadBadHouseDTO("Taumatawhakatangihangak oauauotamateaturipukaka pikimaungahoronukupokaiwhe nua kitanatahu",districtDTO,environmentDTOS);
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
+        // action
         this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -121,10 +125,11 @@ public class CalculateRestControllerValidationIntegrationTest {
     @Test
     @DisplayName("IT 12 - district null")
     public void calculate_district_null() throws Exception{
+        // prepare payload
         environmentDTOS.add(UtilTest.loadBadEnvironmentDTO("Hab1",5.20,6.0));
         HouseDTO payloadDTO = UtilTest.loadBadHouseDTO("Test",null,environmentDTOS);
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
+        // action
         this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -137,16 +142,16 @@ public class CalculateRestControllerValidationIntegrationTest {
     }
 
     @Test
-    @DisplayName("IT 13 - district.district_name null district.district_price  null")
+    @DisplayName("IT 13 - district.district_name null district.district_price null")
     public void calculate_district_price_null() throws Exception{
+        // prepare payload
         environmentDTOS.add(UtilTest.loadBadEnvironmentDTO("Hab1",5.20,6.0));
         DistrictDTO districtDTO = UtilTest.loadBadDistrictDTO(null,null);
         HouseDTO payloadDTO = UtilTest.loadBadHouseDTO("Taumatawhakatangihangak",districtDTO,environmentDTOS);
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
         // responseString
-        String expected = "{\"status\":400,\"error\":\"Validations Error\",\"message\":{" + UtilTest.getValidation("district.district_price","El precio de un barrio no puede estar vacÃ\u00ADo.")+","+UtilTest.getValidation("district.district_name","El barrio no puede estar vacÃ\u00ADo.")+"}}";
-
+        String expected = "{\"status\":400,\"error\":\"Method argument not valid error.\",\"message\":{" + UtilTest.getValidation("district.district_price","El precio de un barrio no puede estar vacÃ\u00ADo.")+","+UtilTest.getValidation("district.district_name","El barrio no puede estar vacÃ\u00ADo.")+"}}";
+        // action
         MvcResult mvcResult = this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -155,7 +160,7 @@ public class CalculateRestControllerValidationIntegrationTest {
                 .andExpect(jsonPath("$.status").value(400))
                 .andExpect(jsonPath("$.error").value(error))
                 .andReturn();
-
+        // assert
         Assertions.assertEquals(expected,mvcResult.getResponse().getContentAsString());
     }
 
@@ -167,10 +172,9 @@ public class CalculateRestControllerValidationIntegrationTest {
         DistrictDTO districtDTO = UtilTest.loadBadDistrictDTO(" Belgrano",4000.10);
         HouseDTO payloadDTO = UtilTest.loadBadHouseDTO("Test",districtDTO,environmentDTOS);
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
         // responseString
-        String expected = "{\"status\":400,\"error\":\"Validations Error\",\"message\":{" + UtilTest.getValidation("district.district_price","El precio mÃ¡ximo permitido por metro cuadrado no puede superar los 4000 U$S.")+"}}";
-
+        String expected = "{\"status\":400,\"error\":\"Method argument not valid error.\",\"message\":{" + UtilTest.getValidation("district.district_price","El precio mÃ¡ximo permitido por metro cuadrado no puede superar los 4000 U$S.")+"}}";
+        // action
         MvcResult mvcResult = this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -179,7 +183,7 @@ public class CalculateRestControllerValidationIntegrationTest {
                 .andExpect(jsonPath("$.status").value(400))
                 .andExpect(jsonPath("$.error").value(error))
                 .andReturn();
-
+        // assert
         Assertions.assertEquals(expected,mvcResult.getResponse().getContentAsString());
     }
 
@@ -191,10 +195,9 @@ public class CalculateRestControllerValidationIntegrationTest {
         DistrictDTO districtDTO = UtilTest.loadBadDistrictDTO("TestTestTestTestTestTestTest Belgrano TestTestTestTestTestTestTestTestTestTestTestTestTestTest",4000.0);
         HouseDTO payloadDTO = UtilTest.loadBadHouseDTO("Test",districtDTO,environmentDTOS);
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
         // responseString
-        String expected = "{\"status\":400,\"error\":\"Validations Error\",\"message\":{" + UtilTest.getValidation("district.district_name","La longitud del barrio no puede superar los 45 caracteres.")+"}}";
-
+        String expected = "{\"status\":400,\"error\":\"Method argument not valid error.\",\"message\":{" + UtilTest.getValidation("district.district_name","La longitud del barrio no puede superar los 45 caracteres.")+"}}";
+        // action
         MvcResult mvcResult = this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -203,7 +206,7 @@ public class CalculateRestControllerValidationIntegrationTest {
                 .andExpect(jsonPath("$.status").value(400))
                 .andExpect(jsonPath("$.error").value(error))
                 .andReturn();
-
+        // assert
         Assertions.assertEquals(expected,mvcResult.getResponse().getContentAsString());
     }
 

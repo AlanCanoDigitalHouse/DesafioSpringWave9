@@ -35,8 +35,7 @@ public class CalculateRestControllerIntegrationTest {
         // payload load
         HouseDTO payloadDTO = UtilTest.loadHouseDTO("Test","Belgrano");
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
-
+        // action
         MvcResult mvcResult= this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -54,7 +53,7 @@ public class CalculateRestControllerIntegrationTest {
         // payload load
         HouseDTO payloadDTO = UtilTest.loadHouseDTO("Test","Belgrano");
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
+        // action
         this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -72,7 +71,7 @@ public class CalculateRestControllerIntegrationTest {
         // payload load
         HouseDTO payloadDTO = UtilTest.loadHouseDTO("Test","Belgrano");
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
+        // action
         this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -87,7 +86,7 @@ public class CalculateRestControllerIntegrationTest {
         // payload load
         HouseDTO payloadDTO = UtilTest.loadHouseDTO("Test","Belgrano");
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
+        // action
         this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -101,7 +100,7 @@ public class CalculateRestControllerIntegrationTest {
     public void calculate_price() throws Exception{
         HouseDTO payloadDTO = UtilTest.loadHouseDTO("Test","Belgrano");
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
+        // action
         this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -117,7 +116,7 @@ public class CalculateRestControllerIntegrationTest {
         // payload load
         HouseDTO payloadDTO = UtilTest.loadHouseDTO("Test","Belgrano");
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
+        // action
         this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -138,7 +137,7 @@ public class CalculateRestControllerIntegrationTest {
         // response load
         HouseResponseDTO responseDTO = UtilTest.loadHouseResponseDTO(payloadDTO);
         String responseJSON = UtilTest.writeValueAsStringWhitoutPretty(responseDTO);
-
+        // action
         MvcResult mvcResult =
             this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)

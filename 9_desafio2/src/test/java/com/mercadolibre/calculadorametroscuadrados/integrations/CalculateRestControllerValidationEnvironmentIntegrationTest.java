@@ -33,7 +33,7 @@ public class CalculateRestControllerValidationEnvironmentIntegrationTest {
     private MockMvc mockMvc;
 
     List<EnvironmentDTO> environmentDTOS;
-    String error = "Validations Error";
+    String error = "Method argument not valid error.";
 
     @BeforeEach
     @AfterEach
@@ -45,10 +45,11 @@ public class CalculateRestControllerValidationEnvironmentIntegrationTest {
     @Test
     @DisplayName("IT 16 - environments not null")
     public void calculate_prop_mame_Upper() throws Exception{
+        // prepare payload
         DistrictDTO districtDTO = UtilTest.loadBadDistrictDTO("Belgrano",500.0);
         HouseDTO payloadDTO = UtilTest.loadBadHouseDTO("Belgrano",districtDTO,null);
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
+        // action
         this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -69,14 +70,13 @@ public class CalculateRestControllerValidationEnvironmentIntegrationTest {
         DistrictDTO districtDTO = UtilTest.loadBadDistrictDTO("Belgrano",4000.0);
         HouseDTO payloadDTO = UtilTest.loadBadHouseDTO("Test",districtDTO,environmentDTOS);
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
         // responseString
-        String expected = "{\"status\":400,\"error\":\"Validations Error\",\"message\":{" +
+        String expected = "{\"status\":400,\"error\":\"Method argument not valid error.\",\"message\":{" +
                 UtilTest.getValidation("environments[0].environment_name","El nombre del ambiente no puede estar vacÃ\u00ADo.")+ ","+
                 UtilTest.getValidation("environments[0].environment_length","El largo del ambiente no puede estar vacÃ\u00ADo.")+ ","+
                 UtilTest.getValidation("environments[0].environment_width","El ancho del ambiente no puede estar vacÃ\u00ADo.")
                 +"}}";
-
+        // action
         MvcResult mvcResult = this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -85,7 +85,7 @@ public class CalculateRestControllerValidationEnvironmentIntegrationTest {
                 .andExpect(jsonPath("$.status").value(400))
                 .andExpect(jsonPath("$.error").value(error))
                 .andReturn();
-
+        // assert
         Assertions.assertEquals(expected,mvcResult.getResponse().getContentAsString());
     }
 
@@ -99,14 +99,13 @@ public class CalculateRestControllerValidationEnvironmentIntegrationTest {
         DistrictDTO districtDTO = UtilTest.loadBadDistrictDTO("Belgrano",4000.0);
         HouseDTO payloadDTO = UtilTest.loadBadHouseDTO("Test",districtDTO,environmentDTOS);
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
         // responseString
-        String expected = "{\"status\":400,\"error\":\"Validations Error\",\"message\":{" +
+        String expected = "{\"status\":400,\"error\":\"Method argument not valid error.\",\"message\":{" +
                 UtilTest.getValidation("environments[0].environment_name","El nombre del ambiente no puede estar vacÃ\u00ADo.")+ ","+
                 UtilTest.getValidation("environments[1].environment_width","El ancho del ambiente no puede estar vacÃ\u00ADo.")+ ","+
                 UtilTest.getValidation("environments[2].environment_length","El largo del ambiente no puede estar vacÃ\u00ADo.")
                 +"}}";
-
+        // action
         MvcResult mvcResult = this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -115,7 +114,7 @@ public class CalculateRestControllerValidationEnvironmentIntegrationTest {
                 .andExpect(jsonPath("$.status").value(400))
                 .andExpect(jsonPath("$.error").value(error))
                 .andReturn();
-
+        // assert
         Assertions.assertEquals(expected,mvcResult.getResponse().getContentAsString());
     }
 
@@ -127,14 +126,13 @@ public class CalculateRestControllerValidationEnvironmentIntegrationTest {
         DistrictDTO districtDTO = UtilTest.loadBadDistrictDTO("Belgrano",4000.0);
         HouseDTO payloadDTO = UtilTest.loadBadHouseDTO("Test",districtDTO,environmentDTOS);
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
         // responseString
-        String expected = "{\"status\":400,\"error\":\"Validations Error\",\"message\":{" +
+        String expected = "{\"status\":400,\"error\":\"Method argument not valid error.\",\"message\":{" +
                 UtilTest.getValidation("environments[0].environment_name","La longitud del nombre no puede superar los 30 caracteres.")+ ","+
                 UtilTest.getValidation("environments[0].environment_length","El mÃ¡ximo largo permitido por propiedad es de 33 mts.")+ ","+
                 UtilTest.getValidation("environments[0].environment_width","El mÃ¡ximo ancho permitido por propiedad es de 25 mts.")
                 +"}}";
-
+        // action
         MvcResult mvcResult = this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -143,7 +141,7 @@ public class CalculateRestControllerValidationEnvironmentIntegrationTest {
                 .andExpect(jsonPath("$.status").value(400))
                 .andExpect(jsonPath("$.error").value(error))
                 .andReturn();
-
+        // assert
         Assertions.assertEquals(expected,mvcResult.getResponse().getContentAsString());
     }
 
@@ -156,12 +154,11 @@ public class CalculateRestControllerValidationEnvironmentIntegrationTest {
         DistrictDTO districtDTO = UtilTest.loadBadDistrictDTO("Belgrano",4000.0);
         HouseDTO payloadDTO = UtilTest.loadBadHouseDTO("Test",districtDTO,environmentDTOS);
         String payloadJSON = UtilTest.writeValueAsString(payloadDTO);
-
         // responseString
-        String expected = "{\"status\":400,\"error\":\"Validations Error\",\"message\":{" +
+        String expected = "{\"status\":400,\"error\":\"Method argument not valid error.\",\"message\":{" +
                 UtilTest.getValidation("environments[0].environment_name","El nombre del ambiente debe comenzar con mayÃºscula.")
                 +"}}";
-
+        // action
         MvcResult mvcResult = this.mockMvc.perform(post("/calculate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJSON))
@@ -170,7 +167,7 @@ public class CalculateRestControllerValidationEnvironmentIntegrationTest {
                 .andExpect(jsonPath("$.status").value(400))
                 .andExpect(jsonPath("$.error").value(error))
                 .andReturn();
-
+        // assert
         Assertions.assertEquals(expected,mvcResult.getResponse().getContentAsString());
     }
 

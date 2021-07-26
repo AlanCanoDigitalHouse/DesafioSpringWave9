@@ -15,6 +15,7 @@ public class UtilTest {
     static List<EnvironmentModel> list;
     static List<EnvironmentDTO> listEnvironments;
     static List<EnvironmentResponseDTO> listEnvironmentsResponses;
+
     public static List<EnvironmentModel> getData() {
         list = new ArrayList<>();
         list.add(EnvironmentModel.builder().environment_name("Balvanera").build());

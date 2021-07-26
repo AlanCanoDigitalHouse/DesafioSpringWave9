@@ -27,6 +27,6 @@ public class ApiExceptionControllerAdvice {
             System.out.println(fieldError);
             fields.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
-        return new ErrorMessege(HttpStatus.BAD_REQUEST.value(), "Validations Error", fields); // Error messege
+        return new ErrorMessege(HttpStatus.BAD_REQUEST.value(), "Method argument not valid error.", fields); // Error messege
     }
 }
