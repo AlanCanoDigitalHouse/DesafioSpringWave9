@@ -39,7 +39,7 @@ public class HouseController {
 
     @PostMapping("/getSquareMetersEnv")
     public ResponseEntity<List<EnvResponseDto>> getSquareMetersEnv(@Valid @RequestBody HouseDTO house){
-
         return new ResponseEntity<>(houseService.getListEnv(house),HttpStatus.OK);
     }
 }
+

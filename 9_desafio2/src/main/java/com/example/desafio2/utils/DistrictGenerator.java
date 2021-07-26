@@ -23,6 +23,12 @@ public class DistrictGenerator {
 
     }
 
+    /**
+     * Function thats load a certain file in the resource directory
+     * @param fileName the name of the file to load
+     * @return The list of DistrictDto coming from the district file
+     * @throws RuntimeException if the file cannot be found in the resource directory
+     */
     public static List<DistrictDTO> getDistrictFile(String fileName) {
         try{
             File file = loadFile(fileName);

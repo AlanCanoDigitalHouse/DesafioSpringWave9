@@ -19,6 +19,12 @@ public class HouseService {
         this.districtRepository = districtRepository;
     }
 
+    /**
+     * Get the price of a certain house depending of its environments and district, this function
+     * validates, if the district and the price of the district are correct.
+     * @param house HouseDTO
+     * @return new Object HouseDetailResponseDto with the data
+     */
     public HouseDetailResponseDto getPrice(HouseDTO house) {
         var squareMeters = sumEveryEnvMeters(house.getEnvironments());
         var price = calculatePrice(squareMeters, house.getDistrict_price());
@@ -30,15 +36,31 @@ public class HouseService {
         return HouseResponse;
     }
 
+    /**
+     * Function that calculate the total square meters in the house, counting any environment
+     * @param house HouseDTO
+     * @return HouseResponseDto with the house name and the total square meters
+     */
     public HouseResponseDTO getSquareMeters(HouseDTO house) {
         double meters = sumEveryEnvMeters(house.getEnvironments());
         return new HouseResponseDTO(house.getProp_name(), meters);
     }
 
+    /**
+     * Function that check the list of environments in a house and then returns the bigger one
+     * @param house HouseDTO
+     * @return the bigger env inside the environments list
+     */
     public EnvDTO getBiggerEnv(HouseDTO house) {
         return getBiggerEnv(house.getEnvironments());
     }
 
+    /**
+     * Validate if the district and the price is correct or exist in the database, then
+     * calculate the square meters in every environment.
+     * @param house
+     * @return List<EnvResponseDto> with every environment already calculated
+     */
     public List<EnvResponseDto> getListEnv(HouseDTO house) {
         validateDistrict(house.getDistrict_name(), house.getDistrict_price());
         return getPriceForEnvs(house.getEnvironments(), house.getDistrict_price());
