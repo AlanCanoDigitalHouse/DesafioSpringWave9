@@ -107,7 +107,7 @@ El JSON de respuesta de este caso deberá ser:
 }
 ```
 
-###Validaciones ✅
+### Validaciones ✅
 
 | Dato/parámetro | Validación |
 | --- | --- |
@@ -119,7 +119,7 @@ El JSON de respuesta de este caso deberá ser:
 | `environment_length` | Que el campo no esté vacío y el largo máximo permitido del ambiente sea de 33 mts. |
 
 
-###Tests Unitarios
+### Tests unitarios
 
 | Situación de entrada | Comportamiento esperado |
 | --- | --- |
@@ -130,7 +130,7 @@ El JSON de respuesta de este caso deberá ser:
 | Verificar que efectivamente se devuelva el ambiente con mayor tamaño. | Devuelve el ambiente con mayor tamaño. No existe ninguno que lo supere. |
 | Verificar que efectivamente el total de metros cuadrados por ambiente sea el correcto. | Devuelve el cálculo correcto del total de metros cuadrados de un ambiente. |
 
-###Tests de integración
+### Tests de integración
 
 1. Test para validar el endpoint POST calculate.
 
@@ -140,7 +140,7 @@ El JSON de respuesta de este caso deberá ser:
 
 4. Test para validar mensaje de @Valid.
 
-###Coverage esperado luego de correr los test de los tests
+### Coverage esperado luego de correr los test de los tests
 
 - Clases: 100%
 
