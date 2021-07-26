@@ -79,7 +79,7 @@ public class ServiceTest {
         Assertions.assertThat(kitchenHouse).extracting(EnvironmentResponseDTO::getEnvironment_name).isEqualTo("Kitchen");
     }
 
-    // Verificar que efectivamente el total de metros cuadrados por ambiente sea el correcto.
+    // 4) Verificar que efectivamente el total de metros cuadrados por ambiente sea el correcto.
     @Test
     @DisplayName("Devuelve el cálculo correcto del total de metros cuadrados de un ambiente. ")
     public void getMetersPerEnvironment() {
