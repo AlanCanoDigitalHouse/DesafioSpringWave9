@@ -32,7 +32,9 @@ Es importante remarcar que el nombre y precio del district (barrio) debe corresp
 El ejemplo de la respuesta expuesto es para el camino "feliz" del servicio.
 
 **METHOD** 
-GET: property/calculate
+POST: property/calculate
+
+
 **REQUEST:**
 ```sh
 {
@@ -99,5 +101,6 @@ El archivo de jacoco se genera luego de correr el proyecto con maven > verify y 
 Cabe resaltar que los porcentajes detectados por IntelliJ son diferentes a los detectados por jacoco, claro ejemplo la clase del controller advice, por lo que para el porcentaje de coverage de la aplicacion se tomo como base la descrita por IntelliJ.
 
 ![title](Image/coverage_1.png)
+![title](Image/coverage_2.png)
 
 
