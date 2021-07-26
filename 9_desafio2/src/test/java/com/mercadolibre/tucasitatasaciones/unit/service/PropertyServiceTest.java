@@ -27,6 +27,7 @@ public class PropertyServiceTest {
     private PropertyService propertyService;
 
     @Test
+    @DisplayName(value = "Test calculatePropertyTotalArea returns the right result")
     void testCalculateTotalArea() {
         var testProp = TestDataUtil.getPropertyFromDistrict("testDistrict");
         var expectedReturn = new PropertyTotalAreaDTO(testProp.getName(), 300D);
@@ -37,6 +38,7 @@ public class PropertyServiceTest {
     }
 
     @Test
+    @DisplayName(value = "Test valuateProperty returns the right result")
     void testValuateProperty() {
         var testProp = TestDataUtil.getPropertyFromDistrict("testDistrict");
         var expectedReturn = new PropertyValuationDTO(testProp.getName(), 30000D);
@@ -62,6 +64,7 @@ public class PropertyServiceTest {
     }
 
     @Test
+    @DisplayName(value = "Test determineLargestEnvironment actually returns the largest environment")
     void testDetermineLargestEnvironment() {
         var testProp = TestDataUtil.getPropertyWithDifferentEnvironments("testDistrict");
         var expectedReturn = new LargestEnvironmentDTO(testProp.getName(),
@@ -73,6 +76,7 @@ public class PropertyServiceTest {
     }
 
     @Test
+    @DisplayName(value = "Test calculateEnvironmentsArea returns all environments with their areas calculated")
     void testCalculateEnvironmentsArea() {
         var testProp = TestDataUtil.getPropertyFromDistrict("testDistrict");
         var expectedData = testProp.getEnvironments()

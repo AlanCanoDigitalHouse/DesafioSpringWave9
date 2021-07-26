@@ -8,6 +8,7 @@ import com.mercadolibre.tucasitatasaciones.dto.response.PropertyTotalAreaDTO;
 import com.mercadolibre.tucasitatasaciones.dto.response.PropertyValuationDTO;
 import com.mercadolibre.tucasitatasaciones.service.PropertyService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,6 +27,7 @@ public class PropertyControllerTest {
     private PropertyController propertyController;
 
     @Test
+    @DisplayName(value = "Test calculatePropArea calls the right service method")
     void testTotalAreaServiceCallAndResponse() {
         var requestBody = new PropertyRequestDTO();
         var expectedBody = new PropertyTotalAreaDTO();
@@ -45,6 +47,7 @@ public class PropertyControllerTest {
     }
 
     @Test
+    @DisplayName(value = "Test valuateProp calls the right service method")
     void testValuationServiceCallAndResponse() {
         var requestBody = new PropertyRequestDTO();
         var expectedBody = new PropertyValuationDTO();
@@ -64,6 +67,7 @@ public class PropertyControllerTest {
     }
 
     @Test
+    @DisplayName(value = "Test determineLargestEnvironment calls the right service method")
     void testLargestEnvironmentServiceCallAndResponse() {
         var requestBody = new PropertyRequestDTO();
         var expectedBody = new LargestEnvironmentDTO();
@@ -83,6 +87,7 @@ public class PropertyControllerTest {
     }
 
     @Test
+    @DisplayName(value = "Test calculateEnvironmentsArea calls the right service method")
     void testEnvironmentsAreaServiceCallAndResponse() {
         var requestBody = new PropertyRequestDTO();
         var expectedBody = new PropertyEnvironmentsAreaDTO();

@@ -9,6 +9,7 @@ import com.mercadolibre.tucasitatasaciones.util.JSONDataUtil;
 import com.mercadolibre.tucasitatasaciones.util.TestDataUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -46,6 +47,7 @@ public class ExceptionControllerTest {
     }
 
     @Test
+    @DisplayName(value = "Test correct error response is returned when district does not exist")
     void testResourceNotFoundException() throws Exception {
         var objectWriter = this.getObjectWriter();
         var propertyData = TestDataUtil.getPropertyFromDistrict("DistrictZ");
@@ -71,6 +73,7 @@ public class ExceptionControllerTest {
     }
 
     @Test
+    @DisplayName(value = "Test correct error response is returned when district price is wrong")
     void testInvalidRequestDataException() throws Exception {
         var objectWriter = this.getObjectWriter();
         var propertyData = TestDataUtil.getPropertyFromDistrict("DistrictA");
@@ -97,6 +100,7 @@ public class ExceptionControllerTest {
     }
 
     @Test
+    @DisplayName(value = "Test correct error response is returned when http request is invalid")
     void testHttpMessageNotReadableException() throws Exception {
         var objectWriter = this.getObjectWriter();
         var propertyData = TestDataUtil.getPropertyFromDistrict("DistrictA");
@@ -122,6 +126,7 @@ public class ExceptionControllerTest {
     }
 
     @Test
+    @DisplayName(value = "Test correct error response is returned when there is a validation error")
     void testMethodArgumentNotValidException() throws Exception {
         var objectWriter = this.getObjectWriter();
         var propertyData = TestDataUtil.getPropertyFromDistrict("DistrictA");

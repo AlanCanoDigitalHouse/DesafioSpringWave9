@@ -8,6 +8,7 @@ import com.mercadolibre.tucasitatasaciones.util.JSONDataUtil;
 import com.mercadolibre.tucasitatasaciones.util.TestDataUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -44,6 +45,7 @@ public class PropertyController {
     }
 
     @Test
+    @DisplayName(value = "Test correct response is returned when hitting the totalArea endpoint")
     void testPropertyTotalAreaEndpoint() throws Exception {
         var objectWriter = this.getObjectWriter();
         var propertyData = TestDataUtil.getPropertyFromDistrict("DistrictA");
@@ -69,6 +71,7 @@ public class PropertyController {
     }
 
     @Test
+    @DisplayName(value = "Test correct response is returned when hitting the valuation endpoint")
     void testPropertyValuationEndpoint() throws Exception {
         var objectWriter = this.getObjectWriter();
         var propertyData = TestDataUtil.getPropertyFromDistrict("DistrictA");
@@ -94,6 +97,7 @@ public class PropertyController {
     }
 
     @Test
+    @DisplayName(value = "Test correct response is returned when hitting the largest environment endpoint")
     void testLargestEnvironmentEndpoint() throws Exception {
         var objectWriter = this.getObjectWriter();
         var propertyData = TestDataUtil.getPropertyWithDifferentEnvironments("DistrictA");
@@ -120,6 +124,7 @@ public class PropertyController {
     }
 
     @Test
+    @DisplayName(value = "Test correct response is returned when hitting the environments area endpoint")
     void testEnvironmentsAreaEndpoint() throws Exception {
         var objectWriter = this.getObjectWriter();
         var propertyData = TestDataUtil.getPropertyFromDistrict("DistrictA");
