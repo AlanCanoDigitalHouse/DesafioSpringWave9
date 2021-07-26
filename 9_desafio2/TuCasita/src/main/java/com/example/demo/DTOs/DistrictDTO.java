@@ -20,8 +20,8 @@ public class DistrictDTO {
     private String district_name;
 
     @NotNull(message = "District price field can not be empty.")
-    @DecimalMax(value="4000.0", message = "The maximum price allowed per square meter is 4000 USD.")
-    @DecimalMin(value="1.0", message = "The minimum price allowed per square meter is 1 USD.")
+    @DecimalMax(value = "4000.0", message = "The maximum price allowed per square meter is 4000 USD.")
+    @DecimalMin(value = "1.0", message = "The minimum price allowed per square meter is 1 USD.")
     private Double district_price;
 
 }

@@ -42,7 +42,7 @@ public class PropertyServiceTest {
 
 
     @BeforeEach
-    public void init(){
+    public void initialize() {
         localMapper = new ModelMapper();
         // Names
         String name = "Mansion";
@@ -76,27 +76,17 @@ public class PropertyServiceTest {
 
     @Test
     public void shouldCalculateCorrectly() throws CustomExceptionHandler {
-
-        // Arrange
         District district = localMapper.map(districtDto, District.class);
         when(modelMapper.map(estateDto, Property.class)).thenReturn(localMapper.map(estateDto, Property.class));
         when(repository.findDistrictByName(districtName)).thenReturn(district);
-
-        // Act
         PropertyDetailsDTO received = service.getDetails(estateDto);
-
-        // Assert
         Assertions.assertEquals(expected, received);
     }
 
     @Test
     public void shouldThrowExceptionWhenDistrictNameIsNotFound() throws CustomExceptionHandler {
-
-        // Arrange
         when(repository.findDistrictByName(districtName)).thenReturn(null);
-
         when(modelMapper.map(estateDto, Property.class)).thenReturn(localMapper.map(estateDto, Property.class));
-        // Act
         assertThrows(NotFoundException.class, () -> service.getDetails(estateDto));
     }
 

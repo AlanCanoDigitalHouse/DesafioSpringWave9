@@ -34,7 +34,7 @@ public class PropertyControllerTest {
     private PropertyDTO estateDto;
 
     @BeforeEach
-    public void init(){
+    public void initialize() {
         // Names
         String name = "Mansion";
         districtName = "Broadway";
@@ -67,18 +67,11 @@ public class PropertyControllerTest {
 
     @Test
     public void shouldCallDetailsAndReturnRightResponse() throws CustomExceptionHandler {
-
-        // Arrange
         when(service.getDetails(estateDto)).thenReturn(expected);
-
-        // Act
         ResponseEntity<PropertyDetailsDTO> received = controller.getAssessment(estateDto);
-
-        // Assert
         verify(service, times(1)).getDetails(estateDto);
         Assert.assertEquals(HttpStatus.OK, received.getStatusCode());
         Assert.assertEquals(expected, received.getBody());
-
     }
 
 }

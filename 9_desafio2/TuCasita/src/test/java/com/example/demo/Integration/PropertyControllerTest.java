@@ -41,7 +41,7 @@ public class PropertyControllerTest {
     IDistrictRepository repository;
 
     @BeforeEach
-    public void init(){
+    public void initialize(){
         // Names
         String prop_name = "Mansion";
         districtName = "Broadway";
@@ -75,16 +75,13 @@ public class PropertyControllerTest {
 
     @Test
     public void shouldReturnDetails() throws Exception {
-
         ObjectWriter writer =
                 new ObjectMapper()
                         .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
                         .writer()
                         .withDefaultPrettyPrinter();
         String payloadJson = writer.writeValueAsString(propertyDTO);
-
         when(repository.findDistrictByName(districtName)).thenReturn(district);
-
         this.mockMvc.perform(MockMvcRequestBuilders.post("/property/details")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJson))
@@ -107,9 +104,7 @@ public class PropertyControllerTest {
                         .writer()
                         .withDefaultPrettyPrinter();
         String payloadJson = writer.writeValueAsString(propertyDTO);
-
         when(repository.findDistrictByName(districtName)).thenReturn(null);
-
         this.mockMvc.perform(MockMvcRequestBuilders.post("/property/details")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJson))
@@ -127,9 +122,7 @@ public class PropertyControllerTest {
                         .writer()
                         .withDefaultPrettyPrinter();
         String payloadJson = writer.writeValueAsString(propertyDTO);
-
         when(repository.findDistrictByName(districtName)).thenReturn(null);
-
         this.mockMvc.perform(MockMvcRequestBuilders.post("/property/details")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJson))

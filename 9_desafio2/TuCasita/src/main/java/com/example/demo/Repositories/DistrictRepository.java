@@ -18,34 +18,35 @@ public class DistrictRepository implements IDistrictRepository {
 
     private List<District> districts;
 
-    public DistrictRepository(){
+    public DistrictRepository() {
         this.districts = loadDistrictsDB();
     }
 
     @Override
     public District findDistrictByName(String name) {
         return districts.stream()
-                .filter(d->d.getDistrict_name().equals(name))
+                .filter(d -> d.getDistrict_name().equals(name))
                 .findFirst()
                 .orElse(null);
     }
 
     private List<District> loadDistrictsDB() {
         File file = null;
-        try{
+        try {
             file = ResourceUtils.getFile("classpath:districts.json");
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<District>> typeRef = new TypeReference<>() {};
+        TypeReference<List<District>> typeRef = new TypeReference<>() {
+        };
 
         List<District> db = null;
 
         try {
             db = objectMapper.readValue(file, typeRef);
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return db;

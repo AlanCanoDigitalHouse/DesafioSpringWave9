@@ -8,6 +8,7 @@ import lombok.Getter;
 public class CustomExceptionHandler extends Exception {
 
     public static String ERROR;
+
     public CustomExceptionHandler() {
         super();
     }
