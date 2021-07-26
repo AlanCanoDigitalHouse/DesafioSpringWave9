@@ -6,11 +6,13 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.mercadolibre.calculadorametroscuadrados.dtos.HouseRequestDTO;
 import com.mercadolibre.calculadorametroscuadrados.utils.HouseRequestInitializer;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -35,6 +37,7 @@ public class CalculadoraMetrosCuadradosIntegrationTests {
     }
 
     @Test
+    @DisplayName("Calcular el área de casa con 1 habitación")
     void calculateHouseAreaWithOneRoom() throws Exception {
         //Arrange
         HouseRequestDTO payloadDTO = HouseRequestInitializer.house().withOneRoom();
@@ -50,6 +53,7 @@ public class CalculadoraMetrosCuadradosIntegrationTests {
     }
 
     @Test
+    @DisplayName("Calcular el área de casa con 2 habitaciones")
     void calculateHouseAreaWithTwoRooms() throws Exception {
         //Arrange
         HouseRequestDTO payloadDTO = HouseRequestInitializer.house().withTwoRooms();
@@ -65,6 +69,7 @@ public class CalculadoraMetrosCuadradosIntegrationTests {
     }
 
     @Test
+    @DisplayName("Calcular el área de casa con 3 habitaciones")
     void calculateHouseAreaWithThreeRooms() throws Exception {
         //Arrange
         HouseRequestDTO payloadDTO = HouseRequestInitializer.house();
@@ -81,6 +86,7 @@ public class CalculadoraMetrosCuadradosIntegrationTests {
     }
 
     @Test
+    @DisplayName("Bad request por buscar un distrito que no existe")
     void nonExistingDistrictReturnsBadRequest() throws Exception {
         //Arrange
         HouseRequestDTO payloadDTO = HouseRequestInitializer.house().inDistrict("Chapadmalal");
@@ -96,6 +102,7 @@ public class CalculadoraMetrosCuadradosIntegrationTests {
     }
 
     @Test
+    @DisplayName("Bad request por pasar precio de distrito igual a cero")
     void districtPriceEqualToZeroReturnsBadRequest() throws Exception {
         //Arrange
         HouseRequestDTO payloadDTO = HouseRequestInitializer.house().districtPriceEqualToZero();
@@ -111,6 +118,7 @@ public class CalculadoraMetrosCuadradosIntegrationTests {
     }
 
     @Test
+    @DisplayName("Bad request por pasar nombre de distrito nulo")
     void districtNameNullReturnsBadRequest() throws Exception {
         //Arrange
         HouseRequestDTO payloadDTO = HouseRequestInitializer.house().districtNameNull();
@@ -126,6 +134,7 @@ public class CalculadoraMetrosCuadradosIntegrationTests {
     }
 
     @Test
+    @DisplayName("Bad request por pasar nombre de propiedad vacío")
     void propNameEmptyStringSendsBadRequestAndMessageRequiringFirstUpperCaseLetter() throws Exception {
         //Arrange
         HouseRequestDTO payloadDTO = HouseRequestInitializer.house()
@@ -145,6 +154,7 @@ public class CalculadoraMetrosCuadradosIntegrationTests {
 
 
     @Test
+    @DisplayName("Bad request por pasar nombre de distrito de más de 45 caracteres y precio mayor a 4000")
     void districtNameLongerThan45AndPriceGreaterThan4000ReturnBadRequestAndTwoErrorMessages() throws Exception {
         //Arrange
         HouseRequestDTO payloadDTO = HouseRequestInitializer.house()
@@ -165,6 +175,7 @@ public class CalculadoraMetrosCuadradosIntegrationTests {
     }
 
     @Test
+    @DisplayName("Bad request por pasar nombre de propiedad y de distrito nulos")
     void districtNameNullAndPropNameNullReturnBadRequestAndTwoErrorMessages() throws Exception {
         //Arrange
         HouseRequestDTO payloadDTO = HouseRequestInitializer.house()
@@ -185,7 +196,8 @@ public class CalculadoraMetrosCuadradosIntegrationTests {
     }
 
     @Test
-    void districtNameEmpty5AndDistrictPriceEqualToZeroReturnBadRequestAndTwoErrorMessages() throws Exception {
+    @DisplayName("Bad request por pasar nombre de distrito vacío y precio igual a cero")
+    void districtNameEmptyAndDistrictPriceEqualToZeroReturnBadRequestAndTwoErrorMessages() throws Exception {
         //Arrange
         HouseRequestDTO payloadDTO = HouseRequestInitializer.house()
                 .districtPriceEqualToZero()
@@ -205,11 +217,12 @@ public class CalculadoraMetrosCuadradosIntegrationTests {
     }
 
     @Test
+    @DisplayName("Bad request por pasar nombre de propiedad vacío y precio de distrito negativo")
     void propNameEmptyAndDistrictPriceNegativeReturnBadRequestAndAsksForUpperCaseFirstLetter() throws Exception {
+        //Arrange
         HouseRequestDTO payloadDTO = HouseRequestInitializer.house()
                 .propNameEmptyString()
                 .districtPriceNegative();
-        //Arrange
         //Act
         String payloadJson = writer.writeValueAsString(payloadDTO);
         //Assert
@@ -225,10 +238,11 @@ public class CalculadoraMetrosCuadradosIntegrationTests {
     }
 
     @Test
+    @DisplayName("Bad request por pasar nombre de propiedad de más de 35 caracteres")
     void propNameLongerThan35ReturnsBadRequest() throws Exception {
+        //Arrange
         HouseRequestDTO payloadDTO = HouseRequestInitializer.house()
                 .propNameOfLength40();
-        //Arrange
         //Act
         String payloadJson = writer.writeValueAsString(payloadDTO);
         //Assert
@@ -241,12 +255,12 @@ public class CalculadoraMetrosCuadradosIntegrationTests {
                 .andExpect(content().string(containsString("La longitud del nombre no puede superar los 30 caracteres.")))
                 .andExpect(jsonPath("$.error").value("Error en payload"));
     }
-/*
+
     @Test
+    @DisplayName("Bad request por pasar una casa sin habitaciones (lista vacía)")
     void houseWithNoRoomsReturnsBadRequestAndAnErrorMessage() throws Exception {
-        HouseRequestDTO payloadDTO = HouseRequestInitializer.house().firstRoomWithNegativeWidth();
-                //.roomsEmpty();
         //Arrange
+        HouseRequestDTO payloadDTO = HouseRequestInitializer.house().roomsEmpty();
         //Act
         String payloadJson = writer.writeValueAsString(payloadDTO);
         //Assert
@@ -256,8 +270,87 @@ public class CalculadoraMetrosCuadradosIntegrationTests {
                         .content(payloadJson))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string(containsString("La longitud del nombre no puede superar los 30 caracteres.")))
+                .andExpect(content().string(containsString("La cantidad de cuartos no puede ser cero.")))
                 .andExpect(jsonPath("$.error").value("Error en payload"));
     }
- */
+
+    @Test
+    @DisplayName("Bad request por pasar una casa con habitaciones nulas (lista nula)")
+    void houseWithNullRoomsReturnsBadRequestAndAnErrorMessage() throws Exception {
+        //Arrange
+        HouseRequestDTO payloadDTO = HouseRequestInitializer.house().roomsNull();
+        //Act
+        String payloadJson = writer.writeValueAsString(payloadDTO);
+        //Assert
+        this.mockMvc.perform(
+                MockMvcRequestBuilders.get("/calculate")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(payloadJson))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString("La cantidad de cuartos no puede ser cero.")))
+                .andExpect(jsonPath("$.error").value("Error en payload"));
+    }
+
+    @Test
+    @DisplayName("Bad request por pasar precio de distrito nulo")
+    void districtPriceNullReturnsBadRequestAndAnErrorMessage() throws Exception {
+        //Arrange
+        HouseRequestDTO payloadDTO = HouseRequestInitializer.house()
+                .districtPriceNull();
+        //Act
+        String payloadJson = writer.writeValueAsString(payloadDTO);
+        //Assert
+        this.mockMvc.perform(
+                MockMvcRequestBuilders.get("/calculate")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(payloadJson))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString("El precio de un barrio no puede ser negativo ni cero.")))
+                .andExpect(jsonPath("$.error").value("Error en payload"));
+    }
+
+    @Test
+    @Rollback
+    @DisplayName("Bad request por pasar habitación con ancho negativo")
+    void roomWithNegativeWidthReturnsBadRequestAndAnErrorMessage() throws Exception {
+        //Arrange
+        HouseRequestDTO payloadDTO = HouseRequestInitializer.house()
+                .firstRoomWithNegativeWidth();
+
+        //Act
+        String payloadJson = writer.writeValueAsString(payloadDTO);
+        //Assert
+        this.mockMvc.perform(
+                MockMvcRequestBuilders.get("/calculate")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(payloadJson))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString("El ancho de un ambiente no puede ser negativo ni cero.")))
+                .andExpect(jsonPath("$.error").value("Error en payload"));
+    }
+
+    @Test
+    @Rollback
+    @DisplayName("Bad request por pasar 2 habitaciones con nombre vacío")
+    void havingTwoRoomsWithEmptyNameReturnsBadRequestAndAnErrorMessageForEachRoom() throws Exception {
+        //Arrange
+        HouseRequestDTO payloadDTO = HouseRequestInitializer.house();
+        payloadDTO.getRooms().get(1).setEnvironment_name("");
+        payloadDTO.getRooms().get(2).setEnvironment_name("");
+
+        //Act
+        String payloadJson = writer.writeValueAsString(payloadDTO);
+        //Assert
+        this.mockMvc.perform(
+                MockMvcRequestBuilders.get("/calculate")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(payloadJson))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Error en payload"))
+                .andExpect(jsonPath("$.message").isNotEmpty());
+    }
 }

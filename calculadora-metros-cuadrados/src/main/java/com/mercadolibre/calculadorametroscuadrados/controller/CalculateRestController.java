@@ -15,6 +15,14 @@ public class CalculateRestController {
   @Autowired
   CalculateService calculateService;
 
+  /**
+   Get method. Receives a valid HouseRequestDTO in payload and returns a ResponseEntity with OK status, containing
+   a HouseResponseDTO class object, with the following 4 calculations:
+   - Total house squared metres
+   - Total house price
+   - Name of biggest room in house
+   - List of rooms' areas with their names (List<RoomAreaDTO>)
+   */
   @GetMapping("/calculate")
   public ResponseEntity<HouseResponseDTO> allInOneCalculator(@Valid @RequestBody HouseRequestDTO houseReqDTO) {
     return calculateService.allInOneCalculator(houseReqDTO);

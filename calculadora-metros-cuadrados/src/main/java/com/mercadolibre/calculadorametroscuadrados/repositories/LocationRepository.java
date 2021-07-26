@@ -15,6 +15,10 @@ import java.util.Optional;
 @Repository
 public class LocationRepository {
 
+    /**
+     Returns true if location exists in JSON file, at resources/static/locations.json.
+     Otherwise returns false.
+     */
     public Boolean locationExists(String district_name){
         List<String> districts;
         districts = loadDatabase();

@@ -5,8 +5,6 @@ import com.mercadolibre.calculadorametroscuadrados.dtos.HouseResponseDTO;
 import com.mercadolibre.calculadorametroscuadrados.repositories.LocationRepository;
 import com.mercadolibre.calculadorametroscuadrados.service.CalculateService;
 import com.mercadolibre.calculadorametroscuadrados.utils.HouseRequestInitializer;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.HttpClientErrorException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -52,8 +49,8 @@ public class CalculateServiceTests {
                 house.getProp_name(),
                 house.calculateHouseArea(),
                 house.calculateHouseArea() * house.getDistrict_price(),
-                house.getBiggestRoom().getEnvironment_name(),
-                house.getRoomAreasDTOs()
+                house.calculateBiggestRoom().getEnvironment_name(),
+                house.calculateRoomAreasDTOs()
         );
         // act
         ResponseEntity<HouseResponseDTO> houseResponse = service.allInOneCalculator(house);

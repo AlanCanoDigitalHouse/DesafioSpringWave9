@@ -23,11 +23,13 @@ public class HouseRequestInitializer {
         return new RoomDTO("Quincho", 8.0, 4.0);
     }
 
-    public static List<RoomDTO> rooms() {
+    private static List<RoomDTO> rooms() {
         List<RoomDTO> rooms = new ArrayList<>();
         rooms.add(new RoomDTO("Baño", 2.0, 1.5));
         rooms.add(new RoomDTO("Quincho", 8.0, 4.0));
         rooms.add(new RoomDTO("Cuarto de huéspedes", 3.0, 5.0));
         return rooms;
     }
+
+
 }

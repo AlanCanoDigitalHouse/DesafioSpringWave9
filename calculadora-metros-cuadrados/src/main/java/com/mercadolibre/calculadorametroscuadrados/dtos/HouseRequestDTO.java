@@ -1,5 +1,6 @@
 package com.mercadolibre.calculadorametroscuadrados.dtos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,11 +33,13 @@ public class HouseRequestDTO {
   private Double district_price;
 
   @NotEmpty(message = "La cantidad de cuartos no puede ser cero.")
+  @NotNull(message = "La cantidad de cuartos no puede ser cero.")
+  @Valid
   private List<RoomDTO> rooms;
 
 
 
-  public RoomDTO getBiggestRoom() {
+  public RoomDTO calculateBiggestRoom() {
     return rooms.stream()
             .max(Comparator.comparing(RoomDTO::getArea))
             .orElseThrow(NoSuchElementException::new);
@@ -49,7 +52,7 @@ public class HouseRequestDTO {
             .get();
   }
 
-  public List<RoomAreaDTO> getRoomAreasDTOs() {
+  public List<RoomAreaDTO> calculateRoomAreasDTOs() {
     return rooms
             .stream()
             .map( r -> new RoomAreaDTO(r.getEnvironment_name(), r.getArea()) )

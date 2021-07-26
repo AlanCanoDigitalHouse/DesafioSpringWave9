@@ -28,8 +28,8 @@ public class CalculateService {
       throw new RuntimeException("Location does not exist in database");
 
     Double price = area * houseReqDTO.getDistrict_price();
-    String biggestRoomName = houseReqDTO.getBiggestRoom().getEnvironment_name();
-    List<RoomAreaDTO> room_areas = houseReqDTO.getRoomAreasDTOs();
+    String biggestRoomName = houseReqDTO.calculateBiggestRoom().getEnvironment_name();
+    List<RoomAreaDTO> room_areas = houseReqDTO.calculateRoomAreasDTOs();
 
     HouseResponseDTO houseResDTO = new HouseResponseDTO(
             houseReqDTO.getProp_name(),
