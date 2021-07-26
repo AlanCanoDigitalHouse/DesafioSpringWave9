@@ -4,8 +4,8 @@ import com.example.desafiotesting.dto.EnvironmentDTO;
 import com.example.desafiotesting.dto.PropertyDTO;
 import com.example.desafiotesting.dto.response.EnvironmentResponseDTO;
 import com.example.desafiotesting.dto.response.ResponseDTO;
-import com.example.desafiotesting.exception.PropertyNotFoundException;
-import com.example.desafiotesting.repository.PropertyRepository;
+import com.example.desafiotesting.exception.DistrictNotFoundException;
+import com.example.desafiotesting.repository.DistrictRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,13 +15,14 @@ import java.util.List;
 @Service
 public class PropertyService {
 
-    PropertyRepository propertyRepository;
+    DistrictRepository districtRepository;
 
-    public PropertyService(PropertyRepository propertyRepository) {
-        this.propertyRepository = propertyRepository;
+    public PropertyService(DistrictRepository districtRepository) {
+        this.districtRepository = districtRepository;
     }
 
-    public ResponseDTO calculateAll(PropertyDTO property){
+    public ResponseDTO calculateAll(PropertyDTO property) throws DistrictNotFoundException {
+        districtRepository.propertyExists(property.getDistrict().getDistrict_name());
         Double propertySize = this.calculatePropertySize(property.getEnvironments());
         Double propertyPrice = propertySize * property.getDistrict().getDistrict_price();
         EnvironmentResponseDTO biggerEnvironment = this.calculateBiggerEnvironment(property.getEnvironments());

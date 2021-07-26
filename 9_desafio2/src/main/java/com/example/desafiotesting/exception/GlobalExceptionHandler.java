@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.*;
 
 @ControllerAdvice(annotations = RestController.class)
 public class GlobalExceptionHandler {
-    @ExceptionHandler(PropertyNotFoundException.class)
+    @ExceptionHandler(DistrictNotFoundException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public MessageError handlerUserNotFound(PropertyNotFoundException ex){
-        return  new MessageError(ex.getStatus().value(), ex.getReason());
+    public MessageError handlerUserNotFound(DistrictNotFoundException ex){
+        return  new MessageError(HttpStatus.NOT_FOUND.value(), ex.getMessage());
     }
 }

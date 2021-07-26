@@ -2,6 +2,7 @@ package com.example.desafiotesting.controller;
 
 import com.example.desafiotesting.dto.PropertyDTO;
 import com.example.desafiotesting.dto.response.ResponseDTO;
+import com.example.desafiotesting.exception.DistrictNotFoundException;
 import com.example.desafiotesting.service.PropertyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -20,9 +21,15 @@ public class PropertyController {
         this.propertyService = propertyService;
     }
 
+    /**
+     *
+     * @param property
+     * @return
+     * @throws DistrictNotFoundException
+     */
     @PostMapping("/calculate")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseDTO calculate(@Valid  @RequestBody PropertyDTO property){
+    public ResponseDTO calculate(@Valid  @RequestBody PropertyDTO property) throws DistrictNotFoundException {
         return propertyService.calculateAll(property);
     }
 }
