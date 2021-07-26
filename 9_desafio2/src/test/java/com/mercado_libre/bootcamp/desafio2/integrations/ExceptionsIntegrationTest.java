@@ -139,7 +139,7 @@ class ExceptionsIntegrationTest {
         HouseRequestDTO houseRequest = new HouseRequestDTO();
         houseRequest.setName("Una casa");
         houseRequest.setDistrict(new DistrictDTO("Barrio", 2000.00));
-        houseRequest.setEnvironments(Collections.singletonList(new EnvironmentDTO("", 5.0, 5.0)));
+        houseRequest.setEnvironments(Collections.singletonList(new EnvironmentDTO(null, 5.0, 5.0)));
 
         String payloadJSON = getObjectWriter().writeValueAsString(houseRequest);
 
@@ -149,6 +149,44 @@ class ExceptionsIntegrationTest {
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.messages['environments[0].name']").value("El nombre del ambiente no puede estar vacío."))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("GET /calculate/house - Environment with width higher than 25 mts returns 400")
+    void environmentWithWidthHigherThan25Meters_badRequest() throws Exception {
+        HouseRequestDTO houseRequest = new HouseRequestDTO();
+        houseRequest.setName("Una casa");
+        houseRequest.setDistrict(new DistrictDTO("Barrio", 2000.00));
+        houseRequest.setEnvironments(Collections.singletonList(new EnvironmentDTO("Living Room", 30.0, 5.0)));
+
+        String payloadJSON = getObjectWriter().writeValueAsString(houseRequest);
+
+        this.mockMvc.perform(get("/calculate/house")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.messages['environments[0].width']").value("El máximo ancho permitido por propiedad es de 25 mts."))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("GET /calculate/house - Environment with Zero length returns 400")
+    void environmentWithZeroLenght_badRequest() throws Exception {
+        HouseRequestDTO houseRequest = new HouseRequestDTO();
+        houseRequest.setName("Una casa");
+        houseRequest.setDistrict(new DistrictDTO("Barrio", 2000.00));
+        houseRequest.setEnvironments(Collections.singletonList(new EnvironmentDTO("Living Room", 5.0, 0.0)));
+
+        String payloadJSON = getObjectWriter().writeValueAsString(houseRequest);
+
+        this.mockMvc.perform(get("/calculate/house")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.messages['environments[0].length']").value("El valor debe ser mayor a 0.1"))
                 .andReturn();
     }
 
