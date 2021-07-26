@@ -71,3 +71,6 @@ Considerando que los casos en los cuales puede ocurrir un error son casos muy bo
 
 #### ¿Por qué no se tienen modelos de casas y habitaciones?
 Como no se tiene una base de datos, y solamente se cuenta con el respositorio de barrios, no se lo tiene. Sin embargo, en caso de escalar el modelo y/o implementar una base de datos, será necesario contar con ellos.
+
+#### Tests en campos de DTO's
+La razón principal por la cual no se hizo tests por cada validación de los DTO's, y solo se hizo las generales, fue el hecho de que, si bien es buena práctica tener un coverage alto, para validar cada uno de los casos se termina con mucho código duplicado. Es decir, si se debe probar en todos los campos que la anotación @NotBlank funcione correctamente, posiblemente tengamos líneas de código repetidas. Por esa razón se prefirió estar en un coverage del 88% donde los casos testeados son realmente los que se podrían llegar a suceder durante la ejecución normal de código.
