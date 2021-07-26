@@ -63,7 +63,7 @@ POST: property/calculate
 }
 ```
 
-**REQUEST:**
+**RESPONSE:**
 ```sh
 {
     "totalArea": 1390.0,
