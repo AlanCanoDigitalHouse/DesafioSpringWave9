@@ -7,6 +7,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,11 +24,12 @@ public class ApiControllerAdvice {
     }
 
     public ResponseEntity<?> processField(List<FieldError> fieldErrors) {
-        HashMap<String, String> fields = new HashMap<>();
+        List<ErrorMessage> errorMessages = new ArrayList<>();
         for (FieldError fieldError : fieldErrors) {
-            fields.put(fieldError.getField(), fieldError.getDefaultMessage());
+            errorMessages.add(new ErrorMessage(fieldError.getDefaultMessage()));
         }
-        return new ResponseEntity<>(fields, HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler

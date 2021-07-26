@@ -21,7 +21,7 @@ public class RoomDto {
     @Max(value = 25,message = "El máximo ancho permitido por propiedad es de 25 mts.")
     private Double environment_width;
     @NotNull(message ="El largo del ambiente no puede estar vacío." )
-    @Max(value = 25,message = "El máximo largo permitido por propiedad es de 33 mts.")
+    @Max(value = 33,message = "El máximo largo permitido por propiedad es de 33 mts.")
     private Double environment_length;
 
     public Double getSquareFeet() {
