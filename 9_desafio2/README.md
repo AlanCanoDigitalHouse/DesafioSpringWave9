@@ -189,3 +189,5 @@
         presenta lineas sin covered, las cuales estan vacias, entonces se determino como bug.
         - al levantar la API se genera una List<EnvironmentModel>, la cual consume un environments.json para completarse.
         - la validacion del nombre del barrio se hace contra la lista descripta en el punto anterior.
+        - para llegar al 100 % de coverage hay que descomentar la linea 30 el test "App main" en el archivo 
+        CalculadoraMetrosCuadradosApplicationTests 
