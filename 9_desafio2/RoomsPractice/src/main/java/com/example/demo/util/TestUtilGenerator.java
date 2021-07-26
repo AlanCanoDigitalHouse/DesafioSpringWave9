@@ -5,6 +5,7 @@ import com.example.demo.dtos.request.HouseRequestDto;
 import com.example.demo.dtos.request.RoomRequestDto;
 import com.example.demo.dtos.response.BiggestRoomResponseDto;
 import com.example.demo.dtos.response.HouseSizeResponseDto;
+import com.example.demo.dtos.response.HouseValueResponseDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,13 @@ public class TestUtilGenerator {
         houseSize.setName("Miriam");
         houseSize.setArea(84.0);
         return houseSize;
+    }
+
+    public static HouseValueResponseDto createValidHouseValueResponse() {
+        HouseValueResponseDto houseValue = new HouseValueResponseDto();
+        houseValue.setName("Miriam");
+        houseValue.setValue(75600.0);
+        return houseValue;
     }
     
     public static List<RoomRequestDto> createListValidRooms() {

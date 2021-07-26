@@ -38,15 +38,28 @@ Para practicidad, se recomienda importar una colección a Postman, la cual conti
 
 [Postman Collection Testing](https://www.getpostman.com/collections/48c01cd0bd2b9ce6fcb2)
 
-### Ejecución
+### Ejecución Pruebas Unitarias
 Para ejecutar las pruebas unitarias, se deben seguir los siguientes pasos:
 
 1. Posicionarse en la siguiente ruta, dar clic derecho y seleccionar Modify run configuration, antes de ejecutar las pruebas con coverage:
     [DesafioSpringWave9/9_desafio2/RoomsPractice/src/test/java/com/example/demo/unit][PlDb]
-2. En la nueva ventana que se abre, en la parte de Code Coverage, agregar **com-example.demo.***, y excluir **com-example.demo.dtos** & **com-example.demo.exceptions** packages
+2. En la nueva ventana que se abre, en la parte de Code Coverage, agregar **com-example.demo.***, y excluir **com.example.demo.dtos** & **com.example.demo.exceptions** packages
 3. Una vez agregados, dar clic en aceptar, y posteriormente en OK.
 4. Ya que se configuro el alcance del coverage, ejecutar las pruebas desde el package unit (Clic derecho > Run with Coverage)
     [DesafioSpringWave9/9_desafio2/RoomsPractice/src/test/java/com/example/demo/unit][PlDb]
+
+
+### Ejecución Pruebas de Integración
+Para ejecutar las pruebas de integración, se deben seguir los siguientes pasos:
+
+1. Posicionarse en la siguiente ruta, dar clic derecho y seleccionar Modify run configuration, antes de ejecutar las pruebas con coverage:
+    [DesafioSpringWave9/9_desafio2/RoomsPractice/src/test/java/com/example/demo/integration][PlDb]
+2. En la nueva ventana que se abre, en la parte de Code Coverage, agregar **com-example.demo.***, y excluir **com.example.demo.dtos** & **com.example.demo.exceptions** & **com.example.demo.util** packages
+3. Una vez agregados, dar clic en aceptar, y posteriormente en OK.
+4. Ya que se configuro el alcance del coverage, ejecutar las pruebas desde el package unit (Clic derecho > Run with Coverage)
+    [DesafioSpringWave9/9_desafio2/RoomsPractice/src/test/java/com/example/demo/integration][PlDb]
+
+**Nota:** Estas pruebas de integración sólo cubren el controller, services y repositories package
 
    [dill]: <https://github.com/joemccann/dillinger>
    [git-repo-url]: <https://github.com/joemccann/dillinger.git>
