@@ -28,6 +28,6 @@ public class HouseDTO {
   private double district_price;
 
   @Valid
-  @NotNull
+  @NotNull(message = "La lista de ambientes no puede estar vacía")
   private List<RoomDTO> rooms;
 }

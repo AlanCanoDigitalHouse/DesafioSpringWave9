@@ -27,6 +27,7 @@ public class ApiExceptionControllerAdvice {
         for (FieldError fieldError: fieldErrors) {
             errors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
+        System.out.println(new ErrorDtoWithFieldErrors(HttpStatus.BAD_REQUEST.value(), "Arguments invalids", errors));
         return new ErrorDtoWithFieldErrors(HttpStatus.BAD_REQUEST.value(), "Arguments invalids", errors);
     }
 

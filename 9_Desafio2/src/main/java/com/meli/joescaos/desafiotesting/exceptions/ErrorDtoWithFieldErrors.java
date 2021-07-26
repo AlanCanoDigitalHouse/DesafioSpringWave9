@@ -1,7 +1,10 @@
 package com.meli.joescaos.desafiotesting.exceptions;
 
+import lombok.Data;
+
 import java.util.Map;
 
+@Data
 public class ErrorDtoWithFieldErrors extends ErrorDto {
     Map<String, String> errors;
 
