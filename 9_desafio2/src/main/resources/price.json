@@ -1,0 +1,31 @@
+[
+  {
+    "district_name": "Palermo",
+    "district_price": 3000
+  },
+  {
+    "district_name": "Belgrano",
+    "district_price": 3100
+  },
+  {
+    "district_name": "Recoleta",
+    "district_price": 3500
+  },
+  {
+    "district_name": "Puerto Madero",
+    "district_price": 2600
+  },
+  {
+    "district_name": "Caballito",
+    "district_price": 2000
+  },
+  {
+    "district_name": "Villa Crespo",
+    "district_price": 1700
+  },
+  {
+    "district_name": "Villa del Parque",
+    "district_price": 1500
+  }
+]
+
