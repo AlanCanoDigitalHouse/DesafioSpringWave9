@@ -7,7 +7,6 @@ import com.example.desafiotesting.dto.response.ResponseDTO;
 import com.example.desafiotesting.exception.DistrictNotFoundException;
 import com.example.desafiotesting.repository.DistrictRepository;
 import com.example.desafiotesting.util.TestUtilGenerator;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.swing.text.Utilities;
 
 import static org.mockito.Mockito.*;
 
