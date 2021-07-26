@@ -12,8 +12,8 @@ import java.util.List;
 public class PropertyDTO {
 
     @NotNull
-    @NotBlank
-    @Size(max = 30)
+    @NotBlank(message = "El nombre de la propiedad no puede estar vacío.")
+    @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
     @Pattern(regexp = "^\\p{Lu}.*$", message = "El nombre de la propiedad debe comenzar con mayúscula.")
     String prop_name;
 

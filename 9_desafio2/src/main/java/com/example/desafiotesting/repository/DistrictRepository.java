@@ -17,19 +17,18 @@ import java.util.Optional;
 public class DistrictRepository {
     List<DistrictModel> properties = loadDatabase().orElse(new ArrayList<>());
 
+    public DistrictRepository() throws FileNotFoundException {
+    }
+
     public boolean propertyExists(String districtName) throws DistrictNotFoundException {
         boolean exists =  properties.stream().anyMatch((item) -> item.getDistrict_name().equals(districtName));
         if (!exists) throw new DistrictNotFoundException();
         return true;
     }
 
-    public Optional<List<DistrictModel>> loadDatabase(){
+    public Optional<List<DistrictModel>> loadDatabase() throws FileNotFoundException {
         File file = null;
-        try{
-            file = ResourceUtils.getFile("classpath:static/districtsData.json");
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
+        file = ResourceUtils.getFile("classpath:static/districtsData.json");
         return mapObject(file);
     }
 

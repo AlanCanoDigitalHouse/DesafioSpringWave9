@@ -30,4 +30,16 @@ public class PriceCalculatorIntegrationTest {
                 .andExpect(jsonPath("$.propertyPrice").value(1650000.0))
                 .andExpect(jsonPath("$.biggerEnvironment.environment").value("Baño"));
     }
+
+    @Test
+    void calculateAllWithError() throws Exception {
+        String request = "{\"prop_name\":\"Recoleta\",\"district\":{\"district_name\":\"Barraca\",\"district_price\":1000},\"environments\":[{\"environment_name\":\"Ba\u00f1o\",\"environment_width\":25,\"environment_length\":33},{\"environment_name\":\"Pieza\",\"environment_width\":25,\"environment_length\":33}]}";
+        this.mockMvc.perform(
+                post("/properties/calculate")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andDo(print()).andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.status").value(404))
+                .andExpect(jsonPath("$.error").value("Property not found"));
+    }
 }

@@ -23,9 +23,9 @@ public class PropertyController {
 
     /**
      *
-     * @param property
-     * @return
-     * @throws DistrictNotFoundException
+     * @param property - Property init Data
+     * @return - Return property price and size calculated
+     * @throws DistrictNotFoundException - Error when district name is not found
      */
     @PostMapping("/calculate")
     @ResponseStatus(HttpStatus.OK)
