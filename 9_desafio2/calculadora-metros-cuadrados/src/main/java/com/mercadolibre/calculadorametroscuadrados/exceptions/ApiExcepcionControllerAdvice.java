@@ -41,7 +41,7 @@ public class ApiExcepcionControllerAdvice{
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> handlerInicializar(BarrioNoEncontradoException exception){
-        return new ResponseEntity<String>(BarrioNoEncontradoException.ERROR,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<String>(exception.ERROR,HttpStatus.BAD_REQUEST);
     }
 
 }

@@ -1,11 +1,10 @@
-package com.mercadolibre.calculadorametroscuadrados.Service;
+package com.mercadolibre.calculadorametroscuadrados.Unitarios.Service;
 
 
 import com.mercadolibre.calculadorametroscuadrados.dto.AmbienteDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.AreaAmbienteResponseDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.BarrioDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.PropiedadDTO;
-import com.mercadolibre.calculadorametroscuadrados.exceptions.BarrioNoEncontradoException;
 import com.mercadolibre.calculadorametroscuadrados.repositories.PropiedadRepository;
 import com.mercadolibre.calculadorametroscuadrados.service.CalcularService;
 import org.junit.jupiter.api.Assertions;
@@ -16,8 +15,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import javax.validation.constraints.Null;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;

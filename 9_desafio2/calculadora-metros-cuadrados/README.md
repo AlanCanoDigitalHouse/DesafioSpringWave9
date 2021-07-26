@@ -8,7 +8,6 @@
 * [Tecnologias Usadas](#tecnologias-usadas)
 * [Caracteristicas](#caracteristicas)
 * [Configuracion](#configuracion)
-* [Margen De Mejora](#margen-de-mejora)
 * [Contacto](#contacto)
 
 <!-- * [License](#license) -->
@@ -49,12 +48,6 @@ Aqui un ejemplo del Json
 {"environment_name":"Cuarto", "environment_width":15,"environment_length":10.5}]
 
 }
-
-
-## Margen de Mejora
-Por hacer:
-
-- Implementar pruebas Integradas
 
 ## Contacto
 
