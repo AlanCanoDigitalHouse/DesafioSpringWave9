@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -21,7 +22,7 @@ public class CalculateService {
   Calculates: total house area, total house price, biggest room, and all room areas.
    Returns: HouseResponseDTO and HTTPStatus OK (200).
    */
-  public ResponseEntity<HouseResponseDTO> allInOneCalculator(HouseRequestDTO houseReqDTO) {
+  public ResponseEntity<HouseResponseDTO> allInOneCalculator(@Valid HouseRequestDTO houseReqDTO) {
     Double area = houseReqDTO.calculateHouseArea();
     if (!repo.locationExists(houseReqDTO.getDistrict_name()))
       throw new RuntimeException("Location does not exist in database");

@@ -36,7 +36,6 @@ public class CalculateRestControllerTests {
         // assert
         verify(service, atLeastOnce()).allInOneCalculator(house);
     }
-
 }
 
 

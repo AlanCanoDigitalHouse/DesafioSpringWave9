@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class HouseRequestDTO {
 
-  @NotBlank(message = "El nombre de la propiedad no puede estar vacío.")
-  @Pattern(regexp="^[A-Z][A-z|\\s|[0-9]|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú|']*$", message = "El nombre de la propiedad debe comenzar con mayúscula.")
+  @NotNull(message = "El nombre de la propiedad no puede estar vacío.")
   @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
+  @Pattern(regexp="^[A-Z][A-z|\\s|[0-9]|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú|']*$", message = "El nombre de la propiedad debe comenzar con mayúscula.")
   private String prop_name;
 
-  @NotEmpty(message = "El barrio no puede estar vacío.")
   @Size(max = 45, message = "La longitud del barrio no puede superar los 45 caracteres.")
+  @NotEmpty(message = "El barrio no puede estar vacío.")
   private String district_name;
 
   @NotNull(message = "El precio de un barrio no puede estar vacío.")
@@ -31,8 +31,8 @@ public class HouseRequestDTO {
   @Max(value = 4000, message = "El precio máximo permitido por metro cuadrado no puede superar los 4000 U$S.")
   private Double district_price;
 
-  @Size(min = 1, message = "La cantidad de cuartos no puede ser cero.")
-  private List<@Valid RoomDTO> rooms;
+  @NotEmpty(message = "La cantidad de cuartos no puede ser cero.")
+  private List<RoomDTO> rooms;
 
 
 
@@ -65,7 +65,7 @@ public class HouseRequestDTO {
     return this;
   }
   public HouseRequestDTO districtNameNull() {
-    this.prop_name = null;
+    this.district_name = null;
     return this;
   }
   public HouseRequestDTO districtNameEmptyString() {
@@ -73,11 +73,11 @@ public class HouseRequestDTO {
     return this;
   }
   public HouseRequestDTO propNameOfLength40() {
-    this.prop_name = "Lorem ipsum dolor sit amet, consectetuer";
+    this.prop_name = "Lorem ipsum dolor sit amet consectetuer ";
     return this;
   }
   public HouseRequestDTO districtNameOfLength50() {
-    this.prop_name = "Lorem ipsum dolor sit amet, consectetuer adipiscin";
+    this.district_name = "Lorem ipsum dolor sit amet consectetuer adipiscina";
     return this;
   }
   public HouseRequestDTO districtPriceGreaterThan4000() {
@@ -104,8 +104,22 @@ public class HouseRequestDTO {
     this.rooms = null;
     return this;
   }
-  public List<RoomDTO> rooms() {
-    return rooms;
+  public HouseRequestDTO withOneRoom() {
+    rooms.remove(2);
+    rooms.remove(1);
+    return this;
+  }
+  public HouseRequestDTO withTwoRooms() {
+    rooms.remove(2);
+    return this;
+  }
+  public HouseRequestDTO inDistrict(String district) {
+    this.district_name = district;
+    return this;
+  }
+  public HouseRequestDTO firstRoomWithNegativeWidth() {
+    rooms.get(0).setEnvironment_width(-10.0);
+    return this;
   }
 
 }

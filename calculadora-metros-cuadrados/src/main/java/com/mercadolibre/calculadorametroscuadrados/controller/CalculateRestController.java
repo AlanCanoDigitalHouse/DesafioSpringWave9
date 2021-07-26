@@ -15,7 +15,7 @@ public class CalculateRestController {
   @Autowired
   CalculateService calculateService;
 
-  @GetMapping("/calculations")
+  @GetMapping("/calculate")
   public ResponseEntity<HouseResponseDTO> allInOneCalculator(@Valid @RequestBody HouseRequestDTO houseReqDTO) {
     return calculateService.allInOneCalculator(houseReqDTO);
   }

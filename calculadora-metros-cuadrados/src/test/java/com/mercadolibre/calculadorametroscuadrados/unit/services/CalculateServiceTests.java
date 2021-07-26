@@ -6,6 +6,8 @@ import com.mercadolibre.calculadorametroscuadrados.repositories.LocationReposito
 import com.mercadolibre.calculadorametroscuadrados.service.CalculateService;
 import com.mercadolibre.calculadorametroscuadrados.utils.HouseRequestInitializer;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,10 +15,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CalculateServiceTests {
@@ -26,6 +28,11 @@ public class CalculateServiceTests {
 
     @InjectMocks
     CalculateService service;
+
+    @BeforeEach
+    void setUpMock() {
+        when(repo.locationExists("Palermo")).thenReturn(true);
+    }
 
     @Test
     void validPayloadReturnsHttpResponse200OK() {
@@ -51,19 +58,29 @@ public class CalculateServiceTests {
         // act
         ResponseEntity<HouseResponseDTO> houseResponse = service.allInOneCalculator(house);
         // assert
-        assertEquals(houseResponse, expectedHouseResponse);
+        assertEquals(houseResponse.getBody(), expectedHouseResponse);
     }
 
+    /** (PUNTO 2) Si existe la location en la base de datos (locations.json), permite continuar con normalidad.*/
     @Test
-    void repositoryChecksIfLocationExists() {
+    void repositoryChecksIfLocationExistsAndIfItExistsContinuesNormally() {
         // arrange
-        HouseRequestDTO house = HouseRequestInitializer.house();
+        HouseRequestDTO house = HouseRequestInitializer.house().inDistrict("Palermo");
         // act
         ResponseEntity<HouseResponseDTO> houseResponse = service.allInOneCalculator(house);
         // assert
         verify(repo, atLeastOnce()).locationExists(house.getDistrict_name());
     }
 
+    /** (PUNTO 2) Si existe la location en la base de datos (locations.json), notifica la no coincidencia
+      mediante una excepción.*/
 
+    @Test
+    void repositoryChecksIfLocationExistsAndIfItDoesNotExistThrowsException() {
+        // arrange
+        HouseRequestDTO house = HouseRequestInitializer.house().inDistrict("Purmamarca");
+        // act/assert
+        assertThrows(RuntimeException.class, () -> service.allInOneCalculator(house));
+    }
 
 }

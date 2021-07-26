@@ -9,6 +9,7 @@ import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
+@Validated
 public class RoomDTO {
   @NotBlank(message = "El nombre del ambiente no puede estar vacío.")
   @Pattern(regexp="^[A-Z][A-z|\\s|[0-9]|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú|']*$", message = "El nombre del ambiente debe comenzar con mayúscula.")

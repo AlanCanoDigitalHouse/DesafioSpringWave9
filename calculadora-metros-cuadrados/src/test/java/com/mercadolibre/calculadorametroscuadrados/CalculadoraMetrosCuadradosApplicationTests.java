@@ -1,11 +1,18 @@
 package com.mercadolibre.calculadorametroscuadrados;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.mercadolibre.calculadorametroscuadrados.dtos.HouseRequestDTO;
+import com.mercadolibre.calculadorametroscuadrados.utils.HouseRequestInitializer;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -15,29 +22,40 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class CalculadoraMetrosCuadradosApplicationTests {
+/*
+  ObjectWriter writer;
   @Autowired
   private MockMvc mockMvc;
+
+  @BeforeEach
+  void setUp() {
+    writer = new ObjectMapper()
+            .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+            .writer();
+  }
 
   // a) Se pide, retornar un objeto que diga la cantidad totales de metros cuadrados de la casa.
   @Test
   void calculateHouseWithOneRoom() throws Exception {
-    String request = "{\"name\": \"Oficina\", \"address\": \"Monroe 800\", \"rooms\": [" +
-        getRoom("Espacio abierto", 3, 3) +
-        "]}";
+    //Arrange
+    HouseRequestDTO payloadDTO = HouseRequestInitializer.house().withOneRoom();
+    //
+    String payloadJson = writer.writeValueAsString(payloadDTO);
+
     this.mockMvc.perform(
-        post("/calculate")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(request))
-        .andDo(print()).andExpect(status().isOk())
-        .andExpect(content().string(containsString("9")));
+            MockMvcRequestBuilders.get("/calculate")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(payloadJson))
+            .andDo(print()).andExpect(status().isOk())
+            .andExpect(content().string(containsString("3")));
   }
 
   @Test
   void calculateHouseWithMultipleRoom() throws Exception {
     String request = "{\"name\": \"Oficina\", \"address\": \"Monroe 800\", \"rooms\": [" +
-        getRoom("Espacio abierto", 5, 5) + "," +
-        getRoom("Cocina", 3, 3)  + "," +
-        getRoom("Baño", 2, 1) +
+        roomToString("Espacio abierto", 5, 5) + "," +
+        roomToString("Cocina", 3, 3)  + "," +
+        roomToString("Baño", 2, 1) +
         "]}";
     this.mockMvc.perform(
         post("/calculate")
@@ -51,9 +69,9 @@ class CalculadoraMetrosCuadradosApplicationTests {
   @Test
   void calculateHousePrice() throws Exception {
     String request = "{\"name\": \"Oficina\", \"address\": \"Monroe 800\", \"rooms\": [" +
-        getRoom("Espacio abierto", 5, 5) + "," +
-        getRoom("Cocina", 3, 3)  + "," +
-        getRoom("Baño", 2, 1) +
+        roomToString("Espacio abierto", 5, 5) + "," +
+        roomToString("Cocina", 3, 3)  + "," +
+        roomToString("Baño", 2, 1) +
         "]}";
     this.mockMvc.perform(
         post("/calculate")
@@ -69,9 +87,9 @@ class CalculadoraMetrosCuadradosApplicationTests {
   void calculateBiggestRoom() throws Exception {
     String biggestRoom = "Espacio abierto";
     String request = "{\"name\": \"Oficina\", \"address\": \"Monroe 800\", \"rooms\": [" +
-        getRoom(biggestRoom, 5, 5) + "," +
-        getRoom("Cocina", 3, 3)  + "," +
-        getRoom("Baño", 2, 1) +
+        roomToString(biggestRoom, 5, 5) + "," +
+        roomToString("Cocina", 3, 3)  + "," +
+        roomToString("Baño", 2, 1) +
         "]}";
     this.mockMvc.perform(
         post("/calculate")
@@ -86,9 +104,9 @@ class CalculadoraMetrosCuadradosApplicationTests {
   void calculateRoomsSquareFeet() throws Exception {
     String biggestRoom = "Espacio abierto";
     String request = "{\"name\": \"Oficina\", \"address\": \"Monroe 800\", \"rooms\": [" +
-        getRoom(biggestRoom, 5, 5) + "," +
-        getRoom("Cocina", 3, 3)  + "," +
-        getRoom("Baño", 2, 1) +
+        roomToString(biggestRoom, 5, 5) + "," +
+        roomToString("Cocina", 3, 3)  + "," +
+        roomToString("Baño", 2, 1) +
         "]}";
     this.mockMvc.perform(
         post("/calculate")
@@ -101,8 +119,10 @@ class CalculadoraMetrosCuadradosApplicationTests {
   }
 
 
-  private String getRoom(String name, int width, int length) {
+  private String roomToString(String name, int width, int length) {
     return "{\"name\": \""+name+"\", \"width\": "+width+", \"length\": "+length+"}";
   }
+
+ */
 
 }
