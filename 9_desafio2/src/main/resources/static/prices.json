@@ -1,0 +1,18 @@
+[
+  {
+    "districtName": "Palermo",
+    "districtPrice": 1000
+  }, {
+    "districtName": "Belgrano",
+    "districtPrice": 1100
+  }, {
+    "districtName": "Recoleta",
+    "districtPrice": 900
+  }, {
+    "districtName": "Puerto Madero",
+    "districtPrice": 2000
+  }, {
+    "districtName": "Plants vs Zombies",
+    "districtPrice": 123.45
+  }
+]
