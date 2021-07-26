@@ -1,0 +1,30 @@
+[
+  {
+    "name": "NARIÑO",
+    "price": 1000
+  },
+  {
+    "name": "UNIDOS",
+    "price": 1100
+  },
+  {
+    "name": "BOSA",
+    "price": 500
+  },
+  {
+    "name": "CHAPINERO",
+    "price": 2345
+  },
+  {
+    "name": "BOLIVAR",
+    "price": 678
+  },
+  {
+    "name": "ENGATIVA",
+    "price": 3000
+  },
+  {
+    "name": "FONTIBON",
+    "price": 908
+  }
+]
