@@ -23,6 +23,7 @@ public class CalculateService implements ICalculateService {
     this.environmentRepository = environmentRepository;
   }
 
+  // generate HouseResponseDTO
   @Override
   public HouseResponseDTO calculate(HouseDTO house) {
     // validate name found in json
@@ -34,12 +35,13 @@ public class CalculateService implements ICalculateService {
     return response;
   }
 
+  // calculate environment square feet and set square feet of environment
   private void calculateRoomSquareFeet(HouseDTO house, HouseResponseDTO response) {
     environmentResponses = new ArrayList<>();
     Double totalSquareFeet = 0.0;
     EnvironmentDTO biggest = null;
     Double maxRoom = 0.0;
-    for (EnvironmentDTO room : house.getEnvironments()) {
+    for (EnvironmentDTO room : house.getEnvironments()) { // get biggest and square feet of each environment
       Double squareFeet = room.getSquareFeet();
       totalSquareFeet += squareFeet;
       if (biggest == null || squareFeet > maxRoom){
@@ -50,18 +52,20 @@ public class CalculateService implements ICalculateService {
       environmentResponses.add(EnvironmentResponseDTO.builder().environment_name(room.getEnvironment_name()).environment_width(room.getEnvironment_width()).environment_length(room.getEnvironment_length()).squareFeet(room.getSquareFeet()).build());
     }
 
-    response.setEnvironments(environmentResponses);
+    response.setEnvironments(environmentResponses); // set environments list
 
-    response.setSquareFeet(totalSquareFeet);
+    response.setSquareFeet(totalSquareFeet); // set square feet of property
 
-    response.setBiggest(EnvironmentResponseDTO.builder().environment_name(biggest.getEnvironment_name()).environment_width(biggest.getEnvironment_width()).environment_length(biggest.getEnvironment_length()).squareFeet(biggest.getSquareFeet()).build());
+    response.setBiggest(EnvironmentResponseDTO.builder().environment_name(biggest.getEnvironment_name()).environment_width(biggest.getEnvironment_width()).environment_length(biggest.getEnvironment_length()).squareFeet(biggest.getSquareFeet()).build()); // set biggest
   }
 
+  // calculate price
   @Override
   public double calculatePrice(Double result,Double price) {
     return result * price;
   }
 
+  // validate if exist prop_name
   @Override
   public void validatePropertyName(String prop_name){
     Optional<EnvironmentModel> foundEnvironment = environmentRepository.findEnvironment(prop_name);

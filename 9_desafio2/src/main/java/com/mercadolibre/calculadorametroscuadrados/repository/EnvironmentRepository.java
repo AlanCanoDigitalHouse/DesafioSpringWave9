@@ -21,11 +21,13 @@ public class EnvironmentRepository implements IEnvironmentRepository {
         environments = this.mapDataBase("src/main/resources/environments.json");
     }
 
+    // find environment by environment name
     @Override
     public Optional<EnvironmentModel> findEnvironment(String environment){
         return environments.stream().filter(env -> env.getEnvironment_name().equals(environment)).findFirst();
     }
 
+    // load mapDataBase of json file
     @Override
     public List<EnvironmentModel> mapDataBase(String path) throws DataBaseNotFoundException {
         ObjectMapper objectMapper = new ObjectMapper(); // indagar en este mappeador
