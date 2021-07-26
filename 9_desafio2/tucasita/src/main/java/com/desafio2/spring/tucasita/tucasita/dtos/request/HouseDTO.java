@@ -1,5 +1,6 @@
 package com.desafio2.spring.tucasita.tucasita.dtos.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Data
 @Validated
+@AllArgsConstructor
 public class HouseDTO {
 
     @NotBlank(message = "El nombre de la propiedad no puede estar vacío")

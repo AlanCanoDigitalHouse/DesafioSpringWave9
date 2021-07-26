@@ -1,5 +1,6 @@
 package com.desafio2.spring.tucasita.tucasita.dtos.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
@@ -7,6 +8,7 @@ import javax.validation.constraints.*;
 
 @Data
 @Validated
+@AllArgsConstructor
 public class RoomDTO {
 
     @NotBlank(message = "El nombre del ambiente no puede estar vacío.")
