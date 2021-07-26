@@ -29,6 +29,12 @@ public class TestUtilGenerator {
         return new HouseDTO("Tu casita", districtDTO, rooms);
     }
 
+    public static HouseDTO simpleHouseForTestSizeRecoleta() {
+        List<RoomDTO> rooms = createRooms();
+        DistrictDTO districtDTO = new DistrictDTO("Recoleta", 900);
+        return new HouseDTO("Tu casita", districtDTO, rooms);
+    }
+
     private static List<RoomDTO> createRooms(){
         ArrayList<RoomDTO> rooms = new ArrayList<>();
 
