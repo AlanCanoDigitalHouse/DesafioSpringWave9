@@ -6,9 +6,8 @@ import lombok.*;
 import java.util.Map;
 
 @Getter
-@Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class CasaResponseTO {
 
     @JsonProperty("house_size_meters")

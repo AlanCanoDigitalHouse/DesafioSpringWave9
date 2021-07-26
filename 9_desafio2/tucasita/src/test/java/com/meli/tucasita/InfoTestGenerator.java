@@ -1,7 +1,9 @@
 package com.meli.tucasita;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.meli.tucasita.dto.request.CasaRequestDTO;
 import com.meli.tucasita.dto.request.Habitacion;
+import com.meli.tucasita.dto.response.CasaResponseTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,10 +29,15 @@ public class InfoTestGenerator{
 
         public static Map<String, Double> generatesCorrectTestArea(){
             Map<String, Double> habitaciones = new HashMap<>();
-            habitaciones.put("Dinning room",40.0);
             habitaciones.put("Kitchen",60.0);
             habitaciones.put("Bathroom",15.0);
+            habitaciones.put("Dinning room",40.0);
 
             return habitaciones;
+        }
+
+        public static CasaResponseTO generateCorrectResponse(){
+            return CasaResponseTO.builder().metrosCuadradosCasa(115.0).valorCasa(287500.0).
+                    habitaciones(generatesCorrectTestArea()).habitacionMasGrande("Kitchen").build();
         }
 }
