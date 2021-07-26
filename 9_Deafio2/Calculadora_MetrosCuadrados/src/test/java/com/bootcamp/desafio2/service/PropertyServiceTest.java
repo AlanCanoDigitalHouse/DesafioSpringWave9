@@ -8,6 +8,7 @@ import com.bootcamp.desafio2.exceptions.PriceNotMatchException;
 import com.bootcamp.desafio2.services.IDistrictService;
 import com.bootcamp.desafio2.services.implementation.PropertyService;
 import com.bootcamp.desafio2.util.TestUtilsGenerator;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -79,6 +80,33 @@ public class PropertyServiceTest {
 
         assertEquals(61, current);
 
+    }
+
+    @Test
+    @DisplayName("Validacion exception - Distrito no existente.")
+    void districtNotExistsExceptionTest() throws DistrictNotExistsException, PriceNotMatchException {
+        //arrange
+        HouseDTO house = TestUtilsGenerator.getDefaultHouseIncorrectDistrict();
+        //act
+        when(districtService.findPriceByLocation(house.getDistrict().getDistrict_name(),
+                house.getDistrict().getDistrict_price())).thenThrow(DistrictNotExistsException.class);
+        //assert
+        Assertions.assertThrows(DistrictNotExistsException.class,
+                () -> propertyService.calculateArea(house));
+
+    }
+
+    @Test
+    @DisplayName("Validacion exception - Precio no coincide.")
+    void priceNotMatchExceptionTest() throws DistrictNotExistsException, PriceNotMatchException {
+        //arrange
+        HouseDTO house = TestUtilsGenerator.getDefaultHouseIncorrectPrice();
+        //act
+        when(districtService.findPriceByLocation(house.getDistrict().getDistrict_name(),
+                house.getDistrict().getDistrict_price())).thenThrow(PriceNotMatchException.class);
+        //assert
+        Assertions.assertThrows(PriceNotMatchException.class,
+                () -> propertyService.calculateArea(house));
     }
 
 
