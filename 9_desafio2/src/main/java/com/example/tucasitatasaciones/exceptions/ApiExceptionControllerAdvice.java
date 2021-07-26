@@ -28,7 +28,7 @@ public class ApiExceptionControllerAdvice {
         BindingResult result = exception.getBindingResult();
         List<FieldError> fieldErrors = result.getFieldErrors();
         HashMap<String, String> fields = new HashMap<>();
-        fieldErrors.stream().forEach(fieldError -> fields.put(fieldError.getField(), fieldError.getDefaultMessage()));
+        fieldErrors.forEach(fieldError -> fields.put(fieldError.getField(), fieldError.getDefaultMessage()));
         return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), "Validations Error", fields);
     }
 

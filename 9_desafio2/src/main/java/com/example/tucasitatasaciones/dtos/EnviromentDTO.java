@@ -3,18 +3,18 @@ package com.example.tucasitatasaciones.dtos;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import javax.validation.GroupSequence;
 import javax.validation.constraints.*;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@GroupSequence({EnviromentDTO.class, NotBlank.class, Pattern.class, Size.class})
 public class EnviromentDTO {
-    @NotBlank(message = "El nombre del ambiente no puede estar vacío.")
-    @Pattern(regexp = "^\\p{Lu}.*$", message = "El nombre del ambiente debe comenzar con mayúscula.")
-    @Size(message = "La longitud del nombre no puede superar los 30 caracteres.", max = 30)
+    @NotBlank(message = "El nombre del ambiente no puede estar vacío.", groups = NotBlank.class)
+    @Pattern(regexp = "^\\p{Lu}.*$", message = "El nombre del ambiente debe comenzar con mayúscula.", groups = Pattern.class)
+    @Size(message = "La longitud del nombre no puede superar los 30 caracteres.", max = 30, groups = Size.class)
     private String enviroment_name;
     @NotNull(message = "El ancho del ambiente no puede estar vacío.")
     @DecimalMax(message = "El máximo ancho permitido por propiedad es de 25 mts.", value = "25")

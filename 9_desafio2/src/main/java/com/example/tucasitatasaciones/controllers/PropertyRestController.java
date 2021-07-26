@@ -1,6 +1,5 @@
 package com.example.tucasitatasaciones.controllers;
 
-import com.example.tucasitatasaciones.dtos.DistrictDTO;
 import com.example.tucasitatasaciones.dtos.PropertyDTO;
 import com.example.tucasitatasaciones.dtos.response.PropertyResponseDTO;
 import com.example.tucasitatasaciones.exceptions.DistrictException;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController()
 @RequestMapping("/property")
@@ -30,9 +28,9 @@ public class PropertyRestController {
      * US-0003: Determinar cuál es el ambiente más grande.
      * US-0004: Determinar la cantidad de metros cuadrados que tiene cada ambiente de
      * una propiedad.
-     * @param property
+     * @param property es un PropertyDTO
      * @return ResponseEntity<PropertyResponseDTO>
-     * @throws DistrictException
+     * @throws DistrictException tira una excepcion si el districto no se encuentra en la base de datos.
      */
     @PostMapping("/calculate")
     public ResponseEntity<PropertyResponseDTO> calculateProperty(

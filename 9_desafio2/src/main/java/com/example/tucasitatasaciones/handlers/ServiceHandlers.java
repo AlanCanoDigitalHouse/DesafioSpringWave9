@@ -16,11 +16,11 @@ public class ServiceHandlers {
     }
 
     public static EnviromentDTO biggestEnviromentFromProperty(PropertyDTO property) {
-        return property.getEnviroments().stream().max(Comparator.comparing(enviromentDTO -> enviromentDTO.getEnviroment_mts2())).orElse(null);
+        return property.getEnviroments().stream().max(Comparator.comparing(EnviromentDTO::getEnviroment_mts2)).orElse(null);
     }
 
     public static List<EnviromentDTO> calculateMt2FromEveryEnviroment(PropertyDTO property) {
-        property.getEnviroments().stream().forEach(enviroment -> enviroment.setEnviroment_mts2(calculateMts2(enviroment)));
+        property.getEnviroments().forEach(enviroment -> enviroment.setEnviroment_mts2(calculateMts2(enviroment)));
         return property.getEnviroments();
     }
 
