@@ -1,6 +1,7 @@
 package com.example.demo.Integration;
 
 import com.example.demo.DTOs.*;
+import com.example.demo.Exceptions.CustomExceptionHandler;
 import com.example.demo.Models.District;
 import com.example.demo.Repositories.IDistrictRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -96,22 +97,6 @@ public class PropertyControllerTest {
     }
 
     @Test
-    public void shouldReturnExceptionWhenDistrictDoesNotExist() throws Exception {
-
-        ObjectWriter writer =
-                new ObjectMapper()
-                        .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
-                        .writer()
-                        .withDefaultPrettyPrinter();
-        String payloadJson = writer.writeValueAsString(propertyDTO);
-        when(repository.findDistrictByName(districtName)).thenReturn(null);
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/property/details")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(payloadJson))
-                .andExpect(MockMvcResultMatchers.jsonPath("status").value(400));
-    }
-
-    @Test
     public void shouldReturnExceptionWhenFieldsAreNull() throws Exception {
         propertyDTO.setProp_name(null);
         propertyDTO.setDistrict_name(null);
@@ -130,6 +115,22 @@ public class PropertyControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("prop_name").value("Property name field can not be empty."))
                 .andExpect(MockMvcResultMatchers.jsonPath("district_name").value("District name field in Property can not be empty."))
                 .andExpect(MockMvcResultMatchers.jsonPath("environments").value("Each property must have at least 1 environment."));
+    }
+
+    @Test
+    public void shouldReturnErrorWhenDistrictDoesNotExist() throws Exception {
+        ObjectWriter writer =
+                new ObjectMapper()
+                        .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                        .writer()
+                        .withDefaultPrettyPrinter();
+        String payloadJson = writer.writeValueAsString(propertyDTO);
+        when(repository.findDistrictByName(districtName)).thenReturn(null);
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/property/details")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andExpect(MockMvcResultMatchers.jsonPath("status").value("400"))
+                .andExpect(MockMvcResultMatchers.jsonPath("error").value("District '" + districtName + "'  does not exist"));
     }
 
 }
