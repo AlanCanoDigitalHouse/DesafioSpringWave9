@@ -6,6 +6,4 @@ public interface iUserRepository {
     void initialize();
     User findById(Integer a);
     User saveUser(User a);
-
-
 }

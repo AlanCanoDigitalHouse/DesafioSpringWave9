@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Data
 public class UserRepository implements iUserRepository{
 
-    public   HashMap<Integer, User> UserRepositoriesMap = new HashMap<>();
+    public HashMap<Integer, User> UserRepositoriesMap = new HashMap<>();
     private static UserRepository instance= null;
 
 
