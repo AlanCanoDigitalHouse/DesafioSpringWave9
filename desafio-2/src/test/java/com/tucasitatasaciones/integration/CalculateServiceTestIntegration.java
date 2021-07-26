@@ -26,19 +26,19 @@ public class CalculateServiceTestIntegration {
     void calculate() throws Exception {
         String request =
                 "{ \"prop_name\": \"Residencia Santo Tome\"," +
-                "    \"district\": {" +
-                "            \"district_name\":\"Palermo\"," +
-                "            \"district_price\" : 1000" +
-                "        }," +
-                "    \"environments\": " +
-                "       [ " +
-                "       {" +
-                "       \"environment_name\": \"Salon principal\"," +
-                "       \"environment_width\": 12," +
-                "       \"environment_length\": 30" +
-                "       }" +
-                "       ]" +
-                "}";
+                        "    \"district\": {" +
+                        "            \"district_name\":\"Palermo\"," +
+                        "            \"district_price\" : 1000" +
+                        "        }," +
+                        "    \"environments\": " +
+                        "       [ " +
+                        "       {" +
+                        "       \"environment_name\": \"Salon principal\"," +
+                        "       \"environment_width\": 12," +
+                        "       \"environment_length\": 30" +
+                        "       }" +
+                        "       ]" +
+                        "}";
         this.mockMvc.perform(
                 post("/calculate")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -99,5 +99,32 @@ public class CalculateServiceTestIntegration {
                 .andDo(print()).andExpect(status().is4xxClientError())
                 .andExpect(jsonPath("$.message.DistrictBadRequestException")
                         .value(Message.DISTRICT_WRONG_PRICE));
+    }
+
+    @Test
+    @DisplayName("Test para /calculate - Entrada incorrecta - Barrio no existente - Se espera status 400 - ")
+    void calculateErrorWrongDistrict() throws Exception {
+        String request =
+                "{ \"prop_name\": \"Nombre Correcto\"," +
+                        "    \"district\": {" +
+                        "            \"district_name\":\"Distrito Incorrecto\"," +
+                        "            \"district_price\" : 1000" +
+                        "        }," +
+                        "    \"environments\": " +
+                        "       [ " +
+                        "       {" +
+                        "       \"environment_name\": \"Estancia\"," +
+                        "       \"environment_width\": 20," +
+                        "       \"environment_length\": 30" +
+                        "       }" +
+                        "       ]" +
+                        "}";
+        this.mockMvc.perform(
+                post("/calculate")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andDo(print()).andExpect(status().is4xxClientError())
+                .andExpect(jsonPath("$.message.DistrictBadRequestException")
+                        .value(Message.DISTRICT_NOT_EXISTS));
     }
 }
