@@ -1,0 +1,18 @@
+[
+  {
+    "district_name": "La Plata",
+    "district_price": 2000
+  },
+  {
+    "district_name": "Campana",
+    "district_price": 800
+  },
+  {
+    "district_name": "Mar del Plata",
+    "district_price": 1000
+  },
+  {
+    "district_name": "Palermo",
+    "district_price": 3900
+  }
+]
