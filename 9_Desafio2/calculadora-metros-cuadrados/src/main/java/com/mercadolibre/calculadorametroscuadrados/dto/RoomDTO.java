@@ -15,7 +15,7 @@ public class RoomDTO {
   @NotNull(message = "El nombre del ambiente no puede estar vacío")
   @NotEmpty(message = "El nombre del ambiente no puede estar vacío")
   @Pattern(regexp = "^[A-Z].*", message = "El nombre del ambiente debe comenzar con mayúscula")
-  @Size(min = 2, max = 30, message = "La longitud del nombre del ambiente no puede superar los 30 caracteres")
+  @Size(min = 1, max = 30, message = "La longitud del nombre del ambiente no puede superar los 30 caracteres")
   @JsonProperty("environment_name")
   private String name;
 

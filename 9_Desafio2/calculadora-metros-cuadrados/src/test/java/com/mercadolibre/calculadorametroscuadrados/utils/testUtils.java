@@ -8,13 +8,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class testUtils{
+    public static HouseDTO generateValidHouse(){
+        HouseDTO houseDTO = new HouseDTO();
+        List<RoomDTO> rooms = new ArrayList<>();
+        PriceDTO price = new PriceDTO("Palermo", 2000);
+        houseDTO.setName("Alejo");
+        houseDTO.setAddress(price);
+        rooms.add(new RoomDTO("Pieza", 5, 5));
+        houseDTO.setRooms(rooms);
+        return houseDTO;
+    }
+
     public static HouseDTO generate1RoomHouse(){
         HouseDTO houseDTO = new HouseDTO();
         List<RoomDTO> rooms = new ArrayList<>();
         PriceDTO price = new PriceDTO("Palermo", 2000);
-        houseDTO.setName("alejo");
+        houseDTO.setName("Alejo");
         houseDTO.setAddress(price);
-        rooms.add(new RoomDTO("pieza", 5, 5));
+        rooms.add(new RoomDTO("Pieza", 5, 5));
         houseDTO.setRooms(rooms);
         return houseDTO;
     }
@@ -34,6 +45,10 @@ public class testUtils{
         rooms.add(new RoomDTO("living", 15,15));
         houseDTO.setRooms(rooms);
         return houseDTO;
+    }
+
+    public static RoomDTO generateBiggestRoomFor3RoomsHouse(){
+        return new RoomDTO("living", 15,15);
     }
 
     public static Integer generate3RoomsHouseSquareMeters(){
@@ -59,7 +74,17 @@ public class testUtils{
         return houseDTO;
     }
 
+    public static HouseDTO generateEmptyNameHouse(){
+        HouseDTO houseDTO = new HouseDTO();
+        PriceDTO price = new PriceDTO("Palermo", 2000);
+        houseDTO.setName("");
+        houseDTO.setAddress(price);
+        houseDTO.setRooms(null);
+        return houseDTO;
+    }
+
     public static HouseDTO generateNullHouse(){
         return null;
     }
+
 }

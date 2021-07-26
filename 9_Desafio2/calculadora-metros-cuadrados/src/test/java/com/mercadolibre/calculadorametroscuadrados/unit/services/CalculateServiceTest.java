@@ -2,6 +2,7 @@ package com.mercadolibre.calculadorametroscuadrados.unit.services;
 
 import com.mercadolibre.calculadorametroscuadrados.dto.HouseDTO;
 import com.mercadolibre.calculadorametroscuadrados.dto.HouseResponseDTO;
+import com.mercadolibre.calculadorametroscuadrados.dto.RoomDTO;
 import com.mercadolibre.calculadorametroscuadrados.repositories.PriceRepositoryImpl;
 import com.mercadolibre.calculadorametroscuadrados.service.CalculateService;
 import com.mercadolibre.calculadorametroscuadrados.utils.testUtils;
@@ -81,14 +82,24 @@ public class CalculateServiceTest {
     @Test
     void calculateNullHouse() {
         //arrange
-        HouseDTO houseDTO = testUtils.generate1RoomHouse();
+        HouseDTO houseDTO = testUtils.generateNullHouse();
+
+        //act && assert
+        Assertions.assertThrows(NullPointerException.class, () -> calculateService.calculate(houseDTO));
+
+    }
+
+    @Test
+    void shouldReturnBiggestRoom() {
+        //arrange
+        HouseDTO houseDTO = testUtils.generate3RoomsHouse();
+        RoomDTO expected = testUtils.generateBiggestRoomFor3RoomsHouse();
 
         //act
         HouseResponseDTO result = calculateService.calculate(houseDTO);
-        Integer expected = testUtils.generate1RoomHouseSquareMeters();
 
         //assert
         Mockito.verify(priceRepository, Mockito.atLeast(1)).findPriceLocation(houseDTO.getAddress().getLocation());
-        Assertions.assertEquals(expected, result.getSquareFeet());
+        Assertions.assertEquals(expected, result.getBiggest());
     }
 }

@@ -16,10 +16,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HouseDTO {
+
+
+  @Pattern(regexp = "^[A-Z].*", message = "El nombre de la propiedad debe comenzar con mayúsculas")
+  @Size(min = 1, max = 30, message = "El nombre de la propiedad no debe superar los 30 caracteres")
   @NotEmpty(message = "El nombre de la propiedad no puede estar vacío")
   @NotNull(message = "El nombre de la propiedad no puede estar vacío")
-  @Pattern(regexp = "^[A-Z].*", message = "El nombre de la propiedad debe comenzar con mayúsculas")
-  @Size(min = 2, max = 30, message = "El nombre de la propiedad no debe superar los 30 caracteres")
   @JsonProperty("prop_name")
   private String name;
 

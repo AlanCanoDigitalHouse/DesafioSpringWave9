@@ -17,7 +17,7 @@ public class PriceDTO{
 
     @NotNull(message = "El barrio no puede estar vacío")
     @NotEmpty(message = "El barrio no puede estar vacío")
-    @Size(min = 2, max = 45, message = "La longitud del barrio no puede superar los 45 caracteres")
+    @Size(min = 1, max = 45, message = "La longitud del barrio no puede superar los 45 caracteres")
     @JsonProperty("district_name")
     private String location;
 
