@@ -1,7 +1,7 @@
 # Readme
 
 0001: Calcular el total de metros cuadrados de una propiedad
-POST localhost:8080/calculator/squareMeters
+POST localhost:8080/calculate/squareMeters
 
 Payload:
 ```json
