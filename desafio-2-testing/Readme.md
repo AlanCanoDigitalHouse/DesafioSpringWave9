@@ -1,4 +1,4 @@
-# SOCIAL MELI APP :computer:
+# TU CASITA APP :computer:
 
 :house: Esta aplicación permite obtener información de una propiedad (casa, departamento,etc) 
 a partir de las medidas de sus ambientes y el barrio donde se encuentra.
