@@ -53,7 +53,8 @@ Los test de esta aplicación fueron implementados usando JUnit y Mockito.
   
 #### **TEST GENERATOR UTILS**
 ```
-El paquete _utils_ de la suite de tests proporciona metodos y objetos predeterminados que pueden utilizarse para facilitar los tests.
+El paquete _utils_ de la suite de tests proporciona metodos y objetos predeterminados 
+que pueden utilizarse para facilitar los tests.
 ```
 * Instancias de objetos _static_ : Son objetos predeterminados para ser usados en los tests.
 * createPropertyWith1Environment(): Este método instancia y devuelve una propiedad con un ambiente, una localidad y un nombre.
@@ -133,33 +134,6 @@ Package    </th>
 ">
   Line, %
 </th>
-  </tr>
-  <tr>
-    <td class="name"><a href="https://github.com/AlanCanoDigitalHouse/DesafioSpringWave9/tree/Bianchini_Juan/desafio-2-testing/calculadora-metros-cuadrados/src/main/java/com/mercadolibre/tucasita">com.mercadolibre.tucasita</a></td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/ 1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    50%
-  </span>
-  <span class="absValue">
-    (1/ 2)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    33.3%
-  </span>
-  <span class="absValue">
-    (1/ 3)
-  </span>
-</td>
   </tr>
   <tr>
     <td class="name"><a href="https://github.com/AlanCanoDigitalHouse/DesafioSpringWave9/tree/Bianchini_Juan/desafio-2-testing/calculadora-metros-cuadrados/src/main/java/com/mercadolibre/tucasita/controller">com.mercadolibre.tucasita.controller</a></td>
